@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="asset_modify_form">
+        <field name="name">wizard.asset.modify.form</field>
+        <field name="model">asset.modify</field>
+        <field name="arch" type="xml">
+            <form string="Modify Asset">
+                <field name="asset_id" invisible="1"/>
+                <field name="need_date" invisible="1"/>
+                <field name="gain_value" invisible="1"/>
+                <group>
+                    <group string="Modification">
+                        <field name="name" placeholder="Modification reason" required="1"/>
+                        <field name="date" attrs="{'invisible': [('need_date', '=', False)], 'required': [('need_date', '=', True)]}"/>
+                    </group>
+                    <group string="New Values">
+                        <label for="method_number"/>
+                        <div class="o_row">
+                            <field name="method_number" required="1"/>
+                            <field name="method_period" required="1" nolabel="1"/>
+                        </div>
+                        <field name="value_residual"/>
+                        <field name="salvage_value"/>
+                    </group>
+                    <group string="Increase Accounts" attrs="{'invisible': [('gain_value', '=', False)]}">
+                        <field name="account_asset_id" attrs="{'required': [('gain_value', '!=', False)]}"/>
+                        <field name="account_asset_counterpart_id" attrs="{'required': [('gain_value', '!=', False)]}"/>
+                        <field name="account_depreciation_id" attrs="{'required': [('gain_value', '!=', False)]}"/>
+                        <field name="account_depreciation_expense_id" attrs="{'required': [('gain_value', '!=', False)]}"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="modify" string="Modify" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id = "sdd_mandate_form_report_main"
+            model = "sdd.mandate"
+            string = "Mandate form"
+            report_type = "qweb-pdf"
+            name = "account_sepa_direct_debit.sdd_mandate_form_report"
+            file = "account_sepa_direct_debit.sdd_mandate_form_report"
+            attachment_use = "False"
+            menu = "True"/>
+
+        <template id="account_sepa_direct_debit.sdd_mandate_form_report">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="mandate">
+                    <t t-call="account_sepa_direct_debit.sdd_mandate_form_document" t-lang="mandate.partner_id.lang"/>
+                </t>
+            </t>
+        </template>
+
+        <template id="account_sepa_direct_debit.sdd_mandate_form_document">
+            <t t-call="web.external_layout">
+                <t t-call="account_sepa_direct_debit.sdd_mandate_form"/>
+            </t>
+        </template>
+
+        <template id="account_sepa_direct_debit.sdd_mandate_form">
+            <h1>SEPA Direct Debit Mandate</h1>
+
+            <p>
+                By signing this mandate form, you authorise (A) <t t-esc="mandate.company_id.name"/> to send instructions to your bank to debit your account and (B) your bank to debit your account in accordance with the instructions from <t t-esc="mandate.company_id.name"/>. As part of your rights, you are entitled to a refund from your bank under the terms and conditions of your agreement with your bank. Your rights are explained in a statement that you can obtain from your bank. A refund must be claimed within 8 weeks starting from the date on which your account was debited.
+            </p>
+
+            <p>
+                <strong>Mandate identifier:</strong> <t t-esc="mandate.name"/>
+            </p>
+            <br/>
+
+            <h2>Creditor</h2>
+            <div class="row mb-2">
+                <div class="col-6">
+                    <p><t t-esc="mandate.company_id.name"/></p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Creditor identifier:</strong> <t t-esc="mandate.company_id.sdd_creditor_identifier"/></p>
+                </div>
+                <div class="col-12" t-field="mandate.company_id.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+            </div>
+            <br/>
+
+            <h2>Debtor</h2>
+            <div>
+                <div class="row">
+                    <div class="col-6">
+                        <p><t t-esc="mandate.partner_id.name"/></p>
+
+                        <t t-if="not mandate.partner_id.street and not mandate.partner_id.street2 or not mandate.partner_id.city or not mandate.partner_id.zip or not mandate.partner_id.country_id">
+                            <p><strong>Address:</strong></p>
+                            <t t-if="not mandate.partner_id.street and not mandate.partner_id.street2">
+                                <p>.........................................................</p>
+                                <p>.........................................................</p>
+                            </t>
+                            <p t-if="mandate.partner_id.street"><t t-esc="mandate.partner_id.street"/></p>
+                            <p t-if="mandate.partner_id.street2"><t t-esc="mandate.partner_id.street2"/></p>
+
+                            <p>
+                                <strong>City: </strong>
+                                <t t-if="mandate.partner_id.city"><t t-esc="mandate.partner_id.city"/></t>
+                                <t t-else="">......................................</t>
+                            </p>
+                            <p>
+                                <strong>Zip: </strong>
+                                <t t-if="mandate.partner_id.zip"><t t-esc="mandate.partner_id.zip"/></t>
+                                <t t-else="">......................................</t>
+                            </p>
+                            <p>
+                                <strong>Country: </strong>
+                                <t t-if="mandate.partner_id.country_id.name"><t t-esc="mandate.partner_id.country_id.name"/></t>
+                                <t t-else="">......................................</t>
+                            </p>
+                        </t>
+                        <div t-else="" t-field="mandate.partner_id" t-options='{"widget": "contact", "fields": ["address"], "no_marker": True}'/>
+                    </div>
+                    <div class="col-6">
+                        <p><strong>IBAN:</strong> <t t-if="not mandate.partner_bank_id.acc_number">......................................</t><t t-else="" t-esc="mandate.partner_bank_id.acc_number"/></p>
+                        <p><strong>Phone:</strong> <t t-if="not mandate.partner_id.phone">......................................</t><t t-else="" t-esc="mandate.partner_id.phone"/></p>
+                        <p><strong>Email:</strong> <t t-if="not mandate.partner_id.email">......................................</t><t t-else="" t-esc="mandate.partner_id.email"/></p>
+                        <p><strong>Identification code<t t-if="not mandate.debtor_id_code"> (if applicable)</t>:</strong></p>
+                        <p t-if="not mandate.debtor_id_code">.........................................................</p>
+                        <p t-else=""><t t-esc="mandate.debtor_id_code"/></p>
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+            <h2>Validity</h2>
+            <p>
+                The mandate will only be used to pay invoices into the
+                specified time range. If no end date is specified,
+                you will have to contact us to stop its use.
+            </p>
+            <div class="row">
+                <div class="col-6">
+                <p><strong>Transaction type:</strong> recurrent</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Start date:</strong> <t t-if="not mandate.start_date">......................................</t><span t-else="" t-esc="mandate.start_date" t-options="{'widget': 'date'}"/></p>
+                    <p><strong>End date<t t-if="not mandate.end_date"> (optional)</t>:</strong> <t t-if="not mandate.end_date">......................................</t><span t-else="" t-esc="mandate.end_date" t-options="{'widget': 'date'}"/></p>
+                </div>
+            </div>
+            <br/>
+
+            <h2>Signature</h2>
+            <div id="signature" class="row">
+                <div class="col-6">
+                <p><strong>Name of the reference party:</strong> ......................................</p>
+                <p><strong>Signature:</strong></p>
+                </div>
+                <div class="col-6">
+                <p><strong>Date and place of signature:</strong> ......................................</p>
+                </div>
+            </div>
+        </template>
+    </data>
+</odoo>

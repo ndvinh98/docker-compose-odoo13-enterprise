@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<xsd:schema xmlns:dhl="http://www.dhl.com/datatypes_global" xmlns="http://www.dhl.com" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.dhl.com" elementFormDefault="unqualified">
+	<xsd:import namespace="http://www.dhl.com/datatypes_global" schemaLocation="datatypes_global_v62.xsd"/>
+	<xsd:element name="ShipmentRequest">
+		<xsd:annotation>
+			<xsd:documentation>Root element of Shipment Validation Global request</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Request" type="dhl:Request"/>
+				<xsd:element name="RegionCode" type="dhl:RegionCode" minOccurs="0"/>
+				<xsd:element name="RequestedPickupTime" type="dhl:YesNo" minOccurs="0"/>
+				<xsd:element name="NewShipper" type="dhl:YesNo" minOccurs="0"/>
+				<xsd:element name="LanguageCode" type="dhl:LanguageCode" default="en"/>
+				<xsd:element name="PiecesEnabled" type="dhl:PiecesEnabled"/>
+				<xsd:element name="LatinResponseInd" type="dhl:YesNo" minOccurs="0"/>
+				<xsd:element name="Billing" type="dhl:Billing"/>
+				<xsd:element name="Consignee" type="dhl:Consignee"/>
+				<xsd:element name="Commodity" type="dhl:Commodity" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="Dutiable" type="dhl:Dutiable" minOccurs="0" />
+				<xsd:element name="UseDHLInvoice" type="dhl:YesNo" minOccurs="0" default="N"/>
+				<xsd:element name="DHLInvoiceLanguageCode" type="dhl:InvLanguageCode" minOccurs="0" default="en"/>
+				<xsd:element name="DHLInvoiceType" type="dhl:InvoiceType" minOccurs="0" default="CMI"/>
+				<xsd:element name="ExportDeclaration" type="dhl:ExportDeclaration" minOccurs="0"/>
+				<xsd:element name="Reference" type="dhl:Reference" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="ShipmentDetails" type="dhl:ShipmentDetails"/>
+				<xsd:element name="Shipper" type="dhl:Shipper"/>
+				<xsd:element name="SpecialService" type="dhl:SpecialService" minOccurs="0" maxOccurs="10"/>
+				<xsd:element name="Notification" type="dhl:Notification" minOccurs="0"/>
+				<xsd:element name="Place" type="dhl:Place" minOccurs="0"/>
+				<xsd:element name="EProcShip" type="dhl:YesNo" minOccurs="0"/>
+				<xsd:element name="Airwaybill" type="dhl:AWBNumber" minOccurs="0"/>
+				<xsd:element name="DocImages" type="dhl:DocImages" minOccurs="0"/>
+				<xsd:element name="LabelImageFormat" type="dhl:LabelImageFormat" minOccurs="0"/>
+				<xsd:element name="RequestArchiveDoc" type="dhl:YesNo" minOccurs="0"/>
+				<xsd:element name="NumberOfArchiveDoc" type="dhl:NumberOfArchiveDoc" minOccurs="0"/>
+				<xsd:element name="Label" type="dhl:Label" minOccurs="0"/>
+				<xsd:element name="ODDLinkReq" type="dhl:YesNo" minOccurs="0"/>
+				<xsd:element name="DGs" type="dhl:DGs" minOccurs="0"/>
+				<xsd:element name="GetPriceEstimate" type="dhl:YesNo" minOccurs="0" default="Y"/>
+			</xsd:sequence>
+			<xsd:attribute name="schemaVersion" type="xsd:decimal" use="required" fixed="6.2"/>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

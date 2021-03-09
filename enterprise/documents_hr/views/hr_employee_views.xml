@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit.documents</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="%(documents.document_action)d"
+                    context="{'search_default_owner_id': user_id, 'default_owner_id': user_id}"
+                    class="oe_stat_button"
+                    groups="documents.group_documents_user"
+                    attrs="{'invisible': [('user_id','=', False)]}"
+                    icon="fa-file-text"
+                    type="action">
+                    <field name="document_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

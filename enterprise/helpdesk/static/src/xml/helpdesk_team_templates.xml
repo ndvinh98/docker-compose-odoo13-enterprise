@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <!--
+        This template is the ribbon at the top of the helpdesk dashboard that adds
+        some figures to it. We call this rubbon the "HelpdeskDashboard".
+    -->
+    <t t-name="helpdesk.HelpdeskDashboard">
+        <div t-if="show_demo or values" class="o_helpdesk_dashboard">
+            <div t-attf-class="#{show_demo ? 'o_demo' : ''}">
+                <table class="table table-sm">
+                    <tr>
+                        <td class="o_text">
+                            <div class="o_highlight">My Tickets</div>
+                        </td>
+                        <td class="o_main o_dashboard_action" title="My open tickets" name="helpdesk.helpdesk_ticket_action_main">
+                            <a href="#">
+                                <span class="o_highlight"><t t-esc="values['my_all']['count']"/></span><br/>
+                                Tickets
+                            </a>
+                        </td>
+                        <td class="o_main o_dashboard_action" title="My high priority tickets" name="helpdesk.helpdesk_ticket_action_high_priorities">
+                            <a href="#">
+                                <span class="o_highlight"><t t-esc="values['my_high']['count']"/></span><br/>
+                                High Priority (<span title="Two stars, with a maximum of three" role="img" aria-label="Two stars, with a maximum of three"><span class="fa fa-star" style="color: gold"/><span class="fa fa-star" style="color: gold"/></span>)
+                            </a>
+                        </td>
+                        <td class="o_main o_dashboard_action" title="My urgent tickets" name="helpdesk.helpdesk_ticket_action_urgent">
+                            <a href="#">
+                                <span class="o_highlight"><t t-esc="values['my_urgent']['count']"/></span><br/>
+                                Urgent (<span title="Three stars, maximum score" role="img" aria-label="Three stars, maximum score"><span class="fa fa-star" style="color: gold"/><span class="fa fa-star" style="color: gold"/><span class="fa fa-star" style="color: gold"/></span>)
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text">Avg Open Hours</td>
+                        <td class="o_main o_dashboard_action" name="helpdesk.helpdesk_ticket_action_dashboard">
+                            <a href="#"><t t-esc="values['my_all']['hours']"/></a>
+                        </td>
+                        <td class="o_main o_dashboard_action" name="helpdesk.helpdesk_ticket_action_dashboard_high_priority">
+                            <a href="#">
+                                <t t-esc="values['my_high']['hours']"/>
+                            </a>
+                        </td>
+                        <td class="o_main o_dashboard_action" name="helpdesk.helpdesk_ticket_action_dashboard_urgent">
+                            <a href="#">
+                                <t t-esc="values['my_urgent']['hours']"/>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text" t-if="success_rate_enable">SLA Failed</td>
+                        <td t-if="success_rate_enable" t-att-class="(values['my_all']['failed'] ? 'o_warning' : 'o_main') + ' o_dashboard_action'" name="helpdesk.helpdesk_ticket_action_sla" title="View failed tickets" >
+                            <a href="#" class="o_dashboard_action" name="helpdesk.helpdesk_ticket_action_sla" data-extra="overdue">
+                                <t t-esc="values['my_all']['failed']"/>
+                            </a>
+                        </td>
+                        <td t-if="success_rate_enable" t-att-class="(values['my_high']['failed'] ? 'o_warning' : 'o_main') + ' o_dashboard_action'" name="helpdesk.helpdesk_ticket_action_sla_high" title="View high priority failed tickets">
+                            <a href="#" data-extra="overdue">
+                                <t t-esc="values['my_high']['failed']"/>
+                            </a>
+                        </td>
+                        <td t-if="success_rate_enable" t-att-class="(values['my_urgent']['failed'] ? 'o_warning' : 'o_main') + ' o_dashboard_action'" name="helpdesk.helpdesk_ticket_action_sla_urgent" title="View urgent failed tickets">
+                            <a href="#" data-extra="overdue">
+                                <t t-esc="values['my_urgent']['failed']"/>
+                            </a>
+                        </td>
+                    </tr>
+                </table>
+
+            </div><div t-attf-class="#{show_demo ? 'o_demo' : ''}">
+                <table class="d-none d-md-table table table-sm">
+                    <tr>
+                        <td class="o_text">
+                            <div class="o_highlight">My Performance</div>
+                            Today
+                        </td>
+                        <td title="Performance Report" t-att-class="(values and values['helpdesk_target_closed'] and values['today']['count'] >=values['helpdesk_target_closed'])?'o_main':'o_secondary'">
+                            <a href="#" class="o_dashboard_action" name="helpdesk.helpdesk_ticket_action_close_analysis">
+                                <span class="o_highlight">
+                                    <t t-esc="values['today']['count']"/>
+                                </span><br/>
+                                Closed Tickets
+                            </a>
+                        </td>
+                        <td t-if="rating_enable" title="Customer satisfaction analysis" t-att-class="(values and values['helpdesk_target_rating'] and values['helpdesk_target_rating'] &lt;= values['today']['rating'])?'o_main':'o_secondary'">
+                            <a href="#" class="o_dashboard_action" name="action_view_rating_today" type="object">
+                                <span class="o_highlight">
+                                    <t t-esc="values['today']['rating']"/> %
+                                </span><br/>
+                                Happy Rating
+
+                            </a>
+                        </td>
+                        <td t-if="success_rate_enable" title="The success rate is based on the tickets which passed the SLA policies successfully." t-att-class="(values and values['helpdesk_target_success'] and values['helpdesk_target_success'] &lt;= values['today']['success'])?'o_main':'o_secondary'">
+                            <a href="#" class="o_dashboard_action" name="helpdesk.helpdesk_ticket_action_success">
+                                <span class="o_highlight">
+                                    <t t-esc="values['today']['success']"/>%
+                                </span><br/>
+                                Success Rate
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="o_text">Avg 7 days</td>
+                        <td class="o_secondary">
+                            <a href="#" class="o_dashboard_action" name="helpdesk.helpdesk_ticket_action_7days_analysis">
+                                <t t-esc="values['7days']['count']"/>
+                            </a>
+                        </td>
+                        <td t-if="rating_enable" class="o_secondary">
+                            <a href="#" class="o_dashboard_action" name="action_view_rating_7days">
+                                <t t-esc="values['7days']['rating']"/> %
+                            </a>
+                        </td>
+                        <td t-if="success_rate_enable" class="o_secondary">
+                            <a href="#" class="o_dashboard_action" name="helpdesk.helpdesk_ticket_action_7dayssuccess">
+                                <t t-esc="values['7days']['success']"/>%
+                            </a>
+                        </td>
+                    </tr><tr>
+                        <td class="o_text">Daily Target</td>
+                        <td class="o_secondary">
+                            <span t-if="!show_demo" class="o_target_to_set" name='helpdesk_target_closed' t-att-value="values['helpdesk_target_closed'] ? values['helpdesk_target_closed'] : undefined" title="Click to set">
+                                <t t-if="values['helpdesk_target_closed']">
+                                    <t t-esc="values['helpdesk_target_closed']"/>
+                                </t>
+                                <t t-if="!values['helpdesk_target_closed']">
+                                    Click to set
+                                </t>
+                            </span>
+                            <span t-if="show_demo">
+                                100
+                            </span>
+                        </td>
+                        <td class="o_secondary" t-if="rating_enable">
+                            <span t-if="!show_demo" class="o_target_to_set" name='helpdesk_target_rating' t-att-value="values['helpdesk_target_rating'] ? values['helpdesk_target_rating'] : undefined" title="Click to set">
+                                <t t-if="values['helpdesk_target_rating']">
+                                    <t t-esc="values['helpdesk_target_rating']"/>%
+                                </t>
+                                <t t-if="!values['helpdesk_target_rating']">
+                                    Click to set
+                                </t>
+                            </span>
+                            <span t-if="show_demo">
+                                100
+                            </span>
+                        </td>
+                        <td class="o_secondary" t-if="success_rate_enable">
+                            <span t-if="!show_demo" class="o_target_to_set" name='helpdesk_target_success' t-att-value="values['helpdesk_target_success'] ? values['helpdesk_target_success'] : undefined" title="Click to set">
+                                <t t-if="values['helpdesk_target_success']">
+                                    <t t-esc="values['helpdesk_target_success']"/>%
+                                </t>
+                                <t t-if="!values['helpdesk_target_success']">
+                                    Click to set
+                                </t>
+                            </span>
+                            <span t-if="show_demo">
+                                100
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div t-if="show_demo" class="o_welcome_message">
+                <div class="o_welcome_image">
+                    <i class="fa fa-smile-o fa-5x" title="Welcome" role="img" aria-label="Welcome"></i>
+                </div>
+                <div class="o_welcome_content"><br/>
+                    <h4><strong>Ready to boost your customer service?</strong></h4>
+                    <h4>This dashboard will activate once you have created your first ticket.</h4>
+                    <t t-if="values['use_alias'] and values['alias_name'] and values['alias_domain']">
+                        <h4>Send an email to <strong><a t-attf-href="mailto:#{values['alias_name']}@#{values['alias_domain']}" class="o_inline_link"><t t-esc="values['alias_name']"/>@<t t-esc="values['alias_domain']"/></a></strong> to create a ticket.</h4>
+                    </t>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

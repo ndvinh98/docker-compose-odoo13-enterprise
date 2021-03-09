@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <data noupdate="1">
+        <record id="digest.digest_digest_default" model="digest.digest">
+            <field name="kpi_helpdesk_tickets_closed">True</field>
+        </record>
+    </data>
+
+    <data>
+        <record id="digest_tip_helpdesk_0" model="digest.tip">
+            <field name="sequence">3</field>
+            <field name="tip_description" type="html">
+<div>
+    % set email_alias = object.env['helpdesk.team'].search([('alias_name','!=', False)],limit=1).alias_id.display_name
+    % if email_alias
+    <strong style="font-size: 16px;">Try the mail gateway</strong>
+    <div style="font-size: 14px;">Emails sent to <strong>${email_alias}</strong> generate new tickets in your Helpdesk funnel.<br/>
+        <div style="text-align:center;margin-top:5px;margin-bottom:2px;">
+            <a href="mailto:${email_alias}" style="background-color:#56b3b5;padding:2px;color:#FFFFFF;font-weight:bold;text-decoration:none;">Try Now</a>
+        </div>
+    </div>
+    % endif
+</div>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,122 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_bank_statement_import_qif
+# 
+# Translators:
+# Ayhan KIZILTAN <akiziltan76@hotmail.com>, 2019
+# Murat Kaplan <muratk@projetgrup.com>, 2019
+# Umur Akın <umura@projetgrup.com>, 2019
+# Yedigen <yedigennn@gmail.com>, 2019
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server saas~12.5+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-26 08:04+0000\n"
+"PO-Revision-Date: 2019-08-26 09:34+0000\n"
+"Last-Translator: Yedigen <yedigennn@gmail.com>, 2019\n"
+"Language-Team: Turkish (https://www.transifex.com/odoo/teams/41243/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model.fields,help:account_bank_statement_import_qif.field_account_bank_statement_import__journal_id
+msgid ""
+"Accounting journal related to the bank statement you're importing. It has to"
+" be manually chosen for statement formats which doesn't allow automatic "
+"journal detection (QIF for example)."
+msgstr ""
+"İçe aktardığınız banka hesap özetine ilişkin muhasebe yevmiyesi. Otomatik "
+"yevmiye algılamasına izin vermeyen bildirim biçimleri için manuel olarak "
+"seçilmelidir (örneğin QIF)."
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model.fields,help:account_bank_statement_import_qif.field_account_bank_statement_import__qif_date_format
+msgid ""
+"Although the historic QIF date format is month-first (mm/dd/yy), many "
+"financial institutions use the local format.Therefore, it is frequent "
+"outside the US to have QIF date formated day-first (dd/mm/yy)."
+msgstr ""
+"Tarihsel QIF tarih formatı ay bazında (mm / gg / yy) olmasına rağmen, pek "
+"çok finansal kurum yerel biçimi kullanmaktadır. Bu nedenle, ABD dışında, QIF"
+" tarihinin ilk gününde (gg / aa / yy) tarihlenmesi sıklıkla "
+"gerçekleşmektedir."
+
+#. module: account_bank_statement_import_qif
+#: code:addons/account_bank_statement_import_qif/wizard/account_bank_statement_import_qif.py:0
+#, python-format
+msgid "Could not decipher the QIF file."
+msgstr "QIF dosyası çözülemedi."
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model.fields,field_description:account_bank_statement_import_qif.field_account_bank_statement_import__qif_date_format
+msgid "Dates format"
+msgstr "Tarih Formatı"
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model.fields,field_description:account_bank_statement_import_qif.field_account_bank_statement_import__hide_journal_field
+msgid "Hide the journal field in the view"
+msgstr "Görünümde yevmiye alanını gizle"
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model,name:account_bank_statement_import_qif.model_account_bank_statement_import
+msgid "Import Bank Statement"
+msgstr "Banka İçe Aktar"
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model,name:account_bank_statement_import_qif.model_account_journal
+#: model:ir.model.fields,field_description:account_bank_statement_import_qif.field_account_bank_statement_import__journal_id
+msgid "Journal"
+msgstr "Yevmiye"
+
+#. module: account_bank_statement_import_qif
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_import_qif.account_bank_statement_import_qif
+msgid "Quicken Interchange Format (QIF)"
+msgstr "Quicken Interchange Format (QIF)"
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model.fields,field_description:account_bank_statement_import_qif.field_account_bank_statement_import__show_qif_date_format
+msgid "Show Qif Date Format"
+msgstr "Qif Tarih Formatı Göster"
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model.fields,help:account_bank_statement_import_qif.field_account_bank_statement_import__show_qif_date_format
+msgid ""
+"Technical field used to ask the user for the date format used in the QIF "
+"file, as this format is ambiguous."
+msgstr ""
+"Teknik alan, QIF dosyasında kullanılan tarih formatını kullanıcıdan sormak "
+"için kullanılır, çünkü bu format belirsizdir."
+
+#. module: account_bank_statement_import_qif
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_import_qif.account_bank_statement_import_view_inherited
+msgid ""
+"The QIF format is ambiguous about dates: please check with your financial "
+"institution whether they format it with month or day first.<br/>"
+msgstr ""
+"QIF biçimi tarihlerle ilgili belirsizdir: Lütfen ayınızı veya gününüzü ilk "
+"önce mi biçimlendirip yazmadıklarını mali kurumunuza danışın.<br/>"
+
+#. module: account_bank_statement_import_qif
+#: code:addons/account_bank_statement_import_qif/wizard/account_bank_statement_import_qif.py:0
+#, python-format
+msgid "This file is either not a bank statement or is not correctly formed."
+msgstr "Bu dosya ya bir banka hesap özeti değil ya da formatı yanlış"
+
+#. module: account_bank_statement_import_qif
+#: model_terms:ir.ui.view,arch_db:account_bank_statement_import_qif.account_bank_statement_import_view_inherited
+msgid "Upload"
+msgstr "Yükle"
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model.fields.selection,name:account_bank_statement_import_qif.selection__account_bank_statement_import__qif_date_format__day_first
+msgid "dd/mm/yy"
+msgstr "gg / aa / yy"
+
+#. module: account_bank_statement_import_qif
+#: model:ir.model.fields.selection,name:account_bank_statement_import_qif.selection__account_bank_statement_import__qif_date_format__month_first
+msgid "mm/dd/yy"
+msgstr "aa / mm / yy"

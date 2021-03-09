@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_form_asset_inherit" model="ir.ui.view">
+        <field name="name">account.account.form</field>
+        <field name="model">account.account</field>
+        <field name="inherit_id" ref="account.view_account_form"/>
+        <field name="arch" type="xml">
+            <field name="user_type_id" position="after">
+                <field name="can_create_asset" invisible="1"/>
+                <field name="form_view_ref" invisible="1"/>
+                <field name="asset_type" invisible="1"/>
+                <td class="o_td_label">
+                    <label for="create_asset" string="Automate Asset" attrs="{'invisible': ['|', ('can_create_asset', '=', False), ('asset_type', '!=', 'purchase')]}"/>
+                    <label for="create_asset" string="Automate Deferred Revenue" attrs="{'invisible': ['|', ('can_create_asset', '=', False), ('asset_type', '!=', 'sale')]}"/>
+                    <label for="create_asset" string="Automate Deferred Expense" attrs="{'invisible': ['|', ('can_create_asset', '=', False), ('asset_type', '!=', 'expense')]}"/>
+                </td>
+                <field name="create_asset" attrs="{'invisible': [('can_create_asset', '=', False)]}" nolabel="1" widget="radio"/>
+                <td class="o_td_label">
+                    <label for="asset_model" string="Asset Model" attrs="{'invisible': ['|', ('create_asset', '=', 'no'), '|', ('can_create_asset', '=', False), ('asset_type', '!=', 'purchase')]}"/>
+                    <label for="asset_model" string="Deferred Revenue Model" attrs="{'invisible': ['|', ('create_asset', '=', 'no'), '|', ('can_create_asset', '=', False), ('asset_type', '!=', 'sale')]}"/>
+                    <label for="asset_model" string="Deferred Expense Model" attrs="{'invisible': ['|', ('create_asset', '=', 'no'), '|', ('can_create_asset', '=', False), ('asset_type', '!=', 'expense')]}"/>
+                </td>
+                <field name="asset_model" domain="[('state', '=', 'model'), ('asset_type', '=', asset_type)]" attrs="{'invisible': ['|', ('create_asset', '=', 'no'), ('can_create_asset', '=', False)], 'required': ['&amp;', ('create_asset', '=', 'validate'), ('can_create_asset', '=', True)]}" nolabel="1" context="{'default_state': 'model', 'form_view_ref': form_view_ref, 'default_asset_type': asset_type}"/>
+            </field>
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_account_aml_to_deferred">
+        <field name="name">Create Deferred Entry</field>
+        <field name="model_id" ref="account.model_account_move_line"/>
+        <field name="binding_model_id" ref="account.model_account_move_line" />
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.turn_as_deferred()
+        </field>
+    </record>
+
+    <record model="ir.actions.server" id="action_account_aml_to_asset">
+        <field name="name">Create Asset</field>
+        <field name="model_id" ref="account.model_account_move_line"/>
+        <field name="binding_model_id" ref="account.model_account_move_line" />
+        <field name="state">code</field>
+        <field name="code">
+if records:
+    action = records.turn_as_asset()
+        </field>
+    </record>
+</odoo>

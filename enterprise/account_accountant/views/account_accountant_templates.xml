@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="account assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/account_accountant/static/src/scss/move_line_list_view.scss"/>
+            <script type="text/javascript" src="/account_accountant/static/src/js/move_line_list_view.js"></script>
+            <script type="text/javascript" src="/account_accountant/static/src/js/tours/account_accountant.js"></script>
+        </xpath>
+    </template>
+
+    <template id="assets_tests" name="Account Accountant Assets Tests" inherit_id="web.assets_tests">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/account_accountant/static/tests/tours/account_dashboard_setup_bar_tests.js"></script>
+            <script type="text/javascript" src="/account_accountant/static/tests/tours/account_reports_widgets.js"></script>
+        </xpath>
+    </template>
+
+    <template id="qunit_suite" name="account_accountant tests" inherit_id="web.qunit_suite">
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <script type="text/javascript" src="/account_accountant/static/tests/move_line_list_tests.js"></script>
+        </xpath>
+    </template>
+</odoo>

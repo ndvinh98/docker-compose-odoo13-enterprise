@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+  <t t-name="PlaidLogin">
+    <div>
+      <div class="js_wait_updating_account alert alert-warning d-none" role="alert">
+        Please wait while we are updating your account...
+        This process can take several minutes...
+      </div>
+      <form class="js_online_sync_form">
+        <t t-if="call=='init'">
+          <div class="form-group row">
+            <label class="col-lg-2 col-form-label">Login (*)</label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control js_plaid_login"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-lg-2 col-form-label">Password (*)</label>
+            <div class="col-lg-4">
+                <input type="password" class="form-control js_plaid_password"/>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-lg-2 col-form-label">PIN</label>
+            <div class="col-lg-4">
+                <input type="text" class="form-control js_plaid_pin"/>
+            </div>
+          </div>
+        </t>
+        <t t-if="call=='mfa'">
+          <t t-if="mfa.type == 'list'">
+            <div class="form-group row">
+            <label class="col-md-4 col-form-label">Select a method of verification</label>
+              <t t-foreach="mfa.mfa" t-as="choice">
+                <div class="custom-control custom-radio">
+                    <input type="radio" t-attf-id="mfa-selection-#{choice_index}" name="mfa-selection" class="custom-control-input" t-att-mask="choice.mask" t-att-value="choice.type"/>
+                    <label t-attf-for="mfa-selection-#{choice_index}" class="custom-control-label"><t t-esc="choice.type"/> (<t t-esc="choice.mask"/>)</label>
+                </div>
+              </t>
+            </div>
+          </t>
+          <t t-if="mfa.type == 'questions' || mfa.type == 'selections'">
+            <div class="form-group row">
+              <t t-foreach="mfa.mfa" t-as="q">
+                    <label class="col-md-12 col-form-label"><t t-esc="q.question"/></label>
+                    <t t-if="mfa.type == 'questions'">
+                      <div class="col-md-12">
+                        <input type="text" class="form-control js_plaid_answer" optional="false"/>
+                      </div>
+                    </t>
+                    <t t-if="mfa.type == 'selections'">
+                      <div class="col-md-12">
+                        <select class="form-control js_plaid_answer" optional="false">
+                          <t t-foreach="q.answers" t-as="v">
+                            <option t-att-value="v"><t t-esc="v"/></option>
+                          </t>
+                      </select>
+                      </div>
+                    </t>
+                </t>
+                </div>
+          </t>
+          <t t-if="mfa.type == 'device'">
+            <div class="form-group row">
+              <label class="col-md-12 col-form-label"><t t-esc="mfa.mfa.message"/> (Enter code in area below)</label>
+              <div class="col-md-3">
+                <input class="form-control js_plaid_answer" optional="false"/>
+              </div>
+            </div>
+          </t>
+        </t>
+      </form>
+      <div class="footer">
+        <t t-if="call=='init'"><button class="js_process_next_step btn btn-primary" type="button">Continue</button></t>
+        <t t-if="call=='mfa'"><button class="js_process_mfa_step btn btn-primary" type="button">Continue</button></t>
+        <button class="js_process_cancel btn btn-secondary" type="button">Cancel</button>
+      </div>
+    </div>
+  </t>
+
+</templates>

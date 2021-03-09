@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="asset_pause_form">
+        <field name="name">wizard.asset.pause.form</field>
+        <field name="model">account.asset.pause</field>
+        <field name="arch" type="xml">
+            <form string="Pause Asset">
+                <group>
+                    <group>
+                        <field name="date" required="1"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="do_action" string="Pause" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

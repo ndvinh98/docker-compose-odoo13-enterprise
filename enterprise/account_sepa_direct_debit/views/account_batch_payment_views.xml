@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_batch_payment_form_inherit" model="ir.ui.view">
+            <field name="name">sdd.account.batch.payment.form.inherit</field>
+            <field name="model">account.batch.payment</field>
+            <field name="inherit_id" ref="account_batch_payment.view_batch_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="payment_method_code" invisible="1"/>
+                    <field name="sdd_required_collection_date" attrs="{'required': [('payment_method_code','=','sdd')], 'invisible': [('payment_method_code','!=','sdd')]}"/>
+                    <field name="sdd_batch_booking" attrs="{'invisible': [('payment_method_code','!=','sdd')]}"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

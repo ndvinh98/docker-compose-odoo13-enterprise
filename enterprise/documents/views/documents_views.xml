@@ -1,0 +1,900 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- special actions -->
+
+    <record id="settings_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context" eval="{'module': 'general_settings'}"/>
+    </record>
+
+    <!-- Documents -->
+
+    <record id="document_view_search" model="ir.ui.view">
+        <field name="name">Document search view</field>
+        <field name="model">documents.document</field>
+        <field name="arch" type="xml">
+            <search string="Documents">
+                <field name="name" string="Document"/>
+                <field name="tag_ids"/>
+                <field name="owner_id"/>
+                <field name="partner_id" string="Contact"/>
+                <field name="index_content"/>
+                <field name="create_uid" string="Created by"/>
+                <filter string="My Documents" name="my_documents_filter" domain="[('owner_id', '=', uid)]"/>
+                <filter string="My Favorites" name="my_favorites_filter" domain="[('favorited_ids', 'in', uid)]"/>
+                <separator/>
+                <filter string="PDF/Document" name="pdf_doc" domain="['|', ('mimetype', 'ilike', 'pdf'), ('name', 'ilike', '.doc')]"/>
+                <filter string="Image/Video" name="img_video" domain="['|', ('mimetype', 'ilike', 'image'), ('mimetype', 'ilike', 'video')]"/>
+                <filter string="URL" name="url_filter" domain="[('type', '=', 'url')]"/>
+                <separator/>
+                <filter string="Locked" name="locked_filter" domain="['|', ('lock_uid', '=', uid), ('lock_uid', '!=', False)]"/>
+                <separator/>
+                <filter string="Requested" name="requested_filter" domain="[('type', '=', 'empty')]"/>
+                <separator/>
+                <filter string="Archived" name="Inactive" domain="[('active', '=', False)]"/>
+                <field name="type"/>
+                <group expand="0" string="Group By">
+                    <filter name="owner" string="Owner" domain="[]" context="{'group_by':'create_uid'}"/>
+                    <filter name="by_model" string="Model" domain="[]" context="{'group_by': 'res_model'}"/>
+                    <filter name="creation_month" string="Creation Date" domain="[]" context="{'group_by':'create_date'}"/>
+                </group>
+                <searchpanel>
+                    <field name="folder_id"/>
+                    <field name="tag_ids" select="multi" groupby="facet_id" icon="fa-tag"/>
+                    <field name="res_model" select="multi" string="Attached To" icon="fa-file-text" color="#338FFC"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="document_view_kanban" model="ir.ui.view">
+        <field name="name">documents.document kanban</field>
+        <field name="model">documents.document</field>
+        <field name="arch" type="xml">
+            <kanban js_class="documents_kanban" create="false">
+                <field name="id"/>
+                <field name="mimetype"/>
+                <field name="favorited_ids"/>
+                <field name="owner_id"/>
+                <field name="lock_uid"/>
+                <field name="type"/>
+                <field name="create_uid"/>
+                <field name="url"/>
+                <field name="type"/>
+                <field name="create_date"/>
+                <field name="active"/>
+                <field name="checksum"/>
+                <field name="name"/>
+                <field name="res_model_name"/>
+                <field name="res_model"/>
+                <field name="res_name"/>
+                <field name="activity_ids"/>
+                <field name="activity_state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <t t-set="fileRequest" t-value="record.type.raw_value === 'empty'"/>
+                        <div draggable="true" t-attf-class="oe_kanban_global_area o_kanban_attachment #{fileRequest ? 'oe_file_request' : ''}" t-att-data-id="record.id.raw_value">
+                            <i class="fa fa-circle-thin o_record_selector"/>
+                            <div t-attf-class="o_kanban_image #{fileRequest ? 'o_request_image' : ''}">
+                                <t t-set="webimage"
+                                   t-value="new RegExp('image.*(gif|jpeg|jpg|png)').test(record.mimetype.value)"/>
+                                <t t-set="binaryPreviewable"
+                                   t-value="new RegExp('(image|video|application/pdf|text)').test(record.mimetype.value) &amp;&amp; record.type.raw_value === 'binary'"/>
+                                <!-- should be made more generic if we support different websites for videos -->
+                                <t t-set="youtubeUrlMatch" t-value="record.url.raw_value ? record.url.raw_value.match('youtu(?:\.be|be\.com)/(?:.*v(?:/|=)|(?:.*/)?)([a-zA-Z0-9-_]{11})') : false"/>
+                                <t t-set="youtubeVideoToken" t-value="youtubeUrlMatch ? youtubeUrlMatch.length > 1 ? youtubeUrlMatch[1] : false : false"/>
+                                <div t-attf-class="o_kanban_image_wrapper #{(webimage or binaryPreviewable or youtubeVideoToken) ? 'oe_kanban_previewer' : ''}" t-att-title="fileRequest ? 'Upload file' : ''">
+                                    <img t-if="youtubeVideoToken" width="100" height="100" alt="Document" class="o_attachment_image"
+                                         t-attf-src="https://img.youtube.com/vi/{{youtubeVideoToken}}/0.jpg"/>
+                                    <div t-elif="record.type.raw_value == 'url'" class="o_url_image fa fa-link fa-3x text-muted"/>
+                                    <img t-elif="webimage" t-attf-src="/documents/image/#{record.id.raw_value}?field=thumbnail&amp;signature=#{record.checksum.value}" width="100" height="100" alt="Youtube Video" class="o_attachment_image"/>
+                                    <div t-elif="fileRequest" class="fa fa-upload fa-3x text-muted"/>
+                                    <div t-else="!webimage" class="o_image o_image_thumbnail" t-att-data-mimetype="record.mimetype.value"/>
+                                </div>
+                            </div>
+                            <div class="o_kanban_details">
+                                <div class="o_kanban_details_wrapper">
+                                    <div t-att-title="record.name.raw_value" class="o_kanban_record_title">
+                                        <i t-attf-class="o_documents_lock fa {{(record.lock_uid.raw_value == user_context.uid || !record.lock_uid.raw_value)? '' : ' fa-lock'}} {{(record.lock_uid.raw_value == user_context.uid)? ' fa-unlock-alt' : ''}}"
+                                               t-att-title="record.lock_uid.value"/>
+                                        <field name="name" required="True" class="o_text_overflow"/>
+                                    </div>
+                                    <div class="o_kanban_record_body">
+                                        <t t-if="record.res_model_name.raw_value &amp;&amp; record.res_model.raw_value !== 'documents.document'">
+                                            <strong><field name="res_model_name"/></strong>
+                                            <t t-if="record.res_name.raw_value">
+                                                <span t-att-title="record.res_name.raw_value">: <field name="res_name"/></span>
+                                            </t>
+                                            <t t-elif="fileRequest">
+                                                 <span><b> Request</b></span>
+                                            </t>
+                                        </t>
+                                        <t t-elif="record.type.raw_value == 'url'">
+                                            <span class="o_document_url"><i class="fa fa-globe"/> <field name="url" widget="url"/></span>
+                                        </t>
+                                        <t t-elif="fileRequest">
+                                            <span><b>Requested Document</b></span>
+                                        </t>
+                                        <samp t-else="" class="text-muted"> </samp>
+                                        <field name="tag_ids" widget="documents_kanban_color_tags"/>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <time class="oe_kanban_bottom_left">
+                                            <field name="create_date" widget="date"/>
+                                        </time>
+                                        <div class="oe_kanban_bottom_right">
+                                            <field name="activity_ids" widget="kanban_activity"/>
+                                            <a type="object" name="toggle_favorited"
+                                                t-attf-class="fa fa-lg fa-star#{(record.favorited_ids.raw_value.indexOf(user_context.uid) &lt; 0)? '-o' : ' favorite_sign_button_enabled'} favorite_sign_button"/>
+                                            <img t-att-src="kanban_image('res.users', 'image_128', record.owner_id.raw_value)" t-att-data-member_id="record.owner_id.raw_value" t-att-alt="record.owner_id.raw_value" width="32" height="32" class="oe_kanban_avatar"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="document_view_form" model="ir.ui.view">
+        <field name="name">documents form</field>
+        <field name="model">documents.document</field>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">
+            <form create="false">
+                <header>
+                    <button type="object" name="access_content" string="Access" class="oe_highlight" attrs="{'invisible': [('url', '=', False)]}"/>
+                    <button type="object" name="access_content" string="Download" class="oe_highlight" attrs="{'invisible': [('type', '!=', 'binary')]}"/>
+                    <button type="object" name="create_share" string="Share"/>
+                    <button type="object" name="toggle_lock" string="Lock" attrs="{'invisible': [('lock_uid', '!=', False)]}"/>
+                    <button type="object" name="toggle_lock" string="Unlock" attrs="{'invisible': [('lock_uid', '=', False)]}"/>
+                    <button type="object" name="toggle_active" string="Archive" attrs="{'invisible': [('active', '=', False)]}"/>
+                    <button type="object" name="toggle_active" string="Restore" attrs="{'invisible': [('active', '=', True)]}"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="open_resource" type="object" class="oe_stat_button" icon="fa-external-link" attrs="{'invisible': ['|', ('res_id', '=', False), ('res_model', 'in', [False, 'documents.document'])]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_text">Related <br/> Record</span>
+                            </div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="thumbnail" nolabel="1" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;:&quot;thumbnail&quot;}" attrs="{ 'invisible' : [('thumbnail', '=', False)]}"/>
+                    <div class="oe_title" aria-label="Name">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" class="oe_inline" attrs="{'readonly': [('is_locked', '=', True)]}" required="True"/>&amp;nbsp;
+                            <i class="fa fa-lock oe_inline" title="Locked" attrs="{'invisible': [('lock_uid', '=', False)]}"/>
+                        </h1>
+                    </div>
+                    <field name="is_locked" invisible="1"/>
+                    <field name="active" invisible="1"/>
+                    <field name="res_id" invisible="1"/>
+                    <field name="res_model" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="datas" string="File" filename="name" attrs="{'invisible':[('type','=','url')], 'readonly': [('is_locked', '=', True)]}"/>
+                            <field name="url" attrs="{ 'invisible' : [('type', '!=', 'url')], 'readonly': [('is_locked', '=', True)]}"/>
+                            <field name="folder_id" attrs="{'readonly': [('is_locked', '=', True)]}"/>
+                            <field name="owner_id" attrs="{'readonly': [('is_locked', '=', True)]}"/>
+                            <field name="partner_id"/>
+                            <field name="tag_ids" widget="many2many_tags"/>
+                        </group>
+                        <group>
+                            <field name="type"/>
+                            <field name="create_date"/>
+                            <field name="create_uid"/>
+                            <field name="lock_uid" readonly="1" attrs="{'invisible': [('lock_uid', '=', False)]}"/>
+                        </group>
+                    </group>
+                    <group groups="base.group_no_one">
+                        <field name="group_ids" widget="many2many_tags"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="file_size" attrs="{ 'invisible' : [('type', '!=', 'binary')]}"/>
+                        <field name="mimetype"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record id="documents_upload_url_view" model="ir.ui.view">
+        <field name="name">upload url</field>
+        <field name="priority" eval="5"/>
+        <field name="model">documents.document</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="url" string="URL" widget="url" required="1"/>
+                        <field name="name" required="True"/>
+                        <field name="folder_id" invisible="1"/>
+                        <field name="tag_ids" invisible="1"/>
+                    </group>
+                <footer>
+                    <button special="save" string="Add" class="btn btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="documents_view_list" model="ir.ui.view">
+        <field name="name">documents list</field>
+        <field name="model">documents.document</field>
+        <field name="arch" type="xml">
+            <tree class="o_documents_list_view"
+                  create="false" edit="false"
+                  decoration-info="type == 'empty'">
+                <field name="type" invisible="1"/>
+                <field name="name" string="Document" required="True"/>
+                <field name="tag_ids" widget="many2many_tags"/>
+                <field name="partner_id"/>
+                <field name="owner_id"/>
+                <field name="type"/>
+                <field name="create_date" widget="date"/>
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- folders -->
+
+    <record id="folder_view_search" model="ir.ui.view">
+        <field name="name">Workspace search</field>
+        <field name="model">documents.folder</field>
+        <field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+            <field name="parent_folder_id"/>
+            <filter string="Parent Workspace" name="by_parent" domain="[]" context="{'group_by': 'parent_folder_id'}"/>
+         </search>
+        </field>
+    </record>
+
+    <record id="folder_view_tree" model="ir.ui.view">
+        <field name="name">Workspace tree</field>
+        <field name="model">documents.folder</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="display_name" string="Workspace"/>
+                <field name="facet_ids"  widget="many2many_tags" string="Tag Categories"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="group_ids" widget="many2many_tags"/>
+                <field name="read_group_ids" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="folder_view_form" model="ir.ui.view">
+        <field name="name">Workspace form</field>
+        <field name="model">documents.folder</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_see_actions" type="object" class="oe_stat_button" icon="fa-gears">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="action_count"/></span>
+                                <span class="o_stat_text">Actions</span>
+                            </div>
+                        </button>
+                        <button name="action_see_documents" type="object" class="oe_stat_button" icon="fa-file-text-o" attrs="{'invisible' : [('document_count', '=', 0)]}">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="document_count"/></span>
+                                <span class="o_stat_text">Documents</span>
+                            </div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="E.g. Finance"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="parent_folder_id" domain="[('id', '!=', id)]"/>
+                        </group>
+                        <group>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Tags">
+                            <field name="facet_ids" context="{
+                                'form_view_ref' : 'documents.facet_view_form',
+                                'documents_view_from_folder' : True,
+                                'default_folder_id' : id,
+                                'simple_name': True
+                            }">
+                                <tree>
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name" string="Category"/>
+                                    <field name="tag_ids"
+                                           string="Tags"
+                                           domain="[('facet_id', '=' , id)]"
+                                           context="{'default_facet_id' : id}"
+                                           options="{'no_create_edit': True}"
+                                           widget="many2many_tags"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Access Rights">
+                            <group>
+                                <group string="Write Access">
+                                    <field name="group_ids" widget="many2many_tags"/>
+                                </group>
+                                <group string="Read Access">
+                                    <field name="read_group_ids" widget="many2many_tags"/>
+                                    <field name="user_specific" attrs="{'invisible':[('read_group_ids', '=', [])]}"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Description">
+                            <field name="description" widget="html"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- shares links -->
+
+    <record id="share_view_search" model="ir.ui.view">
+        <field name="name">share search</field>
+        <field name="model">documents.share</field>
+        <field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+            <field name="document_ids"/>
+            <field name="folder_id"/>
+            <field name="partner_id"/>
+         </search>
+        </field>
+    </record>
+
+    <record id="share_view_tree" model="ir.ui.view">
+        <field name="name">share tree</field>
+        <field name="model">documents.share</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="folder_id"/>
+                <field name="name"/>
+                <field name="type"/>
+                <field name="action"/>
+                <field name="create_uid"/>
+                <field name="create_date"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="share_view_form" model="ir.ui.view">
+        <field name="name">Share form</field>
+        <field name="model">documents.share</field>
+        <field name="arch" type="xml">
+            <form class="o_share_form" create="false">
+                <sheet class="o_share_sheet">
+                    <field name="full_url" widget="CopyClipboardChar" readonly="1"/>
+                    <group>
+                        <group>
+                        <field name="can_upload" invisible="1"/>
+                        <field name="type" groups="base.group_no_one"/>
+                        <field name="name" placeholder="Name of the share link"/>
+                        <field name="action" widget="radio" attrs="{'invisible' : ['|', ('type', 'in', ['ids']), ('can_upload', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="date_deadline" widget="date"/>
+                            <label for="email_drop" attrs="{'invisible' : [('action', 'in', ['download'])] }"/>
+                            <div attrs="{'invisible' : [('action', 'in', ['download'])] }">
+                                <div class="o_row">
+                                <field name="email_drop"/>
+                                <div attrs="{'invisible': [('email_drop', '!=', True)]}" class="oe_inline">
+                                    <div name="alias_def" attrs="{'invisible': [('alias_domain', '=', False)]}">
+                                        <field name="alias_id" class="oe_read_only oe_inline" required="0"/>
+                                        <div class="oe_edit_only oe_inline" name="edit_alias" style="display: inline;">
+                                            <field name="alias_name" class="oe_inline"/>@<field name="alias_domain" class="oe_inline" readonly="1"/>
+                                        </div>
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('alias_domain', '!=', False)]}">
+                                        <a type="action" name='%(settings_action)d' class="btn btn-sm btn-link" role="button"><i class="fa fa-fw o_button_icon fa-arrow-right"/> Configure Email Servers</a>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <field name="folder_id" readonly="1" attrs="{'invisible' : [('type', 'in', ['ids'])] }"/>
+                            <field name="tag_ids" readonly="1" groups="base.group_no_one" widget="many2many_tags" attrs="{'invisible' : [('type', 'in', ['ids'])] }"/>
+                        </group>
+                    </group>
+                    <group string="Default values for uploaded documents" attrs="{'invisible' : [('action', 'in', ['download'])] }">
+                        <group>
+                            <field name="owner_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="activity_option"/>
+                        </group>
+                    </group>
+                    <group string="Activity" name="next_activity" autofocus="autofocus" attrs="{'invisible': [('activity_option', '=', False)]}">
+                        <group>
+                            <field name="activity_type_id" options="{'no_create': True, 'no_open': True}" attrs="{'required': [('activity_option', '=', True)]}"/>
+                            <field name="activity_summary" placeholder="e.g. Discuss proposal"/>
+                        </group>
+                        <group>
+                            <label for="activity_date_deadline_range"/>
+                            <div class="o_row">
+                                <field name="activity_date_deadline_range"/>
+                                <field name="activity_date_deadline_range_type"/>
+                            </div>
+                            <field name="activity_user_id"/>
+                        </group>
+                        <field name="activity_note" placeholder="Log a note..."/>
+                    </group>
+                    <field name="document_ids" groups="base.group_no_one" readonly="1"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="share_view_form_popup" model="ir.ui.view">
+        <field name="name">Share Document</field>
+        <field name="model">documents.share</field>
+        <field name="arch" type="xml">
+            <form class="o_share_form">
+                <sheet class="o_share_sheet">
+                    <group class="o_url_group">
+                        <field name="full_url" widget="CopyClipboardChar" readonly="1"/>
+                    </group>
+                    <group>
+                        <group>
+                        <field name="can_upload" invisible="1"/>
+                        <field name="type" groups="base.group_no_one"/>
+                        <field name="name" placeholder="Name of the share link"/>
+                        <field name="action" widget="radio" attrs="{'invisible' : ['|', ('type', 'in', ['ids']), ('can_upload', '=', False)]}"/>
+                        </group>
+                        <group>
+                            <field name="date_deadline" widget="date"/>
+                            <label for="email_drop" attrs="{'invisible' : [('action', 'in', ['download'])] }"/>
+                            <div attrs="{'invisible' : [('action', 'in', ['download'])] }">
+                                <field name="email_drop" class="oe_inline"/>
+                                <div attrs="{'invisible': [('email_drop', '!=', True)]}" class="oe_inline">
+                                    <div name="alias_def" attrs="{'invisible': [('alias_domain', '=', False)]}">
+                                        <field name="alias_id" class="oe_read_only oe_inline" required="0"/>
+                                        <div class="oe_edit_only oe_inline" name="edit_alias" style="display: inline;">
+                                            <field name="alias_name" class="oe_inline"/>@<field name="alias_domain" class="oe_inline" readonly="1"/>
+                                        </div>
+                                    </div>
+                                    <div class="content-group" attrs="{'invisible': [('alias_domain', '!=', False)]}">
+                                        <a type="action" name='%(settings_action)d' class="btn btn-sm btn-link" role="button"><i class="fa fa-fw o_button_icon fa-arrow-right"/> Configure Email Servers</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <field name="folder_id" readonly="1" attrs="{'invisible' : [('type', 'in', ['ids'])], 'required' : [('type', 'in', ['domain'])] }"/>
+                        </group>
+                    </group>
+                    <group string="Default values for uploaded documents" attrs="{'invisible' : [('action', 'in', ['download'])] }">
+                        <group>
+                            <field name="owner_id"/>
+                            <field name="partner_id"/>
+                        </group>
+                        <group>
+                            <field name="tag_ids" widget="many2many_tags" invisible="1"/>
+                            <field name="activity_option"/>
+                        </group>
+                    </group>
+                    <group string="Activity" name="next_activity" autofocus="autofocus" attrs="{'invisible': [('activity_option', '=', False)]}">
+                        <group>
+                            <field name="activity_type_id" options="{'no_create': True, 'no_open': True}" attrs="{'required': [('activity_option', '=', True)]}"/>
+                            <field name="activity_summary" placeholder="e.g. Discuss proposal"/>
+                        </group>
+                        <group>
+                            <label for="activity_date_deadline_range"/>
+                            <div class="o_row">
+                                <field name="activity_date_deadline_range"/>
+                                <field name="activity_date_deadline_range_type"/>
+                            </div>
+                            <field name="activity_user_id"/>
+                        </group>
+                        <field name="activity_note" placeholder="Log a note..."/>
+                    </group>
+                    <field name="document_ids" invisible="1" readonly="1"/>
+                    <footer>
+                        <button special="save" string="Done" class="btn btn-primary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- workflow -->
+
+    <record id="workflow_rule_view_tree" model="ir.ui.view">
+        <field name="name">action tree</field>
+        <field name="model">documents.workflow.rule</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="domain_folder_id"/>
+                <field name="name"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="workflow_rule_form_view" model="ir.ui.view">
+        <field name="name">Rules form</field>
+        <field name="model">documents.workflow.rule</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                      <label for="name" class="oe_edit_only"/>
+                      <h1><field name="name" placeholder="E.g. Validate document"/></h1>
+                      <field name="note" placeholder="Write a tooltip for the action here"/>
+                    </div>
+                        <notebook>
+                            <page string="Actions">
+                                <group>
+                                    <field name="has_business_option" invisible="1"/>
+                                    <group>
+                                        <field name="partner_id"/>
+                                        <field name="user_id"/>
+                                    </group>
+                                    <group>
+                                        <field name="folder_id"/>
+                                        <field name="create_model" attrs="{ 'invisible' : [('has_business_option', '=', False)]}"/>
+                                    </group>
+                                </group>
+                                <group>
+                                    <field name="tag_action_ids">
+                                        <tree editable="bottom">
+                                            <field name="action"/>
+                                            <field name="facet_id"
+                                                   domain="['|',
+                                                       ('folder_id','parent_of', parent.folder_id),
+                                                       ('folder_id', 'parent_of', parent.domain_folder_id)
+                                                   ]"
+                                                   required="1"/>
+                                            <field name="tag_id"
+                                                   context="{'simple_name': True}"
+                                                   domain="[('facet_id','=',facet_id)]"
+                                                   options='{"no_open": True}'/>
+                                        </tree>
+                                    </field>
+                                </group>
+                                <group string="Activities">
+                                    <field name="remove_activities"/>
+                                    <field name="activity_option"/>
+                                </group>
+                                <group name="next_activity" attrs="{'invisible': [('activity_option', '=', False)]}">
+                                    <group>
+                                        <field name="activity_type_id" options="{'no_create': True, 'no_open': True}" attrs="{'required': [('activity_option', '=', True)]}"/>
+                                        <field name="activity_summary" placeholder="e.g. Discuss proposal"/>
+                                    </group>
+                                    <group>
+                                        <label for="activity_date_deadline_range"/>
+                                        <div class="o_row">
+                                            <field name="activity_date_deadline_range"/>
+                                            <field name="activity_date_deadline_range_type"/>
+                                        </div>
+                                        <field name="activity_user_id"/>
+                                    </group>
+                                </group>
+                                <group attrs="{'invisible': [('activity_option', '=', False)]}">
+                                    <field name="activity_note" placeholder="Log a note..."/>
+                                </group>
+                            </page>
+                            <page string="Conditions">
+                                <group>
+                                    <group>
+                                        <field name="domain_folder_id" required="1" groups="base.group_no_one"/>
+                                        <field name="condition_type" widget="radio" groups="base.group_no_one"/>
+                                    </group>
+                                    <group/>
+                                </group>
+                                <field name="domain" string="Domain" nolabel="1" widget="domain" colspan="2" options="{'model':'documents.document'}" attrs="{ 'invisible' : [('condition_type', '=', 'criteria')]}"/>
+                                <group attrs="{ 'invisible' : [('condition_type', '=', 'domain')]}">
+                                    <group string="Tags">
+                                        <field name="required_tag_ids"
+                                               string="Contains"
+                                               widget="many2many_tags"
+                                               domain="[('id','not in', excluded_tag_ids), ('folder_id', '=', domain_folder_id)]"
+                                               options='{"no_open": True, "no_create": True}'
+                                        />
+                                        <field name="excluded_tag_ids"
+                                               string="Does not contain"
+                                               widget="many2many_tags"
+                                               domain="[('id','not in', required_tag_ids), ('folder_id', '=', domain_folder_id)]"
+                                               options='{"no_open": True, "no_create": True}'
+                                        />
+                                    </group>
+                                    <group string="Miscellaneous">
+                                        <field name="criteria_partner_id"/>
+                                        <field name="criteria_owner_id"/>
+                                    </group>
+                                </group>
+                            </page>
+                        </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="workflow_action_view_tree" model="ir.ui.view">
+        <field name="name">action tree</field>
+        <field name="model">documents.workflow.action</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="action"/>
+                <field name="facet_id"/>
+                <field name="tag_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="workflow_action_view_form" model="ir.ui.view">
+        <field name="name">workflow action form</field>
+        <field name="model">documents.workflow.action</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="action"/>
+                        </group>
+                        <div>
+                            <field class="oe_inline" name="facet_id"/>
+                            <field class="oe_inline" name="tag_id"/>
+                        </div>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- tags categories -->
+
+    <record id="facet_view_search" model="ir.ui.view">
+        <field name="name">facet search</field>
+        <field name="model">documents.facet</field>
+        <field name="arch" type="xml">
+        <search>
+            <field name="name"/>
+            <field name="tag_ids"/>
+            <field name="folder_id"/>
+            <group expand="0" string="Group By">
+                <filter string="Workspace" name="group_by_folder" domain="[]" context="{'group_by': 'folder_id'}"/>
+            </group>
+         </search>
+        </field>
+    </record>
+
+    <record id="facet_view_form" model="ir.ui.view">
+        <field name="name">documents facet form view</field>
+        <field name="priority" eval="2"/>
+        <field name="model">documents.facet</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name" placeholder="E.g. Status"/></h1>
+                    </div>
+                    <notebook>
+                        <page string="Tags">
+                            <field name="tag_ids">
+                                <tree editable="bottom">
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="name"/>
+                                    <field name="display_name" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Tooltip">
+                            <field name="tooltip"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+    <record id="facet_view_form_with_folder" model="ir.ui.view">
+        <field name="name">documents facet form view with folder</field>
+        <field name="model">documents.facet</field>
+        <field name="priority" eval="1"/>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="documents.facet_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="after">
+                <group>
+                    <field name="folder_id" required="1"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="facet_view_tree" model="ir.ui.view">
+        <field name="name">tag categories tree</field>
+        <field name="model">documents.facet</field>
+        <field name="arch" type="xml">
+            <tree default_order="sequence">
+                <field name="folder_id"/>
+                <field name="name" string="Category"/>
+                <field name="tag_ids" string="Tags" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- tags -->
+
+    <record id="tag_view_form" model="ir.ui.view">
+        <field name="name">tag form view</field>
+        <field name="model">documents.tag</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1><field name="name"/></h1>
+                    </div>
+                    <group>
+                        <field name="facet_id" string="Category"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="tag_view_search" model="ir.ui.view">
+        <field name="name">tag search</field>
+        <field name="model">documents.tag</field>
+        <field name="arch" type="xml">
+        <search>
+            <field name="name" string="Tag"/>
+            <field name="facet_id"/>
+         </search>
+        </field>
+    </record>
+
+    <!-- config -->
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.documents</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block o_documents_block"
+                     data-string="Documents"
+                     string="Documents"
+                     data-key="documents"
+                     groups="documents.group_documents_manager"
+                     invisible="1">
+                    <h2>Files Centralization</h2>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- partners -->
+
+    <record id="documents_document_res_partner_view" model="ir.ui.view">
+        <field name="name">res.partner.view.documents.document.form</field>
+        <field name="model">res.partner</field>
+        <field name="groups_id" eval="[(4, ref('documents.group_documents_user'))]"/>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_see_documents" type="object" class="oe_stat_button" icon="fa-file-text-o">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field name="document_count"/></span>
+                        <span class="o_stat_text">Documents</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+
+    <!-- actions -->
+
+    <record id="action_url_form" model="ir.actions.act_window">
+        <field name="name">Add Url</field>
+        <field name="res_model">documents.document</field>
+        <field name="view_mode">form</field>
+        <field name="context">{'form_view_ref': 'documents.documents_upload_url_view'}</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="document_action" model="ir.actions.act_window">
+      <field name="name">Documents</field>
+      <field name="res_model">documents.document</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="domain">[]</field>
+      <field name="view_ids" eval="[(5, 0, 0),
+        (0, 0, {'view_mode': 'kanban', 'view_id': ref('documents.document_view_kanban')}),
+        (0, 0, {'view_mode': 'tree', 'view_id': False}),
+        (0, 0, {'view_mode': 'form', 'view_id': ref('documents.document_view_form')})]"/>
+      <field name="help" type="html">
+        <p class="o_view_nocontent_smiling_face">Upload <span class="font-weight-normal">a file or</span> drag <span class="font-weight-normal">it here.</span></p>
+      </field>
+    </record>
+
+    <record id="workflow_rule_action" model="ir.actions.act_window">
+      <field name="name">Workflow Actions</field>
+      <field name="res_model">documents.workflow.rule</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="facet_action" model="ir.actions.act_window">
+      <field name="name">Tags</field>
+      <field name="res_model">documents.facet</field>
+      <field name="context">{'simple_name': True}</field>
+      <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('documents.facet_view_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('documents.facet_view_form_with_folder')})]"/>
+    </record>
+
+
+    <record id="share_action" model="ir.actions.act_window">
+      <field name="name">Share links</field>
+      <field name="res_model">documents.share</field>
+      <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': False}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('documents.share_view_form')})]"/>
+    </record>
+
+    <record id="folder_action" model="ir.actions.act_window">
+      <field name="name">Workspaces</field>
+      <field name="res_model">documents.folder</field>
+      <field name="view_mode">tree,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('documents.folder_view_tree')}),
+            (0, 0, {'view_mode': 'form', 'view_id': False})]"/>
+    </record>
+
+    <record id="configuration_action" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module': 'documents'}</field>
+    </record>
+
+    <!-- Top menu / dashboard icon -->
+
+    <menuitem name="Documents" id="documents.menu_root" groups="documents.group_documents_user" web_icon="documents,static/description/icon.png"/>
+
+    <!-- Top bar menus -->
+
+        <menuitem name="Documents" id="documents.dashboard" parent="documents.menu_root" action="document_action" groups="documents.group_documents_user" sequence="0"/>
+        <menuitem name="Configuration" id="documents.Config" parent="documents.menu_root" sequence="1"/>
+
+            <menuitem name="Settings" id="documents.settings_menu" parent="documents.Config" action="configuration_action" groups="base.group_system" sequence="0"/>
+            <menuitem name="Workspaces" id="documents.folder_menu" parent="documents.Config" action="folder_action" groups="documents.group_documents_manager" sequence="1"/>
+            <menuitem name="Tags" id="documents.category_menu" parent="documents.Config" action="facet_action" sequence="2"/>
+            <menuitem name="Actions" id="documents.workflow_rules_menu" parent="documents.Config" groups="base.group_no_one" action="workflow_rule_action" sequence="3"/>
+            <menuitem name="Shared Links" id="documents.share_menu" parent="documents.Config" action="share_action" sequence="4"/>
+
+</odoo>

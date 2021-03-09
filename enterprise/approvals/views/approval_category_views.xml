@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="approval_category_action_new_request" model="ir.actions.act_window">
+        <field name="name">Dashboard</field>
+        <field name="res_model">approval.category</field>
+        <field name="view_mode">kanban</field>
+    </record>
+
+    <record id="approval_category_action" model="ir.actions.act_window">
+        <field name="name">Approvals Types</field>
+        <field name="res_model">approval.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="approval_request_action_to_review_category" model="ir.actions.act_window">
+        <field name="name">Approvals to review</field>
+        <field name="res_model">approval.request</field>
+        <field name="view_mode">tree,form,kanban</field>
+        <field name="domain">[('approver_ids.user_id', '=', uid), ('request_status', '=', 'pending'), ('category_id', '=', active_id)]</field>
+    </record>
+
+    <record id="approval_category_view_tree" model="ir.ui.view">
+        <field name="name">approval.category.view.tree</field>
+        <field name="model">approval.category</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="approval_category_view_form" model="ir.ui.view">
+        <field name="name">approval.category.view.form</field>
+        <field name="model">approval.category</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="image" widget="image" class="oe_avatar" options='{"preview_image": "image", "size": [80, 80]}'/>
+                    <div class="oe_title">
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name" placeholder="Approvals Type Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="description"/>
+                    </group>
+                    <notebook>
+                        <page string="Options" name="options">
+                            <group>
+                                <group string="Fields" name="option_settings">
+                                    <field name="active" invisible="1"/>
+                                    <field name="requirer_document" string="Document" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_partner" string="Contact" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_date" string="Date" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_period" string="Period" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_item" string="Items" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_quantity" string="Quantity" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_amount" string="Amount" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_reference" string="Reference" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_payment_method" string="Payment" widget="radio" options="{'horizontal': true}"/>
+                                    <field name="has_location" string="Location" widget="radio" options="{'horizontal': true}"/>
+                                </group>
+                                <group string="Approvers" name="approvers">
+                                    <field name="is_manager_approver"/>
+                                    <field name="user_ids" widget="many2many_tags">
+                                    </field>
+                                    <field name="approval_minimum"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="approval_category_view_kanban" model="ir.ui.view">
+        <field name="name">approval.category.views.kanban</field>
+        <field name="model">approval.category</field>
+        <field name="arch" type="xml">
+            <kanban create="false" class="o_modules_kanban">
+                <field name="name"/>
+                <field name="id"/>
+                <field name="image"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_module_vignette">
+                            <t t-if="record.id">
+                                <img t-att-src="kanban_image('approval.category', 'image', record.id.raw_value)" alt="Approvals Types Image"
+                                    class="oe_kanban_avatar float-left mr-3" width="64" height="64"/>
+                            </t>
+                            <div class="oe_module_desc">
+                                <h4 class="o_kanban_record_title">
+                                    <field name="name"/>
+                                </h4>
+                                <p class="oe_module_name">
+                                    <field name="description"/>
+                                </p>
+                                <div class="oe_module_action" t-if="!selection_mode">
+                                    <button type="object" class="btn btn-primary btn-sm" name="create_request" context="{'category_id':'active_id'}">New Request</button>
+                                    <button type="action" class="btn btn-sm btn-secondary float-right" name="%(approvals.approval_request_action_to_review_category)d" groups="approvals.group_approval_user">To Review: <field name="request_to_validate_count"/></button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>

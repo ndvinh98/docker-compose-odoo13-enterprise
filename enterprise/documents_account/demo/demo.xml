@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <record id="mail_documents_activity_data_md" model="mail.activity.type">
+            <field name="name">Reconciliation request</field>
+            <field name="category">upload_file</field>
+            <field name="folder_id" ref="documents.documents_finance_folder"/>
+            <field name="tag_ids" eval="[(6, 0, [ref('documents.documents_finance_status_tc')])]"/>
+        </record>
+
+    </data>
+</odoo>

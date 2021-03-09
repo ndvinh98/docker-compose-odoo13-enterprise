@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="assets_backend" name="account online sync assets" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript" src="/account_online_sync/static/src/js/online_sync.js"/>
+        <link rel="stylesheet" type="text/scss" href="/account_online_sync/static/src/scss/online_sync.scss"/>
+      </xpath>
+    </template>
+
+    <record id="online_provider_account_form_view" model="ir.ui.view">
+      <field name="name">account.online.provider.form.view</field>
+      <field name="model">account.online.provider</field>
+      <field name="arch" type="xml">
+        <form create="false">
+          <header>
+            <button name="manual_sync" type="object" string="Manual Refresh" class="oe_highlight"/>
+            <button name="update_credentials" type="object" string="Update Credentials"/>
+          </header>
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="provider_account_identifier"/>
+                <field name="provider_identifier"/>
+                <field name="provider_type"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+              </group>
+              <group>
+                <field name="status"/>
+                <field name="last_refresh"/>
+                <field name="next_refresh"/>
+              </group>
+            </group>
+            <notebook>
+              <page string="Bank Accounts">
+                <field name="account_online_journal_ids" nolabel="1" widget="one2many" mode="tree">
+                  <tree string="Bank Accounts" create="false" editable="bottom">
+                    <field name="name"/>
+                    <field name="account_number"/>
+                    <field name="journal_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                    <field name="balance"/>
+                    <field name="last_sync" groups="base.group_no_one"/>
+                  </tree>
+                </field>
+              </page>
+              <page string="Additional information">
+                <group>
+                  <field name="status_code"/>
+                  <field name="message" groups="base.group_no_one"/>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <record id="online_provider_account_list_view" model="ir.ui.view">
+      <field name="name">account.online.provider.list.view</field>
+      <field name="model">account.online.provider</field>
+      <field name="arch" type="xml">
+        <tree create="false" edit="false">
+          <field name="name"/>
+          <field name="status"/>
+          <field name="last_refresh"/>
+          <field name="next_refresh"/>
+          <field name="company_id" groups="base.group_multi_company"/>
+        </tree>
+      </field>
+    </record>
+
+    <record id="action_online_provider_account" model="ir.actions.act_window">
+        <field name="name">Online Institution Accounts</field>
+        <field name="res_model">account.online.provider</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="online_provider_account_list_view"/>
+        <field name="help">List of bank(s) providing online synchronization</field>
+    </record>
+
+    <record id="view_account_online_wizard_form" model="ir.ui.view">
+        <field name="name">account.online.wizard.form</field>
+        <field name="model">account.online.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Online Synchronization">
+                <field name="number_added" invisible="1"/>
+                <field name="status" invisible="1"/>
+                <field name="method" invisible="1"/>
+                <field name="hide_table" invisible="1"/>
+                <!-- Failed synchronization message -->
+                <div attrs="{'invisible': [('status', '!=', 'failed')]}">
+                  <div class="alert alert-danger" role="alert">
+                    <p><strong>Ooops</strong> We could not <field name="method"/> your account because of the following
+                    error during the process:</p>
+                    <br/>
+                    <h4><field name="message"/></h4>
+                  </div>
+                </div>
+                <!-- Action abandonned message -->
+                <div attrs="{'invisible': [('status', '!=', 'cancelled')]}">
+                  <div class="alert alert-warning" role="alert">
+                    <p><strong>Ooops</strong> It would seems that the process to <field name="method"/> your account was not
+                    thoroughly completed. You can try to manually update your account by clicking the refresh button on the dashboard
+                    or in the online synchronization menu.</p>
+                  </div>
+                </div>
+                <!-- Action success message -->
+                <div attrs="{'invisible': [('status', '!=', 'success')]}">
+                  <div class="alert alert-success" role="status">
+                    <p attrs="{'invisible': [('method', '!=', 'add')]}"><strong>Well done!</strong></p>
+                    <p attrs="{'invisible': [('method', '!=', 'edit')]}"><strong>Success!</strong> Your account has been succesfully updated.</p>
+                    <p attrs="{'invisible': [('method', '!=', 'refresh')]}"><strong>Success!</strong> Your account has been succesfully refreshed.</p>
+                    <p attrs="{'invisible': ['|', ('number_added', '=', 0), ('hide_table', '=', True)]}"><strong><field name="number_added"/></strong> bank accounts have been found.<br/>To finalize, please associate each bank account with an accounting journal and choose the synchronization frequency <span title="The first synchronization collects all transactions in a unique bank statement"> <i class="fa fa-info-circle" aria-label="0"/></span></p>
+                    <field name="transactions" attrs="{'invisible': [('method', '=', 'add')]}"/>
+                  </div>
+                  <!-- Show transactions that have been loaded -->
+                  <!-- Show table to link journal only if there are some present -->
+                  <div attrs="{'invisible': [('number_added', '=', 0)]}">
+                    <group>
+                      <group>
+                        <field name="sync_date"/>
+                      </group>
+                      <group>
+                      </group>
+                    </group>
+                    <field name="account_ids" nolabel="1" widget="one2many" mode="tree" attrs="{'invisible': [('hide_table', '=', True)]}">
+                      <tree create="false" editable="true">
+                        <field name="account_number"/>
+                        <field name="name"/>
+                        <field name="balance"/>
+                        <field name="action" required="1"/>
+                        <field name="journal_id" attrs="{'readonly': [('action', '!=', 'link')], 'required': [('action', '=', 'link')]}"/>
+                        <field name="journal_statements_creation" attrs="{'readonly': [('action', '=', 'drop')]}"/>
+                      </tree>
+                    </field>
+                  </div>
+                </div>
+                <footer>
+                    <button string="Done" class="btn-primary" type="object" name="open_accounting_dashboard" attrs="{'invisible': [('number_added', '!=', 0)]}"/>
+                    <button string="Synchronize now" name="sync_now" type="object" class="btn-primary" attrs="{'invisible': ['|', ('number_added', '=', 0), ('status', '!=', 'success')]}"/>
+                    <button string="Cancel" class="btn-secondary" type="object" name="open_accounting_dashboard"/>
+                </footer>
+           </form>
+        </field>
+    </record>
+
+    <record id="action_account_online_wizard_form" model="ir.actions.act_window">
+        <field name="name">Synchronization result</field>
+        <field name="res_model">account.online.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_account_online_wizard_form"/>
+        <field name="target">new</field>
+    </record>
+
+    <record id="account_journal_dashboard_inherit_online_sync" model="ir.ui.view">
+      <field name="name">account.journal.dashboard.inherit.online.sync</field>
+      <field name="model">account.journal</field>
+      <field name="inherit_id" ref="account.account_journal_dashboard_kanban_view"/>
+      <field name="arch" type="xml">
+        <field name="kanban_dashboard" position="after">
+          <field name="next_synchronization"/>
+          <field name="account_online_journal_id"/>
+          <field name="synchronization_status"/>
+        </field>
+
+        <xpath expr='//div[@name="bank_journal_cta"]' position='inside'>
+          <t t-if="dashboard.bank_statements_source == 'online_sync'">
+            <t t-if="record.synchronization_status.value != 'FAILED'">
+              <a attrs="{'invisible': [('account_online_journal_id', '=', False)]}" type="object" name="manual_sync" class="oe_inline" groups="account.group_account_user">Synchronize now</a>
+            </t>
+            <button t-if="dashboard.number_to_reconcile == 0" attrs="{'invisible': [('account_online_journal_id', '!=', False)]}" type="object" name="action_choose_institution" class="btn btn-primary">Online Synchronization</button>
+            <a t-if="dashboard.number_to_reconcile > 0" attrs="{'invisible': [('account_online_journal_id', '!=', False)]}" type="object" name="action_choose_institution" class="oe_inline">Online Synchronization</a>
+          </t>
+
+          <t t-if="record.synchronization_status.value == 'SUCCESS'">
+            <span class="text-muted" t-if="(record.account_online_journal_id.value != '')" t-att-title="record.next_synchronization.value">Next sync: <t t-esc="record.next_synchronization.value"/></span>
+          </t>
+          <t t-if="record.synchronization_status.value == 'FAILED'">
+            <span class="text-muted" t-if="(record.account_online_journal_id.value != '')">Problem during synchronization</span>
+            <a type="action" name="%(action_online_provider_account)d" class="oe_inline">View problem</a>
+          </t>
+        </xpath>
+      </field>
+    </record>
+
+     <record id="account_journal_form_inherit_online_sync" model="ir.ui.view">
+      <field name="name">account.journal.form.inherit.online.sync</field>
+      <field name="model">account.journal</field>
+      <field name="inherit_id" ref="account.view_account_journal_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='bank_statements_source']" position="after">
+          <field name="account_online_journal_id" invisible="1"/>
+          <field name="bank_statement_creation" attrs="{'invisible': [('account_online_journal_id', '=', False)]}" string="Synchronization Frequency"/>
+        </xpath>
+      </field>
+    </record>
+
+    <menuitem
+            name="Online Synchronization"
+            parent="account.account_account_menu"
+            action="action_online_provider_account"
+            id="menu_action_online_provider_account"
+            sequence="9"
+            groups="base.group_no_one"/>
+
+    <!-- Cron to synchronize transaction -->
+    <record id="online_sync_cron" model="ir.cron">
+      <field name="name">Account: Journal online sync</field>
+      <field name="model_id" ref="account.model_account_journal"/>
+      <field name="state">code</field>
+      <field name="code">model.cron_fetch_online_transactions()</field>
+      <field name="user_id" ref="base.user_root"/>
+      <field name="interval_number">4</field>
+      <field name="interval_type">hours</field>
+      <field name="numbercall">-1</field>
+      <field name="doall" eval="False"/>
+    </record>
+
+  </data>
+</odoo>

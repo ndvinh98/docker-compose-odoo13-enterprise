@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record model="ir.rule" id="account_online_sync_provider_rule">
+        <field name="name">Account online provider company rule</field>
+        <field name="model_id" ref="model_account_online_provider"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('company_id', 'in', company_ids)]</field>
+    </record>
+    <record model="ir.rule" id="account_online_sync_journal_rule">
+        <field name="name">Account online journal company rule</field>
+        <field name="model_id" ref="model_account_online_journal"/>
+        <field name="global" eval="True"/>
+        <field name="domain_force">[('account_online_provider_id.company_id','in', company_ids)]</field>
+    </record>
+</odoo>

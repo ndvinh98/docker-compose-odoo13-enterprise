@@ -1,0 +1,88 @@
+@include media-breakpoint-down(sm) {
+    .o_documents_kanban {
+        details.o_documents_mobile_inspector {
+            > summary {
+                @include o-details-hide-caret();
+                position: fixed;
+                right: 0;
+                top: initial;
+                bottom: 0;
+                left: 0;
+                z-index: $zindex-fixed;
+            }
+
+            .o_documents_inspector,
+            .o_documents_close_inspector {
+                display: none;
+            }
+
+            @keyframes o_documents_sweepup {
+                0%    {opacity: 0; top: 25%}
+                100%  {opacity: 1; top: 0}
+            }
+
+            &[open] {
+                @include o-details-modal();
+                padding-top: $o-navbar-height !important;
+                overflow: auto;
+                background-color: $o-dms-inspector-bg;
+                animation: o_documents_sweepup 0.3s ease-in-out;
+
+                > summary {
+                    @include o-details-modal($bottom: initial);
+                    @include o-details-modal-header();
+                    pointer-events: none;
+
+                    &.btn-primary {
+                        &, &:hover, &:active, &:focus, &:active:focus {
+                            box-shadow: none;
+                            background-color: $o-dms-inspector-bg-darker;
+                            border-color: $o-dms-inspector-bg-darker;
+                        }
+                    }
+
+                    .o_documents_close_inspector {
+                        display: initial;
+                        pointer-events: initial;
+                    }
+                }
+
+                .o_documents_inspector {
+                    display: block;
+                }
+            }
+        }
+
+        @keyframes o_documents_sweepright {
+            0%    {opacity: 0; left: 25%}
+            100%  {opacity: 1; left: 0}
+        }
+
+        &.o_chatter_open .o_document_chatter {
+            @include o-details-modal();
+            box-shadow: none;
+            animation: o_documents_sweepright 0.3s ease-in-out;
+
+            .o_document_close_chatter {
+                @include o-details-modal($bottom: initial);
+                @include o-details-modal-header();
+                width: auto;
+                padding: 1rem 1.4rem;
+                border-radius: 0;
+                font-size: 2.6rem;
+                font-weight: 300;
+                line-height: 1.8rem;
+                text-align: right !important;
+
+            }
+
+            .o_chatter_topbar .o_topbar_right_area {
+                margin-right: initial;
+            }
+
+            .o_chatter {
+                padding-top: $o-navbar-height !important;
+            }
+        }
+    }
+}

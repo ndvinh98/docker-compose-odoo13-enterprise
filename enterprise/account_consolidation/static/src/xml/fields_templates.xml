@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+    <t t-name="JsonKeyValueField">
+        <div class="text-right col-5">
+            <div t-foreach="field_values" t-as="field_value">
+                <strong class="col-md" t-esc="field_value[0]"/>
+            </div>
+        </div>
+        <div class="text-right col-7">
+            <div t-foreach="field_values" t-as="field_value" t-esc="field_value[1]"/>
+        </div>
+    </t>
+    <t t-name="DashboardUnmappedAccount">
+        <div class="text-right col-5 p-0 pr-3">
+            <t t-foreach="field_values" t-as="field_value">
+                <div><t t-esc="field_value[1]"/></div>
+            </t>
+        </div>
+        <div class="text-right col-7 p-0 pr-3">
+            <t t-foreach="field_values" t-as="field_value">
+                <a class="d-block js_unmapped_account" href="#" data-type="object" data-name="action_open_mapping" t-att-data-company-id="field_value[0]">
+                    <span>
+                        <t t-esc="field_value[2]"/> unmapped accounts
+                    </span>
+                </a>
+            </t>
+        </div>
+    </t>
+</templates>

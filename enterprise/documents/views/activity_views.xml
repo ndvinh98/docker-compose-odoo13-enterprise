@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record id="documents.mail_activity_type_view_form" model="ir.ui.view">
+        <field name="name">mail.activity.type.form.inherit.documents</field>
+        <field name="model">mail.activity.type</field>
+        <field name="inherit_id" ref="mail.mail_activity_type_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category']" position="after">
+                <field name="folder_id" attrs="{'invisible': [('category', '!=', 'upload_file')]}"/>
+                <field name="tag_ids" domain="[('folder_id', 'child_of', folder_id)]" widget="many2many_tags" attrs="{'invisible': [('category', '!=', 'upload_file')]}"/>
+            </xpath>
+            <xpath expr="//field[@name='force_next']" position="attributes">
+                <attribute name="attrs">{'invisible': [('folder_id', '=', True)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

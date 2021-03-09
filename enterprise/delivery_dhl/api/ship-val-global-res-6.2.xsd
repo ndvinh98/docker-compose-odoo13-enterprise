@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.dhl.com" xmlns:dhl="http://www.dhl.com/datatypes_global" targetNamespace="http://www.dhl.com" elementFormDefault="unqualified">
+	<xsd:import namespace="http://www.dhl.com/datatypes_global" schemaLocation="datatypes_global_v62.xsd"/>
+	<xsd:element name="ShipmentResponse">
+		<xsd:annotation>
+			<xsd:documentation>Shipment Validation Global response root element</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="Response" type="dhl:Response"/>
+				<xsd:element name="RegionCode" type="dhl:RegionCode"/>
+				<xsd:element name="Note" type="dhl:Note"/>
+				<xsd:element name="AirwayBillNumber" type="dhl:AWBNumber"/>
+				<xsd:element name="DHLInvoiceLanguageCode" type="dhl:InvLanguageCode" minOccurs="0" />
+				<xsd:element name="DHLInvoiceType" type="dhl:InvoiceType" minOccurs="0" />
+				<xsd:element name="BillingCode" type="dhl:BillCode"/>
+				<xsd:element name="CurrencyCode" type="dhl:CurrencyCode"/>
+				<xsd:element name="CourierMessage" type="dhl:CourierMsg" minOccurs="0"/>
+				<xsd:element name="DestinationServiceArea" type="dhl:DestinationServiceArea"/>
+				<xsd:element name="OriginServiceArea" type="dhl:OriginServiceArea"/>
+				<xsd:element name="PackageCharge" type="dhl:Money" minOccurs="0"/>
+				<xsd:element name="Rated" type="dhl:YesNo"/>
+				<xsd:element name="ShippingCharge" type="dhl:Money" minOccurs="0"/>
+				<xsd:element name="InsuredAmount" type="dhl:Money" minOccurs="0"/>
+				<xsd:element name="ShipmentCharges" type="dhl:ShipmentCharges" minOccurs="0"/>
+				<xsd:element name="WeightUnit">
+					<xsd:simpleType>
+						<xsd:restriction base="xsd:string">
+							<xsd:minLength value="0"/>
+							<xsd:maxLength value="1"/>
+						</xsd:restriction>
+					</xsd:simpleType>
+				</xsd:element>
+				<xsd:element name="ChargeableWeight" type="dhl:Weight" minOccurs="0"/>
+				<xsd:element name="DimensionalWeight" type="dhl:Weight" minOccurs="0"/>
+				<xsd:element name="ReadyByTime" type="dhl:TimeHM" minOccurs="0"/>
+				<xsd:element name="PickupCharge" type="dhl:Money" minOccurs="0"/>
+				<xsd:element name="CallInTime" type="dhl:TimeHM" minOccurs="0"/>
+				<xsd:element name="DaysAdvanceNotice" type="dhl:AdvanceDaysNotice" minOccurs="0"/>
+				<xsd:element name="ConversionRate" type="dhl:Money" minOccurs="0"/>
+				<xsd:element name="CountryCode" type="dhl:CountryCode"/>
+				<xsd:element name="Barcodes">
+					<xsd:complexType>
+						<xsd:sequence>
+							<xsd:element name="AWBBarCode" type="dhl:BarCode"/>
+							<xsd:element name="OriginDestnBarcode" type="dhl:BarCode"/>
+							<xsd:element name="ClientIDBarCode" type="dhl:BarCode" minOccurs="0"/>
+							<xsd:element name="BarCode2D" type="dhl:BarCode" minOccurs="0" maxOccurs="1"/>
+							<xsd:element name="DHLRoutingBarCode" type="dhl:BarCode" minOccurs="0" maxOccurs="1"/>
+						</xsd:sequence>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="Piece" type="xsd:positiveInteger">
+					<xsd:annotation>
+						<xsd:documentation>no of pieces contained in shipment</xsd:documentation>
+					</xsd:annotation>
+				</xsd:element>
+				<xsd:element name="Contents" type="xsd:string" />
+				<xsd:element name="Reference" type="dhl:Reference" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="Consignee" type="dhl:Consignee"/>
+				<xsd:element name="Shipper" type="dhl:Shipper"/>
+				<xsd:element name="AccountNumber" type="dhl:AccountNumber" minOccurs="0"/>
+				<xsd:element name="CustomerID" type="xsd:string"/>
+				<xsd:element name="ShipmentDate" type="dhl:Date"/>
+				<xsd:element name="GlobalProductCode" type="dhl:GlobalProductCode"/>
+				<xsd:element name="CustData" type="dhl:CustData" minOccurs="0"/>
+				<xsd:element name="SpecialService" type="dhl:SpecialService" minOccurs="0" maxOccurs="5"/>
+				<xsd:element name="Billing" type="dhl:Billing" minOccurs="0"/>
+				<xsd:element name="Dutiable" type="dhl:Dutiable" minOccurs="0"/>
+				<xsd:element name="ExportDeclaration" type="dhl:ExportDeclaration" minOccurs="0"/>
+				<xsd:element name="NewShipper" type="dhl:YesNo" minOccurs="0"/>
+				<xsd:element name="DHLRoutingCode" type="dhl:DHLRoutingCode" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="DHLRoutingDataId" type="dhl:DHLRoutingCode" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="ProductContentCode" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="ProductShortName" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="InternalServiceCode" type="dhl:InternalServiceCode" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="DeliveryDateCode" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="DeliveryTimeCode" type="xsd:string" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="Pieces" type="dhl:ShipValResponsePieces" minOccurs="0" maxOccurs="1"/>
+				<xsd:element name="PLTStatus" type="dhl:PLTStatus" minOccurs="0"/>
+				<xsd:element name="QtdSInAdCur" type="dhl:QtdSInAdCur" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="LabelImage" type="dhl:LabelImage" minOccurs="0" maxOccurs="unbounded"/>
+				<xsd:element name="ODDURLLink" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="DGs" type="dhl:DGs" minOccurs="0"/>
+				<xsd:element name="Label" type="dhl:Label" minOccurs="0"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

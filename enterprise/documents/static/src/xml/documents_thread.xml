@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+     <t t-name="DocumentsDocumentViewer" t-extend="DocumentViewer">
+        <t t-jquery=".o_document_viewer_content_call" t-operation="attributes">
+            <attribute name="t-call" value="DocumentViewer.ContentWithPdfSplit" />
+        </t>
+     </t>
+
+    <t t-name="DocumentViewer.ContentWithPdfSplit" t-extend="DocumentViewer.Content">
+        <t t-jquery=".o_image_caption" t-operation="after">
+
+            <span t-if="widget.activeAttachment.fileType == 'application/pdf'" class="o_documents_split_pdf_area">
+                <label for="Indices">Extract pages:&amp;nbsp;</label><input class="o_documents_page_number_input" name="Indices" placeholder="e.g. 1-5, 7, 8-9"/>
+                <label for="remainder">All pages:&amp;nbsp;</label><input class="o_documents_remainder_input" type="checkbox" name="remainder" value="remainder"/>
+                <button class="btn btn-sm btn-primary o_documents_split_btn" data-toggle="tooltip" title="Split">Split</button>
+            </span>
+        </t>
+    </t>
+
+</templates>

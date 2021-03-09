@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ONBOARDING STEPS -->
+    <template id="consolidation_step">
+        <t t-call="base.onboarding_step">
+            <t t-set="title">The Scope of Consolidation</t>
+            <t t-set="description">Define the companies that should be consolidated &amp; the target currency</t>
+            <t t-set="btn_text">Define</t>
+            <t t-set="done_text">Scope of Consolidation defined !</t>
+            <t t-set="method" t-value="'setting_consolidation_action'"/>
+            <t t-set="model" t-value="'consolidation.chart'"/>
+            <t t-set="state" t-value="state.get('consolidation_setup_consolidation_state')"/>
+        </t>
+    </template>
+    <template id="chart_of_account_step">
+        <t t-call="base.onboarding_step">
+            <t t-set="title">Chart of Accounts</t>
+            <t t-set="description">Setup your consolidated accounts and their currency conversion method.
+                Then map them with the companies accounts.
+            </t>
+            <t t-set="btn_text">Setup</t>
+            <t t-set="done_text">Chart of account set !</t>
+            <t t-set="method" t-value="'setting_consolidated_chart_of_accounts_action'"/>
+            <t t-set="model" t-value="'consolidation.chart'"/>
+            <t t-set="state" t-value="state.get('consolidation_setup_ccoa_state')"/>
+        </t>
+    </template>
+    <template id="create_period_step">
+        <t t-call="base.onboarding_step">
+            <t t-set="title">Analysis period</t>
+            <t t-set="description">Create your first analysis period &amp; set the currency rates.</t>
+            <t t-set="btn_text">Create</t>
+            <t t-set="done_text">Analysis period created !</t>
+            <t t-set="method" t-value="'setting_create_period_action'"/>
+            <t t-set="model" t-value="'consolidation.chart'"/>
+            <t t-set="state" t-value="state.get('consolidation_create_period_state')"/>
+        </t>
+    </template>
+    <!-- ONBOARDING PANELS -->
+    <template id="account_consolidation_dashboard_onboarding_panel"
+              name="account_consolidation.dashboard.onboarding.panel">
+        <t t-call="base.onboarding_container">
+            <t t-set="classes" t-value="'o_onboarding_orange'"/>
+            <t t-set="bg_image" t-value="'/account/static/src/img/account_dashboard_onboarding_bg.jpg'"/>
+            <t t-set="close_method" t-value="'action_close_account_dashboard_onboarding'"/>
+            <t t-set="close_model" t-value="'res.company'"/>
+
+            <t t-call="account_consolidation.consolidation_step" name="consolidation_step"/>
+            <t t-call="account_consolidation.chart_of_account_step" name="chart_of_account_step"/>
+            <t t-call="account_consolidation.create_period_step" name="create_period_step"/>
+        </t>
+    </template>
+</odoo>

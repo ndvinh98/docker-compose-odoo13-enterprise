@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record model="ir.actions.server" id="action_account_create_batch_payment">
+            <field name="name">Create batch payment</field>
+            <field name="model_id" ref="account.model_account_payment"/>
+            <field name="binding_model_id" ref="account.model_account_payment"/>
+            <field name="binding_view_types">list</field>
+            <field name="state">code</field>
+            <field name="code">
+if records:
+    action = records.create_batch_payment()
+            </field>
+        </record>
+
+        <record id="view_batch_payment_form" model="ir.ui.view">
+            <field name="name">account.batch.payment.form</field>
+            <field name="model">account.batch.payment</field>
+            <field name="arch" type="xml">
+                <form string="Batch Payment">
+                <header>
+                    <field name="id" invisible="1"/>
+                    <field name="file_generation_enabled" invisible="1"/>
+                    <button name="print_batch_payment" string="Print" type="object" attrs="{'invisible': [('state', '!=', 'sent')]}"/>
+                    <button name="export_batch_payment" string="re-Generate Export File" type="object" attrs="{'invisible': ['|', ('file_generation_enabled', '=', False), ('state', '!=', 'sent')]}"/>
+                    <button name="validate_batch" class="oe_highlight" string="Validate" type="object" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="batch_type"/>
+                            <field name="journal_id" domain="[('type', '=', 'bank')]" widget="selection"/>
+                            <field name="currency_id" invisible="1"/>
+                            <field name="available_payment_method_ids" invisible="1"/>
+                            <field name="payment_method_id" domain="[('id','in',available_payment_method_ids)]"/>
+                        </group><group>
+                            <field name="date"/>
+                            <field name="name" placeholder="auto ..." required="0"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Batch Content">
+                            <field name="payment_ids"
+                                   widget="many2many"
+                                   domain="[('batch_payment_id', '=', False), ('state', 'not in', ['reconciled', 'draft', 'cancelled']), ('payment_method_id', '=', payment_method_id), ('journal_id', '=', journal_id), ('payment_type','=',batch_type)]"
+                                   context="{'default_payment_type': batch_type, 'default_journal_id': journal_id, 'default_payment_method_id': payment_method_id}">
+                                <tree string="Payments">
+                                    <field name="name"/>
+                                    <field name="payment_date"/>
+                                    <field name="partner_id"/>
+                                    <field name="communication"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                                <form string="Register Payment"><group>
+                                    <group>
+                                        <field name="company_id" invisible="1"/>
+                                        <field name="payment_type" invisible="1"/>
+                                        <field name="journal_id" invisible="1"/>
+                                        <field name="payment_method_id" invisible="1"/>
+                                        <field name="state" invisible="1"/>
+
+                                        <field name="partner_type" widget="selection" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        <field name="partner_id" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        <label for="amount"/>
+                                        <div>
+                                            <field name="amount" class="oe_inline" required="1" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                            <field name="currency_id" options="{'no_create': True}" groups="base.group_multi_currency" class="oe_inline" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        </div>
+                                    </group>
+                                    <group>
+                                        <field name="payment_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        <field name="communication" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                                        <field name="partner_bank_account_id" attrs="{'invisible': [('show_partner_bank_account', '!=', True)], 'required': [('show_partner_bank_account', '=', True)]}" context="{'default_partner_id': partner_id}"/>
+                                        <field name="show_partner_bank_account" invisible="1"/>
+                                    </group>
+                                </group></form>
+                            </field>
+                        </page>
+
+                        <page string="Exported File" attrs="{'invisible': [('export_file','=', False)]}">
+                            <group>
+                                <field name="export_file_create_date"/>
+                                <field name="export_filename" invisible="1"/>
+                                <field name="export_file" filename="export_filename"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_batch_payment_search" model="ir.ui.view">
+            <field name="name">account.batch.payment.search</field>
+            <field name="model">account.batch.payment</field>
+            <field name="arch" type="xml">
+                <search string="Batch Payment">
+                    <field name="journal_id" />
+                    <filter string="Unreconciled" domain="[('state','!=','reconciled')]" name="open"/>
+
+                    <group expand="0" string="Group By">
+                        <filter name="group_by_journal_id" string="Bank Journal" context="{'group_by':'journal_id'}"/>
+                        <filter name="group_by_state" string="State" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_batch_payment_tree" model="ir.ui.view">
+            <field name="name">account.batch.payment.tree</field>
+            <field name="model">account.batch.payment</field>
+            <field name="arch" type="xml">
+                <tree decoration-muted="state == 'reconciled'" decoration-info="state == 'draft'">
+                    <field name="name"/>
+                    <field name="journal_id"/>
+                    <field name="date"/>
+                    <field name="amount"/>
+                    <field name="state"/>
+                    <field name="currency_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_batch_payment_in" model="ir.actions.act_window">
+            <field name="name">Batch Payments</field>
+            <field name="res_model">account.batch.payment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_batch_payment_tree"/>
+            <field name="search_view_id" ref="view_batch_payment_search"/>
+            <field name="domain" eval="[('batch_type', '=', 'inbound')]"/>
+            <field name="context">{'search_default_open': 1, 'default_batch_type': 'inbound'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new customer batch payment
+                </p><p>
+                    Batch payments allow you grouping different payments to ease
+                    reconciliation. They are also useful when depositing checks
+                    to the bank.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_batch_payment_out" model="ir.actions.act_window">
+            <field name="name">Batch Payments</field>
+            <field name="res_model">account.batch.payment</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_batch_payment_tree"/>
+            <field name="search_view_id" ref="view_batch_payment_search"/>
+            <field name="domain" eval="[('batch_type', '=', 'outbound')]"/>
+            <field name="context">{'search_default_open': 1, 'default_batch_type': 'outbound'}</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new vendor batch payment
+                </p><p>
+                    Batch payments allow you grouping different payments to ease
+                    reconciliation. They are also useful when depositing checks
+                    to the bank.
+                </p>
+            </field>
+        </record>
+
+        <menuitem action="action_batch_payment_in" id="menu_batch_payment_sales" parent="account.menu_finance_receivables" sequence="18" groups="account.group_account_user"/>
+        <menuitem action="action_batch_payment_out" id="menu_batch_payment_purchases" parent="account.menu_finance_payables" sequence="21" groups="account.group_account_user"/>
+
+</odoo>

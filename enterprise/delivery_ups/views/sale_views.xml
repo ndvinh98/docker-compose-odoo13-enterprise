@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_order_form_inherit_delivery_ups" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.delivery.ups</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="ups_bill_my_account" invisible="1"/>
+                <field name="ups_carrier_account" attrs="{'invisible': [('ups_bill_my_account', '!=', True)], 'required':[('ups_bill_my_account', '!=', False)]}"/>
+                <field name="ups_service_type" attrs="{'invisible': [('ups_bill_my_account', '!=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

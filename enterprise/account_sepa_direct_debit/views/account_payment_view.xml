@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="sdd_account_payment_with_mandates_tree" model="ir.ui.view">
+            <field name="name">sdd.account.payment.mandate.tree</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_tree"/>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_type']" position="after">
+                    <field name="sdd_mandate_id"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sdd_account_payment_form" model="ir.ui.view">
+            <field name="name">sdd.account.payment.form</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='communication']" position="after">
+                    <field name="sdd_mandate_id" attrs="{'invisible':[('sdd_mandate_id', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//div[hasclass('oe_title')]" position="before">
+                    <field name="sdd_mandate_usable" invisible="1"/>
+                    <span class="alert alert-info" attrs="{'invisible': ['|', '|', ('sdd_mandate_usable', '!=', True), ('payment_type', '!=', 'inbound'), ('state', '!=', 'draft')]}" role="status">Direct Debit collecting method available</span>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sdd_view_account_payment_search" model="ir.ui.view">
+            <field name="name">sdd.account.account.payment.search</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <separator/>
+                    <filter name="sdd_to_collect" string="SDD Payments to Collect" domain="[('payment_method_code', '=', 'sdd'), ('state', '=', 'posted')]"/>
+                </xpath>
+                <xpath expr="//filter[@name='company']" position="after">
+                    <separator/>
+                    <filter name="revoked_mandate" string="Revoked SDD Mandate" domain="[('sdd_mandate_id.state', '=', 'revoked')]"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

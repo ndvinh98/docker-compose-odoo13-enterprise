@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!--
+            Asset Category Demo
+        -->
+
+        <record id="account_asset_model_fixedassets_test0" model="account.asset">
+            <field name="account_depreciation_id" ref="xfa"/>
+            <field name="account_depreciation_expense_id" ref="a_expense"/>
+            <field name="account_asset_id" ref="xfa"/>
+            <field name="journal_id" ref="expenses_journal"/>
+            <field name="name">Hardware - 3 Years</field>
+            <field name="method_number">3</field>
+            <field name="method_period" eval="'12'"/>
+            <field name="state">model</field>
+        </record>
+
+        <record id="account_asset_model_fixedassets_test1" model="account.asset">
+            <field name="account_depreciation_id" ref="xfa"/>
+            <field name="account_depreciation_expense_id" ref="a_expense"/>
+            <field name="account_asset_id" ref="xfa"/>
+            <field name="journal_id" ref="expenses_journal"/>
+            <field name="name">Cars - 5 Years</field>
+            <field name="method_number">5</field>
+            <field name="method_period" eval="'12'"/>
+            <field name="state">model</field>
+        </record>
+
+        <!--
+            Assets Demo
+        -->
+
+        <record id="account_asset_vehicles_test0" model="account.asset">
+            <field eval="2000.0" name="salvage_value"/>
+            <field name="state">open</field>
+            <field eval="'12'" name="method_period"/>
+            <field eval="5" name="method_number"/>
+            <field name="name">CEO's Car</field>
+            <field eval="12000.0" name="original_value"/>
+            <field name="model_id" ref="account_asset_model_fixedassets_test0"/>
+        </record>
+
+        <record id="account_asset_office_test0" model="account.asset">
+            <field eval="1" name="prorata"/>
+            <field eval="100000.0" name="salvage_value"/>
+            <field name="state">open</field>
+            <field eval="'12'" name="method_period"/>
+            <field eval="3" name="method_number"/>
+            <field name="first_depreciation_date" eval="time.strftime('%Y-01-01')"/>
+            <field name="name">Office</field>
+            <field eval="500000.0" name="original_value"/>
+            <field name="model_id" ref="account_asset_model_fixedassets_test0"/>
+        </record>
+
+
+    </data>
+</odoo>

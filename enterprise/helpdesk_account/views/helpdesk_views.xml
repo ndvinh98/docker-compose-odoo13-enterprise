@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_invoicing" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.invoicing</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="before">
+                <field name="use_credit_notes" invisible="1"/>
+                <button name="%(helpdesk_account.helpdesk_ticket_action_refund)d" type="action" string="Refund"
+                    groups="account.group_account_invoice" attrs="{'invisible': [('use_credit_notes', '=', False)]}"
+                    context="{'default_ticket_id': id, 'default_company_id': company_id}"/>
+            </field>
+            <div class="oe_button_box" position="inside">
+                <button class="oe_stat_button" name="action_view_invoices" icon="fa-pencil-square-o"
+                    type="object" attrs="{'invisible': [('invoices_count', '=', 0)]}">
+                    <field name="invoices_count" string="Credit Notes" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+    <record id="helpdesk_team_view_form_inherit_helpdesk_account" model="ir.ui.view">
+        <field name='name'>helpdesk.team.form.inherit.helpdesk.account</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="arch" type="xml">
+            <div id="use_credit_notes" position="replace"/>
+        </field>
+    </record>
+</odoo>

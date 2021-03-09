@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="view_account_asset_expense_tree">
+        <field name="name">account.asset.expense.tree</field>
+        <field name="model">account.asset</field>
+        <field name="arch" type="xml">
+            <tree string="Deferred Expenses" decoration-info="(state == 'draft')" decoration-muted="(state == 'close')">
+                <field name="name" string="Expense"/>
+                <field name="first_depreciation_date"/>
+                <field name="book_value"/>
+                <field name="value_residual" widget="monetary"/>
+                <field name="currency_id" groups="base.group_multi_currency"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_asset_model_expense_tree">
+        <field name="name">account.asset.model.expense.tree</field>
+        <field name="model">account.asset</field>
+        <field name="arch" type="xml">
+            <tree string="Deferred Expenses Models">
+                <field name="name" string="Expense Name"/>
+                <field name="account_depreciation_id" string="Expense Account"/>
+                <field name="account_depreciation_expense_id" string="Deferred Expense Account"/>
+                <field name="method_number" string="Number of Recognitions"/>
+                <field name="method_period" string="Period length"/>
+                <field name="state" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_account_expense_model_search" model="ir.ui.view">
+        <field name="name">account.asset.model.search</field>
+        <field name="model">account.asset</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <search string="Asset Model">
+                <field name="name"/>
+                <group expand="0" string="Group By...">
+                        <filter string="Expense Account" name="account_depreciation_id" domain="[]" context="{'group_by':'account_depreciation_id'}"/>
+                        <filter string="Deferred Expense Account" name="account_depreciation_expense_id" domain="[]" context="{'group_by':'account_depreciation_expense_id'}"/>
+                        <filter string="Journal" name="journal_id" domain="[]" context="{'group_by':'journal_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_account_asset_expense_form">
+        <field name="name">account.asset.expense.form</field>
+        <field name="model">account.asset</field>
+        <field name="inherit_id" ref="account_asset.view_account_asset_revenue_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="/form" position="attributes">
+                <attribute name="string">Expense Recognition</attribute>
+            </xpath>
+            <xpath expr="//button[@name='compute_depreciation_board']" position="attributes">
+                <attribute name="string">Compute Deferal</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_asset_modify']" position="attributes">
+                <attribute name="string">Modify Expense</attribute>
+            </xpath>
+            <xpath expr="//page[@name='related_items']" position="attributes">
+                <attribute name="string">Related Expenses</attribute>
+            </xpath>
+            <xpath expr="//label[@name='name_label']" position="attributes">
+                <attribute name="string">Deferred Expense name</attribute>
+            </xpath>
+            <xpath expr="//label[@name='model_name_label']" position="attributes">
+                <attribute name="string">Deferred Expense Model name</attribute>
+            </xpath>
+            <field name="name" position="attributes">
+                <attribute name="placeholder">e.g. Annually Paid Insurance</attribute>
+            </field>
+            <field name="account_depreciation_expense_id" position="attributes">
+                <attribute name="string">Expense Account</attribute>
+                <attribute name="help">Account used to recognize the expense</attribute>
+            </field>
+            <field name="account_depreciation_id" position="attributes">
+                <attribute name="string">Deferred Expense Account</attribute>
+                <attribute name="help">Account used to record the deferred income</attribute>
+            </field>
+            <field name="book_value" position="attributes">
+                <attribute name="string">Deferred Expense Amount</attribute>
+            </field>
+            <field name="model_id" position="attributes">
+                <attribute name="domain">[('state', '=', 'model'), ('account_asset_id.user_type_id', '=?', user_type_id), ('asset_type', '=', 'expense')]</attribute>
+                <attribute name="context">{'default_asset_type': 'expense'}</attribute>
+            </field>
+            <xpath expr="//page[@name='depreciation_board']" position="attributes">
+                <attribute name="string">Expense Board</attribute>
+            </xpath>
+            <xpath expr="//field[@name='depreciation_move_ids']/tree" position="attributes">
+                <attribute name="string">Expense Lines</attribute>
+            </xpath>
+            <xpath expr="//field[@name='depreciation_move_ids']//field[@name='date']" position="attributes">
+                <attribute name="string">Expense Date</attribute>
+            </xpath>
+            <xpath expr="//field[@name='depreciation_move_ids']//field[@name='asset_depreciated_value']" position="attributes">
+                <attribute name="string">Cumulative Expense</attribute>
+            </xpath>
+            <xpath expr="//field[@name='depreciation_move_ids']//field[@name='amount_total']" position="attributes">
+                <attribute name="string">Expense</attribute>
+            </xpath>
+            <xpath expr="//field[@name='depreciation_move_ids']//field[@name='asset_remaining_value']" position="attributes">
+                <attribute name="string">Next Period Expense</attribute>
+            </xpath>
+            <field name="original_move_line_ids" position="attributes">
+                <attribute name="domain">[('credit', '=', '0'), ('move_id.state', '=', 'posted')]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <!-- Deferred Expenses Action -->
+
+    <record model="ir.actions.act_window" id="action_account_expense_form">
+        <field name="name">Deferred Expenses</field>
+        <field name="res_model">account.asset</field>
+        <field name="domain">[('asset_type', '=', 'expense'), ('state', '!=', 'model'), ('parent_id', '=', False)]</field>
+        <field name="context">{'asset_type': 'expense', 'default_asset_type': 'expense'}</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_account_asset_expense_tree')}),
+            (0, 0, {'view_mode': 'kanban'}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_account_asset_expense_form')})]"/>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_account_expense_model_form">
+        <field name="name">Deferred Expense Models</field>
+        <field name="res_model">account.asset</field>
+        <field name="domain">[('asset_type', '=', 'expense'), ('state', '=', 'model')]</field>
+        <field name="context">{'asset_type': 'expense', 'default_asset_type': 'expense', 'default_state': 'model'}</field>
+        <field name="search_view_id" ref="view_account_expense_model_search"/>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('view_account_asset_model_expense_tree')}),
+            (0, 0, {'view_mode': 'kanban'}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('view_account_asset_expense_form')})]"/>
+    </record>
+
+    <menuitem parent="account.menu_finance_entries_management" id="menu_action_account_expense_recognition" action="action_account_expense_form" sequence="104" groups="account.group_account_manager"/>
+    <menuitem parent="account.account_account_menu" id="menu_action_account_expense_model_recognition" action="action_account_expense_model_form" groups="account.group_account_manager"/>
+</odoo>

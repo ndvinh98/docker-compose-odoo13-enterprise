@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- sub templates -->
+    <template id="AddressStructureTemplate">
+        <StreetName t-if="address_data.get('street')"><t t-esc="address_data['street'][:70]"/></StreetName>
+        <AdditionalAddressDetail t-if="address_data.get('street2')"><t t-esc="address_data['street2'][:70]"/></AdditionalAddressDetail>
+        <City><t t-esc="address_data['city']"/></City>
+        <PostalCode><t t-esc="address_data['zip']"/></PostalCode>
+        <Country t-if="address_data.get('country')"><t t-esc="address_data['country']"/></Country>
+    </template>
+
+    <template id="ContactHeaderStructureTemplate">
+        <Contact>
+            <ContactPerson>
+                <Title t-if="contact_data.get('title')"><t t-esc="contact_data['title']"/></Title>
+                <FirstName><t t-esc="contact_data['name'][:35]"/></FirstName>
+                <LastName></LastName>
+            </ContactPerson>
+            <Telephone><t t-esc="contact_data['phone'][:18]"/></Telephone>
+            <Email t-if="contact_data.get('email')"><t t-esc="contact_data['email'][:70]"/></Email>
+            <Website t-if="contact_data.get('website')"><t t-esc="contact_data['website']"/></Website>
+        </Contact>
+    </template>
+
+    <template id="BankAccountTemplate">
+        <BankAccount t-foreach="bank_accounts" t-as="bank_account">
+            <IBANNumber t-if="bank_account.get('iban')"><t t-esc="bank_account['acc_number']"/></IBANNumber>
+            <t t-if="not bank_account.get('iban')">
+                <BankAccountNumber><t t-esc="bank_account['acc_number']"/></BankAccountNumber>
+                <BankAccountName t-if="bank_account.get('bank_name')"><t t-esc="bank_account['bank_name'][:70]"/></BankAccountName>
+                <SortCode t-if="bank_account.get('bank_bic')"><t t-esc="bank_account['bank_bic'][:18]"/></SortCode>
+            </t>
+        </BankAccount>
+    </template>
+
+    <template id="CompanyHeaderStructureTemplate">
+        <!-- RegistrationNumber required only when displaying info in Header, else not required -->
+        <RegistrationNumber t-if="partner.get('company_registry')"><t t-esc="partner['company_registry']"/></RegistrationNumber>
+        <Name><t t-esc="partner['name'][:70]"/></Name>
+        <Address t-foreach="partner['addresses']" t-as="address_data">
+            <t t-call="account_saft.AddressStructureTemplate"/>
+        </Address>
+        <t t-foreach="partner['contacts']" t-as="contact_data">
+            <t t-call="account_saft.ContactHeaderStructureTemplate"/>
+        </t>
+        <TaxRegistration t-if="partner.get('vat')">
+            <TaxRegistrationNumber><t t-esc="partner['vat']"/></TaxRegistrationNumber>
+        </TaxRegistration>
+        <t t-if="partner.get('bank_accounts')">
+            <t t-set="bank_accounts" t-value="partner['bank_accounts']"/>
+            <t t-call="account_saft.BankAccountTemplate"/>
+        </t>
+    </template>
+
+    <template id="BalanceStructureTemplate">
+        <t t-if="opening_balance.get('debit') != '0.00' or closing_balance.get('debit') != '0.00'">
+            <OpeningDebitBalance><t t-esc="opening_balance['debit']"/></OpeningDebitBalance>
+            <ClosingDebitBalance><t t-esc="closing_balance['debit']"/></ClosingDebitBalance>
+        </t>
+        <t t-else="">
+            <OpeningCreditBalance><t t-esc="opening_balance['credit']"/></OpeningCreditBalance>
+            <ClosingCreditBalance><t t-esc="closing_balance['credit']"/></ClosingCreditBalance>
+        </t>
+    </template>
+
+    <template id="AmountStructureTemplate">
+        <Amount><t t-esc="amount_data.get('amount')"/></Amount>
+        <CurrencyCode t-if="amount_data.get('currency_code')"><t t-esc="amount_data['currency_code']"/></CurrencyCode>
+        <CurrencyAmount t-if="amount_data.get('amount_currency')"><t t-esc="amount_data['amount_currency']"/></CurrencyAmount>
+        <ExchangeRate t-if="amount_data.get('exchange_rate')"><t t-esc="amount_data['exchange_rate']"/></ExchangeRate>
+    </template>
+
+    <template id="CustomerSupplierTemplate">
+        <t t-call="account_saft.CompanyHeaderStructureTemplate"/>
+        <t t-if="customer and partner.get('is_customer')">
+            <CustomerID><t t-esc="partner['id']"/></CustomerID>
+        </t>
+        <t t-if="not customer and partner.get('is_supplier')">
+            <SupplierID><t t-esc="partner['id']"/></SupplierID>
+        </t>
+        <t t-set="opening_balance" t-value="partner['opening_balance']"/>
+        <t t-set="closing_balance" t-value="partner['closing_balance']"/>
+        <t t-call="account_saft.BalanceStructureTemplate"/>
+    </template>
+
+    <template id="TaxInformationStructure">
+        <TaxCode t-if="tax.get('id')"><t t-esc="tax['id']"/></TaxCode>
+        <TaxPercentage t-if="tax.get('amount_type') == 'percent'"><t t-esc="tax['amount']" /></TaxPercentage>
+        <TaxBase t-if="tax.get('base_amount')"><t t-esc="tax['base_amount']"/></TaxBase>
+        <TaxBaseDescription t-if="tax.get('name')"><t t-esc="tax['name'][:70]"/></TaxBaseDescription>
+        <TaxAmount>
+            <t t-set="amount_data" t-value="tax.get('amount_data')"/>
+            <t t-call="account_saft.AmountStructureTemplate"/>
+        </TaxAmount>
+    </template>
+
+    <!-- main sub templates -->
+    <template id="HeaderTemplate">
+        <Header>
+            <AuditFileVersion><t t-esc="header_data['file_version']"/></AuditFileVersion>
+            <AuditFileCountry><t t-esc="header_data['country']"/></AuditFileCountry>
+            <AuditFileDateCreated><t t-esc="header_data['date_created']"/></AuditFileDateCreated>
+            <SoftwareCompanyName>Odoo SA</SoftwareCompanyName>
+            <SoftwareID>Odoo</SoftwareID>
+            <SoftwareVersion><t t-esc="header_data['software_version']"/></SoftwareVersion>
+
+            <Company>
+                <t t-set="partner" t-value="company_data"/>
+                <t t-call="account_saft.CompanyHeaderStructureTemplate"/>
+            </Company>
+            <DefaultCurrencyCode><t t-esc="header_data['company_currency']"/></DefaultCurrencyCode>
+            <SelectionCriteria>
+                <SelectionStartDate><t t-esc="header_data['date_from']"/></SelectionStartDate>
+                <SelectionEndDate><t t-esc="header_data['date_to']"/></SelectionEndDate>
+            </SelectionCriteria>
+            <TaxAccountingBasis><t t-esc="header_data['accounting_basis']"/></TaxAccountingBasis>
+        </Header>
+    </template>
+
+    <template id="MasterFilesTemplate">
+        <MasterFiles>
+            <GeneralLedgerAccounts t-if="accounts">
+                <Account t-foreach="accounts" t-as="account">
+                    <AccountID><t t-esc="account['id']"/></AccountID>
+                    <AccountDescription><t t-esc="account['name'][:256]"/></AccountDescription>
+                    <StandardAccountID t-if="account.get('code')"><t t-esc="account['code']"/></StandardAccountID>
+                    <t t-set="opening_balance" t-value="account['opening_balance']"/>
+                    <t t-set="closing_balance" t-value="account['closing_balance']"/>
+                    <t t-call="account_saft.BalanceStructureTemplate"/>
+                </Account>
+            </GeneralLedgerAccounts>
+            <Customers t-if="customers">
+                <t t-set="customer" t-value="True"/>
+                <Customer t-foreach="customers" t-as="partner">
+                    <t t-call="account_saft.CustomerSupplierTemplate"/>
+                </Customer>
+            </Customers>
+            <Suppliers t-if="suppliers">
+                <t t-set="customer" t-value="False"/>
+                <Supplier t-foreach="suppliers" t-as="partner">
+                    <t t-call="account_saft.CustomerSupplierTemplate"/>
+                </Supplier>
+            </Suppliers>
+            <TaxTable t-if="taxes">
+                <TaxTableEntry t-foreach="taxes.values()" t-as="tax">
+                    <TaxCodeDetails>
+                        <TaxCode><t t-esc="tax['id']"/></TaxCode>
+                        <Description t-if="tax.get('name')"><t t-esc="tax['name'][:256]"/></Description>
+                        <TaxPercentage t-if="tax.get('amount_type') == 'percent'"><t t-esc="tax['amount']"/></TaxPercentage>
+                        <FlatTaxRate t-if="tax.get('amount_type') == 'fixed'">
+                            <Amount><t t-esc="tax.get('amount')"/></Amount>
+                        </FlatTaxRate>
+                        <Country><t t-esc="header_data['country']"/></Country>
+                    </TaxCodeDetails>
+                </TaxTableEntry>
+            </TaxTable>
+            <Owners>
+                <Owner>
+                    <t t-set="partner" t-value="company_data"/>
+                    <t t-call="account_saft.CompanyHeaderStructureTemplate"/>
+                    <OwnerID><t t-esc="company_data['id']"/></OwnerID>
+                </Owner>
+            </Owners>
+        </MasterFiles>
+    </template>
+
+    <template id="GeneralLedgerEntriesTemplate">
+        <GeneralLedgerEntries t-if="len(general_ledger_data['journals']) > 0">
+            <NumberOfEntries><t t-esc="general_ledger_data['total_entries']"/></NumberOfEntries>
+            <TotalDebit><t t-esc="general_ledger_data['total_debit']"/></TotalDebit>
+            <TotalCredit><t t-esc="general_ledger_data['total_credit']"/></TotalCredit>
+            <t t-set="journal_dict" t-value="general_ledger_data['journals']"/>
+            <Journal t-foreach="journal_dict.values()" t-as="journal">
+                <JournalID><t t-esc="journal['journal_id']"/></JournalID>
+                <Description><t t-esc="journal['journal_name'][:256]"/></Description>
+                <Type><t t-esc="journal['journal_type'][:9]"/></Type>
+                <Transaction t-foreach="journal['moves']" t-as="move">
+                    <TransactionID><t t-esc="move['move_id']"/></TransactionID>
+                    <Period><t t-esc="move['move_date']" t-options="{'widget': 'date', 'format':'MM'}"/></Period>
+                    <PeriodYear><t t-esc="move['move_date']" t-options="{'widget': 'date', 'format':'yyyy'}"/></PeriodYear>
+                    <TransactionDate><t t-esc="move['move_date']"/></TransactionDate>
+                    <TransactionType t-if="move.get('move_type')"><t t-esc="move['move_type'][:9]"/></TransactionType>
+                    <Description><t t-esc="move['move_name'][:256]"/></Description>
+                    <SystemEntryDate><t t-esc="move['move_create_date']" t-options="{'widget': 'date', 'format':'yyyy-MM-dd'}"/></SystemEntryDate>
+                    <GLPostingDate><t t-esc="move['move_date']"/></GLPostingDate>
+                    <CustomerID t-if="move.get('is_customer')"><t t-esc="move['partner_id']"/></CustomerID>
+                    <SupplierID t-if="move.get('is_supplier')"><t t-esc="move['partner_id']"/></SupplierID>
+                    <Line t-foreach="move['lines'].values()" t-as="move_line">
+                        <RecordID><t t-esc="move_line['id']"/></RecordID>
+                        <AccountID><t t-esc="move_line['account_id']"/></AccountID>
+                        <ValueDate t-if="move_line.get('date')"><t t-esc="move_line['date']"/></ValueDate>
+                        <SourceDocumentID t-if="move_line.get('move_id')"><t t-esc="move_line['move_id']"/></SourceDocumentID>
+                        <CustomerID t-if="move.get('is_customer')"><t t-esc="move_line['partner_id']"/></CustomerID>
+                        <SupplierID t-if="move.get('is_supplier')"><t t-esc="move_line['partner_id']"/></SupplierID>
+                        <Description><t t-esc="(move_line['name'] or move['move_name'])[:256]"/></Description>
+                        <DebitAmount t-if="move_line.get('debit_amount')">
+                            <t t-set="amount_data" t-value="move_line['debit_amount']"/>
+                            <t t-call="account_saft.AmountStructureTemplate"/>
+                        </DebitAmount>
+                        <CreditAmount t-if="move_line.get('credit_amount')">
+                            <t t-set="amount_data" t-value="move_line['credit_amount']"/>
+                            <t t-call="account_saft.AmountStructureTemplate"/>
+                        </CreditAmount>
+                        <TaxInformation t-foreach="[tax for tax in move_line_tax_info.get(move_line.get('move_id'), []) if tax['line_id'] == move_line.get('id') and tax.get('id')]" t-as="tax">
+                            <t t-call="account_saft.TaxInformationStructure"/>
+                        </TaxInformation>
+                    </Line>
+                </Transaction>
+            </Journal>
+        </GeneralLedgerEntries>
+    </template>
+
+    <template id="SaftTemplate">
+        <AuditFile t-attf-xmlns="#{xmlns}">
+
+            <t t-call="account_saft.HeaderTemplate"/>
+
+            <t t-call="account_saft.MasterFilesTemplate"/>
+
+            <t t-call="account_saft.GeneralLedgerEntriesTemplate"/>
+
+        </AuditFile>
+    </template>
+</odoo>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_registration_badge" inherit_id="event.event_registration_report_template_badge" priority="1">
+        <xpath expr="//div[@id='o_event_name']" position="after">
+            <div class="col-12">
+                <div class="text-center">
+                    <img class="barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;humanreadable=1' % ('Code128', o.barcode, 400, 67)" alt="Barcode"></img>&amp;nbsp;
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+    <template id="report_event_template_badge" inherit_id="event.event_event_report_template_badge" priority="1">
+        <xpath expr="//div[@id='o_event_attendee_name']" position="after">
+            <div class="col-12">
+                <div style="background: lightgrey;" class="text-center">
+                    <h1 class="text-center mt0"><i class="fa-2x fa fa-barcode" title="Barcode" role="img" aria-label="Barcode"/></h1>
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

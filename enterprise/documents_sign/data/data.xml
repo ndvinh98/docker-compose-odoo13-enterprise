@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Workflow Rules -->
+
+        <record id="documents_sign_rule_sign_request" model="documents.workflow.rule">
+            <field name="name">Create signature template(s)</field>
+            <field name="sequence">12</field>
+            <field name="create_model">sign.template.new</field>
+            <field name="condition_type">domain</field>
+            <field name="activity_option">True</field>
+            <field name="activity_type_id" ref="documents.mail_documents_activity_data_tv"/>
+            <field name="domain">[["mimetype","ilike","pdf"]]</field>
+            <field name="domain_folder_id" ref="documents.documents_internal_folder"/>
+        </record>
+
+        <record id="documents_sign_rule_sign_directly" model="documents.workflow.rule">
+            <field name="name">Request a signature and sign directly</field>
+            <field name="sequence">13</field>
+            <field name="create_model">sign.template.direct</field>
+            <field name="condition_type">domain</field>
+            <field name="activity_option">True</field>
+            <field name="activity_type_id" ref="documents.mail_documents_activity_data_tv"/>
+            <field name="domain">[["mimetype","ilike","pdf"]]</field>
+            <field name="domain_folder_id" ref="documents.documents_internal_folder"/>
+        </record>
+
+        <record id="documents_workflow_action_sign_request" model="documents.workflow.action">
+            <field name="workflow_rule_id" ref="documents_sign_rule_sign_request"/>
+            <field name="action">replace</field>
+            <field name="facet_id" ref="documents.documents_internal_status"/>
+            <field name="tag_id" ref="documents.documents_internal_status_tc"/>
+        </record>
+
+        <record id="documents_sign_rule_sign_request_finance" model="documents.workflow.rule">
+            <field name="sequence">12</field>
+            <field name="name">Create signature template(s)</field>
+            <field name="create_model">sign.template.new</field>
+            <field name="condition_type">domain</field>
+            <field name="activity_option">True</field>
+            <field name="activity_type_id" ref="documents.mail_documents_activity_data_tv"/>
+            <field name="domain">[["mimetype","ilike","pdf"]]</field>
+            <field name="domain_folder_id" ref="documents.documents_finance_folder"/>
+        </record>
+
+        <record id="documents_workflow_action_sign_request_finance" model="documents.workflow.action">
+            <field name="workflow_rule_id" ref="documents_sign_rule_sign_request_finance"/>
+            <field name="action">replace</field>
+            <field name="facet_id" ref="documents.documents_finance_status"/>
+            <field name="tag_id" ref="documents.documents_finance_status_tc"/>
+        </record>
+
+
+    </data>
+</odoo>

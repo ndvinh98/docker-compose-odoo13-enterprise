@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form_inherit_ocr" model="ir.ui.view">
+        <field name="name">invoice.move.form.inherit.ocr</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="retry_ocr" class="oe_highlight" string="Resend For Digitalization" type="object"
+                attrs="{'invisible': [('extract_can_show_resend_button', '=', False)]}"/>
+                <button name="retry_ocr" class="oe_highlight" string="Send For Digitalization" type="object"
+                attrs="{'invisible': [('extract_can_show_send_button', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//header" position='after'>
+                <field name="extract_state" attrs="{'invisible':True}"/>
+                <field name="extract_word_ids" attrs="{'invisible':True}"/>
+                <field name="extract_can_show_resend_button" attrs="{'invisible':True}"/>
+                <field name="extract_can_show_send_button" attrs="{'invisible':True}"/>
+                <div role="status" class="o_success_ocr"
+                     attrs="{'invisible':['|', '|',
+                            ('type', 'not in', ('in_invoice', 'in_refund')),
+                            ('state', 'not in', ['draft']),
+                            ('extract_state', 'not in', ['waiting_validation', 'validation_to_send'])]}" >
+                    <!-- Extraction processed with success. Don't forget to validate the different fields. -->
+                </div>
+                <div role="status" class="alert alert-danger mb8"
+                     attrs="{'invisible':['|', '|',
+                            ('type', 'not in', ('in_invoice', 'in_refund')),
+                            ('state', 'not in', ['draft']),
+                            ('extract_state', 'not in', ['not_enough_credit'])]}">
+                    <button string="Buy credits" type="object" name="buy_credits" class="btn btn-sm btn-primary pull-right mb0"/>
+                    You don't have enough credit to extract data from your invoice.
+                    <div class="clearfix"/>
+                </div>
+                <div role="status" class="alert alert-info mb8"
+                     attrs="{'invisible':['|', '|',
+                            ('type', 'not in', ('in_invoice', 'in_refund')),
+                            ('state', 'not in', ['draft']),
+                            ('extract_state', 'not in', ['waiting_extraction'])]}">
+                    <button string="Update status" type="object" name="check_status" class="btn btn-sm btn-primary pull-right mb0"/>
+                    The file has been sent and is being processed. It usually takes between 5 and 60 seconds.
+                    <div class="clearfix"/>
+                </div>
+                <field name="extract_status_code" invisible="1"/>
+                <div role="status" class="alert alert-info mb8"
+                     attrs="{'invisible':['|', '|',
+                            ('type', 'not in', ('in_invoice', 'in_refund')),
+                            ('state', 'not in', ['draft']),
+                            ('extract_state', 'not in', ['extract_not_ready'])]}">
+                    <button string="Update status" type="object" name="check_status" class="btn btn-sm btn-primary pull-right mb0"/>
+                    The data extraction is not finished yet. The extraction usually takes between 5 and 60 seconds.
+                    <div class="clearfix"/>
+                </div>
+                <div role="status" class="alert alert-danger mb8"
+                     attrs="{'invisible':['|', '|', '|',
+                            ('type', 'not in', ('in_invoice', 'in_refund')),
+                            ('state', 'not in', ['draft']),
+                            ('extract_state', 'not in', ['error_status']),
+                            '&amp;',
+                            ('extract_status_code', '&gt;', 99),
+                            ('extract_status_code', '&lt;', 200)]}">
+                    <field name="extract_error_message"/>
+                </div>
+                <div role="status" class="alert alert-warning mb8"
+                     attrs="{'invisible':['|', '|', '|', '|',
+                            ('type', 'not in', ('in_invoice', 'in_refund')),
+                            ('state', 'not in', ['draft']),
+                            ('extract_state', 'not in', ['error_status', 'waiting_validation']),
+                            ('extract_status_code', '&lt;', 100),
+                            ('extract_status_code', '&gt;', 199)]}">
+                    <field name="extract_error_message"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='message_ids']" position='replace'>
+                <field name="message_main_attachment_id" invisible="1"/>
+                <field name="message_ids" widget="mail_thread" options="{'post_refresh': 'always'}"/>
+            </xpath>
+            <xpath expr="//form" position="attributes">
+                <attribute name="js_class">account_invoice_extract_preview</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_attachment_preview')]" position="replace">
+                <div class="o_attachment_preview" options="{'preview_priority_type': 'pdf'}"/>
+            </xpath>
+            <xpath expr="//page[@id='other_tab']//group[@name='payments_info_group']" position="after">
+                <group string="Extraction Information"
+                       name="extraction_info_group"
+                       attrs="{'invisible': ['|', ('type', 'not in', ('in_invoice', 'in_refund')), ('extract_state', 'in', ('no_extract_requested', 'not_enough_credit'))]}">
+                    <field name="extract_remote_id"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <template id="assets_backend" name="Account invoice extract assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/account_invoice_extract/static/src/js/invoice_extract_box.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/js/invoice_extract_box_layer.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/js/invoice_extract_field.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/js/invoice_extract_field_button.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/js/invoice_extract_fields.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/js/invoice_extract_form_renderer.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/js/invoice_extract_form_view.js"></script>
+
+            <link rel="stylesheet" type="text/scss" href="/account_invoice_extract/static/src/scss/account_invoice_extract.scss"/>
+
+            <!--
+                This style is used for box layers on attachment that are images.
+                For pdf, it is dynamically inserted in the header of the iframe.
+                This explains why this is CSS, and not SCSS
+            -->
+            <link rel="stylesheet" type="text/css" href="/account_invoice_extract/static/src/css/account_invoice_extract_box_layer.css"/>
+        </xpath>
+    </template>
+
+    <template id="qunit_suite" name="account_invoice_extract_tests" inherit_id="web.qunit_suite">
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <script type="text/javascript" src="/account_invoice_extract/static/src/tests/helpers/invoice_extract_test_utils.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/tests/invoice_extract_box_tests.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/tests/invoice_extract_box_layer_tests.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/tests/invoice_extract_fields_and_box_layer_tests.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/tests/invoice_extract_field_tests.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/tests/invoice_extract_fields_tests.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/tests/invoice_extract_field_button_tests.js"></script>
+            <script type="text/javascript" src="/account_invoice_extract/static/src/tests/invoice_extract_form_view_tests.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

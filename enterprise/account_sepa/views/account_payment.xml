@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sepa_credit_transfer_search" model="ir.ui.view">
+            <field name="name">account.sepa.credit.transfer.search</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+                    <filter string="SCT Payments To Send" domain="[('payment_method_id.code', '=', 'sepa_ct'), ('state', '=', 'posted')]" name="sepa_to_send"/>
+                    <separator/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_payment_form_inherit_sepa" model="ir.ui.view">
+            <field name="name">account.payment.form.qrcode</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group/group[last()]" position="after">
+                    <group>
+                        <field name="display_qr_code" invisible="1"/>
+                        <div attrs="{'invisible': [('display_qr_code', '=', False)]}" colspan="2" class="text-center">
+                            <field name="qr_code_url" widget="html"/>
+                        </div>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

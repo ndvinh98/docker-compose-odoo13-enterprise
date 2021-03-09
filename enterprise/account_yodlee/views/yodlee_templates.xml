@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+  <t t-name="YodleeTemplateFooter">
+    <div>
+      <button class="btn btn-primary js_yodlee_continue">Continue</button>
+    </div>
+  </t>
+
+  <t t-name="YodleeTemplate">
+    <div>
+        <div>
+          <t t-if="widget.beta===true">
+            <div class="alert alert-warning" role="alert">
+            <p>
+              This institution is in <strong>BETA</strong> which means that it is currently in development and might not 
+              synchronize nor work correctly.
+            </p>  
+          </div>
+          </t>
+          <h4>You will be redirected to Yodlee</h4>
+          <p>In order to <t t-if="widget.state==='add'">add</t><t t-if="widget.state==='refresh'">refresh</t><t t-if="widget.state==='edit'">edit</t> your institution, we have to redirect you to a third party provider website.</p>
+          <p>Once the process will be done, you will be back on Odoo</p>
+        </div>
+        
+        <form class="d-none" id="yodleeForm" t-att-action="widget.fastlinkUrl" method="POST" target="_self">
+          <input type="text" name="app" value="10003600"/>
+          <input type="text" name="rsession" t-att-value="widget.userToken"/>
+          <input type="text" name="token" t-att-value="widget.accessTokens.value"/>
+          <input type="text" name="redirectReq" value="true"/>
+          <input type="text" name="extraParams" t-att-value="widget.callbackUrl"/>
+          <input type="submit" name="Submit" />
+        </form>
+      </div>
+  </t>
+
+</templates>

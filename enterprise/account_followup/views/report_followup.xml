@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+            id="action_report_followup"
+            string="Print Follow-up Letter"
+            model="res.partner"
+            report_type="qweb-pdf"
+            file="account_followup.report_followup_print_all"
+            name="account_followup.report_followup_print_all"
+            print_report_name="'Followups'"
+            menu="False"
+        />
+
+        <template id="report_followup_print_all">
+            <t t-call="web.html_container">
+                <t t-call-assets="web.assets_common" t-js="false" />
+                <t t-set="company" t-value="docs.env.company"/>
+                <t t-foreach="docs" t-as="partner">
+                    <t t-call="web.external_layout">
+                        <t t-set="fallback_address" t-value="partner.browse(partner.address_get(['invoice'])['invoice']) or partner"/>
+                        <t t-call-assets="account_followup.assets_followup_report" />
+                        <div class="page">
+                            <span t-raw="partner.get_followup_html()"></span>
+                        </div>
+                    </t>
+                    <t t-if="partner.followup_level.join_invoices" t-foreach="partner.unpaid_invoices" t-as="o">
+                        <t t-set="lang" t-value="o.user_id.lang if o.type in ('in_invoice', 'in_refund') else o.partner_id.lang"/>
+                        <t t-call="account.report_invoice_document" t-lang="lang"/>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <record forcecreate="True" id="property_account_payment_next_action_date" model="ir.property">
+            <field name="name">payment_next_action_date</field>
+            <field name="fields_id" search="[('model','=','res.partner'),('name','=','payment_next_action_date')]"/>
+            <field eval="False" name="value"/>
+        </record>
+
+        <template id="followup_filter_info_template">
+            <div t-if='context.get("mail") != True' class="print_only" style='margin-bottom: 20px;'>
+        <t t-if="invoice_address_id" t-set="partner_addr" t-value="invoice_address_id"></t>
+        <t t-else="" t-set="partner_addr" t-value="partner"></t>
+        <t t-if="context.get('snailmail_layout')" t-set="contact_widget_fields" t-value="['address', 'name']"/>
+        <t t-else="" t-set="contact_widget_fields" t-value="['address', 'name', 'phone']"/>
+                <div class="row fallback_header">
+                    <div class="col-5 offset-7" style='margin-top: 15px;'>
+                        <div t-field="partner_addr.self"
+                            t-options='{"widget": "contact", "fields": contact_widget_fields, "no_marker": True}'/>
+                        <span t-field="partner_addr.vat"/>
+                    </div>
+                </div>
+                <p style="margin-top: 35px;">
+                    Date: <span t-esc="today" t-options="{'widget': 'date'}"/><br/>
+                    <t t-if='partner_addr.ref'>Customer ref: <span t-field="partner_addr.ref"/></t>
+                </p>
+            </div>
+        </template>
+
+        <template id="line_template_followup_report" inherit_id="account_reports.line_template" primary="True">
+            <xpath expr="//div[hasclass('dropdown-menu')]" position="replace">
+                <div t-if='context.get("print_mode") != True' class="dropdown-menu o_account_reports_domain_dropdown" role="menu">
+                    <a role="menuitem" tabindex="-1" t-att-data-id="line['move_id']" action="open_invoice" groups="account.group_account_user" class="dropdown-item">View Invoice</a>
+                    <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" class="o_change_expected_date dropdown-item">Change expected payment date</a>
+                </div>
+            </xpath>
+            <xpath expr="//span[hasclass('o_account_report_column_value')]" position="replace">
+                <span class="'o_account_report_column_value'">
+                    <t t-if="column.get('blocked') != None">
+                        <input t-if="column['blocked'] == False" type="checkbox" name="blocked" value="True" />
+                        <input t-if="column['blocked'] == True" type="checkbox" name="blocked" value="True" checked="checked" />
+                    </t>
+                    <t t-if="column.get('blocked') == None">
+                        <t t-esc="column.get('name')"/>
+                    </t>
+                </span>
+            </xpath>
+        </template>
+
+        <template id="template_followup_report" inherit_id="account_reports.main_template" primary="True">
+            <xpath expr="//div[hasclass('o_account_reports_body')]" position="before">
+                <div class="alert alert-warning o_account_followup-no-action" id='no-action' role="alert" t-if="partner != False and partner.followup_status == 'no_action_needed' and context.get('print_mode') != True">
+                    <p><strong>Warning!</strong> No action needs to be taken for this partner.</p>
+                </div>
+            </xpath>
+            <xpath expr="//div[hasclass('o_account_reports_no_print')]" position="attributes">
+                <attribute name="class">o_account_reports_page o_account_reports_no_print o_account_followup</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_account_reports_summary')]" position="replace">
+                <div style="padding-top: 10px" t-if="context.get('print_mode') != True and followup_line" ><b><t t-esc="followup_line.name"/></b></div>
+                <div class="o_account_reports_summary">
+                    <i class="fa fa-fw fa-pencil o_account_reports_edit_summary_pencil" role="img" aria-label="Edit Summary" title="Edit Summary"></i>
+                    <div class="o_account_report_summary" role="alert">
+                        <span t-if="report.get('summary')"><t t-esc="report['summary']" t-options="{'widget': 'text'}"/></span>
+                        <input t-if="not report.get('summary')" type='text' class="o_input" name='summary' placeholder='Add a note'/>
+                    </div>
+                </div>
+                <div t-if="context.get('print_mode') != True" class="o_account_reports_summary_edit">
+                        <textarea name="summary"><t t-if="report.get('summary')" t-esc="report['summary']" /></textarea>
+                        <button t-att-data-id="partner.id" class="btn btn-primary js_account_report_save_summary">Save</button>
+                </div>
+            </xpath>
+            <xpath expr="//table[hasclass('o_account_reports_table')]" position="attributes">
+              <attribute name="width">100%</attribute>
+            </xpath>
+            <xpath expr="//t[@t-call='account_reports.filter_info_template']" position="replace"><t t-call="account_followup.followup_filter_info_template"/></xpath>
+            <xpath expr="//div[hasclass('o_account_reports_header')]" position="inside">
+                <div class="row">
+                    <div class="col-xl-6">
+                        <h2 t-if='context.get("print_mode") != True' class="no_print">
+                            <span>
+                                <span class="dropdown" t-att-data-partner='partner.id'>
+                                    <span data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id='trustDropdown'>
+                                        <i t-if="partner.trust == 'good'" class="fa fa-circle oe-account_followup-trust" style="color: green; font-size: 0.8em;" role="img" aria-label="Good debtor" title="Good debtor"></i>
+                                        <i t-if="partner.trust == 'normal'" class="fa fa-circle oe-account_followup-trust" style="color: grey; font-size: 0.8em;" role="img" aria-label="Normal debtor" title="Normal debtor"></i>
+                                        <i t-if="partner.trust == 'bad'" class="fa fa-circle oe-account_followup-trust" style="color: red; font-size: 0.8em;" role="img" aria-label="Bad debtor" title="Bad debtor"></i>
+                                    </span>
+                                    <div class="dropdown-menu" role="menu" aria-labelledby="trustDropdown">
+                                        <a role='menuitem' class="dropdown-item o_change_trust" data-new-trust='good'><i class="fa fa-circle" style="color: green;"></i> Good Debtor</a>
+                                        <a role='menuitem' class="dropdown-item o_change_trust" data-new-trust='normal'><i class="fa fa-circle" style="color: grey;"></i> Normal Debtor</a>
+                                        <a role='menuitem' class="dropdown-item o_change_trust" data-new-trust='bad'><i class="fa fa-circle" style="color: red;"></i> Bad Debtor</a>
+                                    </div>
+                                </span>
+                                <a action="open_partner_form"><t t-esc='partner.name' /></a>
+                                <span t-if="partner.country_id"><small>(<t t-esc='partner.country_id.name' />)</small></span>
+                            </span>
+                        </h2>
+                        <p t-if='context.get("print_mode") != True and invoice_address_id' class='o_account_reports_contact_info'>
+                            <t t-if="invoice_address_id.phone">
+                                <a class="o_account_reports_contact_info_call"
+                                    t-att-data-number="invoice_address_id.phone"
+                                    t-att-data-id="invoice_address_id.id"
+                                    t-att-data-model="invoice_address_id._name"
+                                    t-attf-href="tel:#{invoice_address_id.phone}">
+                                    <i class='fa fa-phone fa-fw' role="img" aria-label="Phone" title="Phone"/><t t-esc="invoice_address_id.phone" />
+                                </a>
+                                <br />
+                            </t>
+                            <t t-if="invoice_address_id.mobile">
+                                <a class="o_account_reports_contact_info_call"
+                                    t-att-data-number="invoice_address_id.mobile"
+                                    t-att-data-id="invoice_address_id.id"
+                                    t-att-data-model="invoice_address_id._name"
+                                    t-attf-href="tel:#{invoice_address_id.mobile}">
+                                    <i class='fa fa-mobile fa-fw' role="img" aria-label="Mobile" title="Mobile"/><t t-esc="invoice_address_id.mobile" />
+                                </a>
+                                <br />
+                            </t>
+                            <t t-if="invoice_address_id.email">
+                                <a t-att-href="'mailto:' + invoice_address_id.email" title="Send an email">
+                                    <i class='fa fa-envelope' role="img" aria-label="Email"/><t t-esc="' ' + invoice_address_id.email" />
+                                </a>
+                            </t>
+                        </p>
+                    </div>
+                    <div class="col-xl-6 no_print mb16" t-if='context.get("print_mode") != True' id='followup-mode'>
+                        <div class="row">
+                            <div class="col-xl-4 d-none d-xl-block"></div>
+                            <div class="col-md-3 col-lg-2 col-xl-4" data-toggle='tooltip' title='Date at which Odoo will remind you to take care of that follow-up if you choose "remind me later" button.'>
+                                <b>Next Reminder Date:</b>
+                                <b><div class='o_account_reports_next_action_date_picker' /></b>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//tbody" position="replace">
+                <t t-if="lines.get('lines')">
+                    <t t-call="account_followup.line_template_followup_report" />
+                </t>
+            </xpath>
+        </template>
+
+        <template id="assets_followup_report">
+            <t t-call="web._assets_helpers"/>
+            <t t-call="web._assets_bootstrap"/>
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/scss/fonts.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/account_reports/static/src/scss/account_financial_report.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/account_reports/static/src/scss/account_report_print.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/account_followup/static/src/scss/account_followup_letter.scss" />
+        </template>
+
+        <template id="followup_search_template">
+            <div class="btn-group o_dropdown o_account_followup-filter">
+                <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="fa fa-filter"/> Partners:
+                    <t t-if="options.get('type_followup', '') == 'action'">
+                        In Need of Action
+                    </t>
+                    <t t-if="options.get('type_followup', '') != 'action'">
+                        With Overdue Invoices
+                    </t>
+                </a>
+                <div class="dropdown-menu o_filters_menu" role="menu">
+                    <a role="menuitem" class="dropdown-item js_account_reports_one_choice_filter" title="In Need of Action" data-filter="type_followup" data-id="action">In Need of Action</a>
+                    <a role="menuitem" class="dropdown-item js_account_reports_one_choice_filter" title="With Overdue Invoices" data-filter="type_followup" data-id="all">With Overdue Invoices</a>
+                </div>
+            </div>
+        </template>
+
+    </data>
+</odoo>

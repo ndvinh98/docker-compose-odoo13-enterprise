@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="tag_crm" model="helpdesk.tag">
+        <field name="name">CRM</field>
+    </record>
+    <record id="tag_website" model="helpdesk.tag">
+        <field name="name">Website</field>
+    </record>
+    <!-- Set the demo user as a helpdesk user -->
+    <record id="group_helpdesk_user" model="res.groups">
+        <field name="users" eval="[(4,ref('base.user_demo'))]"/>
+    </record>
+
+    <!-- SLA's -->
+    <record id="helpdesk_sla_1" model="helpdesk.sla">
+        <field name="name">2 days to start</field>
+        <field name="team_id" ref="helpdesk_team1"/>
+        <field name="stage_id" ref="stage_in_progress"/>
+        <field name="time_days">2</field>
+    </record>
+
+    <record id="helpdesk_sla_2" model="helpdesk.sla">
+        <field name="name">7 days to finish</field>
+        <field name="team_id" ref="helpdesk_team1"/>
+        <field name="stage_id" ref="stage_solved"/>
+        <field name="time_days">7</field>
+    </record>
+
+    <!-- Tickets -->
+    <record id="helpdesk_ticket_1" model="helpdesk.ticket">
+        <field name="name">Kitchen collapsing</field>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="priority">3</field>
+        <field name="stage_id" ref="helpdesk.stage_in_progress"/>
+    </record>
+    <record id="helpdesk_ticket_2" model="helpdesk.ticket">
+        <field name="name">Where can I download a catalog ?</field>
+        <field name="priority">0</field>
+        <field name="ticket_type_id" ref="helpdesk.type_question"/>
+    </record>
+</odoo>

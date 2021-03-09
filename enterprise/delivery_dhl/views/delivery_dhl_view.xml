@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record id="view_delivery_carrier_form_with_provider_dhl" model="ir.ui.view">
+    <field name="name">delivery.carrier.form.provider.dhl</field>
+    <field name="model">delivery.carrier</field>
+    <field name="inherit_id" ref="delivery.view_delivery_carrier_form"/>
+    <field name="arch" type="xml">
+        <xpath expr="//page[@name='destination']" position='before'>
+            <page string="DHL Configuration" attrs="{'invisible': [('delivery_type', '!=', 'dhl')]}">
+                <group>
+                    <group>
+                        <field name="dhl_SiteID" attrs="{'required': [('delivery_type', '=', 'dhl')]}"/>
+                        <field name="dhl_password" attrs="{'required': [('delivery_type', '=', 'dhl')]}"/>
+                        <field name="dhl_account_number" attrs="{'required': [('delivery_type', '=', 'dhl')]}"/>
+                        <field name="dhl_dutiable"/>
+                        <field name="dhl_duty_payment" widget="radio" attrs="{'required': [('delivery_type', '=', 'dhl')], 'invisible': [('dhl_dutiable', '=', False)]}"/>
+                        <field name="dhl_region_code" attrs="{'required': [('delivery_type', '=', 'dhl')]}"/>
+                    </group>
+                    <group>
+                        <field name="dhl_product_code" attrs="{'required': [('delivery_type', '=', 'dhl')]}"/>
+                        <field name="dhl_default_packaging_id" attrs="{'required': [('delivery_type', '=', 'dhl')]}" domain="[('package_carrier_type', '=', 'dhl')]"/>
+                        <field name="dhl_package_weight_unit" attrs="{'required': [('delivery_type', '=', 'dhl')]}"/>
+                        <field name="dhl_package_dimension_unit" attrs="{'required': [('delivery_type', '=', 'dhl')]}"/>
+                        <field name="dhl_label_image_format" attrs="{'required': [('delivery_type', '=', 'dhl')]}"/>
+                        <field name="dhl_label_template" attrs="{'required': [('delivery_type', '=', 'dhl')]}"/>
+                    </group>
+                </group>
+            </page>
+        </xpath>
+    </field>
+</record>
+
+</odoo>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="onboarding_winbooks_step">
+        <t t-call="base.onboarding_step">
+            <t t-set="title">Winbooks Import</t>
+            <t t-set="description">Import your accounting data from Winbooks.</t>
+            <t t-set="done_icon" t-value="'fa-star'" />
+            <t t-set="btn_text">Import</t>
+            <t t-set="done_text">Looks great!</t>
+            <t t-set="method" t-value="'winbooks_import_action'" />
+            <t t-set="model" t-value="'res.company'" />
+            <t t-set="state" t-value="state.get('account_onboarding_winbooks_state')" />
+        </t>
+    </template>
+    <template id="account_winbooks_import.account_dashboard_onboarding_panel" inherit_id="account.account_dashboard_onboarding_panel" name="account.dashboard.onboarding.panel">
+        <xpath expr="//t[@t-set='close_model']" position="after">
+            <t t-call="account_winbooks_import.onboarding_winbooks_step" name="winbooks_step" />
+        </xpath>
+    </template>
+</odoo>

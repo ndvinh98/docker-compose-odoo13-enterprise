@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Adds SDD payment method to each existing bank journal. -->
+    <function model="account.journal" name="write">
+        <value model="account.journal" eval="obj().search([('type','=','bank')]).ids"/>
+        <value eval="{
+            'inbound_payment_method_ids':[(4, ref('account_sepa_direct_debit.payment_method_sdd'), 0)]
+        }"/>
+    </function>
+</odoo>

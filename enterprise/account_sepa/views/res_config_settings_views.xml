@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.account.sepa</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div name="sepa_right_pane" position="inside">
+                <div class="content-group" attrs="{'invisible': [('module_account_sepa', '=', False)]}">
+                    <div class="row mt16">
+                        <label for="sepa_initiating_party_name" class="col-lg-3 o_light_label"/>
+                        <field name="sepa_initiating_party_name" class="oe_inline"/>
+                    </div>
+                    <div class="row">
+                        <label for="sepa_orgid_id" class="col-lg-3 o_light_label"/>
+                        <field name="sepa_orgid_id" class="oe_inline"/>
+                    </div>
+                    <div class="row">
+                        <label for="sepa_orgid_issr" class="col-lg-3 o_light_label"/>
+                        <field name="sepa_orgid_issr" class="oe_inline"/>
+                    </div>
+                    <div class="row" groups="base.group_no_one">
+                        <label for="sepa_pain_version" class="col-lg-3 o_light_label"/>
+                        <field name="sepa_pain_version" class="oe_inline"/>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+
+</odoo>

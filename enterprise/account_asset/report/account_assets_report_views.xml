@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="main_template_asset_report" inherit_id="account_reports.main_template" primary="True">
+            <xpath expr="//div[hasclass('o_account_reports_page')]" position="attributes">
+                <attribute name="class">o_account_reports_page o_account_reports_no_print o_account_assets_report</attribute>
+            </xpath>
+        </template>
+
+        <template id="line_caret_options" inherit_id="account_reports.line_caret_options">
+            <xpath expr="//li[last()]" position="after">
+                <li t-if="line['caret_options'] == 'account.asset.line'">
+                  <a role="menuitem" tabindex="-1" t-att-data-id="line['id']" action="open_asset" class="dropdown-item">Open Asset</a>
+                </li>
+            </xpath>
+        </template>
+
+        <record id="action_account_report_assets" model="ir.actions.client">
+            <field name="name">Assets Report</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.assets.report'}" />
+        </record>
+
+        <menuitem id="menu_action_account_report_assets" name="Assets Report"
+                  action="action_account_report_assets"
+                  parent="account.account_reports_management_menu"/>
+    </data>
+</odoo>

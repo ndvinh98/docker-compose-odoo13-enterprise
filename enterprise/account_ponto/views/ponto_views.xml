@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="assets_backend" name="account ponto assets" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript" src="/account_ponto/static/src/js/ponto.js"/>
+      </xpath>
+    </template>
+
+    <record id="ponto_online_provider_account_form_view" model="ir.ui.view">
+      <field name="name">ponto.account.online.provider.form.view</field>
+      <field name="model">account.online.provider</field>
+      <field name="inherit_id" ref="account_online_sync.online_provider_account_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//button[@name='update_credentials']" position="attributes">
+          <attribute name="attrs">{'invisible': [('provider_type', '=', 'ponto')]}</attribute>
+        </xpath>
+        <xpath expr="//button[@name='update_credentials']" position="after">
+          <button name="update_credentials" type="object" string="Update Accounts" attrs="{'invisible': [('provider_type', '!=', 'ponto')]}"/>
+        </xpath>
+      </field>
+    </record>
+
+  </data>
+</odoo>

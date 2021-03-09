@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates xml:space="preserve">
+    <t t-extend="mail.KanbanActivityDropdown">
+        <t t-jquery=".o_activity_log_container .o_activity_log t[t-foreach*='_.keys(records)'][t-as*='key'] t[t-foreach*='logs'][t-as*='log'] .activities_list_group_item" t-operation="replace">
+            <t t-if="log.approver_id">
+                <t t-set="approver_id" t-value="log.approver_id"/>
+                <li t-att-data-approver-id="approver_id" t-attf-class="list-group-item o_log_activity d-flex #{log_last ? 'border-bottom' : ''}" role="menuitem">
+                    <div class="o_activity_title">
+                        <div t-attf-class="o_activity_title_entry {{! log.force_next ? 'align-items-center' : 'mb-1'}}">
+                            <span t-attf-class="fa #{log.icon ? log.icon : 'fa-bell' } fa-fw mr-2 text-center text-muted" role="img" aria-label="Log" title="Log"/>
+                            <strong class="text-dark"><t t-esc="log.title_action or log.activity_type_id[1]"/></strong>
+                        </div>
+                        <div class="o_activity_title_entry mt-1" t-if="log.state != 'today'">
+                            <span class="fa fa-clock-o fa-fw mr-2 text-center text-muted" role="img" aria-label="Deadline" title="Deadline"/>
+                            <small t-att-title="log.date_deadline"><t t-esc="log.label_delay" /></small>
+                        </div>
+                        <div t-if="log.user_id[0] != uid and log.mail_template_ids" class="o_activity_title_entry">
+                            <span class="fa fa-user fa-fw mr-2 text-center text-muted" role="img" aria-label="User" title="User"/>
+                            <span><t t-esc="log.user_id[1]" /></span>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1 text-right">
+                        <t t-if="log.user_id[0] === uid">
+                            <a t-if="log.approver_status === 'pending'">
+                                <a t-att-data-approver-id="approver_id"
+                                    class="o_activity_action_approve o_activity_link o_activity_link_kanban fa fa-check-circle text-success"
+                                    title="Approve" role="button" aria-label="Approve"/>
+                                <a t-att-data-approver-id="approver_id"
+                                    class="o_activity_action_refuse o_activity_link o_activity_link_kanban fa fa-times-circle text-danger"
+                                    title="Refuse" role="button" aria-label="Refuse"/>
+                            </a>
+                        </t>
+                        <t t-else="">
+                            <a t-if="log.approver_status === 'pending'" class="text-warning">
+                                <i class="fa fa-pencil mr-1"/>  To Approve
+                            </a>
+                        </t>
+                    </div>
+                </li>
+            </t>
+            <t t-else="">
+                <t t-call="mail.activities-list-group-item"/>
+            </t>
+        </t>
+    </t>
+</templates>

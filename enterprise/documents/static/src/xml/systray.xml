@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-extend="mail.systray.ActivityMenu.Previews">
+        <t t-jquery="t[t-foreach*='activities'][t-as*='activity']" t-operation="after">
+            <div class="o_sys_documents_request" t-if="widget.hasDocumentUserGroup">
+                <a role="button" class="btn btn-block text-center">Request a Document</a>
+            </div>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+<!-- Main template -->
+<t t-name="documents.DocumentsInspector">
+    <div class="o_documents_inspector h-100">
+        <t t-set="nbPreviews" t-value="widget.records.length"/>
+        <div class="o_documents_inspector_preview d-flex flex-row flex-wrap align-items-center justify-content-center position-relative">
+            <div t-if="nbPreviews === 0">
+                <t t-if="widget.currentFolder">
+                    <div class="o_inspector_folder_description"><t t-if="widget.currentFolder.description" t-raw="widget.currentFolder.description"/></div>
+                </t>
+            </div>
+            <t t-else="" t-call="documents.DocumentsInspector.previews"/>
+        </div>
+        <div class="o_documents_inspector_info">
+            <t t-if="nbPreviews === 0" t-call="documents.DocumentsInspector.globalInfo"/>
+            <t t-else="">
+                <t t-call="documents.DocumentsInspector.buttons"/>
+                <t t-call="documents.DocumentsInspector.documentsInfo"/>
+            </t>
+        </div>
+    </div>
+</t>
+
+<!-- Documents preview (called if at least one document selected) -->
+<t t-name="documents.DocumentsInspector.previews">
+    <t t-foreach="widget.records.slice(0, 4)" t-as="record">
+        <t t-set="recordData" t-value="widget.recordsData[record.id]"/>
+        <div t-attf-class="o_document_preview
+            {{ nbPreviews === 1 ? 'o_documents_single_preview' : '' }}
+            {{ ((recordData.isImage or recordData.isYouTubeVideo) and 'o_documents_preview_image') or 'o_documents_preview_mimetype' }}
+            {{ (recordData.isYouTubeVideo or recordData.isGif) and 'o_non_image_preview' or '' }}">
+            <t t-set="mimetype" t-value="record.data.mimetype"/>
+            <t t-if="recordData.isImage or recordData.isGif or recordData.isYouTubeVideo">
+                <t t-set="size" t-value="nbPreviews === 1 ? '268x130' : nbPreviews === 2 ? '120x130' : '120x75'"/>
+                <img t-if="recordData.isYouTubeVideo"
+                     t-att-data-id="record.res_id"
+                     class="o_preview_available"
+                     t-attf-src="https://img.youtube.com/vi/#{recordData.youtubeToken}/0.jpg"
+                     alt="Youtube Video"/>
+                <img t-else=""
+                     class="o_preview_available o_documents_image_background"
+                     t-attf-src="/documents/image/#{record.res_id}/#{size}?signature=#{record.data.checksum}"
+                     t-att-data-id="record.res_id"
+                     t-att-title="record.data.name"/>
+            </t>
+            <div t-elif="record.data.url"
+                 class="o_image o_mimetype_icon"
+                 t-attf-data-mimetype="{{mimetype}}"
+                 t-att-title="record.data.name"
+                 t-att-data-id="record.res_id"/>
+            <div t-else=""
+                 t-attf-class="o_image o_mimetype_icon {{
+                    (mimetype and (mimetype.indexOf('pdf') !== -1 or
+                    mimetype.indexOf('video') !== -1 or
+                    mimetype.indexOf('text') !== -1)) and 'o_preview_available' or ''}}"
+                 t-att-data-mimetype="mimetype"
+                 t-att-data-id="record.res_id"
+                 t-att-title="record.data.name"/>
+        </div>
+        <i t-if="nbPreviews === 1" class="o_inspector_open_chatter rounded-circle text-center fa fa-comments" title="Open chatter"/>
+        <div t-if="record_index == 1 and record_size == 4" class="w-100"/>
+    </t>
+    <div t-if="nbPreviews &gt; 1" class="o_selection_info w-100 text-center mt-2">
+        <i class="o_selection_size"><b><t t-esc="nbPreviews"/></b> documents selected</i>
+    </div>
+</t>
+
+<!-- Global information (called if no document selected) -->
+<t t-name="documents.DocumentsInspector.globalInfo">
+    <div class="o_inspector_info_columns">
+        <table class="o_inspector_table">
+            <tbody>
+                <t t-call="documents.DocumentsInspector.infoRow">
+                    <t t-set="label">Documents</t>
+                    <t t-set="value" t-value="widget.nbDocuments"/>
+                </t>
+                <t t-call="documents.DocumentsInspector.infoRow">
+                    <t t-set="label">Size</t>
+                    <t t-set="value"><t t-esc="widget.size"/> MB</t>
+                </t>
+            </tbody>
+        </table>
+    </div>
+</t>
+
+<!-- Information row with two columns: label and value -->
+<t t-name="documents.DocumentsInspector.infoRow">
+    <tr>
+        <td class="o_inspector_label align-middle"><i t-if="icon" t-att-class="icon"/><t t-esc="label"/></td>
+        <td class="o_inspector_value w-100"><t t-esc="value"/></td>
+    </tr>
+</t>
+
+<!-- Documents information (called if at least one document selected) -->
+<t t-name="documents.DocumentsInspector.documentsInfo">
+    <div class="o_inspector_section mt4 o_inspector_fields">
+        <table class="o_inspector_table table table-sm table-borderless">
+            <tbody>
+                <tr class="o_inspector_divider"/>
+                <tr t-if="nbPreviews === 1" class="o_inspector_custom_field o_model_container"/>
+                <tr class="o_inspector_custom_field">
+                    <td class="o_inspector_label align-baseline">
+                        <label t-if="widget.currentFolder"><i class="o_documents_tag_color fa fa-tag"/> Tags</label>
+                    </td>
+                    <td class="o_inspector_value w-100">
+                        <div class="o_inspector_tags"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="o_inspector_section o_inspector_section_rules mt-3" t-if="widget.records[0].data.active">
+        <label t-if="widget.currentFolder"><i class="o_documents_action_color fa fa-play"/> Actions</label>
+        <div class="o_inspector_rules"/>
+    </div>
+</t>
+
+<!-- Document field template -->
+<t t-name="documents.DocumentsInspector.fieldLabel">
+    <span>
+        <i t-if="icon" t-attf-class="o_documents_model_color fa #{icon}"/>
+        <label t-att-for="name"><t t-esc="label"/></label>
+    </span>
+</t>
+
+<!-- Document res_model template -->
+<t t-name="documents.DocumentsInspector.resModel">
+    <td class="o_inspector_label align-middle">
+        <label t-att-title="res_model" class="o_inspector_model_name"><i class="o_documents_model_color fa fa-file-text"/> <t t-esc="res_model"/></label>
+    </td>
+    <td class="o_inspector_value w-100">
+        <div class="o_inspector_model">
+            <span class="o_inspector_object_name" t-att-title="res_name"><t t-esc="res_name || res_model"/></span>
+        </div>
+    </td>
+</t>
+
+<!-- Document tags template -->
+<t t-name="documents.DocumentsInspector.tag">
+    <div class="o_inspector_tag o_inspector_trigger_hover_target" t-att-data-id="id">
+        <span class="o_tag_prefix" t-att-title="group_name"><t t-esc="group_name"/> &gt;</span>
+        <span class= "o_documents_tag_name" t-att-title="name" t-esc="name"/>
+        <span class="o_inspector_tag_remove pull-right o_inspector_trigger_hover fa-fw">&#215;</span>
+    </div>
+</t>
+
+<!-- Document rules template -->
+<t t-name="documents.DocumentsInspector.rule">
+    <div class="o_inspector_rule o_inspector_trigger_hover_target mb-2" t-att-data-id="id">
+        <span t-att-title="note || ''"><t t-esc="display_name"/></span>
+        <button t-att-title="note || ''" class="btn fa fa-play text-white bg-primary pull-right o_inspector_trigger_rule o_inspector_trigger_hover"/>
+    </div>
+</t>
+
+<!-- Action buttons on selected documents (e.g. Archive, Delete...) -->
+<t t-name="documents.DocumentsInspector.buttons">
+    <div class="mb-3">
+        <div class="btn-group">
+            <button class="btn fa fa-download o_inspector_button o_inspector_download" title="Download"/>
+            <t t-if="widget.records[0].data.active">
+                <button t-if="widget.currentFolder" class="btn fa fa-share-alt o_inspector_button o_inspector_share" title="Share this selection" groups="documents.group_documents_user"/>
+                <t t-if="nbPreviews === 1">
+                    <button t-if="widget.records[0].data.type !== 'url'" class="btn fa fa-retweet o_inspector_button o_inspector_replace" title="Replace"/>
+                    <button t-att-class="'btn fa o_inspector_button o_inspector_lock' + (widget.records[0].data.lock_uid ? ' o_locked fa-lock' : ' fa-unlock-alt')" title="Lock"/>
+                </t>
+            </t>
+        </div>
+
+        <button t-if="widget.records[0].data.active" class="o_active btn fa fa-archive o_inspector_button o_inspector_archive pull-right" title="Archive"/>
+        <t t-else="">
+            <button class="btn pull-right o_inspector_button o_inspector_delete" title="Delete"><i class="fa fa-trash"/> <small>Delete</small></button>
+            <button class="btn pull-right o_inspector_button o_archived o_inspector_archive" style="margin-right:4px" title="Un-archive"><i class="fa fa-upload"/> <small>Restore</small></button>
+        </t>
+    </div>
+</t>
+
+<!-- Mobile templates -->
+<t t-name="documents.DocumentsInspectorMobile">
+    <details t-attf-class="#{widget.records.length ? '' : 'd-none'} o_documents_mobile_inspector">
+        <summary class="o_documents_toggle_inspector btn btn-primary d-flex align-items-center">
+            <i class="o_documents_close_inspector fa fa-fw fa-arrow-left"/>
+            <span class="m-auto">
+                <t t-esc="widget.records.length"/>
+                <t t-if="widget.records.length > 1">documents</t>
+                <t t-if="widget.records.length === 1">document</t>
+                selected
+            </span>
+        </summary>
+        <t t-call="documents.DocumentsInspector"/>
+    </details>
+</t>
+
+</templates>

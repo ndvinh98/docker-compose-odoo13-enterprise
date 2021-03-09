@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+<div t-name="documents.ProgressCard" class="o_documents_progress_border o_kanban_record o_kanban_attachment">
+    <div class="o_kanban_image">
+        <div class="o_kanban_image_wrapper">
+            <div class="o_image o_image_thumbnail" t-att-data-mimetype="widget.type"/>
+        </div>
+    </div>
+    <div class="o_kanban_details">
+        <div class="o_kanban_details_wrapper">
+            <div t-att-title="widget.title" class="o_kanban_record_title">
+                <span t-esc="widget.title"/>
+            </div>
+            <div class="o_kanban_record_body"/>
+            <div class="o_kanban_record_bottom">
+                <div class="oe_kanban_bottom_left">
+                    <div class="o_documents_progress_text_left">Processing...</div>
+                </div>
+                <div class="oe_kanban_bottom_right">
+                    <span class="o_documents_progress_text_right"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div t-name="documents.ProgressBar" class="o_documents_progress_bar_wrapper">
+    <div class="o_documents_progress_bar"/>
+    <span class="o_upload_cross fa fa-times-circle" title="Cancel Upload"/>
+</div>
+
+</templates>

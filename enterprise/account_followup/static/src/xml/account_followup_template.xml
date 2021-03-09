@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates>
+    <t t-name="CustomerStatements.nothing_to_send">
+        <div class="alert alert-info" role="alert">
+            No followup to send!
+        </div>
+    </t>
+
+    <t t-name="CustomerStatements.send_mail">
+        <div class="alert alert-info alert-dismissible" role="status" >
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&amp;times;</span></button>
+            The follow-up report was successfully emailed!
+        </div>
+    </t>
+
+    <t t-name="CustomerStatements.send_sms">
+        <div class="alert alert-info alert-dismissible" role="status" >
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&amp;times;</span></button>
+            The follow-up was successfully sent!
+        </div>
+    </t>
+
+    <div t-name="CustomerStatements.followupProgressbar" class="progress o_account-progress" style="height:1.5rem" data-toggle="tooltip" title="Follow-ups Done / Total Follow-ups">
+        <div class="progress-bar" role="context" t-att-aria-valuenow="current" aria-valuemin="0" t-att-aria-valuemax="max" t-att-style="'width: ' + percent + '%;'">
+            <span style="color:#666666; font-size:1rem;" class="justify-content-center d-flex position-absolute w-50 o_account-progress-bar-content text-muted"><b><t t-esc="current + '/' + max" /></b></span>
+        </div>
+    </div>
+    <t t-name="CustomerStatements.buttons">
+        <div>
+            <button type="button" class="btn btn-primary o_account_followup_print_letter_button">
+                Print letter
+            </button>
+            <button type="button" class="btn btn-primary o_account_followup_send_mail_button">
+                Send by email
+            </button>
+            <button type="button" class="btn btn-primary o_account_followup_send_sms_button">
+                Send by sms
+            </button>
+            <button type="button" class="btn btn-primary o_account_followup_manual_action_button">
+                Manual Action
+            </button>
+            <button type="button" class="btn btn-secondary o_account_followup_do_it_later_button" data-toggle='tooltip' title='Odoo will remind you to take care of this follow-up on the next reminder date.'>
+                Remind me later
+            </button>
+            <button type="button" class="btn btn-primary o_account_followup_done_button" style="display:none">
+                Done
+            </button>
+            <button type="button" class="btn btn-secondary o_account_followup_reconcile" data-toggle='tooltip'>
+                Reconcile
+            </button>
+        </div>
+    </t>
+</templates>

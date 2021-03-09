@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <template id="assets_backend" name="account yodlee assets" inherit_id="web.assets_backend">
+      <xpath expr="." position="inside">
+        <script type="text/javascript" src="/account_yodlee/static/src/js/yodlee.js"></script>
+      </xpath>
+    </template>
+
+    <record id="yodlee_online_provider_account_form_view" model="ir.ui.view">
+      <field name="name">yodlee.account.online.provider.form.view</field>
+      <field name="model">account.online.provider</field>
+      <field name="inherit_id" ref="account_online_sync.online_provider_account_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@name='status']" position="after">
+          <field name="action_required" attrs="{'invisible': [('provider_type', '!=', 'yodlee')]}"/>
+        </xpath>
+        <xpath expr="//field[@name='account_number']" position="after">
+          <field name="yodlee_account_status"/>
+          <field name="yodlee_status_code" groups="base.group_no_one"/>
+        </xpath>
+      </field>
+    </record>
+
+    <record id="yodlee_widget" model="ir.actions.client">
+      <field name="name">Synchronization process completed</field>
+      <field name="tag">yodlee_callback_widget</field>
+      <field name="target">new</field>
+    </record>
+
+  </data>
+</odoo>

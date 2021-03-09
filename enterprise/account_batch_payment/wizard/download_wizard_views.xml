@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="download_xml_form">
+            <field name="name">account.batch.download.wizard.form</field>
+            <field name="model">account.batch.download.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Download export file">
+                    <sheet>
+                        <h2>
+                            Click here to download the generated file:
+                            <field name="export_filename" invisible="1"/>
+                            <field name="export_file" readonly="1" filename="export_filename"/>
+                        </h2>
+
+                        <group>
+                            <div role="alert" class="alert alert-warning" attrs="{'invisible': [('warning_message', '=', False)]}">
+                                <field name="warning_message" widget="html"/>
+                            </div>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button string="Close" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

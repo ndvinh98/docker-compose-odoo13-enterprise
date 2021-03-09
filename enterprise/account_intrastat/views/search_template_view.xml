@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="search_template_intrastat_type">
+            <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-filter"/>
+                Types:
+                <t t-set="type_value" t-value="'All'"/>
+                <t t-set="selected_types" t-value="[c['name'] for c in options['intrastat_type'] if c['selected']]"/>
+                <t t-if="len(selected_types) > 0">
+                    <t t-set="type_value" t-value="', '.join(selected_types)"/>
+                </t>
+                <t t-esc="type_value"/>
+                <span class="caret"/>
+            </a>
+            <div class="dropdown-menu o_filters_menu" role="menu">
+                <t t-foreach="options['intrastat_type']" t-as="c">
+                    <a t-att-title="c.get('name')"
+                        data-filter="intrastat_type"
+                        t-att-data-id="c.get('id')"
+                        class="dropdown-item js_account_report_choice_filter">
+                        <t t-esc="c.get('name')"/>
+                    </a>
+                </t>
+            </div>
+        </template>
+        <template id="search_template_intrastat_extended">
+            <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-filter"/> Options:
+                <t t-if="options['intrastat_extended']">Extended</t>
+                <t t-if="not options['intrastat_extended']">Standard</t>
+                <span class="caret"/>
+            </a>
+            <div class="dropdown-menu o_filters_menu" role="menu">
+                <a role="menuitem" title="Extended" data-filter="intrastat_extended"
+                    class="dropdown-item js_account_report_bool_filter">
+                    Extended Mode
+                </a>
+            </div>
+        </template>
+        
+        <template id="search_template_vat">
+            <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-filter"/> Partners:
+                <t t-if="options['with_vat']">With VAT numbers</t>
+                <t t-if="not options['with_vat']">All</t>
+                <span class="caret"/>
+            </a>
+            <div class="dropdown-menu o_filters_menu" role="menu">
+                <a role="menuitem" title="Include VAT" data-filter="with_vat"
+                    class="dropdown-item js_account_report_bool_filter">
+                    Only with VAT numbers
+                </a>
+            </div>
+        </template>
+
+        <template id="search_template" inherit_id="account_reports.search_template">
+            <xpath expr="." position="inside">
+                <div class="btn-group o_dropdown o_account_reports_filter_intrastat_type"
+                     t-if="options.get('intrastat_type') != None">
+                    <t t-call="account_intrastat.search_template_intrastat_type"/>
+                </div>
+                <div class="btn-group o_dropdown o_account_reports_filter_intrastat_extended"
+                     t-if="options.get('intrastat_extended') != None">
+                    <t t-call="account_intrastat.search_template_intrastat_extended"/>
+                </div>
+                <div class="btn-group o_dropdown o_account_reports_filter_vat" 
+                     t-if="options.get('with_vat') != None">
+                    <t t-call="account_intrastat.search_template_vat"/>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+  <t t-name="OnlineSyncSearchBankTable">
+    <div>
+    <t t-if="institutions.length > 0">
+      <t t-foreach="institutions" t-as="inst">
+        <div class="row institutionLine">
+          <div class="col-12">
+            <hr class="searchSeparator"/>
+            <div class="pointer js_institution" t-att-data-inst-id="inst.institution_identifier" t-att-data-provider="inst.provider"
+              t-att-data-beta="inst.beta">
+              <!-- Line containing basic information on institution (img, name, country, beta) -->
+              <div class="row">
+                <div class="col-7 col-md-7">
+                  <h4><t t-esc="inst.name"></t></h4>
+                </div>
+                <div class="col-1 col-md-1">
+                  <h4><strong><t t-esc="inst.country"></t></strong></h4>
+                </div>
+                <div class="col-md-2 d-none d-md-block">
+                  <t t-if="inst.picture">
+                    <div class="inst_icon" t-att-style="'background-image: url('+inst.picture+')'">
+                    </div>
+                  </t>
+                </div>
+                <div class="col-md-2 col-3">
+                  <t t-if="inst.beta">
+                    <img class="img-fluid float-right beta-img" src="/account_online_sync/static/src/img/beta_icon.png" alt="Beta"/>
+                  </t>
+                </div>
+              </div>
+              <!-- Detail of institution -->
+              <div class="row d-none js_institution_detail" t-att-id="inst.institution_identifier">
+                <div class="col-12">
+                  <div class="border-info">
+                    <div class="row">
+                      <div class="col-md-5 col-12">
+                      <h6 title="The third party provider used to synchronize with your account">Provider: <small><t t-esc="inst.provider"/></small></h6>
+                      <h6 title="This id is used to identy the institution with our third party provider">Online identifier: <small><t t-esc="inst.institution_identifier"/></small></h6>
+                      <t t-if="inst.site_url">
+                        <h6 title="Website of the institution">Website:
+                          <small class="wordbreak">
+                            <a t-att-href="inst.site_url" target="_blank"><t t-esc="inst.site_url"/></a>
+                          </small>
+                        </h6>
+                      </t>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </t>
+    </t>
+  </div>
+  </t>
+
+  <t t-name="OnlineSyncErrorMessage">
+    <div>
+      <div class="col-12 text-center no_result">
+        <h4>Synchronization error!</h4>
+        <h6>Bank synchronization returned the following error message:</h6>
+        <p><t t-raw="sync_error_message"/></p>
+        <button class="btn-link js_configure_manually">Configure your bank account manually</button>
+      </div>
+    </div>
+  </t>
+
+  <t t-name="OnlineSyncSearchBankFooter">
+    <div>
+      <button class="btn btn-secondary js_select_institution" disabled="true">Connect</button>
+      <button class="btn btn-secondary js_cancel">Cancel</button>
+      <div class="float-right">
+        <span>Your bank is not there?</span>
+        <button class="btn btn-link js_configure_manually">Create it</button>
+      </div>
+    </div>
+  </t>
+
+  <t t-name="OnlineSyncSearchBank">
+    <div class="o_inst_search">
+      <div class="sync_error d-none">
+      </div>
+
+      <div class="institution_search">
+        <div class="row">
+          <div class="col-md-6">
+            <form id="search_form" target="#" method="post">
+            <div class="input-group o_input_group">
+              <input type="text" id="search_institution" class="o_input form-control o_input_search" placeholder="Search for a bank institution..." aria-describedby="click_search_institution" autocomplete="off">
+              <span class="input-group-addon o_input_icon" id="click_search_institution" style="margin-left: 5px"><i class="fa fa-search" title="Search" role="img" aria-label="Search"></i></span>
+              </input>
+              <input type="submit" style="display: none;"/>
+            </div>
+            </form>
+          </div>
+
+          <div class="col-md-6">
+            <t t-if="widget.context.country">
+              <input id="country" type="radio" class="switch_country" name="country" t-att-value="widget.context.country" checked="checked"/>
+              <label for="country"><t t-esc="widget.context.country_name"></t></label>
+              <input id="worldwide" type="radio" class="switch_country" name="country" value="worldwide"/>
+              <label for="worldwide">Worldwide</label>
+            </t>
+            <t t-else="">
+              <input id="worldwide" type="radio" class="switch_country" name="country" value="worldwide" checked="checked"/>
+              <label for="worldwide">Worldwide</label>
+            </t>
+          </div>
+        </div>
+      </div>
+
+      <div class="favorite_institutions_no_result d-none">
+        <div class="row">
+          <div class="col-12 text-center no_result">
+            <span><i class="fa fa-university fa-2" role="img" aria-label="Institution" title="Institution"></i></span>
+            <h4>Search through thousands<br/> of institutions</h4>
+          </div>
+        </div>
+      </div>
+      <div class="institutions_search d-none">
+        <div class="institution_result">
+        </div>
+        <div class="institution_no_result d-none">
+          <div class="row">
+            <div class="col-12 text-center no_result">
+              <span><i class="fa fa-search fa-2" role="img" aria-label="No result" title="No result"></i></span>
+              <h4>No Bank found!</h4>
+              You can import your bank statements using various <br/>formats such as CSV, CAMT, OFX, QIF, CODA, <br/>or encode them manually.<br/>
+              <button class="btn btn-link js_configure_manually">Create your Bank Account</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </t>
+
+</templates>

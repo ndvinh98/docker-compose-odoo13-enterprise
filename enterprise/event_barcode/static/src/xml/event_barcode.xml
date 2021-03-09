@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="event_barcode_template">
+        <div class="o_event_barcode_bg o_home_menu_background">
+            <div class="o_event_barcode_main">
+                <div class="text-center">
+                    <h1 t-esc="widget.data.name"/>
+                    <p>
+                        <t t-if="widget.data.city and widget.data.country">
+                            <t t-esc="widget.data.city"/> - <t t-esc="widget.data.country"/>
+                        </t>
+                        <t t-if="widget.data.city and !widget.data.country" t-esc="widget.data.city"/>
+                        <t t-if="widget.data.country and !widget.data.city" t-esc="widget.data.country"/>
+                    </p>
+                </div>
+                <h2><small>Welcome to</small> <t t-esc="widget.data.company_name"/></h2>
+                <img src="/web/binary/company_logo" alt="Company Logo" class="o_event_barcode_company_image"/>
+                <div class="row">
+                    <div class="col-sm-5">
+                        <img class="mt16 o_event_barcode_image" src="/event_barcode/static/img/barcode.png" alt="Barcode"/>
+                        <h5 class="mt8 mb0 text-muted">Scan your badge</h5>
+                    </div>
+                    <div class="col-sm-2 mt32">
+                        <h4 class="mt0 mb8"><i>or</i></h4>
+                    </div>
+                    <div class="col-sm-5 mt16">
+                        <button class="o_event_select_attendee btn btn-primary mb16">
+                            <div class="mb16 mt16">Select Attendee</div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="event_registration_summary">
+        <div class="row">
+          <div class="col-lg-8 offset-lg-2">
+            <div class="text-center" style="margin-bottom: 18px;">
+                <img t-if="registration.partner_id" t-attf-src="/web/image/res.partner/{{registration.partner_id}}/image_128" alt="Registration" class="o_image_64_cover"/>
+                <img t-else="" src="/web/static/src/img/placeholder.png" alt="Registration" class="o_image_64_cover"/>
+            </div>
+            <div t-if="success" class="alert alert-success text-center" role="status"><t t-esc="success"/></div>
+            <div t-if="warning" class="alert alert-warning text-center" role="alert"><t t-esc="warning"/></div>
+            <div t-if="registration.alert" class="alert alert-danger text-center" role="alert"><t t-esc="registration.alert"/></div>
+          </div>
+        </div>
+        <div id="registration_information" class="row">
+          <div class="col-lg-12">
+            <table class="table table-striped">
+              <tr t-foreach="registration.information" t-as="info">
+                <td><t t-esc="info[0]"/></td><td t-att-class="info[2] ? ('text-' + info[2]) : undefined"><t t-esc="info[1]"/></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+    </t>
+
+</templates>

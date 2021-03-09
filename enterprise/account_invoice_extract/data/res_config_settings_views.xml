@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.account.invoice.ocr</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div id="msg_invoice_extract" position="replace"/>
+
+            <div id="account_ocr_settings" position="after">
+                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': [('module_account_invoice_extract', '=', False)]}">
+                    <div class="o_setting_left_pane">
+                        <field name="extract_single_line_per_tax"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="extract_single_line_per_tax"/>
+                        <span class="fa fa-lg fa-building-o" title="Values set here are company-specific."/>
+                        <div class="text-muted">
+                            Enable to get only one invoice line per tax
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="digitalizeocr" position="inside">
+                <div class="mt16" attrs="{'invisible': [('module_account_invoice_extract', '=', False)]}">
+                    <field name="extract_show_ocr_option_selection" class="o_light_label" widget="radio"/>
+                </div>
+                <widget name="iap_buy_more_credits" service_name="invoice_ocr"/>
+            </div>
+        </field>
+    </record>
+</odoo>

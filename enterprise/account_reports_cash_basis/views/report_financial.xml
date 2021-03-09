@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="search_template_extra_options" inherit_id="account_reports.search_template_extra_options">
+        <xpath expr="//a" position="inside">
+            <t t-if="options.get('all_entries') != None">, </t>
+            <t t-if="options.get('cash_basis') != None">
+                <t t-if="options['cash_basis']">Cash Basis</t>
+                <t t-if="not options['cash_basis']">Accrual Basis</t>
+            </t>
+        </xpath>
+        <xpath expr="//div" position="inside">
+            <a role="menuitem" class="dropdown-item js_account_report_bool_filter" t-if="options.get('cash_basis') != None" title="Cash Basis Method" data-filter="cash_basis" groups="account.group_account_user">Cash Basis Method</a>
+        </xpath>
+    </template>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<odoo>
+        <record id="account_bank_statement_import_qif" model="ir.ui.view">
+            <field name="name">Upload Bank Statements QIF</field>
+            <field name="model">account.bank.statement.import</field>
+            <field name="inherit_id" ref="account_bank_statement_import.account_bank_statement_import_view"/>
+            <field name="arch" type="xml">
+                <xpath expr="//ul[@id='statement_format']" position="inside">
+                    <li>Quicken Interchange Format (QIF)</li>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="account_bank_statement_import_view_inherited" model="ir.ui.view">
+            <field name="name">Upload Bank Statements Inherited</field>
+            <field name="model">account.bank.statement.import</field>
+            <field name="priority" eval="20"/>
+            <field name="inherit_id" ref="account_bank_statement_import.account_bank_statement_import_view" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='attachment_ids']" position="after">
+                    <field name="hide_journal_field" invisible="1"/>
+                    <group attrs="{'invisible': [('hide_journal_field', '=', True)]}">
+                        <field name="journal_id" domain="[('type', '=', 'bank')]" context="{'default_type':'bank'}"/>
+                    </group>
+                    <field name="show_qif_date_format" invisible="1"/>
+                    <group attrs="{'invisible': [('show_qif_date_format', '=', False)]}">
+                        <p class="oe_form_box_info bg-info" colspan="2">
+                            The QIF format is ambiguous about dates: please check with your financial institution whether they format it with month or day first.<br/>
+                        </p>
+                        <field name="qif_date_format" widget="radio"/>
+                    </group>
+                </xpath>
+                <xpath expr="//button[@name='import_file']" position="replace">
+                    <button name="import_file" string="Upload" type="object" class="btn-primary" attrs="{'invisible': [('qif_date_format', '=', 'day_first')]}"/>
+                    <button name="import_file" string="Upload" type="object" class="btn-primary" context="{'qif_date_format': 'day_first'}" attrs="{'invisible': [('qif_date_format', '!=', 'day_first')]}"/>
+                </xpath>
+            </field>
+        </record>
+</odoo>

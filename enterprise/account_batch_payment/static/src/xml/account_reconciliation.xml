@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-extend="reconciliation.line">
+        <t t-jquery=".o_notebook ul" t-operation="append">
+            <li class="nav-item batch_payments_selector"><a data-toggle="tab" disable_anchor="true" t-attf-href="#notebook_page_batch_#{state.st_line.id}" class="nav-link" role="tab" aria-selected="false">Batch Payments</a></li>
+        </t>
+
+        <t t-jquery=".o_notebook .tab-content" t-operation="append">
+            <div class="tab-pane" t-attf-id="notebook_page_batch_#{state.st_line.id}">
+                <div class="batch_payments_selector w-100 match"/>
+            </div>
+        </t>
+    </t>
+
+    <t t-name="batch.payment.tab">
+        <div class="match_controls">
+            <span><input class="filter o_input" placeholder="Filter..." type="text" t-att-value="filter"/></span>
+            <button class="btn btn-secondary btn-sm fa fa-search" type="button"></button>
+        </div>
+        <table>
+            <tbody>
+                <t t-foreach="payments" t-as="batch">
+                    <tr class="batch_payment" t-att-data-batch_payment_id="batch.id">
+                        <td class="cell_account_code"></td>
+                        <td class="cell_due_date">
+                            <t t-esc="batch.date"/>
+                        </td>
+                        <td class="cell_label">
+                            <t t-esc="batch.name"/>
+                        </td>
+                        <td class="cell_left">
+                        </td>
+                        <td class="cell_right">
+                            <t t-esc="batch.amount_str"/>
+                            <t t-if="batch.amount_currency_str">
+                                (<t t-esc="batch.amount_currency_str"/>)
+                            </t>
+                        </td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </t>
+
+</templates>

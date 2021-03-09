@@ -1,0 +1,234 @@
+<odoo>
+    <data>
+        <record id="customer_statements_form_view" model="ir.ui.view">
+            <field name="name">customer.statements.followup</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <form js_class="followup_form">
+                    <sheet>
+                        <followup/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <record id="customer_statements_tree_view" model="ir.ui.view">
+            <field name="name">customer.statements.tree</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <tree string="Follow-up Reports Tree View" create="false" import="false" delete="false">
+                    <field name="currency_id" invisible="1"/>
+                    <field name="name"/>
+                    <field name="total_due" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total"/>
+                    <field name="total_overdue" widget="monetary" options="{'currency_field': 'currency_id'}" sum="Total"/>
+                    <field name="followup_status"/>
+                    <field name="followup_level"/>
+                    <field name="payment_next_action_date" optional="hide"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="customer_statements_search_view" model="ir.ui.view">
+            <field name="name">customer.statements.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="mode">primary</field>
+            <field name="priority">100</field>
+            <field name="arch" type="xml">
+                <filter name="inactive" position="before">
+                    <separator />
+                    <filter string="Overdue Invoices"
+                            name="filter_with_overdue_invoices"
+                            domain="[('followup_status', 'in', ('in_need_of_action', 'with_overdue_invoices'))]"/>
+                    <filter string="In need of action"
+                            name="filter_in_need_of_action"
+                            domain="[('followup_status', '=', 'in_need_of_action')]"/>
+                    <separator/>
+                </filter>
+            </field>
+        </record>
+
+        <record id="action_view_list_customer_statements" model="ir.actions.act_window">
+            <field name="name">Follow-up Reports</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="customer_statements_search_view"/>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('customer_statements_tree_view')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('customer_statements_form_view')})]"/>
+            <field name="domain">['|', ('parent_id', '=', False), ('is_company', '=', True)]</field>
+            <field name="context">{'search_default_filter_in_need_of_action': 1, 'search_default_customer': 1, 'res_partner_search_mode': 'customer'}</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                No follow-up to send!
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="customer_statements_menu" name="Follow-up Reports" parent="account.menu_finance_receivables"
+                action="action_view_list_customer_statements" sequence="20"/>
+
+        <record model="ir.actions.server" id="action_account_reports_customer_statements_do_followup">
+            <field name="name">Process follow-ups</field>
+            <field name="model_id" ref="model_res_partner"/>
+            <field name="binding_model_id" ref="model_res_partner" />
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                    action = records.execute_followup()
+            </field>
+        </record>
+
+        <record id="view_account_followup_followup_line_tree" model="ir.ui.view">
+            <field name="name">account_followup.followup.line.tree</field>
+            <field name="model">account_followup.followup.line</field>
+            <field name="arch" type="xml">
+                <tree string="Follow-up Steps" >
+                    <field name="name"/>
+                    <field name="delay"/>
+                    <field name="send_email"/>
+                    <field name="print_letter"/>
+                    <field name="send_sms"/>
+                    <field name="manual_action_type_id"/>
+                    <field name="company_id"  groups="base.group_multi_company"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_account_followup_followup_line_form" model="ir.ui.view">
+            <field name="name">account_followup.followup.line.form</field>
+            <field name="model">account_followup.followup.line</field>
+            <field name="arch" type="xml">
+                <form string="Follow-up Steps">
+                    <sheet>
+                        <div class="oe_title">
+                            <label for="name" class="oe_edit_only"/>
+                            <h1><field name="name"/></h1>
+                        </div>
+                        <div class="oe_inline">
+                            After <field name="delay" class="oe_inline"/> days overdue, do the following actions:
+                        </div>
+                        <group>
+                            <group string="Actions">
+                                <field name="send_email"/>
+                                <field name="send_sms"/>
+                                <field name="print_letter" attrs="{'invisible': [('auto_execute', '=', True)]}"/>
+                                <field name="manual_action" attrs="{'invisible': [('auto_execute', '=', True)]}"/>
+                            </group>
+                            <group string="Options">
+                                <field name="auto_execute"/>
+                                <field name="join_invoices" attrs="{'invisible': [('send_email', '=', False), ('print_letter', '=', False)]}"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Message" id='letter_format' attrs="{'invisible': [('send_email', '=', False), ('print_letter', '=', False)]}">
+                                <field name="description" nolabel="1" colspan="2"/>
+                            </page>
+                            <page string="SMS Message" attrs="{'invisible': [('send_sms', '=', False)]}">
+                                <field name="sms_description" widget="sms_widget" nolabel="1" colspan="2"/>
+                            </page>
+                            <page string="Manual Action" attrs="{'invisible': [('manual_action', '=', False)]}">
+                                <group>
+                                    <group>
+                                        <field name="manual_action_responsible_id"/>
+                                        <field name="manual_action_type_id" attrs="{'required': [('manual_action', '!=', False)]}"/>
+                                        <field name="manual_action_note" attrs="{'required': [('manual_action', '!=', False)]}"
+                                            placeholder="e.g. Call the customer, check if it's paid, ..."/>
+                                    </group>
+                                </group>
+                            </page>
+                            <page string="How to customize your messages?" attrs="{'invisible': [('send_email', '=', False), ('print_letter', '=', False), ('send_sms', '=', False)]}">
+                                <div class='alert alert-info' role="alert">
+                                    <h4 class="alert-heading" role="alert">In order to build customized messages:</h4>
+                                    <p>
+                                        Write here the introduction in the letter and mail or sms,
+                                        according to the level of the follow-up. You can
+                                        use the following keywords in the text. Don't
+                                        forget to translate in all languages you installed
+                                        using to top right icon.
+                                        <table>
+                                            <tr><td t-translation="off">%%(partner_name)s</td><td>: Partner Name</td></tr>
+                                            <tr><td t-translation="off">%%(date)s</td><td>: Current Date</td></tr>
+                                            <tr><td t-translation="off">%%(amount_due)s</td><td>: Amount Due by the partner</td></tr>
+                                            <tr><td t-translation="off">%%(user_signature)s</td><td>: User Name</td></tr>
+                                            <tr><td t-translation="off">%%(company_name)s</td><td>: User's Company Name</td></tr>
+                                        </table>
+                                    </p>
+                                </div>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_account_followup_line_filter" model="ir.ui.view">
+            <field name="name">account.followup.line.select</field>
+            <field name="model">account_followup.followup.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Follow-up">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_account_followup_line_definition_form" model="ir.actions.act_window">
+            <field name="name">Payment Follow-ups</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">account_followup.followup.line</field>
+            <field name="search_view_id" ref="view_account_followup_line_filter"/>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Define follow-up levels and their related actions
+              </p><p>
+                For each step, specify the actions to be taken and delay in days. It is
+                possible to use print and e-mail templates to send specific messages to
+                the customer.
+              </p>
+          </field>
+        </record>
+
+        <menuitem action="action_account_followup_line_definition_form" id="account_followup_menu" parent="account.account_invoicing_menu" name="Follow-up Levels" groups="account.group_account_manager" sequence="6"/>
+
+        <record id="account_move_line_partner_tree" model="ir.ui.view">
+            <field name="name">account.move.line.partner.tree</field>
+            <field name="model">account.move.line</field>
+            <field eval="32" name="priority"/>
+            <field name="arch" type="xml">
+                <tree decoration-danger="parent_state == 'draft'" editable="bottom" string="Partner entries">
+                    <field name="parent_state" invisible="1"/>
+                    <field name="date"/>
+                    <field name="move_id"/>
+                    <field name="ref"/>
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="account_id"/>
+                    <field name="followup_line_id"/>
+                    <field name="followup_date"/>
+                    <field name="debit" sum="Total debit"/>
+                    <field name="credit" sum="Total credit"/>
+                    <field name="date_maturity"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_move_line_form" model="ir.ui.view">
+            <field name="name">account.move.line.form.followup</field>
+            <field name="model">account.move.line</field>
+            <field name="inherit_id" ref="account.view_move_line_form"/>
+            <field name="arch" type="xml">
+                <field name="date" position="after">
+                    <field name="followup_line_id"/>
+                    <field name="followup_date"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

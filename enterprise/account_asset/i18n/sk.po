@@ -1,0 +1,1974 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* account_asset
+# 
+# Translators:
+# Matus Krnac <matus.krnac@gmail.com>, 2019
+# Martin Trigaux, 2019
+# Pavol Krnáč <pavol.krnac@ekoenergo.sk>, 2019
+# Jaroslav Bosansky <jaro.bosansky@ekoenergo.sk>, 2019
+# gebri <gebri@inmail.sk>, 2019
+# Stefan Stieranka <stieranka@itec.sk>, 2020
+# Jan Prokop, 2020
+# Michal Matus <misko.matus@gmail.com>, 2020
+# karolína schusterová <karolina.schusterova@vdp.sk>, 2020
+# Rastislav Brencic <rastislav.brencic@azet.sk>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-02-05 11:38+0000\n"
+"PO-Revision-Date: 2019-08-26 09:34+0000\n"
+"Last-Translator: Rastislav Brencic <rastislav.brencic@azet.sk>, 2020\n"
+"Language-Team: Slovak (https://www.transifex.com/odoo/teams/41243/sk/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: sk\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid " (copy)"
+msgstr " (kopírovať)"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__total_depreciation_entries_count
+msgid "# Depreciation Entries"
+msgstr "# Položky odpisov"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__gross_increase_count
+msgid "# Gross Increases"
+msgstr "# Hrubé prírastky"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__depreciation_entries_count
+msgid "# Posted Depreciation Entries"
+msgstr "# Účtované odpisy"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "%s created from invoice"
+msgstr "%s vytvorené z faktúry"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "(prorata entry)"
+msgstr "(záznam prorata)"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "A deferred expense has been created for this move:"
+msgstr "Pre tento pohyb bol vytvorený odložený náklad:"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "A deferred revenue has been created for this move:"
+msgstr "Pre tento presun bol vytvorený odložený príjem:"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "A document linked to %s has been deleted: "
+msgstr "Dokument prepojený s %sbolo vymazané:"
+
+#. module: account_asset
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "A gross increase has been created"
+msgstr "Bol vytvorený hrubý prírastok"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#, python-format
+msgid "Accelerated"
+msgstr "Zrýchlený"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method__degressive_then_linear
+msgid "Accelerated Degressive"
+msgstr "Zrýchlený degresívny"
+
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_account
+msgid "Account"
+msgstr "Účet"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_asset_counterpart_id
+msgid "Account Asset Counterpart"
+msgstr "Protistrana majetku v účte"
+
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_assets_report
+msgid "Account Assets Report"
+msgstr "Správa o majetku na účte"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_depreciation_id
+msgid "Account Depreciation"
+msgstr "Odpisy účtu"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_depreciation_expense_id
+msgid "Account Depreciation Expense"
+msgstr "Náklady na odpisy účtu"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__user_type_id
+msgid ""
+"Account Type is used for information purpose, to generate country-specific "
+"legal reports, and set the rules to close a fiscal year and generate opening"
+" entries."
+msgstr ""
+"Typ účtu je používaný na informačné účely, na generovanie právneho výkazu "
+"pre jednotlivé krajiny, a pre nastavenie pravidiel pre uzavretie fiškálneho "
+"roku a generovanie otváracích vstupov."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_id
+msgid "Account used in the depreciation entries, to decrease the asset value."
+msgstr "Účet použitý pre položky odpisov pre zníženie hodnoty aktíva."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__account_depreciation_expense_id
+msgid ""
+"Account used in the periodical entries, to record a part of the asset as "
+"expense."
+msgstr ""
+"Účet použitý ako periodické položky pre záznam čiastkovej hodnoty aktíva ako"
+" náklad."
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Account used to recognize the expense"
+msgstr "Účet použitý na vykázanie výdavku"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Account used to recognize the revenue"
+msgstr "Účet používaný na vykázanie výnosov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Account used to record the deferred income"
+msgstr "Účet používaný na zaznamenanie výnosov budúcich období"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__account_asset_id
+msgid ""
+"Account used to record the purchase of the asset at its original price."
+msgstr "Účet použitý pre záznam nákupu aktíva za pôvodnú cenu."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_sell__gain_account_id
+msgid "Account used to write the journal item in case of gain"
+msgstr "Účet používaný na zápis do denníka pre prípad príjmov"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_res_company__gain_account_id
+msgid ""
+"Account used to write the journal item in case of gain while selling an "
+"asset"
+msgstr ""
+"Účet používaný na zápis do denníka v prípade príjmov pri predaji majetku"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_sell__loss_account_id
+msgid "Account used to write the journal item in case of loss"
+msgstr "Účet používaný na zápis do denníka pre prípad straty"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_res_company__loss_account_id
+msgid ""
+"Account used to write the journal item in case of loss while selling an "
+"asset"
+msgstr ""
+"Účet používaný na zápis do denníka v prípade straty pri predaji majetku"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Accounting"
+msgstr "Účtovníctvo"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__acquisition_date
+#, python-format
+msgid "Acquisition Date"
+msgstr "Dátum akvizície"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__action
+msgid "Action"
+msgstr "Akcia"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_needaction
+msgid "Action Needed"
+msgstr "Potrebná akcia"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__active
+msgid "Active"
+msgstr "Aktívne"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_ids
+msgid "Activities"
+msgstr "Aktivity"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "Označenie výnimky v aktivite"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_state
+msgid "Activity State"
+msgstr "Stav aktivity"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "All the lines should be from the same account"
+msgstr "Všetky riadky by mali byť z rovnakého účtu"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "All the lines should be posted"
+msgstr "Mali by sa zaúčtovať všetky riadky"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__parent_id
+msgid "An asset has a parent when it is the result of gaining value"
+msgstr "Majetok má materskú spoločnosť, ak je výsledkom získania hodnoty"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "An asset has been created for this move:"
+msgstr "Pre tento presun bolo vytvorené dielo:"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__account_analytic_id
+msgid "Analytic Account"
+msgstr "Analytický účet"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__analytic_tag_ids
+msgid "Analytic Tag"
+msgstr "Analytický tag"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Archived"
+msgstr "Archivovaný"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#: code:addons/account_asset/models/account_move.py:0
+#: code:addons/account_asset/models/account_move.py:0
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_pause__asset_id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__asset_id
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_id
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__asset_id
+#: model:ir.model.fields.selection,name:account_asset.selection__account_account__asset_type__purchase
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+#, python-format
+msgid "Asset"
+msgstr "Aktívny"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Asset Account"
+msgstr "Účet aktíva"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__account_asset_id
+msgid "Asset Gross Increase Account"
+msgstr "Účet zvýšenia hrubého majetku"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_id_display_name
+msgid "Asset Id Display Name"
+msgstr "Zobrazovaný názov ID majetku"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_ids_display_name
+msgid "Asset Ids Display Name"
+msgstr "Zobrazovaný názov ID majetku"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move_line__asset_id
+msgid "Asset Linked"
+msgstr "Prepojené aktíva"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_manually_modified
+msgid "Asset Manually Modified"
+msgstr "Aktíva manuálne upravené"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_account__asset_model
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
+msgid "Asset Model"
+msgstr "Model majetku"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Asset Model name"
+msgstr "Názov modelu majetku"
+
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_account_asset_model_form
+#: model:ir.ui.menu,name:account_asset.menu_action_account_asset_model_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_purchase_tree
+msgid "Asset Models"
+msgstr "Modely aktív"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__name
+msgid "Asset Name"
+msgstr "Názov aktíva"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_account__asset_type
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__asset_type
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_asset_type
+msgid "Asset Type"
+msgstr "Typ aktíva"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_value_change
+msgid "Asset Value Change"
+msgstr "Zmena hodnoty majetku"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Asset Values"
+msgstr "Hodnoty majetku"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Asset created"
+msgstr "Aktívum vytvorené"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_move_line__asset_id
+msgid "Asset created from this Journal Item"
+msgstr "Dielo vytvorené z tejto položky denníka"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Asset paused"
+msgstr "Dielo bolo pozastavené"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Asset sold or disposed. Accounting entry awaiting for validation."
+msgstr ""
+"Aktívum predané alebo zlikvidovné. účtovný vstup čakajúci na potvrdenie."
+
+#. module: account_asset
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "Asset unpaused"
+msgstr "Majetok nebol pozastavený"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Asset(s)"
+msgstr "Aktíva"
+
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_asset
+msgid "Asset/Revenue Recognition"
+msgstr "Priznanie Aktív/Príjmov"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#: code:addons/account_asset/report/account_assets_report.py:0
+#: model:ir.actions.act_window,name:account_asset.action_account_asset_form
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_ids
+#: model:ir.ui.menu,name:account_asset.menu_action_account_asset_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_purchase_tree
+#, python-format
+msgid "Assets"
+msgstr "Aktíva"
+
+#. module: account_asset
+#: model:ir.actions.client,name:account_asset.action_account_report_assets
+#: model:ir.ui.menu,name:account_asset.menu_action_account_report_assets
+msgid "Assets Report"
+msgstr "Aktíva report"
+
+#. module: account_asset
+#: model:ir.ui.menu,name:account_asset.menu_finance_config_assets
+msgid "Assets and Revenues"
+msgstr "Aktíva a Príjmy"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Assets in closed state"
+msgstr "Aktíva v zavretom stave"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Assets in draft and open states"
+msgstr "Aktíva v stave koncept alebo otvorené"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_attachment_count
+msgid "Attachment Count"
+msgstr "Počet príloh"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
+msgid "Automate Asset"
+msgstr "Automatizovať aktíva"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
+msgid "Automate Deferred Expense"
+msgstr "Automatizujte odložené náklady"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
+msgid "Automate Deferred Revenue"
+msgstr "Automatizujte odložené výnosy"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__book_value
+#, python-format
+msgid "Book Value"
+msgstr "Účtovná hodnota"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_account__can_create_asset
+msgid "Can Create Asset"
+msgstr "Môže vytvoriť aktíva"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_pause_form
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_sell_form
+msgid "Cancel"
+msgstr "Zrušiť"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#, python-format
+msgid "Caracteristics"
+msgstr "Charakteristika"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Category of asset"
+msgstr "Kategória aktíva"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__children_ids
+msgid "Children"
+msgstr "Podradené"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__method
+msgid ""
+"Choose the method to use to compute the amount of depreciation lines.\n"
+"  * Linear: Calculated on basis of: Gross Value / Number of Depreciations\n"
+"  * Degressive: Calculated on basis of: Residual Value * Degressive Factor\n"
+"  * Accelerated Degressive: Like Degressive but with a minimum depreciation value equal to the linear value."
+msgstr ""
+"Vyberte metódu, ktorá sa použije na výpočet množstva odpisových položiek.\n"
+" * Lineárne: Vypočítané na základe: Hrubá hodnota / Počet odpisov\n"
+"  *Degresívne: Vypočítané na základe: Zostatková hodnota * Degresívny faktor\n"
+"  * Zrýchlený degresívny: rovnako ako degresívny, ale s minimálnou hodnotou odpisu, ktorá je rovná lineárnej hodnote."
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__close
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Closed"
+msgstr "Uzavreté"
+
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_res_company
+msgid "Companies"
+msgstr "Spoločnosti"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__company_id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__company_id
+msgid "Company"
+msgstr "Spoločnosť"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Compute Deferal"
+msgstr "Vypočítať odklad"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Compute Depreciation"
+msgstr "Vypočítať odpis"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Compute Revenue"
+msgstr "Výpočet výnosov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Confirm"
+msgstr "Potvrď"
+
+#. module: account_asset
+#: model:ir.actions.server,name:account_asset.action_account_aml_to_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_account__create_asset
+msgid "Create Asset"
+msgstr "Vytvoriť dielo"
+
+#. module: account_asset
+#: model:ir.actions.server,name:account_asset.action_account_aml_to_deferred
+msgid "Create Deferred Entry"
+msgstr "Vytvorte odložený záznam"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_account__create_asset__validate
+msgid "Create and validate"
+msgstr "Vytvorte a overte"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_account__create_asset__draft
+msgid "Create in draft"
+msgstr "Vytvoriť návrh"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__create_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_pause__create_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__create_uid
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__create_uid
+msgid "Created by"
+msgstr "Vytvoril"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__create_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_pause__create_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__create_date
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__create_date
+msgid "Created on"
+msgstr "Vytvorené"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_depreciated_value
+msgid "Cumulative Depreciation"
+msgstr "Kumulatívny odpis"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Cumulative Expense"
+msgstr "Kumulatívne náklady"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Cumulative Revenue"
+msgstr "Kumulatívne výnosy"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__currency_id
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__currency_id
+msgid "Currency"
+msgstr "Mena"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Current"
+msgstr "Aktuálne"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Current Values"
+msgstr "Aktuálne hodnoty"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__invoice_id
+msgid "Customer Invoice"
+msgstr "Faktúra zákazníka"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__date
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Date"
+msgstr "Dátum"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#: model:ir.model.fields.selection,name:account_asset.selection__account_account__asset_type__expense
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__asset_type__expense
+#, python-format
+msgid "Deferred Expense"
+msgstr "Odložený náklad"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
+msgid "Deferred Expense Account"
+msgstr "Účet odložených nákladov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Deferred Expense Amount"
+msgstr "Suma odložených nákladov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
+msgid "Deferred Expense Model"
+msgstr "Model odložených nákladov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Deferred Expense Model name"
+msgstr "Názov modelu odložených nákladov"
+
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_account_expense_model_form
+#: model:ir.ui.menu,name:account_asset.menu_action_account_expense_model_recognition
+msgid "Deferred Expense Models"
+msgstr "Modely odložených nákladov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Deferred Expense name"
+msgstr "Názov odložených nákladov"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Deferred Expense(s)"
+msgstr "Odložené výdavky"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#: model:ir.actions.act_window,name:account_asset.action_account_expense_form
+#: model:ir.ui.menu,name:account_asset.menu_action_account_expense_recognition
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_tree
+#, python-format
+msgid "Deferred Expenses"
+msgstr "Náklady budúcich období"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
+msgid "Deferred Expenses Models"
+msgstr "Modely odložených nákladov"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#: model:ir.model.fields.selection,name:account_asset.selection__account_account__asset_type__sale
+#, python-format
+msgid "Deferred Revenue"
+msgstr "Výnosy budúcich období"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
+msgid "Deferred Revenue Account"
+msgstr "Účet odložených príjmov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Deferred Revenue Amount"
+msgstr "Suma odložených výnosov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_form_asset_inherit
+msgid "Deferred Revenue Model"
+msgstr "Model odložených výnosov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Deferred Revenue Model name"
+msgstr "Názov modelu odloženého výnosu"
+
+#. module: account_asset
+#: model:ir.actions.act_window,name:account_asset.action_account_revenue_model_form
+#: model:ir.ui.menu,name:account_asset.menu_action_account_revenue_model_recognition
+msgid "Deferred Revenue Models"
+msgstr "Modely odložených výnosov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Deferred Revenue name"
+msgstr "Názov odložených príjmov"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Deferred Revenue(s)"
+msgstr "Odložené výnosy"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#: model:ir.actions.act_window,name:account_asset.action_account_revenue_form
+#: model:ir.ui.menu,name:account_asset.menu_action_account_revenue_recognition
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_sale_tree
+#, python-format
+msgid "Deferred Revenues"
+msgstr "Odložené Príjmy"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
+msgid "Deferred Revenues Models"
+msgstr "Modely odložených výnosov"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Deferred expense"
+msgstr "Náklady budúcich období"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Deferred expense created"
+msgstr "Vytvorený odložený náklad"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Deferred revenue"
+msgstr "Výnosy budúcich období"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Deferred revenue created"
+msgstr "Vytvorené odložené výnosy"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method__degressive
+#, python-format
+msgid "Degressive"
+msgstr "Zostupné"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__method_progress_factor
+msgid "Degressive Factor"
+msgstr "Zostupný faktor"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__value_residual
+msgid "Depreciable Amount"
+msgstr "Odpisovateľná suma"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__value_residual
+#: model:ir.model.fields,field_description:account_asset.field_account_move__asset_remaining_value
+msgid "Depreciable Value"
+msgstr "Odpisovateľná hodnota"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+#, python-format
+msgid "Depreciation"
+msgstr "Amortizácia"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__account_depreciation_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
+msgid "Depreciation Account"
+msgstr "Účet odpisov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Depreciation Board"
+msgstr "Nástenka odpisov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Depreciation Date"
+msgstr "Dátum odpisu"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__depreciation_move_ids
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Depreciation Lines"
+msgstr "Odpisové riadky"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Depreciation Method"
+msgstr "Metóda odpisu"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#, python-format
+msgid "Depreciation Table Report"
+msgstr "Správa odpisovej tabuľky"
+
+#. module: account_asset
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "Depreciation board modified"
+msgstr "Odpisová nástenka upravená"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Depreciation entry %s posted (%s)"
+msgstr "Odpisová položka %s zaúčtované (%s)"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Depreciation entry %s reversed (%s)"
+msgstr "Odpisový zápis%s zvrátiť (%s)"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__display_account_asset_id
+msgid "Display Account Asset"
+msgstr "Zobraziť majetok účtu"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__display_model_choice
+msgid "Display Model Choice"
+msgstr "Zobraziť výber modelu"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__display_name
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_pause__display_name
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__display_name
+#: model:ir.model.fields,field_description:account_asset.field_account_assets_report__display_name
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__display_name
+msgid "Display Name"
+msgstr "Zobrazovaný Názov"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Disposal"
+msgstr "Dispozícia"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__disposal_date
+msgid "Disposal Date"
+msgstr "Dátum likvidácie"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Disposal Move"
+msgstr "Odstraňovací pohyb"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Disposal Moves"
+msgstr "Odstraňovacie pohyby"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_sell__action__dispose
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_sell_form
+msgid "Dispose"
+msgstr "Odpredať"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__draft
+msgid "Draft"
+msgstr "Návrh"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move__draft_asset_ids
+msgid "Draft Asset"
+msgstr "Návrh aktíva"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Duration"
+msgstr "Trvanie"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_tree
+#, python-format
+msgid "Expense"
+msgstr "Výdavky"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__account_depreciation_expense_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
+msgid "Expense Account"
+msgstr "Účet výdajov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Expense Board"
+msgstr "Zoznam nákladov "
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Expense Date"
+msgstr "Dátum nákladov "
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Expense Lines"
+msgstr "Riadky nákladov "
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
+msgid "Expense Name"
+msgstr "Názov nákladu"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Expense Recognition"
+msgstr "Uznanie nákladov "
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#, python-format
+msgid "First Depreciation"
+msgstr "Prvý odpis"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__first_depreciation_date
+msgid "First Depreciation Date"
+msgstr "Prvý dátum odpisu"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "First Recognition Date"
+msgstr "Dátum prvého uznania"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__account_asset_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
+msgid "Fixed Asset Account"
+msgstr "Účet dlhodobého majetku"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_follower_ids
+msgid "Followers"
+msgstr "Odberatelia"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "Odberatelia (kanály)"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "Odberatelia (partneri)"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_account__form_view_ref
+msgid "Form View Ref"
+msgstr "Formulár náhľadu referencie"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Future Activities"
+msgstr "Budúce aktivity"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_sell__gain_or_loss__gain
+msgid "Gain"
+msgstr "Zisk"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__gain_account_id
+#: model:ir.model.fields,field_description:account_asset.field_res_company__gain_account_id
+msgid "Gain Account"
+msgstr "Získajte účet"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__gain_or_loss
+msgid "Gain Or Loss"
+msgstr "Zisk alebo strata"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__gain_value
+msgid "Gain Value"
+msgstr "Získajte hodnotu"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+#, python-format
+msgid "Gross Increase"
+msgstr "Hrubý prírastok"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__gross_increase_value
+msgid "Gross Increase Value"
+msgstr "Hodnota hrubého nárastu"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
+msgid "Group By..."
+msgstr "Zoskupiť podľa..."
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_pause__id
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__id
+#: model:ir.model.fields,field_description:account_asset.field_account_assets_report__id
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__id
+msgid "ID"
+msgstr "ID"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_exception_icon
+msgid "Icon"
+msgstr "Ikona"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "Ikona indikujúca výnimočnú aktivitu."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__message_needaction
+#: model:ir.model.fields,help:account_asset.field_account_asset__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "Ak zaškrtnuté, nové správy vyžadujú vašu pozornosť."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__message_has_error
+#: model:ir.model.fields,help:account_asset.field_account_asset__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "Ak zaškrtnuté, niektoré správy majú chybu dodania."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_account__asset_model
+msgid ""
+"If this is selected, an asset will be created automatically when Journal "
+"Items on this account are posted."
+msgstr ""
+"Ak je táto možnosť vybratá, po vytvorení položiek denníka na tomto účte sa "
+"automaticky vytvorí aktívum."
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#, python-format
+msgid ""
+"In percent.<br>For a linear method, the depreciation rate is computed per "
+"year.<br>For a degressive method, it is the degressive factor"
+msgstr ""
+"V percentách.<br>Pri lineárnej metóde sa odpisová sadzba počíta "
+"ročne.<br>Pre degresívnu metódu je to degresívny faktor"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
+msgid "Increase Accounts"
+msgstr "Zvýšiť účty"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__prorata
+msgid ""
+"Indicates that the first depreciation entry for this asset have to be done "
+"from the asset date (purchase date) instead of the first January / Start "
+"date of fiscal year"
+msgstr ""
+"Indikuje, že prvá položka odpisu tohto majetku musí byť vykonaná od dátumu "
+"nákupu namiesto od prvého Januára / začiatku fiškálneho roka"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__invoice_line_id
+msgid "Invoice Line"
+msgstr "Položky faktúry"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_is_follower
+msgid "Is Follower"
+msgstr "Je odberateľ"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__salvage_value
+msgid "It is the amount you plan to have that you cannot depreciate."
+msgstr "Je to suma ktorú plánujete mať a nemožno ju odpísať."
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__journal_id
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_expense_model_search
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
+msgid "Journal"
+msgstr "Účtovná kniha"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#: model:ir.model,name:account_asset.model_account_move
+#, python-format
+msgid "Journal Entries"
+msgstr "Vstupy účtovnej knihy"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Journal Entry"
+msgstr "Vstup účtovnej knihy"
+
+#. module: account_asset
+#: model:ir.model,name:account_asset.model_account_move_line
+msgid "Journal Item"
+msgstr "Položka účtovnej knihy"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__original_move_line_ids
+#, python-format
+msgid "Journal Items"
+msgstr "Položky účtovnej knihy"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid ""
+"Journal Items of {account} should have a label in order to generate an asset"
+msgstr ""
+"Položky denníka {account} by mali mať štítok, aby sa generovalo aktívum"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset____last_update
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_pause____last_update
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell____last_update
+#: model:ir.model.fields,field_description:account_asset.field_account_assets_report____last_update
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify____last_update
+msgid "Last Modified on"
+msgstr "Posledná modifikácia"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__write_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_pause__write_uid
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__write_uid
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__write_uid
+msgid "Last Updated by"
+msgstr "Naposledy upravoval"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__write_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_pause__write_date
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__write_date
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__write_date
+msgid "Last Updated on"
+msgstr "Naposledy upravované"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Late Activities"
+msgstr "Omeškané aktivity"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method__linear
+#, python-format
+msgid "Linear"
+msgstr "Lineárne"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_sell__gain_or_loss__loss
+msgid "Loss"
+msgstr "Strata"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__loss_account_id
+#: model:ir.model.fields,field_description:account_asset.field_res_company__loss_account_id
+msgid "Loss Account"
+msgstr "Účet strát"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "Hlavná príloha"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_has_error
+msgid "Message Delivery error"
+msgstr "Chyba zobrazovania správ"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_ids
+msgid "Messages"
+msgstr "Správy"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__method
+#, python-format
+msgid "Method"
+msgstr "Metóda"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__model_id
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__model
+msgid "Model"
+msgstr "Model"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
+msgid "Modification"
+msgstr "Modifikácie"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
+msgid "Modification reason"
+msgstr "Dôvod úpravy"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
+msgid "Modify"
+msgstr "Upraviť"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#: model:ir.model,name:account_asset.model_asset_modify
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
+#, python-format
+msgid "Modify Asset"
+msgstr "Upraviť aktívum"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Modify Depreciation"
+msgstr "Upraviť odpis"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Modify Expense"
+msgstr "Upravte náklady"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Modify Revenue"
+msgstr "Upraviť výnosy"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method_period__1
+#: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__method_period__1
+msgid "Months"
+msgstr "Mesiace"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__need_date
+msgid "Need Date"
+msgstr "Potrebujete dátum"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_modify_form
+msgid "New Values"
+msgstr "Nové hodnoty"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_asset_modify__value_residual
+msgid "New residual amount for the asset"
+msgstr "Nová zostatková hodnota majetku"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_asset_modify__salvage_value
+msgid "New salvage amount for the asset"
+msgstr "Nová záchranná suma pre majetok"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "Ďalšia lehota aktivity"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_summary
+msgid "Next Activity Summary"
+msgstr "Zhrnutie ďalšej aktivity"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_type_id
+msgid "Next Activity Type"
+msgstr "Typ ďalšej aktivity"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Next Period Expense"
+msgstr "Výdavky v nasledujúcom období"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Next Period Revenue"
+msgstr "Výnosy v nasledujúcom období"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_account__create_asset__no
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_sell__gain_or_loss__no
+msgid "No"
+msgstr "Nie"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#, python-format
+msgid "No asset account"
+msgstr "Žiadny majetkový účet"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__salvage_value
+msgid "Not Depreciable Amount"
+msgstr "Neodpisovateľná suma"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__salvage_value
+msgid "Not Depreciable Value"
+msgstr "Neodpisovateľná hodnota"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__first_depreciation_date
+msgid ""
+"Note that this date does not alter the computation of the first journal "
+"entry in case of prorata temporis assets. It simply changes its accounting "
+"date"
+msgstr ""
+"Upozorňujeme, že tento dátum nemení výpočet prvého zápisu do denníka v "
+"prípade aktív prorata temporis. Jednoducho zmení svoj účtovný dátum"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move__number_asset_ids
+msgid "Number Asset"
+msgstr "Číslo diela"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_needaction_counter
+msgid "Number of Actions"
+msgstr "Počet akcií"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__method_number
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__method_number
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_purchase_tree
+msgid "Number of Depreciations"
+msgstr "Počet odpisov"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__method_period
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__method_period
+msgid "Number of Months in a Period"
+msgstr "Počet mesiacov v období"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Number of Recognitions"
+msgstr "Počet uznaní"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__gross_increase_count
+msgid "Number of assets made to increase the value of the asset"
+msgstr "Počet aktív vyrobených na zvýšenie hodnoty majetku"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__total_depreciation_entries_count
+msgid "Number of depreciation entries (posted or not)"
+msgstr "Počet záznamov o odpisoch (zaúčtovaných alebo nezaúčtovaných)"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_has_error_counter
+msgid "Number of errors"
+msgstr "Číslo chýb"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "Počet správ ktoré vyžadujú akciu"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "Počet chýb zobrazovania správ"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__message_unread_counter
+msgid "Number of unread messages"
+msgstr "Počet neprečítaných správ"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__paused
+msgid "On Hold"
+msgstr "Podržané"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid ""
+"One of the selected Journal Items already has a depreciation associated"
+msgstr "K jednej z vybratých položiek denníka už je priradený odpis"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.line_caret_options
+msgid "Open Asset"
+msgstr "Otvoriť dielo"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__original_value
+msgid "Original Value"
+msgstr "Pôvodná hodnota"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__parent_id
+msgid "Parent"
+msgstr "Nadradené"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_pause_form
+msgid "Pause"
+msgstr "Pozastavenie"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#: model:ir.model,name:account_asset.model_account_asset_pause
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_pause_form
+#, python-format
+msgid "Pause Asset"
+msgstr "Pozastaviť dielo"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Pause Depreciation"
+msgstr "Pozastaviť odpisy"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_pause__date
+msgid "Pause date"
+msgstr "Pozastaviť dátum"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_expense_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_purchase_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
+msgid "Period length"
+msgstr "Dĺžka obdobia"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Posted Entries"
+msgstr "Zaúčtované zápisy"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__prorata_date
+msgid "Prorata Date"
+msgstr "Prorata dátum"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__prorata
+msgid "Prorata Temporis"
+msgstr "Podľa uplynulej doby"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__asset_type__purchase
+msgid "Purchase: Asset"
+msgstr "Nákup:Aktívum"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#, python-format
+msgid "Rate"
+msgstr "Kurz"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_asset_modify__name
+msgid "Reason"
+msgstr "Dôvod "
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "Related Expenses"
+msgstr "Súvisiace výdavky"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Related Purchase"
+msgstr "Súvisiaci nákup"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Related Sales"
+msgstr "Súvisiaci predaj"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Report of reversal for {name}"
+msgstr "Správa o obrátení pre {name}"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Reset to running"
+msgstr "Obnoviť spustenie"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Residual Amount to Recognize"
+msgstr "Zostatková suma na rozpoznanie"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__activity_user_id
+msgid "Responsible User"
+msgstr "Zodpovedný používateľ"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Resume Depreciation"
+msgstr "Obnoviť odpisovanie"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+#, python-format
+msgid "Revenue"
+msgstr "Príjem"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_revenue_model_search
+msgid "Revenue Account"
+msgstr "Výnosový účet"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Revenue Board"
+msgstr "Daňová rada"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Revenue Date"
+msgstr "Dátum príjmu"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Revenue Lines"
+msgstr "Príjmové riadky"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_model_sale_tree
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_sale_tree
+msgid "Revenue Name"
+msgstr "Názov príjmu"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "Revenue Recognition"
+msgstr "Ocenenie príjmu"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_move__reversal_move_id
+msgid "Reversal Move"
+msgstr "Zvratový pohyb"
+
+#. module: account_asset
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid ""
+"Reverse the depreciation entries posted in the future in order to modify the"
+" depreciation"
+msgstr "Obráťte odpisy zaúčtované v budúcnosti, aby ste mohli upraviť odpisy"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__state__open
+msgid "Running"
+msgstr "Spustené"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "Chyba doručenia SMS"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Sale"
+msgstr "Predaj"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__asset_type__sale
+msgid "Sale: Revenue Recognition"
+msgstr "Predaj: rozpoznávanie výnosov"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Save Model"
+msgstr "Uložiť model"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Save model"
+msgstr "Uložiť model"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset_sell__select_invoice_line_id
+msgid "Select Invoice Line"
+msgstr "Vybrané položky faktúry"
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset_sell__action__sell
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_sell_form
+msgid "Sell"
+msgstr "Predať"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#: model:ir.model,name:account_asset.model_account_asset_sell
+#: model_terms:ir.ui.view,arch_db:account_asset.asset_sell_form
+#, python-format
+msgid "Sell Asset"
+msgstr "Predať dielo"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Sell or Dispose"
+msgstr "Predať alebo Odstrániť"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Set manually the original values or"
+msgstr "Ručné nastavenie pôvodných hodnôt alebo"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Set to Draft"
+msgstr "Nastaviť na koncept"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "Set to Running"
+msgstr "Nastavený na beh"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Show all records which has next action date is before today"
+msgstr "Zobraz všetky záznamy ktorých následná aktivita je pred dnešným dňom"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Some fields are missing {}"
+msgstr "Niektoré polia chýbajú {}"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Some required values are missing"
+msgstr "Niektoré požadované hodnoty chýbajú"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__state
+msgid "Status"
+msgstr "Stav"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"Status založený na aktivitách\n"
+"Zmeškané: dátum už vypršal\n"
+"Dnes: dátum aktivity je dnes\n"
+"Plán: budúce aktivity"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__book_value
+msgid ""
+"Sum of the depreciable value, the salvage value and the book value of all "
+"value increase items"
+msgstr ""
+"Súčet odpisovateľnej hodnoty, záchrannej hodnoty a účtovnej hodnoty všetkých"
+" položiek zvyšujúcich hodnotu"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_account__can_create_asset
+msgid ""
+"Technical field specifying if the account can generate asset depending on "
+"it's type. It is used in the account form view."
+msgstr ""
+"Technické pole určujúce, či účet môže generovať majetok v závislosti od jeho"
+" typu. Používa sa v zobrazení formulára účtu."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_asset_modify__gain_value
+msgid ""
+"Technical field to know if we should display the fields for the creation of "
+"gross increase asset"
+msgstr ""
+"Technické pole, aby sme vedeli, či by sme mali zobraziť polia pre tvorbu "
+"hrubého prírastku majetku"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_sell__gain_or_loss
+msgid ""
+"Technical field to know is there was a gain or a loss in the selling of the "
+"asset"
+msgstr "Je potrebné vedieť, či v predaji majetku došlo k zisku alebo strate"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__method_period
+#: model:ir.model.fields,help:account_asset.field_asset_modify__method_period
+msgid "The amount of time between two depreciations"
+msgstr "Čas medzi dvoma odpismi"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_asset_modify__asset_id
+msgid "The asset to be modified by this wizard"
+msgstr "Aktívum, ktoré má tento sprievodca upraviť"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__children_ids
+msgid "The children are the gains in value of this asset"
+msgstr "Podradené položky sú zisky v hodnote tohto majetku"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_sell__invoice_id
+msgid ""
+"The disposal invoice is needed in order to generate the closing journal "
+"entry."
+msgstr ""
+"Dispozičná faktúra je potrebná na vygenerovanie uzávierkového denníka."
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__method_number
+msgid "The number of depreciations needed to depreciate your asset"
+msgstr "Poçet odpisov potrebných na odpis vášho aktíva"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "The remaining value on the last depreciation line must be 0"
+msgstr "Zvyšná hodnota na poslednom odpisovom riadku musí byť 0"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset_sell__invoice_line_id
+msgid "There are multiple lines that could be the related to this asset"
+msgstr "Existuje niekoľko riadkov, ktoré by mohli súvisieť s týmto dielom"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_move__asset_value_change
+msgid ""
+"This is a technical field set to true when this move is the result of the "
+"changing of value of an asset"
+msgstr ""
+"Toto je technické pole nastavené na hodnotu true, keď je tento krok "
+"výsledkom zmeny hodnoty aktíva"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_move__asset_manually_modified
+msgid ""
+"This is a technical field stating that a depreciation line has been manually"
+" modified. It is used to recompute the depreciation table of an "
+"asset/deferred revenue."
+msgstr ""
+"Toto je technická oblasť, ktorá uvádza, že odpisová linka bola manuálne "
+"upravená. Používa sa na prepočet tabuľky odpisov majetku / výnosov budúcich "
+"období."
+
+#. module: account_asset
+#. openerp-web
+#: code:addons/account_asset/static/src/js/account_asset_reversed_widget.js:0
+#, python-format
+msgid "This move has been reversed"
+msgstr "Tento krok bol obrátený"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_search
+msgid "Today Activities"
+msgstr "Dnešné aktivity"
+
+#. module: account_asset
+#: code:addons/account_asset/report/account_assets_report.py:0
+#, python-format
+msgid "Total"
+msgstr "Celkom"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "Trying to pause an asset without any future depreciation line"
+msgstr "Pokúšame sa pozastaviť majetok bez akejkoľvek budúcej odpisovej linky"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Turn as a deferred expense"
+msgstr "Otočte sa ako odložený výdavok"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Turn as a deferred revenue"
+msgstr "Otočte sa ako odložený príjem"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "Turn as an asset"
+msgstr "Otočte sa ako majetok"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__user_type_id
+msgid "Type of the account"
+msgstr "Typ účtu"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "Typ výnimočnej aktivity na zázname."
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_unread
+msgid "Unread Messages"
+msgstr "Neprečítané správy"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "Počítadlo neprečítaných správ"
+
+#. module: account_asset
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "Value decrease for: "
+msgstr "Zníženie hodnoty pre:"
+
+#. module: account_asset
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#: code:addons/account_asset/wizard/asset_modify.py:0
+#, python-format
+msgid "Value increase for: "
+msgstr "Zvýšenie hodnoty pre:"
+
+#. module: account_asset
+#: model:ir.model.fields,field_description:account_asset.field_account_asset__website_message_ids
+msgid "Website Messages"
+msgstr "Správy Webových stránok"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__website_message_ids
+msgid "Website communication history"
+msgstr "História komunikácie webových stránok"
+
+#. module: account_asset
+#: model:ir.model.fields,help:account_asset.field_account_asset__state
+msgid ""
+"When an asset is created, the status is 'Draft'.\n"
+"If the asset is confirmed, the status goes in 'Running' and the depreciation lines can be posted in the accounting.\n"
+"The 'On Hold' status can be set manually when you want to pause the depreciation of an asset for some time.\n"
+"You can manually close an asset when the depreciation is over. If the last line of depreciation is posted, the asset automatically goes in that status."
+msgstr ""
+"Po vytvorení diela je stav „Koncept“.\n"
+"Ak je majetok potvrdený, jeho stav je v stave „Prevádzka“ a odpisové riadky je možné zaúčtovať v účtovníctve.\n"
+"Stav „Pozdržané“ je možné nastaviť manuálne, ak chcete na istý čas pozastaviť odpisovanie majetku.\n"
+"Po ukončení odpisovania môžete majetok manuálne uzavrieť. Ak je zaúčtovaný posledný riadok odpisovania, aktíva sa automaticky dostanú do tohto stavu."
+
+#. module: account_asset
+#: model:ir.model.fields.selection,name:account_asset.selection__account_asset__method_period__12
+#: model:ir.model.fields.selection,name:account_asset.selection__asset_modify__method_period__12
+msgid "Years"
+msgstr "Roky"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid ""
+"You cannot create an asset from lines containing credit and debit on the "
+"account or with a null amount"
+msgstr ""
+"Nemôžete vytvoriť majetok z riadkov obsahujúcich kredity a debety na účte "
+"alebo s nulovou sumou"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "You cannot delete a document that is in %s state."
+msgstr "Nemôžete zmazať dokument ktorý je v stave %s."
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid ""
+"You cannot pause an asset with posted depreciation lines in the future."
+msgstr ""
+"V budúcnosti nemôžete pozastaviť majetok s účtovanými odpisovými riadkami."
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid "You cannot post a depreciation on an asset in this state: %s"
+msgstr "V tomto štáte nemôžete zaúčtovať odpisy majetku: %s"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_move.py:0
+#, python-format
+msgid ""
+"You cannot reset to draft an entry having a posted deferred revenue/expense"
+msgstr ""
+"Nemôžete resetovať, aby ste vytvorili koncept záznamu so zaúčtovanými "
+"odloženými výnosmi / nákladmi"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_revenue_form
+msgid "e.g. Annual Subscription"
+msgstr "napr. Ročné predplatné"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_expense_form
+msgid "e.g. Annually Paid Insurance"
+msgstr "napr. Ročne platené poistenie"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "e.g. Laptop iBook"
+msgstr "napr. Laptop iBook"
+
+#. module: account_asset
+#: model_terms:ir.ui.view,arch_db:account_asset.view_account_asset_form
+msgid "selected related purchases"
+msgstr "vybrané nákupy"
+
+#. module: account_asset
+#: code:addons/account_asset/models/account_asset.py:0
+#, python-format
+msgid "this move"
+msgstr "tento krok"

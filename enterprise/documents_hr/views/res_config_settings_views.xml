@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.documents</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="70"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_documents_block')]" position="attributes">
+                <attribute name="invisible">0</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_documents_block')]" position="inside">
+                <div class="row mt16 o_settings_container">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="documents_hr_settings"/>
+                        </div>
+                        <div class="o_setting_right_pane o_documents_right_pane">
+                            <label for="documents_hr_settings"/>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                            <div class="row">
+                                <div class="text-muted col-md-12">
+                                    Centralize your employees' documents (contracts, payslips, etc.)
+                                </div>
+                            </div>
+                            <div class="content-group" attrs="{'invisible' : [('documents_hr_settings', '=', False)]}">
+                                <div class="row mt16">
+                                    <label class="o_form_label col-lg-3" for="documents_hr_folder" string="Workspace"/>
+                                   <field name="documents_hr_folder" attrs="{'required' : [('documents_hr_settings', '=', True)]}"/>
+                                </div>
+                            </div>
+                            <!-- invisible="1" until an HR bridge module needs tags -->
+                            <span name="documents_hr_tags" class="o_form_label" invisible="1" attrs="{'invisible' : [('documents_hr_settings', '=', False)]}">
+                                Default tags
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

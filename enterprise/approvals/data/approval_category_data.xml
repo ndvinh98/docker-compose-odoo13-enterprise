@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="base.user_admin" model="res.users">
+            <field eval="[(4, ref('approvals.group_approval_manager'))]" name="groups_id"/>
+        </record>
+
+        <record id="approval_category_data_business_trip" model="approval.category">
+            <field name="name">Business Trip</field>
+            <field name="image" type="base64" file="approvals/static/src/img/plane-departure-solid.svg"/>
+            <field name="sequence">1</field>
+            <field name="has_date">no</field>
+            <field name="has_period">required</field>
+            <field name="has_item">no</field>
+            <field name="has_quantity">no</field>
+            <field name="has_amount">no</field>
+            <field name="has_reference">no</field>
+            <field name="has_partner">no</field>
+            <field name="has_payment_method">no</field>
+            <field name="has_location">required</field>
+            <field name="requirer_document">optional</field>
+            <field name="approval_minimum">1</field>
+            <field name="is_manager_approver">True</field>
+        </record>
+        <record id="approval_category_data_borrow_items" model="approval.category">
+            <field name="name">Borrow Items</field>
+            <field name="image" type="base64" file="approvals/static/src/img/hand-holding-solid.svg"/>
+            <field name="sequence">10</field>
+            <field name="has_date">no</field>
+            <field name="has_period">required</field>
+            <field name="has_item">required</field>
+            <field name="has_quantity">optional</field>
+            <field name="has_amount">no</field>
+            <field name="has_reference">no</field>
+            <field name="has_partner">no</field>
+            <field name="has_payment_method">no</field>
+            <field name="has_location">no</field>
+            <field name="requirer_document">optional</field>
+            <field name="approval_minimum">1</field>
+            <field name="is_manager_approver">False</field>
+        </record>
+        <record id="approval_category_data_general_approval" model="approval.category">
+            <field name="name">General Approval</field>
+            <field name="image" type="base64" file="approvals/static/src/img/clipboard-check-solid.svg"/>
+            <field name="sequence">20</field>
+            <field name="has_date">optional</field>
+            <field name="has_period">optional</field>
+            <field name="has_item">optional</field>
+            <field name="has_quantity">optional</field>
+            <field name="has_amount">optional</field>
+            <field name="has_reference">optional</field>
+            <field name="has_partner">optional</field>
+            <field name="has_payment_method">optional</field>
+            <field name="has_location">optional</field>
+            <field name="requirer_document">required</field>
+            <field name="approval_minimum">1</field>
+            <field name="is_manager_approver">True</field>
+        </record>
+        <record id="approval_category_data_contract_approval" model="approval.category">
+            <field name="name">Contract Approval</field>
+            <field name="image" type="base64" file="approvals/static/src/img/file-signature-solid.svg"/>
+            <field name="sequence">30</field>
+            <field name="has_date">no</field>
+            <field name="has_period">no</field>
+            <field name="has_item">no</field>
+            <field name="has_quantity">no</field>
+            <field name="has_amount">optional</field>
+            <field name="has_reference">required</field>
+            <field name="has_partner">required</field>
+            <field name="has_payment_method">no</field>
+            <field name="has_location">no</field>
+            <field name="requirer_document">optional</field>
+            <field name="approval_minimum">1</field>
+            <field name="is_manager_approver">False</field>
+        </record>
+        <record id="approval_category_data_payment_application" model="approval.category">
+            <field name="name">Payment Application</field>
+            <field name="image" type="base64" file="approvals/static/src/img/credit-card-solid.svg"/>
+            <field name="sequence">40</field>
+            <field name="has_date">required</field>
+            <field name="has_period">no</field>
+            <field name="has_item">no</field>
+            <field name="has_quantity">no</field>
+            <field name="has_amount">required</field>
+            <field name="has_reference">no</field>
+            <field name="has_partner">required</field>
+            <field name="has_payment_method">required</field>
+            <field name="has_location">no</field>
+            <field name="requirer_document">optional</field>
+            <field name="approval_minimum">1</field>
+            <field name="is_manager_approver">False</field>
+        </record>
+        <record id="approval_category_data_car_rental_application" model="approval.category">
+            <field name="name">Car Rental Application</field>
+            <field name="image" type="base64" file="approvals/static/src/img/car-solid.svg"/>
+            <field name="sequence">50</field>
+            <field name="has_date">no</field>
+            <field name="has_period">required</field>
+            <field name="has_item">no</field>
+            <field name="has_quantity">no</field>
+            <field name="has_amount">no</field>
+            <field name="has_reference">no</field>
+            <field name="has_partner">no</field>
+            <field name="has_payment_method">no</field>
+            <field name="has_location">no</field>
+            <field name="requirer_document">optional</field>
+            <field name="approval_minimum">1</field>
+            <field name="is_manager_approver">False</field>
+        </record>
+        <record id="approval_category_data_job_referral_award" model="approval.category">
+            <field name="name">Job Referral Award</field>
+            <field name="image" type="base64" file="approvals/static/src/img/award-solid.svg"/>
+            <field name="sequence">60</field>
+            <field name="has_date">no</field>
+            <field name="has_period">no</field>
+            <field name="has_item">no</field>
+            <field name="has_quantity">no</field>
+            <field name="has_amount">no</field>
+            <field name="has_reference">no</field>
+            <field name="has_partner">required</field>
+            <field name="has_payment_method">no</field>
+            <field name="has_location">no</field>
+            <field name="requirer_document">optional</field>
+            <field name="approval_minimum">1</field>
+            <field name="is_manager_approver">False</field>
+        </record>
+        <record id="approval_category_data_procurement" model="approval.category">
+            <field name="name">Procurement</field>
+            <field name="image" type="base64" file="approvals/static/src/img/shopping-cart-solid.svg"/>
+            <field name="sequence">70</field>
+            <field name="has_date">no</field>
+            <field name="has_period">no</field>
+            <field name="has_item">no</field>
+            <field name="has_quantity">required</field>
+            <field name="has_amount">optional</field>
+            <field name="has_reference">no</field>
+            <field name="has_partner">no</field>
+            <field name="has_payment_method">no</field>
+            <field name="has_location">no</field>
+            <field name="requirer_document">optional</field>
+            <field name="approval_minimum">1</field>
+            <field name="is_manager_approver">False</field>
+        </record>
+    </data>
+</odoo>

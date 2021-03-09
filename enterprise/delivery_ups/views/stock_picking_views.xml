@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_picking_withcarrier_out_form_inherit_delivery_ups" model="ir.ui.view">
+        <field name="name">stock.picking.form.inherit.delivery.ups</field>
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="delivery.view_picking_withcarrier_out_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='delivery_type']" position="after">
+                <field name="ups_carrier_account" attrs="{'invisible': [('ups_carrier_account', '=', False)]}"/>
+                <field name="ups_service_type" attrs="{'invisible': [('ups_carrier_account', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
