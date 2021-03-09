@@ -32,25 +32,28 @@ ports:
  - "8069:8069"
 ```
 
-If you want to use pgadmin4 to connect postgres database:
-open `localhost:1234` to access to pgAdmin4 (username=admin password=admin)
-
-create sever with:
-`hostname = pgsql-server`
-`port=5432`
-`postgres_user = odoo`
-`postgres_pasword = odoo`
-
-change to another value in **docker-compose.yml**
 
 
 # Custom addons
 
 The **addons/** folder contains custom addons. Just put your custom addons if you have any.
 
-# Enterprise addons
+# Using pgAdmin4 connect to postgres database
 
-The **enterprise/** folder contains enterprise addons.
+If you want to use pgadmin4 to connect postgres database:
+open `localhost:1234` to access to pgAdmin4 (username = admin, password = admin)
+
+
+create sever with:
+```
+ hostname = pgsql-server
+ port=5432
+ postgres_user = odoo
+ postgres_pasword = odoo
+```
+
+
+change to another value in **docker-compose.yml**
 
 # Odoo configuration & log
 
