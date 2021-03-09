@@ -1,6 +1,4 @@
-# Installing Odoo 13 Enterprise with one command
-
-(Supports multiple Odoo instances on one server)
+# Installing Odoo 13 Enterprise with one click
 
 Install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) yourself, then run:
 
