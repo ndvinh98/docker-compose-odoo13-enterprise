@@ -1,6 +1,9 @@
 # Installing Odoo 13 Enterprise with one click
 
 Install [docker](https://docs.docker.com/get-docker/) and [docker-compose](https://docs.docker.com/compose/install/) yourself, then run:
+```
+$ docker-compose up -d
+```
 
 # Usage
 
@@ -14,9 +17,10 @@ $ sudo chmod -R 777 pgadmin4
 $ sudo chmod -R 777 postgresql
 ```
 
-Start the container:
+Run Odoo container in detached mode (be able to close terminal without stopping Odoo):
+
 ```
-$ docker-compose up
+$ docker-compose up -d
 ```
 
 Then open `localhost:8069` to access Odoo 13.0. If you want to start the server with a different port, change **10013** to another value in **docker-compose.yml**:
@@ -24,12 +28,6 @@ Then open `localhost:8069` to access Odoo 13.0. If you want to start the server 
 ```
 ports:
  - "8069:8069"
-```
-
-Run Odoo container in detached mode (be able to close terminal without stopping Odoo):
-
-```
-$ docker-compose up -d
 ```
 
 # Custom addons
