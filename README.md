@@ -84,3 +84,8 @@ $ sh remove_odoo.sh
 * odoo:13.0
 * postgres:11
 * pgadmin:latest
+
+# References
+https://github.com/minhng92/odoo-13-docker-compose
+
+
