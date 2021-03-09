@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="im_livechat_report_channel_view_pivot_dashboard" model="ir.ui.view">
+            <field name="name">im_livechat.report.channel.pivot.view</field>
+            <field name="model">im_livechat.report.channel</field>
+            <field name="arch" type="xml">
+                <pivot string="Sessions">
+                    <field name="partner_id" type="row"/>
+                    <field name="channel_id" type="measure"/>
+                    <field name="rating" type="measure"/>
+                    <field name="days_of_activity" type="measure"/>
+                    <field name="time_to_answer" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="im_livechat_report_channel_view_graph_dashboard" model="ir.ui.view">
+            <field name="name">im_livechat.report.channel.graph.view</field>
+            <field name="model">im_livechat.report.channel</field>
+            <field name="arch" type="xml">
+                <graph string="Sessions" type="bar">
+                    <field name="start_date" interval="month" type="row"/>
+                    <field name="livechat_channel_id" type="col"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="im_livechat_report_channel_view_dashboard" model="ir.ui.view">
+            <field name="name">im_livechat.report.channel.view</field>
+            <field name="model">im_livechat.report.channel</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <dashboard>
+                    <view type="graph" ref="im_livechat_enterprise.im_livechat_report_channel_view_graph_dashboard"/>
+                    <group>
+                        <group>
+                            <aggregate name="sessions" string="#Sessions" group_operator="count" field="channel_id" measure="__count__"/>
+                            <aggregate name="day_since_beginning" invisible="1" group_operator="max" field="days_of_activity"/>
+                            <formula name="session_per_day" string="#Sessions/Day" value="record.sessions / record.day_since_beginning"/>
+                            <aggregate name="operators" string="#Operators" group_operator="count" field="partner_id" measure="__count__"/>
+                            <formula name="sessions_per_operator" string="#Sessions/Operator" value="record.sessions / record.operators"/>
+                            <aggregate name="happy" invisible="1" string="#Happy" group_operator="sum" field="is_happy"/>
+                            <aggregate name="unrated" invisible="1" string="#Unrated" group_operator="sum" field="is_unrated"/>
+                            <formula name="happiness_percentage" string="%Happy" value="100 * record.happy / (record.sessions - record.unrated)"/>
+                            <aggregate name="anonymous" invisible="1" string="#Anonymous" group_operator="sum" field="is_anonymous"/>
+                            <formula name="anonymous_percentage" string="%Anonymous" value="100 * record.anonymous / record.sessions"/>
+                            <aggregate name="no_answer" invisible="1" string="#Anonymous" group_operator="sum" field="is_without_answer"/>
+                            <formula name="no_answer_percentage" string="%No Answer" value="100 * record.no_answer / record.sessions"/>
+                        </group>
+                        <group>
+                            <widget name="pie_chart" attrs="{'title': 'Satisfaction', 'groupby': 'rating_text', 'domain': '[(\'rating_text\', \'!=\', False)]'}"/>
+                        </group>
+                    </group>
+                    <view type="pivot" ref="im_livechat_enterprise.im_livechat_report_channel_view_pivot_dashboard"/>
+                </dashboard>
+            </field>
+        </record>
+
+        <!-- dashboard action -->
+        <record id="im_livechat_report_channel_dashboard_action" model="ir.actions.act_window">
+            <field name="name">Dashboard</field>
+            <field name="res_model">im_livechat.report.channel</field>
+            <field name="view_mode">dashboard</field>
+        </record>
+
+        <record id="im_livechat_report_channel_dashboard_action_dashboard" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">dashboard</field>
+            <field name="view_id" ref="im_livechat_report_channel_view_dashboard"/>
+            <field name="act_window_id" ref="im_livechat_enterprise.im_livechat_report_channel_dashboard_action"/>
+        </record>
+
+        <menuitem id="im_livechat_dashboard_menu_livechat"
+            name="Dashboard"
+            action="im_livechat_enterprise.im_livechat_report_channel_dashboard_action"
+            parent="im_livechat.menu_reporting_livechat"
+            sequence="1"/>
+    </data>
+</odoo>

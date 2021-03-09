@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="email_template_slot_single" model="mail.template">
+            <field name="name">Planning: new schedule (single shift)</field>
+            <field name="email_from">${(object.company_id.email or '')}</field>
+            <field name="subject">Planning: new schedule (single shift)</field>
+            <field name="email_to">${object.employee_id.work_email}</field>
+            <field name="model_id" ref="model_planning_slot"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html" type="html">
+                <div>
+                    <p>Dear ${object.employee_id.name or ''},</p><br/>
+                    <p>You have been assigned the following schedule:</p><br/>
+                    <table style="table-layout: fixed; width: 80%; margin: auto;">
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">From</th>
+                            <td style="padding: 5px;">${format_datetime(object.start_datetime, tz=object.employee_id.tz)}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">To</th>
+                            <td style="padding: 5px;">${format_datetime(object.end_datetime, tz=object.employee_id.tz)}</td>
+                        </tr>
+                        % if object.role_id
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Role</th>
+                            <td style="padding: 5px;">${object.role_id.name or ''}</td>
+                        </tr>
+                        % endif
+                        % if object.project_id
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Project</th>
+                            <td style="padding: 5px;">${object.project_id.name or ''}</td>
+                        </tr>
+                        % endif
+                        % if object.name
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Note</th>
+                            <td style="padding: 5px;">${object.name or ''}</td>
+                        </tr>
+                        % endif
+                    </table>
+                    <div style="text-align: center">
+                        % if ctx.get('render_link')
+                        <div style="display: inline-block; margin: 15px; text-align: center">
+                            <a href="${ctx.unavailable_path}${object.employee_id.employee_token}" target="_blank"
+                                style="padding: 5px 10px; color: #875A7B; text-decoration: none; background-color: #FFFFFF; border: 1px solid #FFFFFF; border-radius: 3px"
+                            >I am unavailable</a>
+                        </div>
+                        % endif
+                        % if ctx.get('render_link')
+                        <div style="display: inline-block; margin: 15px; text-align: center">
+                            <a href="/web?#action=${ctx.get('action_id')}&amp;model=planning.slot&amp;menu_id=${ctx.get('menu_id')}&amp;db=${'dbname' in ctx and ctx['dbname'] or '' }" target="_blank"
+                                style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px"
+                            >View Planning</a>
+                        </div>
+                        % endif
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="email_template_planning_planning" model="mail.template">
+            <field name="name">Planning: new schedule (multiple shifts)</field>
+            <field name="email_from">${(object.company_id.email or '')}</field>
+            <field name="subject">Your planning from ${format_datetime(object.start_datetime, tz=ctx.get('employee').tz or 'UTC', dt_format='short')} to ${format_datetime(object.end_datetime, tz=employee.tz if employee else 'UTC', dt_format='short')}</field>
+            <field name="email_to"></field><!-- Set in the code  -->
+            <field name="model_id" ref="model_planning_planning"/>
+            <field name="auto_delete" eval="False"/><!-- TODO JEM  change this as we are testing -->
+            <field name="body_html" type="html">
+                <div>
+                    % if ctx.get('employee'):
+                        <p>Dear ${ctx['employee'].name},</p>
+                    % else:
+                        <p>Hello,</p>
+                    % endif
+                    <p>
+                        You have been assigned new shifts:
+                    </p>
+
+                    <table style="table-layout: fixed; width: 80%; margin: auto;">
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">From</th>
+                            <td style="padding: 5px;">${format_datetime(object.start_datetime, tz=ctx.get('employee').tz or 'UTC', dt_format='short')}</td>
+                        </tr>
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">To</th>
+                            <td style="padding: 5px;">${format_datetime(object.end_datetime, tz=ctx.get('employee').tz or 'UTC', dt_format='short')}</td>
+                        </tr>
+                        % if object.project_id
+                        <tr>
+                            <th style="padding: 5px;text-align: left; width: 15%;">Project</th>
+                            <td style="padding: 5px;">${object.project_id.name or ''}</td>
+                        </tr>
+                        % endif
+                    </table>
+
+                    % if ctx.get('planning_url'):
+                        <div style="margin: 15px;">
+                            <a href="${ctx.get('planning_url')}" target="_blank"
+                                style="padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px">View Your Planning</a>
+                        </div>
+                    % endif
+
+                    % if ctx.get('slot_unassigned_count'):
+                        <p>There are new open shifts available. Please assign yourself if you are available.</p>
+                    % endif
+
+                    % if ctx.get('message'):
+                        <p>${ctx['message']}</p>
+                    % endif
+                </div>
+            </field>
+        </record>
+
+    </data>
+</odoo>

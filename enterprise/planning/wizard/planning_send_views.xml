@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="planning_send_view_form" model="ir.ui.view">
+        <field name="name">planning.send.form</field>
+        <field name="model">planning.send</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="start_datetime" readonly="1"/>
+                            <field name="end_datetime" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name="include_unassigned"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note" nolabel="1" placeholder="Additional message"/>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_send" type="object" string="Publish &amp; Send" class='btn-primary'/>
+                    <button name="action_publish" type="object" string="Publish" class='btn-primary'/>
+                    <button name="discard" string="Discard" class='btn-secondary' special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="planning_send_action" model="ir.actions.act_window">
+        <field name="name">Send Planning Shifts</field>
+        <field name="res_model">planning.send</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

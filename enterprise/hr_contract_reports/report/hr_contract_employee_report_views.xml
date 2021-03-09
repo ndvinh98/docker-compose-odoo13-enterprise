@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="contract_employee_report_view_dashboard" model="ir.ui.view">
+            <field name="name">contract.employee.report.view.dashboard</field>
+            <field name="model">hr.contract.employee.report</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <dashboard>
+                    <view type="graph" ref="hr_contract_reports.contract_employee_report_view_graph"/>
+                    <group>
+                        <group col="4">
+                            <aggregate name="employee_id" string="Total Employees" field="employee_id"/>
+                            <aggregate name="contract_id" string="Total Contracts" field="contract_id"/>
+                            <aggregate name="date_end_contract" string="Last Contract Ended" field="date_end_contract" clickable="False"/>
+                            <aggregate name="count_new_employee" string="New Employees" field="count_new_employee"/>
+                            <aggregate name="count_employee_exit" string="Departure Employees" field="count_employee_exit"/>
+                            <aggregate name="min_date" string="Min Date in Months" group_operator="min" field="start_date_months" invisible="1"/>
+                            <aggregate name="max_date" string="Max Date in Months" group_operator="max" field="end_date_months" invisible="1"/>
+                            <aggregate name="age_sum" string="Total Contract Length" field="age_sum" invisible="1"/>
+                            <formula name="rate_turnover" string="Turnover Rate" value="100 * record.count_employee_exit / (record.age_sum / (record.max_date - record.min_date))" value_label="%"/>
+                            <formula name="Mean age" string="Mean Contract Duration" value="record.age_sum / record.employee_id" value_label="months"/>
+                        </group>
+
+                        <group col="1">
+                            <widget name="pie_chart" title="Departure Reason" attrs="{'groupby': 'departure_reason', 'domain':'[(\'count_employee_exit\', \'=\', 1)]'}"/>
+                        </group>
+
+                    </group>
+                    <view type="pivot" ref="hr_contract_reports.contract_employee_report_view_pivot"/>
+                </dashboard>
+            </field>
+        </record>
+
+        <record id="contract_employee_report_view_pivot" model="ir.ui.view">
+            <field name="name">contract.employee.report.view.pivot</field>
+            <field name="model">hr.contract.employee.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Employees Analysis" disable_linking="True">
+                    <field name="department_id" type="row"/>
+                    <field name="employee_id" type="measure"/>
+                    <field name="wage" type="measure"/>
+                    <field name="count_new_employee" type="measure"/>
+                    <field name="count_employee_exit" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="contract_employee_report_view_graph" model="ir.ui.view">
+            <field name="name">contract.employee.report.view.graph</field>
+            <field name="model">hr.contract.employee.report</field>
+            <field name="arch" type="xml">
+                <graph string="Employees Analysis" type="line">
+                    <field name="date" type="row"/>
+                    <field name="count_new_employee" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="contract_employee_report_view_search" model="ir.ui.view">
+            <field name="name">contract.employee.report.view.search</field>
+            <field name="model">hr.contract.employee.report</field>
+            <field name="arch" type="xml">
+                <search string="Employees Analysis">
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="employee_id" filter_domain="[('employee_id', 'ilike', self)]"/>
+                    <field name="department_id" filter_domain="[('department_id', 'ilike', self)]"/>
+                    <field name="date"/>
+                    <filter string="Last 365 Days" name="year" domain="[
+                        ('date', '>=', (context_today() + relativedelta(days=-365)).strftime('%Y-%m-%d')),
+                        ('date', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" name="employee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Department" name="department_id" context="{'group_by':'department_id'}"/>
+                        <filter string="Company" name="company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="contract_employee_report_action" model="ir.actions.act_window">
+            <field name="name">Employees Analysis</field>
+            <field name="res_model">hr.contract.employee.report</field>
+            <field name="view_mode">dashboard,pivot,graph</field>
+            <field name="search_view_id" ref="contract_employee_report_view_search"/>
+            <field name="context">{
+                'search_default_year': True
+            }</field>
+            <field name="help">This report performs analysis on your contracts.</field>
+        </record>
+
+
+        <menuitem id="menu_report_contract_employee_all"
+            name="Contracts"
+            action="contract_employee_report_action"
+            parent="hr.hr_menu_hr_reports"
+            groups="hr_contract.group_hr_contract_manager"
+            sequence="1"/>
+
+    </data>
+</odoo>

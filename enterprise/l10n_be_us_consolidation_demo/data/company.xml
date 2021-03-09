@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- COMPANY -->
+        <record id="be_partner" model="res.partner">
+            <field name="name">Be Company</field>
+        </record>
+        <record id="be_company" model="res.company">
+            <field name="name">BE Company</field>
+            <field name="partner_id" ref="be_partner"/>
+            <field name="currency_id" ref="base.EUR"/>
+            <field name="country_id" ref="base.be"/>
+            <field name="chart_template_id" ref="l10n_be.l10nbe_chart_template"/>
+            <field name="consolidation_color" eval="1"/>
+        </record>
+        <record id="base.user_admin" model="res.users">
+            <field name="company_ids" eval="[(4, ref('be_company'))]"/>
+        </record>
+        <record id="base.user_demo" model="res.users">
+            <field name="company_ids" eval="[(4, ref('be_company'))]"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,1272 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* planning
+# 
+# Translators:
+# Martin Trigaux, 2019
+# ExcaliberX <excaliberx@gmail.com>, 2019
+# שהאב חוסיין <shhab89@gmail.com>, 2019
+# hed shefetr <hed@laylinetech.com>, 2019
+# דודי מלכה <Dudimalka6@gmail.com>, 2019
+# Yihya Hugirat <hugirat@gmail.com>, 2019
+# ZVI BLONDER <ZVIBLONDER@gmail.com>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-18 10:09+0000\n"
+"PO-Revision-Date: 2019-09-09 12:35+0000\n"
+"Last-Translator: ZVI BLONDER <ZVIBLONDER@gmail.com>, 2020\n"
+"Language-Team: Hebrew (https://www.transifex.com/odoo/teams/41243/he/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: he\n"
+"Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n == 2 && n % 1 == 0) ? 1: (n % 10 == 0 && n % 1 == 0 && n > 10) ? 2 : 3;\n"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "&amp;times;"
+msgstr "וזמנים"
+
+#. module: planning
+#: model:mail.template,body_html:planning.email_template_planning_planning
+msgid ""
+"<div>\n"
+"                    % if ctx.get('employee'):\n"
+"                        <p>Dear ${ctx['employee'].name},</p>\n"
+"                    % else:\n"
+"                        <p>Hello,</p>\n"
+"                    % endif\n"
+"                    <p>\n"
+"                        You have been assigned new shifts:\n"
+"                    </p>\n"
+"\n"
+"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">From</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.start_datetime, tz=ctx.get('employee').tz or 'UTC', dt_format='short')}</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">To</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.end_datetime, tz=ctx.get('employee').tz or 'UTC', dt_format='short')}</td>\n"
+"                        </tr>\n"
+"                        % if object.project_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Project</th>\n"
+"                            <td style=\"padding: 5px;\">${object.project_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                    </table>\n"
+"\n"
+"                    % if ctx.get('planning_url'):\n"
+"                        <div style=\"margin: 15px;\">\n"
+"                            <a href=\"${ctx.get('planning_url')}\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">View Your Planning</a>\n"
+"                        </div>\n"
+"                    % endif\n"
+"\n"
+"                    % if ctx.get('slot_unassigned_count'):\n"
+"                        <p>There are new open shifts available. Please assign yourself if you are available.</p>\n"
+"                    % endif\n"
+"\n"
+"                    % if ctx.get('message'):\n"
+"                        <p>${ctx['message']}</p>\n"
+"                    % endif\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    % if ctx.get('employee'):\n"
+"                        <p>יקר ${ctx['employee'].name},</p>\n"
+"                    % else:\n"
+"                        <p>שלום,</p>\n"
+"                    % endif\n"
+"                    <p>\n"
+"                        הוקצית למשמרות חדשות:\n"
+"                    </p>\n"
+"\n"
+"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">מ</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.start_datetime, tz=ctx.get('employee').tz or 'UTC', dt_format='short')}</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">עד</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.end_datetime, tz=ctx.get('employee').tz or 'UTC', dt_format='short')}</td>\n"
+"                        </tr>\n"
+"                        % if object.project_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">פרויקט</th>\n"
+"                            <td style=\"padding: 5px;\">${object.project_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                    </table>\n"
+"\n"
+"                    % if ctx.get('planning_url'):\n"
+"                        <div style=\"margin: 15px;\">\n"
+"                            <a href=\"${ctx.get('planning_url')}\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">צפה בתכנון שלך</a>\n"
+"                        </div>\n"
+"                    % endif\n"
+"\n"
+"                    % if ctx.get('slot_unassigned_count'):\n"
+"                        <p>ישנן משמרות פתוחות חדשות. אנא הקצה לעצמך אם אתה זמין.</p>\n"
+"                    % endif\n"
+"\n"
+"                    % if ctx.get('message'):\n"
+"                        <p>${ctx['message']}</p>\n"
+"                    % endif\n"
+"                </div>\n"
+"            "
+
+#. module: planning
+#: model:mail.template,body_html:planning.email_template_slot_single
+msgid ""
+"<div>\n"
+"                    <p>Dear ${object.employee_id.name or ''},</p><br/>\n"
+"                    <p>You have been assigned the following schedule:</p><br/>\n"
+"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">From</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.start_datetime, tz=object.employee_id.tz)}</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">To</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.end_datetime, tz=object.employee_id.tz)}</td>\n"
+"                        </tr>\n"
+"                        % if object.role_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Role</th>\n"
+"                            <td style=\"padding: 5px;\">${object.role_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                        % if object.project_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Project</th>\n"
+"                            <td style=\"padding: 5px;\">${object.project_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                        % if object.name\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Note</th>\n"
+"                            <td style=\"padding: 5px;\">${object.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                    </table>\n"
+"                    <div style=\"text-align: center\">\n"
+"                        % if ctx.get('render_link')\n"
+"                        <div style=\"display: inline-block; margin: 15px; text-align: center\">\n"
+"                            <a href=\"${ctx.unavailable_path}${object.employee_id.employee_token}\" target=\"_blank\" style=\"padding: 5px 10px; color: #875A7B; text-decoration: none; background-color: #FFFFFF; border: 1px solid #FFFFFF; border-radius: 3px\">I am unavailable</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                        % if ctx.get('render_link')\n"
+"                        <div style=\"display: inline-block; margin: 15px; text-align: center\">\n"
+"                            <a href=\"/web?#action=${ctx.get('action_id')}&amp;model=planning.slot&amp;menu_id=${ctx.get('menu_id')}&amp;db=${'dbname' in ctx and ctx['dbname'] or '' }\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">View Planning</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>יקר ${object.employee_id.name or ''},</p><br/>\n"
+"                    <p>הוקצה לך לוח הזמנים הבא:</p><br/>\n"
+"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">מ</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.start_datetime, tz=object.employee_id.tz)}</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">עד</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.end_datetime, tz=object.employee_id.tz)}</td>\n"
+"                        </tr>\n"
+"                        % if object.role_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">תפקיד</th>\n"
+"                            <td style=\"padding: 5px;\">${object.role_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                        % if object.project_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">פרויקט</th>\n"
+"                            <td style=\"padding: 5px;\">${object.project_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                        % if object.name\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">הערה</th>\n"
+"                            <td style=\"padding: 5px;\">${object.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                    </table>\n"
+"                    <div style=\"text-align: center\">\n"
+"                        % if ctx.get('render_link')\n"
+"                        <div style=\"display: inline-block; margin: 15px; text-align: center\">\n"
+"                            <a href=\"${ctx.unavailable_path}${object.employee_id.employee_token}\" target=\"_blank\" style=\"padding: 5px 10px; color: #875A7B; text-decoration: none; background-color: #FFFFFF; border: 1px solid #FFFFFF; border-radius: 3px\">אני לא זמין</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                        % if ctx.get('render_link')\n"
+"                        <div style=\"display: inline-block; margin: 15px; text-align: center\">\n"
+"                            <a href=\"/web?#action=${ctx.get('action_id')}&amp;model=planning.slot&amp;menu_id=${ctx.get('menu_id')}&amp;db=${'dbname' in ctx and ctx['dbname'] or '' }\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">צפה בתכנון</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "<span aria-label=\"Close\">&amp;times;</span>"
+msgstr "<span aria-label=\"Close\">וזמנים</span>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "<span class=\"align-middle\">for this employee at the same time.</span>"
+msgstr "<span class=\"align-middle\">לעובד זה באותו זמן.</span>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "<span>week(s)</span>"
+msgstr "<span>שבועות</span>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "<strong>Allocated Hours: </strong>"
+msgstr "<strong>שעות מוקצות: </strong>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt_inherit
+msgid "<strong>Allocated Time (%): </strong>"
+msgstr "<strong>זמן מוקצה (%): </strong>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "<strong>Start Date: </strong>"
+msgstr "<strong>תאריך התחלה: </strong>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "<strong>Stop Date: </strong>"
+msgstr "<strong>תאריך סיום: </strong>"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
+msgid ""
+"A recurrence repeating itself until a certain date must have its limit set"
+msgstr "לחזרה החוזרת על עצמה עד לתאריך מסוים חייב להיות מוגדר גבול"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "ASSIGN ME THIS SHIFT"
+msgstr "הקצה לי את המשמרת הזו"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Add"
+msgstr "הוסף"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Add record"
+msgstr "הוסף רשומה"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
+msgid "Additional message"
+msgstr "הודעה נוספת"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_send__note
+msgid "Additional message displayed in the email sent to employees"
+msgstr "הודעה נוספת המוצגת בהודעת הדוא\"ל שנשלחה לעובדים"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__number_hours
+msgid "Allocated Hours"
+msgstr "שעות מוקצות"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Allocated Hours:"
+msgstr "שעות מוקצות:"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_percentage
+msgid "Allocated Time (%)"
+msgstr "זמן מוקצה (%)"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_hours
+msgid "Allocated hours"
+msgstr "שעות מוקצות"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__allocation_type
+msgid "Allocation Type"
+msgstr "סוג הקצאה"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_allow_self_unassign
+msgid "Allow Unassignment"
+msgstr "אפשר ביטול שיוך"
+
+#. module: planning
+#: code:addons/planning/models/planning_recurrency.py:0
+#, python-format
+msgid "An shift must be in the same company as its recurrency."
+msgstr "משמרת חייבת להיות באותה חברה כמו החזרה שלה."
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Are you sure you want to do delete this shift?"
+msgstr "האם אתה בטוח שברצונך למחוק את המשמרת הזו?"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_schedule_by_employee
+msgid "By Employee"
+msgstr "לפי עובד"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_schedule_by_role
+msgid "By Role"
+msgstr "לפי תפקיד"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_calendar
+msgid "Calendar"
+msgstr "יומן"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_res_company__planning_allow_self_unassign
+msgid "Can employee un-assign themselves?"
+msgstr "האם עובדים יכולים לבטל את ההקצאה של עצמם?"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "Close"
+msgstr "סגור"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Collapse rows"
+msgstr "צמצם שורות"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_role__color
+#: model:ir.model.fields,field_description:planning.field_planning_slot__color
+msgid "Color"
+msgstr "צבע"
+
+#. module: planning
+#: model:ir.model,name:planning.model_res_company
+msgid "Companies"
+msgstr "חברות"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__company_id
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__company_id
+#: model:ir.model.fields,field_description:planning.field_planning_send__company_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot__company_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__company_id
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+msgid "Company"
+msgstr "חברה"
+
+#. module: planning
+#: model:ir.model,name:planning.model_res_config_settings
+msgid "Config Settings"
+msgstr "הגדרות תצורה"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_settings
+msgid "Configuration"
+msgstr "תצורה"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Copy previous week"
+msgstr "העתק שבוע קודם"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid ""
+"Create your first shift by clicking on Add. Alternatively, you can use the "
+"(+) on the Gantt view."
+msgstr ""
+"צור את המשמרת הראשונה שלך על ידי לחיצה על הוסף. לחילופין, אתה יכול להשתמש ב-"
+" (+) בתצוגת גאנט."
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_role__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_send__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_slot__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__create_uid
+msgid "Created by"
+msgstr "נוצר ע\"י"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_role__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_send__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_slot__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__create_date
+msgid "Created on"
+msgstr "נוצר ב-"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__entry_date
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+msgid "Date"
+msgstr "תאריך"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_hr_employee__planning_role_id
+msgid "Default Planning Role"
+msgstr "תפקיד ברירת מחדל לתכנון"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_res_company__planning_generation_interval
+msgid ""
+"Delay for the rate at which recurring shift should be generated in month"
+msgstr "השהיה עבור הקצב בו יש ליצור משמרות חוזרות בחודש"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_res_config_settings__planning_generation_interval
+msgid "Delay for the rate at which recurring shifts should be generated"
+msgstr "השהיה עבור הקצב בו יש ליצור משמרות חוזרות"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Delete"
+msgstr "מחק"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Discard"
+msgstr "בטל"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_role__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_send__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_slot__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__display_name
+msgid "Display Name"
+msgstr "הצג שם"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration
+msgid "Duration (hours)"
+msgstr "משך זמן (שעות)"
+
+#. module: planning
+#: model:ir.model,name:planning.model_hr_employee
+#: model:ir.model.fields,field_description:planning.field_planning_slot__employee_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__employee_id
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Employee"
+msgstr "עובד"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__end_datetime
+msgid "End Date"
+msgstr "תאריך סיום"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "End date"
+msgstr "תאריך סיום"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_hr_employee_employee_token_unique
+msgid "Error: each employee token must be unique"
+msgstr "שגיאה: כל אסימון של עובד חייב להיות ייחודי"
+
+#. module: planning
+#: code:addons/planning/models/planning_recurrency.py:0
+#, python-format
+msgid "Every %s week(s) until %s"
+msgstr "כל %s שבועות עד %s"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Expand rows"
+msgstr "הרחב שורות"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_send__note
+msgid "Extra Message"
+msgstr "הודעה נוספת"
+
+#. module: planning
+#: model:ir.model.fields.selection,name:planning.selection__planning_slot__allocation_type__forecast
+msgid "Forecast"
+msgstr "תחזית"
+
+#. module: planning
+#: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_type__forever
+#: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_type__forever
+msgid "Forever"
+msgstr "תמיד"
+
+#. module: planning
+#: code:addons/planning/models/planning_recurrency.py:0
+#, python-format
+msgid "Forever, every %s week(s)"
+msgstr "תמיד, כל %s שבועות"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "From"
+msgstr "מ"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Future"
+msgstr "עתיד"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Group By"
+msgstr "קבץ לפי"
+
+#. module: planning
+#: model:ir.filters,name:planning.planning_filter_by_employee
+msgid "Hours per Employee"
+msgstr "שעות לעובד"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "I am unavailable"
+msgstr "איני זמין"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "I take it"
+msgstr "אני לוקח אותה"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__id
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__id
+#: model:ir.model.fields,field_description:planning.field_planning_role__id
+#: model:ir.model.fields,field_description:planning.field_planning_send__id
+#: model:ir.model.fields,field_description:planning.field_planning_slot__id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__id
+msgid "ID"
+msgstr "מזהה"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__publication_warning
+msgid ""
+"If checked, it means that the shift contains has changed since its last "
+"publish."
+msgstr "אם היא מסומנת, פירוש הדבר שהמשמרת השתנתה מאז פרסומה האחרון."
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__is_published
+msgid ""
+"If checked, this means the planning entry has been sent to the employee. "
+"Modifying the planning entry will mark it as not sent."
+msgstr ""
+"אם מסומן, פירוש הדבר שרשומת התכנון נשלחה לעובד. שינוי רשומת התכנון יסמן אותה"
+" כלא נשלחה."
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__repeat_until
+msgid ""
+"If set, the recurrence stop at that date. Otherwise, the recurrence is "
+"applied indefinitely."
+msgstr "אם מוגדר, החזרה תיפסק בתאריך זה. אחרת, החזרה מוחלת ללא הגבלת זמן."
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__include_unassigned
+#: model:ir.model.fields,field_description:planning.field_planning_send__include_unassigned
+msgid "Includes Open shifts"
+msgstr "כולל משמרות פתוחות"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__is_published
+msgid "Is the shift sent"
+msgstr "האם המשמרת נשלחה"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__is_assigned_to_me
+msgid "Is this shift assigned to the current user"
+msgstr "האם משמרת זו מוקצית למשתמש הנוכחי"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__last_generated_end_datetime
+msgid "Last Generated End Date"
+msgstr "תאריך סיום שנוצר אחרון"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_role____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_send____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_slot____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template____last_update
+msgid "Last Modified on"
+msgstr "שינוי אחרון ב"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_role__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_send__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_slot__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__write_uid
+msgid "Last Updated by"
+msgstr "עודכן לאחרונה ע\"י"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_role__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_send__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_slot__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__write_date
+msgid "Last Updated on"
+msgstr "עדכון אחרון ב"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__last_sent_date
+msgid "Last sent date"
+msgstr "תאריך שליחה אחרון"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__allow_self_unassign
+msgid "Let employee unassign themselves"
+msgstr "אפשר לעובד לבטל את ההקצאה שלו בעצמו"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "Let employees unassign themselves from shifts"
+msgstr "אפשר לעובדים לבטל את השיוך שלהם למשמרות בעצמם"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__allow_self_unassign
+#: model:ir.model.fields,help:planning.field_res_company__planning_allow_self_unassign
+#: model:ir.model.fields,help:planning.field_res_config_settings__planning_allow_self_unassign
+msgid "Let your employees un-assign themselves from shifts when unavailable"
+msgstr "אפשר לעובדים שלך לבטל את הקצאתם ממשמרות כאשר הם אינם זמינים"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid "Let's start managing your employees' schedule!"
+msgstr "התחל לנהל את לוח הזמנים של העובדים שלך"
+
+#. module: planning
+#: model:res.groups,name:planning.group_planning_manager
+msgid "Manager"
+msgstr "מנהל"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__publication_warning
+msgid "Modified since last publication"
+msgstr "שונה מאז הפרסום האחרון"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_my_calendar
+#: model:ir.actions.act_window,name:planning.planning_action_my_gantt
+#: model:ir.ui.menu,name:planning.planning_menu_my_planning
+msgid "My Planning"
+msgstr "התכנון שלי"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "My Shifts"
+msgstr "המשמרות שלי"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_role__name
+msgid "Name"
+msgstr "שם"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Next"
+msgstr "הבא"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/field_colorpicker.xml:0
+#, python-format
+msgid "No color"
+msgstr "ללא צבע"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__name
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Note"
+msgstr "הערה"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Note:"
+msgstr "הערה:"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__working_days_count
+msgid "Number of working days"
+msgstr "מספר ימי עבודה"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/planning_gantt_controller.js:0
+#, python-format
+msgid "Open"
+msgstr "פתח"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/planning_gantt_model.js:0
+#: model:ir.actions.act_window,name:planning.planning_action_open_shift
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#, python-format
+msgid "Open Shifts"
+msgstr "משמרות פתוחות"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Open shifts available"
+msgstr "משמרות פתוחות זמינות"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__overlap_slot_count
+msgid "Overlapping slots"
+msgstr "משבצות חופפות"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Past"
+msgstr "עבר"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__allocated_percentage
+msgid "Percentage of time the employee is supposed to work during the shift."
+msgstr "אחוז הזמן בו העובד אמור לעבוד במהלך המשמרת."
+
+#. module: planning
+#: model:ir.model.fields.selection,name:planning.selection__planning_slot__allocation_type__planning
+#: model:ir.ui.menu,name:planning.planning_menu_root
+#: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_calendar
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "Planning"
+msgstr "תכנון"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_planning_analysis
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_graph
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_pivot
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_graph
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_pivot
+msgid "Planning Analysis"
+msgstr "ניתוח נתוני תכנון"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_recurrency
+msgid "Planning Recurrence"
+msgstr "תכנון חוזר על עצמו"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_role
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_form
+msgid "Planning Role"
+msgstr "תפקיד לתכנון"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
+msgid "Planning Role List"
+msgstr "רשימת תפקידים לתכנון"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_roles
+msgid "Planning Roles"
+msgstr "תפקידים לתכנון"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_schedule_by_employee
+#: model:ir.actions.act_window,name:planning.planning_action_schedule_by_role
+msgid "Planning Schedule"
+msgstr "לוח זמנים לתכנון"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_slot
+msgid "Planning Shift"
+msgstr "תכנון משמרת"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_slot_report_analysis
+msgid "Planning Statistics"
+msgstr "סטטיסטיקות תכנון"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__template_id
+msgid "Planning Templates"
+msgstr "תבניות תכנון"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_planning_check_start_date_lower_stop_date
+#: model:ir.model.constraint,message:planning.constraint_planning_send_check_start_date_lower_stop_date
+msgid "Planning end date should be greater than its start date"
+msgstr "תאריך הסיום של התכנון צריך להיות גדול מתאריך ההתחלה שלו"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "Planning of %s days"
+msgstr "תכנון ל%s ימים"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_planning
+msgid "Planning sent by email"
+msgstr "תכנון נשלח בדוא\"ל"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Planning:"
+msgstr "תכנון:"
+
+#. module: planning
+#: model:ir.actions.server,name:planning.ir_cron_forecast_schedule_ir_actions_server
+#: model:ir.cron,cron_name:planning.ir_cron_forecast_schedule
+#: model:ir.cron,name:planning.ir_cron_forecast_schedule
+msgid "Planning: generate next recurring shifts"
+msgstr "תכנון: צור את המשמרות החוזרות הבאות"
+
+#. module: planning
+#: model:mail.template,subject:planning.email_template_slot_single
+msgid "Planning: new schedule (single shift)"
+msgstr "תכנון: לוח זמנים חדש (משמרת יחידה)"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Previous"
+msgstr "קודם"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Publish"
+msgstr "פרסם"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Publish & Send"
+msgstr "פרסם ושלח"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_res_company__planning_generation_interval
+#: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_generation_interval
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "Rate of shift generation"
+msgstr "קצב יצירת משמרות"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__recurrency_id
+msgid "Recurrency"
+msgstr "חזרה"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_repeat_interval_positive
+msgid "Recurrency repeat interval should be at least 1"
+msgstr "מרווח החזרה לחזרה אמור להיות לפחות 1"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__slot_ids
+msgid "Related planning entries"
+msgstr "רשומות תכנון קשורות"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__user_id
+msgid "Related user name for the resource to manage its access."
+msgstr "שם משתמש קשור למשאב לניהול הגישה שלו."
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__repeat
+msgid "Repeat"
+msgstr "חזור"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "Repeat Every"
+msgstr "חזור כל"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_type
+msgid "Repeat Type"
+msgstr "סוג חזרה"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_until
+msgid "Repeat Until"
+msgstr "חזור עד"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_interval
+#: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_interval
+msgid "Repeat every"
+msgstr "חזור כל"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_until
+msgid "Repeat until"
+msgstr "חזור עד"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_reporting
+msgid "Reporting"
+msgstr "דוחות"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__role_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__role_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__role_id
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Role"
+msgstr "תפקיד"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_settings_role
+msgid "Roles"
+msgstr "תפקידים"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Save"
+msgstr "שמור"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__template_creation
+msgid "Save as a Template"
+msgstr "שמור כתבנית"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid ""
+"Save this shift as a template to reuse it, or make it recurrent. This will "
+"greatly ease your encoding process."
+msgstr ""
+"שמור את המשמרת הזו כתבנית כדי לעשות בה שימוש חוזר או לגרום לה להיות חוזרת. "
+"זה יקל מאוד על תהליך הקידוד שלך."
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_schedule
+msgid "Schedule"
+msgstr "לוח זמנים"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "Schedule your employee shifts"
+msgstr "קבע את משמרות העובדים שלך"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_hr_employee__employee_token
+#: model:ir.model.fields,field_description:planning.field_planning_planning__access_token
+msgid "Security Token"
+msgstr "אסימון אבטחה"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_send
+msgid "Send Planning"
+msgstr "שלח תכנון"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_send_action
+msgid "Send Planning Shifts"
+msgstr "שלח תכנון משמרות"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Send schedule"
+msgstr "שלח לוח זמנים"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid "Send the schedule and mark the shifts as published. Congratulations!"
+msgstr "שלח את לוח הזמנים וסמן את המשמרות כפי שפורסמו. ברכות ואיחולים!"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid "Send the schedule to your employees once it is ready."
+msgstr "שלח את לוח הזמנים לעובדים שלך ברגע שהוא מוכן."
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_settings
+#: model:ir.ui.menu,name:planning.planning_menu_settings_config
+msgid "Settings"
+msgstr "הגדרות"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "Shift"
+msgstr "משמרת"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
+msgid "Shift List"
+msgstr "רשימת משמרות"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_slot_template
+msgid "Shift Template"
+msgstr "תבנית משמרת"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
+msgid "Shift Template Form"
+msgstr "תבנית טופס משמרת"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_tree
+msgid "Shift Template List"
+msgstr "רשימת תבניות משמרת"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_shift_template
+#: model:ir.ui.menu,name:planning.planning_menu_settings_shift_template
+msgid "Shift Templates"
+msgstr "תבניות משמרת"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_check_start_date_lower_end_date
+msgid "Shift end date should be greater than its start date"
+msgstr "תאריך סיום המשמרת צריך להיות גדול יותר מתאריך ההתחלה שלה"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_analysis
+msgid "Shifts Analysis"
+msgstr "ניתוח נתוני משמרות"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "Shifts in conflict"
+msgstr "משמרות מתנגשות"
+
+#. module: planning
+#: model:res.groups,name:planning.group_planning_show_percentage
+msgid "Show Allocated Percentage"
+msgstr "הצג אחוז מוקצה"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__slot_ids
+msgid "Slot"
+msgstr "משבצת"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "Some changes were made since this shift was published."
+msgstr ""
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__start_datetime
+#: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
+#: model:ir.model.fields,field_description:planning.field_planning_slot__start_datetime
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Start Date"
+msgstr "תאריך התחלה"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Start Date:"
+msgstr "תאריך התחלה:"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "Start date"
+msgstr "תאריך התחלה"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__start_time
+msgid "Start hour"
+msgstr "שעת התחלה"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_positive
+msgid "Start hour must be a positive number"
+msgstr "שעת התחלה חייבת להיות מספר חיובי"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__end_datetime
+#: model:ir.model.fields,field_description:planning.field_planning_send__end_datetime
+msgid "Stop Date"
+msgstr "תאריך סיום"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Stop Date:"
+msgstr "תאריך סיום:"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__template_autocomplete_ids
+msgid "Template Autocomplete"
+msgstr "השלמה אוטומטית של התבנית"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "The company does not allow you to self unassign."
+msgstr "החברה אינה מאפשרת לך לבטל הקצאה באופן עצמי."
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "This shift is not assigned to you anymore."
+msgstr "המשמרת הזו לא מוקצית לך יותר"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "This shift is now assigned to you."
+msgstr "משמרת זו מוקצית לך עכשיו."
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__was_copied
+msgid "This shift was copied from previous week"
+msgstr "משמרת זו הועתקה מהשבוע הקודם"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "To"
+msgstr "אל"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Today"
+msgstr "היום"
+
+#. module: planning
+#: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_type__until
+#: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_type__until
+msgid "Until"
+msgstr "עד"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_until
+msgid "Up to which date should the plannings be repeated"
+msgstr "עד לאיזה תאריך התכנונים צריך לחזור"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid "Use this menu to visualize and schedule shifts"
+msgstr "השתמש בתפריט זה כדי להמחיש ולקבוע משמרות"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__user_id
+#: model:res.groups,name:planning.group_planning_user
+msgid "User"
+msgstr "משתמש"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "You can not assign yourself to an already assigned shift."
+msgstr "אינך יכול להקצות את עצמך למשמרת שכבר הוקצתה."
+
+#. module: planning
+#: code:addons/planning/controllers/main.py:0
+#, python-format
+msgid "You can not assign yourself to this shift."
+msgstr "אינך יכול להקצות את עצמך למשמרת זו."
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "You can not unassign another employee than yourself."
+msgstr "אינך יכול לבטל הקצאת עובד אחר חוץ מעצמך."
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_positive
+msgid "You cannot have a negative duration"
+msgstr "לא יכול להיות לך משך זמן שלילי"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_lower_than_24
+msgid "You cannot have a start hour greater than 24"
+msgstr "אינך יכול לקבל שעת התחלה גדולה מ 24"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_check_allocated_hours_positive
+msgid "You cannot have negative shift"
+msgstr "לא יכול להיות לך משמרת שלילית"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "You don't the right to self assign."
+msgstr "אין לך הרשאה להקצות את עצמך."
+
+#. module: planning
+#: model:mail.template,subject:planning.email_template_planning_planning
+msgid ""
+"Your planning from ${format_datetime(object.start_datetime, "
+"tz=ctx.get('employee').tz or 'UTC', dt_format='short')} to "
+"${format_datetime(object.end_datetime, tz=employee.tz if employee else "
+"'UTC', dt_format='short')}"
+msgstr ""
+"התכנון שלך מ ${format_datetime(object.start_datetime, "
+"tz=ctx.get('employee').tz or 'UTC', dt_format='short')} עד "
+"${format_datetime(object.end_datetime, tz=employee.tz if employee else "
+"'UTC', dt_format='short')}"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "other shift(s)"
+msgstr "משמרות אחרות"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "other shift(s) in conflict."
+msgstr ""
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_type
+msgid "weeks"
+msgstr "שבועות"

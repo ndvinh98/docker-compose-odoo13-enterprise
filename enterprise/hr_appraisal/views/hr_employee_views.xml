@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<odoo>
+    <record id="hr_employee_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.view.form.inherit.appraisal</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+        <xpath expr="//button[@name='%(hr.plan_wizard_action)d']" position="before">
+            <button name="action_send_appraisal_request"
+                string="Request Appraisal"
+                type="object"
+                class="btn btn-primary" attrs="{'invisible': &quot;[('parent_user_id', '!=', uid)]&quot;}"/>
+        </xpath>
+        <div name="button_box" position="inside">
+            <button name="%(open_view_hr_appraisal_tree2)d"
+                class="oe_stat_button"
+                icon="fa-star-half-o"
+                type="action"
+                >
+                <div class="o_field_widget o_stat_info">
+                    <span class="o_stat_value">
+                        <field name="appraisal_date" readonly="1"/>
+                    </span>
+                    <span class="o_stat_text">
+                        <span attrs="{'invisible': [('appraisal_date', '=', False)]}">Next</span> Appraisal
+                    </span>
+                </div>
+            </button>
+        </div>
+        <xpath expr="//page[@name='hr_settings']" position="inside">
+            <field name="parent_user_id" invisible="1"/>
+            <group string="Send Appraisals Form To" col="4">
+                <field name="appraisal_by_manager"/>
+                <field name="appraisal_manager_ids" nolabel="1" placeholder="Select Appraisal Reviewer..."
+                    widget="many2many_tags" options="{'color_field': 'color'}"
+                    attrs="{'required': [('appraisal_by_manager','=',True)], 'invisible':[('appraisal_by_manager','=',False)]}"
+                    readonly="0"/>
+
+                <field name="appraisal_self"/>
+                <field name="appraisal_employee" nolabel="1" attrs="{'invisible':[('appraisal_self','=',False)]}"/>
+
+                <field name="appraisal_by_collaborators"/>
+                <field name="appraisal_collaborators_ids" nolabel="1" placeholder="Select Appraisal Reviewer..."
+                    widget="many2many_tags" options="{'color_field': 'color'}"
+                    attrs="{'required': [('appraisal_by_collaborators','=',True)], 'invisible':[('appraisal_by_collaborators','=',False)]}"/>
+
+                <field name="appraisal_by_colleagues"/>
+                <field name="appraisal_colleagues_ids" nolabel="1" placeholder="Select Appraisal Reviewer..."
+                    widget="many2many_tags" options="{'color_field': 'color'}"
+                    attrs="{'required': [('appraisal_by_colleagues','=',True)], 'invisible':[('appraisal_by_colleagues','=',False)]}"
+                    readonly="0"/>
+                <field name="appraisal_date_related"/>
+            </group>
+        </xpath>
+        </field>
+    </record>
+</odoo>

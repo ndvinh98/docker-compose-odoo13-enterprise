@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="link_tracker_action_marketing_campaign" model="ir.actions.act_window">
+        <field name="name">Link Statistics</field>
+        <field name="res_model">link.tracker</field>
+        <field name="view_mode">graph,pivot,tree,form</field>
+        <field name="domain">[('mass_mailing_id.use_in_marketing_automation', '=', True)]</field>
+    </record>
+
+    <!-- MENUS -->
+    <menuitem id="link_tracker_menu_reporting_marketing_automation"
+        name="Link Tracker"
+        parent="marketing_automation_reporting_menu"
+        action="link_tracker_action_marketing_campaign"
+        groups="marketing_automation.group_marketing_automation_user"/>
+</odoo>

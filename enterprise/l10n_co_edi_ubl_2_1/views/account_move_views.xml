@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="l10n_co_edi.invoice_form_inherit_l10n_co_edi" model="ir.ui.view">
+            <field name="name">account.move.form.l10n_co_edi_ubl_2_1</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@id='header_right_group']" position="after">
+                    <group attrs="{'invisible': [('type', 'not in', ['out_invoice', 'out_refund'])]}">
+                        <field name="l10n_co_edi_type"/>
+                        <field name="l10n_co_edi_invoice_name"/>
+                        <field name="l10n_co_edi_invoice_status" attrs="{'invisible': [('l10n_co_edi_invoice_status', '=', 'not_sent')]}"/>
+                        <field name="l10n_co_edi_attachment_url" widget="url"/>
+                        <field name="l10n_co_edi_operation_type" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="l10n_co_edi_is_direct_payment" invisible="1"/>
+                        <field name="l10n_co_edi_payment_option_id" attrs="{'required': [('l10n_co_edi_is_direct_payment', '=', True)], 'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="l10n_co_edi_cufe_cude_ref" attrs="{'required': [('l10n_co_edi_invoice_status', '=', 'accepted')], 'invisible': [('l10n_co_edi_invoice_status', '=', 'not_sent')]}" groups="base.group_no_one"/>
+                        <field name="l10n_co_edi_description_code_credit" attrs="{'invisible': [('type', '!=', 'out_refund')], 'readonly': [('state', '!=', 'draft')]}"/>
+                    </group>
+                    <group attrs="{'invisible': [('type', 'not in', ['out_invoice', 'out_refund'])]}">
+                        <field name="l10n_co_edi_debit_note" invisible="True"/>
+                        <field name="l10n_co_edi_debit_origin_id" attrs="{'invisible': [('type', '!=', 'out_invoice'), ('state', 'not in', ['draft', 'cancel'])]}"/>
+                        <field name="l10n_co_edi_description_code_debit" attrs="{'required': [('l10n_co_edi_debit_note', '=', True)], 'invisible': [('l10n_co_edi_debit_note', '!=', True)]}"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_view_form" model="ir.ui.view">
+        <field name="name">hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="priority">50</field>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button name="action_show_contract_reviews" class="oe_stat_button" icon="fa-book" type="object" help="Contracts Reviews" attrs="{'invisible': ['|', ('employee_id', '=', False), ('contract_reviews_count', '=', 0)]}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field name="contract_reviews_count"/></span>
+                        <span class="o_stat_text">Reviews</span>
+                     </div>
+                </button>
+            </div>
+            <xpath expr="//field[@name='state']" position="before">
+                <button name="%(generate_simulation_link_action)d" type="action" string="Generate Simulation Link" class="oe_highlight" attrs="{'invisible': [('employee_id', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='job_id']" position="before">
+                <field name="origin_contract_id" attrs="{'invisible': [('origin_contract_id', '=', False)]}"/>
+                <field name="access_token" invisible="1"/>
+                <field name="access_token_consumed" invisible="1"/>
+                <field name="access_token_end_date" invisible="1"/>
+                <field name="sign_request_ids" invisible="1" groups="sign.group_sign_user"/>
+            </xpath>
+            <field name="job_id" position="after">
+                <field name="default_contract_id"/>
+            </field>
+            <group name="duration_group" position="inside">
+                <field name="sign_template_id" options="{'no_create': True}" kanban_view_ref="%(sign.sign_template_view_kanban_mobile)s"/>
+                <field name="contract_update_template_id" options="{'no_create': True}"/>
+            </group>
+            <field name="job_id" position="before">
+                <field name="contract_type"/>
+                <field name="signatures_count" invisible="1"/>
+            </field>
+            <page name="information" position="after">
+                <page string="Personal Documents" name="personal_documents" groups="hr.group_hr_manager" attrs="{'invisible': [('employee_id', '=', False)]}">
+                    <group>
+                        <field name="id_card"/>
+                        <field name="image_1920"/>
+                        <field name="driving_license" attrs="{'invisible': [('transport_mode_car', '=', False)]}"/>
+                        <field name="mobile_invoice" attrs="{'invisible': [('mobile', '=', 0)]}"/>
+                        <field name="sim_card" attrs="{'invisible': [('mobile', '=', 0)]}"/>
+                        <field name="internet_invoice" attrs="{'invisible': [('internet', '=', 0)]}"/>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+
+    <record id="hr_contract_view_form_contract_templates" model="ir.ui.view">
+        <field name="name">hr.contract.form</field>
+        <field name="model">hr.contract</field>
+        <field name="mode">primary</field>
+        <field name="priority">60</field>
+        <field name="inherit_id" ref="hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <page name="other" position="replace"/>
+            <field name="default_contract_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="job_id" position="after">
+                <field name="sign_template_id" kanban_view_ref="%(sign.sign_template_view_kanban_mobile)s"/>
+                <field name="contract_update_template_id"/>
+            </field>
+            <field name="structure_type_id" position="after">
+                <field name="resource_calendar_id"/>
+            </field>
+            <field name="employee_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="state" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="hr_contract_view_tree_contract_templates" model="ir.ui.view">
+        <field name="name">hr.contract.tree</field>
+        <field name="model">hr.contract</field>
+        <field name="mode">primary</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="employee_id" position="replace">
+                <field name="department_id"/>
+            </field>
+            <field name="date_start" position="replace"/>
+            <field name="date_end" position="replace"/>                
+        </field>
+    </record>
+
+    <record id="hr_contract_view_kanban" model="ir.ui.view">
+        <field name="name">hr.contract.kanban</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_kanban"/>
+        <field name="arch" type="xml">
+            <field name="employee_id" position="before">
+                <field name="sign_request_ids" groups="sign.group_sign_user"/>
+            </field>
+            <xpath expr="//div[hasclass('oe_kanban_content')]" position="inside">
+                <t groups="sign.group_sign_user">
+                    <t t-if="record.sign_request_ids.raw_value.length">
+                        <div class="oe_kanban_bottom_left">
+                            <i class="fa fa-pencil"> <field name="signatures_count"/></i>
+                        </div>
+                    </t>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_hr_contract_templates" model="ir.actions.act_window">
+        <field name="name">Contract Templates</field>
+        <field name="res_model">hr.contract</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('employee_id', '=', False)]</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'sequence': 1, 'view_id': ref('hr_contract_view_tree_contract_templates')}),
+            (0, 0, {'view_mode': 'form', 'sequence': 2, 'view_id': ref('hr_contract_view_form_contract_templates')})]"/>
+        <field name="search_view_id" ref="hr_contract.hr_contract_view_search"/>
+        <field name="help" type="html">
+          <p class="oe_view_nocontent_create">
+            Click here to create new contracts.
+          </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="hr_menu_contract_templates"
+        name="Templates"
+        action="action_hr_contract_templates"
+        parent="hr_contract.menu_human_resources_configuration_contract"
+        sequence="10"
+        groups="hr.group_hr_manager"/>
+</odoo>

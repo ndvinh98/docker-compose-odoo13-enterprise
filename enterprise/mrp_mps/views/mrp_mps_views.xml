@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_mps_production_schedule_form_view" model="ir.ui.view" >
+        <field name="name">mrp.production.schedule.form.view</field>
+        <field name="model">mrp.production.schedule</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name="product_id" attrs="{'readonly': [('id', '!=', False)]}"/>
+                        <field name="warehouse_id" attrs="{'readonly': [('id', '!=', False)]}" groups="stock.group_stock_multi_warehouses"/>
+                    </group>
+                    <group>
+                        <label for="forecast_target_qty"/>
+                        <div class="o_row">
+                            <field name="forecast_target_qty"/>
+                            <field name="product_uom_id" groups="uom.group_uom" readonly="1"/>
+                        </div>
+                        <label for="min_to_replenish_qty"/>
+                        <div class="o_row">
+                            <field name="min_to_replenish_qty"/>
+                            <field name="product_uom_id" groups="uom.group_uom" readonly="1"/>
+                        </div>
+                        <label for="max_to_replenish_qty"/>
+                        <div class="o_row">
+                            <field name="max_to_replenish_qty"/>
+                            <field name="product_uom_id" groups="uom.group_uom" readonly="1"/>
+                        </div>
+                    </group>
+                </group>
+                <footer>
+                    <button special="save" type="object" string="Save" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_mps_search_view" model="ir.ui.view" >
+        <field name="name">mrp.production.schedule.search.view</field>
+        <field name="model">mrp.production.schedule</field>
+        <field name="arch" type="xml">
+          <search>
+              <field name="product_id"/>
+              <field name="warehouse_id"/>
+          </search>
+        </field>
+    </record>
+
+    <record id="mrp_mps_stock_move_tree_view" model="ir.ui.view" >
+        <field name="name">mrp.mps.stock.move.tree.view</field>
+        <field name="model">stock.move</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="reference"/>
+                <field name="date"/>
+                <field name="product_uom_qty" string="Quantity"/>
+                <field name="product_uom" options="{'no_open': True, 'no_create': True}" string="Unit of Measure" groups="uom.group_uom"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>

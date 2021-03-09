@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <data noupdate="1">
+        <record id="ir_cron_send_send" model="ir.cron">
+            <field name="name">1. Cron Job - Send document to SII</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="nextcall" eval="(DateTime.now().replace(hour=22, minute=0, second=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_send_dte_to_sii()</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="ir_cron_sii_request" model="ir.cron">
+            <field name="name">2. Cron Job - General Jobs with SII and electronic invoicing for Chile</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="model_id" ref="model_account_move"/>
+            <field name="state">code</field>
+            <field name="code">model.cron_run_sii_workflow()</field>
+            <field name="active" eval="True"/>
+        </record>
+
+        <record id="ir_cron_load_sii_xsd_files" model="ir.cron">
+            <field name="name">0. Cron Job - Load XSD Files (Chilean SII)</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">weeks</field>
+            <field name="model_id" ref="base.model_ir_attachment" />
+            <!-- Highest priority at time of module install. -->
+            <field name="priority" eval="0"/>
+            <field name="state">code</field>
+            <field name="code">model._load_xsd_sii_multi()</field>
+        </record>
+
+    </data>
+</odoo>

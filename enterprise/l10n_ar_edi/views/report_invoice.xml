@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_invoice_document" inherit_id="l10n_ar.report_invoice_document">
+
+        <p name="comment" position="before">
+            <p t-if="o.journal_id.l10n_ar_afip_ws == 'wsbfe'" >
+                THE PURCHASER ASSUMES THE COMMITMENT, IN THE NATURE OF AN AFFECTED DECLARATION, OF NOT EXPORTING THE PROPERTY DURING THE TERM OF THREE 3 YEARS FROM THE ACQUISITION<br/>
+            </p>
+        </p>
+
+        <!-- footer data -->
+        <div name="footer_left_column" position="inside">
+            <img t-if="o.l10n_ar_afip_barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;humanreadable=1' % ('I2of5', o.l10n_ar_afip_barcode)" alt="Barcode"  style="height:80px"/>
+        </div>
+        <div name="pager" position="before">
+            <t t-if="o.journal_id.l10n_ar_afip_pos_system != 'II_IM'">
+                <div>
+                    CAE: <span t-field="o.l10n_ar_afip_auth_code"/>
+                </div>
+                <div>
+                    CAE Due Date: <span t-field="o.l10n_ar_afip_auth_code_due"/>
+                </div>
+            </t>
+        </div>
+
+    </template>
+
+    <!-- TODO in version 14.0 propose remove this view in order to only apply the changes to report_invoice_document view and do not have this changes duplicated -->
+    <template id="report_invoice_document_with_payments" inherit_id="l10n_ar.report_invoice_document_with_payments">
+
+        <p name="comment" position="before">
+            <p t-if="o.journal_id.l10n_ar_afip_ws == 'wsbfe'" >
+                THE PURCHASER ASSUMES THE COMMITMENT, IN THE NATURE OF AN AFFECTED DECLARATION, OF NOT EXPORTING THE PROPERTY DURING THE TERM OF THREE 3 YEARS FROM THE ACQUISITION<br/>
+            </p>
+        </p>
+
+        <!-- footer data -->
+        <div name="footer_left_column" position="inside">
+            <img t-if="o.l10n_ar_afip_barcode" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;humanreadable=1' % ('I2of5', o.l10n_ar_afip_barcode)" alt="Barcode"  style="height:80px"/>
+        </div>
+        <div name="pager" position="before">
+            <t t-if="o.journal_id.l10n_ar_afip_pos_system != 'II_IM'">
+                <div>
+                    CAE: <span t-field="o.l10n_ar_afip_auth_code"/>
+                </div>
+                <div>
+                    CAE Due Date: <span t-field="o.l10n_ar_afip_auth_code_due"/>
+                </div>
+            </t>
+        </div>
+
+    </template>
+
+</odoo>

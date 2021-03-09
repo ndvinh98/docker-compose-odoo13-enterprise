@@ -1,0 +1,1481 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Salary Package">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/hr_contract_salary/static/src/scss/hr_contract_salary.scss"/>
+        </xpath>
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/hr_contract_salary/static/src/js/hr_contract_salary.js"></script>
+        </xpath>
+    </template>
+
+    <template id="assets_tests" name="Hr Contract Salary Tests Assets" inherit_id="web.assets_tests">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/hr_contract_salary/static/tests/tours/hr_contract_salary.js"></script>
+        </xpath>
+    </template>
+
+    <template id="salary_package" name="My Contract">
+        <t t-call="website.layout">
+            <div id="wrap">
+
+                <form id="hr_cs_form">
+
+                    <section>
+                        <div class="container">
+                             <div class="row">
+
+                                <!-- Title -->
+                                <div class="col-md-12">
+                                    <h1>Customize your salary</h1>
+                                </div>
+
+                                <input type="hidden" name="token" t-att-value="token"/>
+                                <input type="hidden" name="applicant_id" t-att-value="applicant_id"/>
+                                <input type="hidden" name="employee_contract_id" t-att-value="employee_contract_id"/>
+                                <input type="hidden" name="original_link" t-att-value="original_link"/>
+                                <input type="hidden" name="contract_type" t-att-value="contract_type"/>
+                                <input type="hidden" name="freeze" t-att-value="freeze"/>
+                                <input type="hidden" name="job_title" t-att-value="job_title"/>
+
+                                <!-- Configuration -->
+                                <div id="hr_cs_configurator" class="col-lg-9 col-xl-8">
+
+                                    <!-- Section -->
+                                    <h2>Monthly Benefit in Kind</h2>
+
+                                    <!-- Transport -->
+                                    <div class="form-group">
+                                        <div class="row">
+
+                                            <span class="col-md-3 o_form_label col-form-label">
+                                                <i class="fa fa-1x fa-car fa-fw"/> Transport
+                                            </span>
+
+                                            <div class="col-md-7">
+                                                <label class="hr_cs_control hr_cs_control_checkbox">
+                                                    Company Car
+                                                    <input type="checkbox" name="transport_mode_car" t-att-checked="contract.transport_mode_car" class="advantage_input"/>
+                                                     <div class="hr_cs_control_indicator"/>
+                                                 </label>
+                                             </div>
+
+                                            <!-- Company Car -->
+                                            <div class="mobility-options row" id="company_car">
+                                                <div class="col-md-7 offset-md-3">
+                                                    <t t-set='max_unused_cars' t-value="contract.max_unused_cars"/>
+                                                    <select name="select_car" class="form-control form-control-primary mt16 mb8 advantage_input">
+                                                        <t t-foreach="available_cars" t-as="car">
+                                                            <option t-att-value="'old-'+str(car.id)" t-att-selected="not contract.new_car and contract.car_id.id == car.id">
+                                                                <t t-esc="car.model_id.brand_id.name + '/' + car.model_id.name + u' \u2022 '
+                                                                    + str(round(car.total_depreciated_cost, 2)) + u' € \u2022 '
+                                                                    + car._get_acquisition_date()
+                                                                    + ((u' \u2022 Available in %s' % car.next_assignation_date.strftime('%B %Y')) if car.next_assignation_date else u'')"/></option>
+                                                        </t>
+                                                        <t t-if="new_car or contract.available_cars_amount &lt; max_unused_cars">
+                                                            <t t-foreach="can_be_requested_models" t-as="model">
+                                                                <option t-att-value="'new-'+str(model.id)" t-att-selected="contract.new_car and contract.new_car_model_id.id == model.id"><t t-esc="model.display_name + u' \u2022 ' + str(round(model.default_total_depreciated_cost, 2)) + u' €  \u2022 New Car'"/></option>
+                                                            </t>
+                                                        </t>
+                                                    </select>
+                                                    <span class="form-text mt8 d-none" name="car_info">
+                                                        <ul>
+                                                            <li name="door_number">Doors Number: <span name="door_number"/></li>
+                                                            <li name="fuel_type">Fuel Type: <span name="fuel_type"/></li>
+                                                            <li name="co2">CO2 Emission: <span name="co2"/></li>
+                                                            <li name="odometer">Last Odometer: <span name="odometer"/></li>
+                                                            <li name="immatriculation">Immatriculation Date: <span name="immatriculation"/></li>
+                                                        </ul>
+                                                    </span>
+                                                    <!-- <span><t t-esc="contract.available_cars_amount"/></span> -->
+                                                    <span class="form-text mt8">The cost of a car is depreciated by 8% per year, for 7 years. So, your gross salary increases automatically to keep the same employee budget. Once a car has 7 years, the car is fully depreciated and the only remaining costs are the maintenance, insurances and taxes.</span>
+                                                    <span t-if="contract.available_cars_amount &lt; max_unused_cars" class="form-text mt8" name="new_car_message">This cost simulation is only for information. If you want to choose another car model, please contact your HR manager.</span>
+                                                    <div class="row" t-att-class="'d-none' if (new_car or applicant_id or contract.available_cars_amount &lt; max_unused_cars) else ''">
+                                                        <label class="hr_cs_control hr_cs_control_checkbox offset-md-1 mt16">
+                                                            <input type="checkbox" name="waiting_list"/>add me to the waiting list for a new car
+                                                            <div class="hr_cs_control_indicator"/>
+                                                        </label>
+                                                        <select name="select_waiting_list_model" class="form-control form-control-primary mt16 mb8 d-none">
+                                                            <t t-foreach="can_be_requested_models" t-as="model">
+                                                                <option t-att-value="model.id"><t t-esc="model.display_name + u' \u2022 ' + str(round(model.default_total_depreciated_cost, 2)) + u' €  \u2022 New Car'"/></option>
+                                                            </t>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 mt24">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control advantage_input" t-att-value="contract.company_car_total_depreciated_cost or '0'" disabled="disabled" name="car_employee_deduction"/>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">€</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Public transport -->
+                                            <div class="col-md-7 offset-md-3 mt8">
+                                                <label class="hr_cs_control hr_cs_control_checkbox">
+                                                    Public Transportation
+                                                    <input type="checkbox" name="transport_mode_public" t-att-checked="contract.transport_mode_public" class="advantage_input"/>
+                                                    <div class="hr_cs_control_indicator"/>
+                                                </label>
+                                            </div>
+
+                                            <div class="mobility-options row" id="public_transport">
+                                                <div class="col-md-7 offset-md-3">
+                                                    <input class="form-control form-control-primary mt16 mb8 advantage_input" type="number" t-att-value="contract.public_transport_employee_amount or '0'" name="public_transport_employee_amount"/>
+                                                    <span class="form-text mt8">Enter the monthly amount you spend on public transportation to go to work. The approximative amount reimbursed by the employer is calculated accordingly.</span>
+                                                </div>
+                                                <div class="col-md-2 mt24">
+                                                    <div class="input-group">
+                                                        <input type="text" class="form-control advantage_input" t-att-value="contract.public_transport_reimbursed_amount or '0'" disabled="disabled" name="public_transport_reimbursed_amount"/>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">€</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Other transport -->
+                                            <div class="col-md-7 offset-md-3 mt8">
+                                                <label class="hr_cs_control hr_cs_control_checkbox">
+                                                    Private car
+                                                    <input type="checkbox" name="transport_mode_private_car" t-att-checked="contract.transport_mode_private_car" class="advantage_input"/>
+                                                    <div class="hr_cs_control_indicator"/>
+                                                </label>
+                                            </div>
+
+                                            <div class="mobility-options row" id="private_car">
+                                                <div class="col-md-7 offset-md-3">
+                                                    <input class="form-control form-control-primary mt16 mb8 advantage_input km_home_work" type="number" t-att-value="contract.km_home_work or '0'" name="private_car_km_home_work"/>
+                                                    <span class="form-text mt8">Enter the number of kilometers between your home and your work place. The approximative amount reimbursed by the employer is calculated accordingly.</span>
+                                                </div>
+                                                <div class="col-md-2 mt24">
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" t-att-value="contract.private_car_reimbursed_amount or '0'" name="private_car_reimbursed_amount" disabled="disabled"/>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">€</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Internet -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label">
+                                                <i class="fa fa-1x fa-globe fa-fw fa-lg"/> Internet Subscription
+                                            </label>
+                                            <div class="col-md-7">
+                                                <input class="form-control form-control-primary mb8 advantage_input" type="number" t-att-value="contract.internet or '0'" name="internet"/>
+                                                <span class="form-text mt8" id="internet_tooltip">Enter the amount of your internet subscription invoice. If you have a pack only the internet part of your operator subscription will be paid by the employer.</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" t-att-value="contract.internet" disabled="disabled" name="internet_amount"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Phone -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <span class="col-md-3 o_form_label col-form-label">
+                                                <i class="fa fa-1x fa-mobile fa-fw fa-lg"/> Phone Subscription
+                                            </span>
+                                            <div class="col-md-7">
+                                                <div>
+                                                    <label class="hr_cs_control hr_cs_control_radio">
+                                                        <input type="radio" name="mobile" value="0" t-att-checked="not contract.mobile" class="advantage_input"/> No
+                                                        <div class="hr_cs_control_indicator hr_cs_control_no"/>
+                                                    </label>
+                                                </div>
+                                                <div>
+                                                    <label class="hr_cs_control hr_cs_control_radio">
+                                                        <input type="radio" name="mobile" value="1" t-att-checked="contract.mobile" class="advantage_input"/>
+                                                        <t t-esc="default_mobile" /> €
+                                                        <div class="hr_cs_control_indicator"/>
+                                                    </label>
+                                                </div>
+                                                <span class="form-text mt8" id="mobile_tooltip">This BASE subscription include unlimited Internet, calls and SMS in Belgium + Rooming trough Europe (International Communications are excluded).</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" t-att-value="contract.mobile" disabled="disabled" name="mobile_amount"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Holidays -->
+                                    <div class="form-group" name="holidays_div">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label" for="holidays_slider">
+                                                <i class="fa fa-1x fa-suitcase fa-fw"/> Extra Time Off
+                                            </label>
+                                            <div class="col-md-7">
+                                                <div>
+                                                    <span class="badge badge-secondary">0</span>
+                                                    <input type="range" t-att-value="contract.holidays" min="0" max="15" step="1" list="holidays-range" name="holidays_slider" class="advantage_input hr_cs_control_range"/>
+                                                    <span class="badge badge-secondary">15</span>
+                                                    <datalist id="holidays-range">
+                                                        <t t-set="step" t-value="15.0 / 10.0"/>
+                                                        <t t-foreach="range(1, 10)" t-as="i">
+                                                            <option><t t-esc="step * i"/></option>
+                                                        </t>
+                                                    </datalist>
+                                                </div>
+                                                <span class="form-text mt8">In addition to your legal leaves, you can chose up to 15 extra days off.</span>
+                                                <span class="form-text mt8">The amount of annual time off (legal leaves) you get depends on your work schedule in the previous year. A full-time work schedule through the 12 months of the last year, under Belgian contract, will grant you 20 annual time off (legal leaves).</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                    <input class="form-control" name="holidays_input" type="text" t-att-value="contract.holidays" disabled="disabled"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">days</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Section -->
+                                    <h2>Monthly Advantages in Net</h2>
+
+                                    <!-- Representation Fees -->
+                                    <!-- <t t-if="contract.representation_fees"> -->
+                                        <div class="form-group" name="representation_fees">
+                                            <div class="row">
+                                                <span class="col-md-3 o_form_label col-form-label">
+                                                    <i class="fa fa-1x fa-male fa-fw fa-lg"/> Representation Fees
+                                                </span>
+
+                                                <div class="col-md-7">
+                                                    <label class="hr_cs_control hr_cs_control_radio">0 €
+                                                        <input type="radio" name="representation_fees_radio" value="0.0" t-att-checked="contract.representation_fees == 0.0" class="advantage_input"/>
+                                                        <div class="hr_cs_control_indicator"/>
+                                                    </label>
+                                                    <label t-att-class="'hr_cs_control hr_cs_control_radio' + (' d-none' if customer_relation else '')">110 €
+                                                        <input type="radio" name="representation_fees_radio" value="110.0" t-att-checked="contract.representation_fees == 110.0" class="advantage_input"/>
+                                                        <div class="hr_cs_control_indicator"/>
+                                                    </label>
+                                                    <label t-att-class="'hr_cs_control hr_cs_control_radio' + (' d-none' if not customer_relation else '')">150 €
+                                                        <input type="radio" name="representation_fees_radio" value="150.0" t-att-checked="contract.representation_fees == 150.0" class="advantage_input"/>
+                                                        <div class="hr_cs_control_indicator"/>
+                                                    </label>
+                                                </div>
+
+                                                <div class="col-md-2">
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" t-att-value="contract.representation_fees" disabled="disabled" name="representation_fees"/>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">€</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-7 offset-md-3 mt8">
+                                                    <span class="form-text">This is a monthly net amount, taken into account in your payslip.</span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div t-att-class="'form-group' + (' d-none' if not contract.ip_wage_rate else '')">
+                                            <div class="row">
+                                                <span class="col-md-3 o_form_label col-form-label">
+                                                    <i class="fa fa-1x fa-puzzle-piece fa-fw fa-lg"/> Intellectual Property
+                                                </span>
+                                                <div class="col-md-7">
+                                                    <label class="hr_cs_control hr_cs_control_radio">
+                                                        <input type="radio" name="ip" value="1" t-att-checked="contract.ip" class="advantage_input"/> Yes
+                                                        <div class="hr_cs_control_indicator"/>
+                                                    </label>
+                                                    <label class="hr_cs_control hr_cs_control_radio">
+                                                        <input type="radio" name="ip" value="0" t-att-checked="not contract.ip" class="advantage_input"/> No
+                                                        <div class="hr_cs_control_indicator hr_cs_control_no"/>
+                                                    </label>
+                                                    <span class="form-text mt8" id="ip_tooltip">As Odoo invests massively in developing and writing Intellectual Property content, we benefit from fiscal ruling allowing us to pay a part of employee's salary as an intellectual property income instead of a regular salary. This amount will be paid in cash every month and is less taxed.</span>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group">
+                                                        <input class="form-control" type="text" t-att-value="contract.ip_wage_rate" disabled="disabled" name="ip_wage_rate"/>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">%</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    <!-- Section -->
+                                    <h2>Monthly Advantages in Cash</h2>
+
+                                    <!-- Fuel Card -->
+                                    <div name="fuel_card" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label" for="fuel_card_slider">
+                                                <i class="fa fa-1x fa-tint fa-fw"/> Fuel Card
+                                            </label>
+                                            <div class="col-md-7">
+                                                <span class="badge badge-secondary">0</span>
+                                                <input type="range" t-att-value="contract.fuel_card" min="0" max="500" step="10" list="fuel-card-range" name="fuel_card_slider" class="advantage_input hr_cs_control_range"/>
+                                                <span class="badge badge-secondary">500</span>
+                                                <datalist id="fuel-card-range">
+                                                    <t t-set="step" t-value="500.0 / 10.0"/>
+                                                    <t t-foreach="range(1, 10)" t-as="i">
+                                                        <option><t t-esc="step * i"/></option>
+                                                    </t>
+                                                </datalist>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                    <input class="form-control advantage_input" name="fuel_card_input" type="text" t-att-value="contract.fuel_card" disabled="disabled"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Commissions -->
+                                    <t t-if="contract.commission_on_target">
+                                        <div class="form-group" name="commission_on_target_div">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label" for="commission_on_target">
+                                                    <i class="fa fa-1x fa-crosshairs fa-fw fa-lg"/> Commissions
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <span class="form-text">The commission is scalable and starts from the 1st € sold. The commission plan has stages with accelerators. At 100% , 3 months are paid in Warrant which results to a monthly NET commission value of 
+                                                    <t t-esc="round(contract.warrant_value_employee, 2)"/> € and 9 months in cash which result in a GROSS monthly commission of <t t-esc="round(contract.commission_on_target, 2)"/> €, taxable like your usual monthly pay.</span>
+                                                </div>
+                                                <div class="col-md-2 text-right">
+                                                    <div class="input-group">
+                                                        <input class="form-control advantage_input" type="text" t-att-value="contract.commission_on_target" disabled="disabled" name="commission_on_target"/>
+                                                        <input class="form-control advantage_input d-none" type="text" t-att-value="round(contract.warrant_value_employee / 12.0, 2)" disabled="disabled" name="warrant_value"/>
+                                                        <input class="form-control advantage_input d-none" type="text" t-att-value="round(contract.warrants_cost / 12.0, 2)" disabled="disabled" name="warrant_cost"/>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">€</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+
+                                    <!-- Meal Vouchers -->
+                                    <t t-if="contract.meal_voucher_amount">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <label class="col-md-3 col-form-label" for="meal_voucher_amount">
+                                                    <i class="fa fa-1x fa-cutlery fa-fw"/> Meal Vouchers
+                                                </label>
+                                                <div class="col-md-7">
+                                                    <span class="form-text">Every month, you'll get 7.45€ per worked day on your meal voucher card.
+</span>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="input-group">
+                                                        <input class="form-control" name="meal_voucher_amount" type="text" t-att-value="contract.meal_voucher_amount * 20.0 " disabled="disabled"/>
+                                                        <div class="input-group-append">
+                                                            <div class="input-group-text">€</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+
+                                    <!-- Section -->
+                                    <h2>Yearly Advantages in Cash</h2>
+
+                                    <!-- Eco Vouchers -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label" for="eco_checks">
+                                                <i class="fa fa-1x fa-leaf fa-fw"/> Eco Vouchers
+                                            </label>
+                                            <div class="col-md-7">
+                                                <span class="form-text">You'll receive this amount in the form of Eco Vouchers around June. The exact amount is based on real worked day during the period between the first of June of last year and the 31th of May of this year.</span>
+                                            </div>
+                                            <div class="col-md-2 text-right">
+                                                <div class="input-group">
+                                                    <input class="form-control text-right" type="text" t-att-value="contract.eco_checks" disabled="disabled" name="eco_checks"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- 13th Month -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label" for="thirteen_month">
+                                                <i class="fa fa-1x fa-gift fa-fw fa-lg"/> 13<sup>th</sup> Month
+                                            </label>
+                                            <div class="col-md-7">
+                                                <span class="form-text">If you meet conditions to benefit from 13th month, you will receive this amount around December. This amount may be different based on your working schedule and the number of worked days during the year.</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                    <input class="form-control text-right" type="text" t-att-value="contract.wage_with_holidays" disabled="disabled" name="thirteen_month"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Double Holiday Pay -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-3 col-form-label" for="double_holidays">
+                                                <i class="fa fa-1x fa-suitcase fa-fw"/> Double Holiday Pay
+                                            </label>
+                                            <div class="col-md-7">
+                                                <span class="form-text">You'll receive this amount around June. This amount will depend on the number of worked days during the previous year.</span>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" t-att-value="contract.wage_with_holidays * 0.92" disabled="disabled" name="double_holidays"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Sidebar -->
+                                <div id="hr_cs_sidebar" class="col-lg-3 offset-xl-1">
+                                    <t t-if="redirect_to_job">
+                                        <a t-att-href="'https://www.odoo.com/jobs/detail/' + redirect_to_job" target="_new">
+                                            <button type="button" id="apply_now" class="hr_cs_btn_submit btn">Apply Now</button>
+                                        </a>
+                                    </t>
+
+                                    <h2>Monthly Salary</h2>
+
+                                    <div class="d-none">
+                                        <input class="form-control" t-att-id="contract.id" type="text" t-att-value="contract.name" disabled="disabled" name="contract"/>
+                                        <input class="form-control" t-att-id="contract.resource_calendar_id.id" type="text" t-att-value="contract.resource_calendar_id.name" disabled="disabled"/>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                        <label class="col-md-6 col-form-label" for="wage">Gross</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input class="form-control advantage_input d-none" type="text" t-att-value="contract.wage" name="wage" disabled="disabled"/>
+                                                    <div class="input-group-append d-none">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                    <input class="form-control advantage_input" type="text" t-att-value="contract.wage_with_holidays" name="wage_with_holidays" disabled="disabled"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-2 col-form-label" for="NET">Net</label>
+                                            <div class="col-md-5 mt8">
+                                                <a role="button" data-toggle="modal" data-target="#hr_cs_modal" name="details">Details</a>
+                                                <a role="button" name="recompute" title="Recompute" aria-label="Recompute"><i class="fa fa-refresh fa-spin"/></a>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div class="input-group">
+                                                    <input class="form-control text-right" type="text" value="2238.38" disabled="disabled" name="NET"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h2>Monthly Advantages</h2>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-6 col-form-label" for="monthly_nature">Nature</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input type="text" disabled="disabled" name="monthly_nature" class="form-control"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-6 col-form-label" for="monthly_cash">Cash</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input type="text" disabled="disabled" name="monthly_cash" class="form-control"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h2>Yearly Advantages</h2>
+
+                                    <input type="text" class="d-none" t-att-value="contract.eco_checks" disabled="disabled" name="eco_checks"/>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-6 col-form-label" for="yearly_cash">Cash</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input type="text" disabled="disabled" name="yearly_cash" class="form-control"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-6 col-form-label" for="holidays_legal">Annual Time Off</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input type="text" disabled="disabled" name="holidays_legal" class="form-control" value="20"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">days</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-6 col-form-label" for="holidays_input">Extra Time Off</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input type="text" disabled="disabled" name="holidays_input" class="form-control" t-att-value="contract.holidays"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">days</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h2>Total</h2>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-6 col-form-label" for="monthly_total">Monthly Equivalent</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input type="text" disabled="disabled" name="monthly_total"  class="form-control"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" name="employee_total_cost" title="Full time equivalent employer cost">
+                                        <div class="row">
+                                            <label class="col-md-6 col-form-label" for="employee_total_cost">Employer Cost</label>
+                                            <div class="col-md-6">
+                                                <div class="input-group">
+                                                    <input type="text" disabled="disabled" name="employee_total_cost" class="form-control" t-att-value="contract.final_yearly_costs"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                    <input type="text" disabled="disabled" name="fixed_yearly_costs" class="form-control d-none" t-att-value="contract.final_yearly_costs"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <t t-if="simulation and not redirect_to_job">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div>
+                                                    <button type="button" id="send_email" class="hr_cs_btn_submit btn">Send to Responsible</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+
+                                    <t t-if="submit">
+                                        <button type="button" id="hr_cs_submit" class="btn hr_cs_btn_submit" name="submit1">Review Contract &amp; Sign</button>
+                                        <div class="alert alert-danger d-none" name="scale_alert" role="alert">
+                                            Your gross salary is below the scale. You can change values of the configurator to increase the gross according to the CP 200 scales.
+                                        </div>
+                                    </t>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="hr_cs_personal_information">
+                        <div class="container">
+                            <div class="row">
+
+                                <div class="col-md-8">
+                                    <h1>Your Personal Information</h1>
+                                </div>
+
+                                <div class="col-md-4 mt48">
+                                    <button t-att-class="'d-none' if need_personal_information else 'btn'" type="button" name="toggle_personal_information">Show <i class="fa fa-chevron-down"></i></button>
+                                    <button class="d-none btn" type="button" name="toggle_personal_information">Hide <i class="fa fa-chevron-up"></i></button>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div t-att-class="'col-md-8' if need_personal_information else 'col-md-8 d-none'" name="personal_info">
+
+                                    <!-- Name + Gender -->
+                                    <div class="row">
+                                        <t t-set="is_new_employee" t-value="contract.employee_id.name == 'Enter your name'" />
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <div t-att-class="'d-none' if is_new_employee else ''">
+                                                    <label class="col-form-label" for="name">Name</label><span class="text-muted"> (Lastname Firstname)</span>
+                                                    <input type="text" name="name" class="form-control" t-att-value="contract.employee_id.name" required="required"/>
+                                                </div>
+                                                <t t-if="is_new_employee" >
+                                                    <label class="col-form-label" for="first_name">First Name</label>
+                                                    <input type="text" name="first_name" class="form-control half_name" required="required"/>
+                                                    <label class="col-form-label" for="last_name">Last Name</label>
+                                                    <input type="text" name="last_name" class="form-control half_name" required="required"/>
+                                                </t>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group mt32">
+                                                <label class="hr_cs_control hr_cs_control_radio">Male
+                                                    <input type="radio" name="gender" value="male" class="advantage_input" t-att-checked="contract.employee_id.id and contract.employee_id.gender == 'male' or True"/>
+                                                    <div class="hr_cs_control_indicator hr_cs_control_indicator_white"/>
+                                                </label>
+                                                <label class="hr_cs_control hr_cs_control_radio">Female
+                                                    <input type="radio" name="gender" value="female" class="advantage_input" t-att-checked="contract.employee_id.id and contract.employee_id.gender == 'female' or False"/>
+                                                    <div class="hr_cs_control_indicator hr_cs_control_indicator_white"/>
+                                                </label>
+                                                <label class="hr_cs_control hr_cs_control_radio">Other
+                                                    <input type="radio" name="gender" value="other" class="advantage_input" t-att-checked="contract.employee_id.id and contract.employee_id.gender == 'other' or False"/>
+                                                    <div class="hr_cs_control_indicator hr_cs_control_indicator_white"/>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Birthday + Disabled -->
+                                    <div class="row" name="birthdate">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="birthdate">Birthdate</label>
+                                                <input type="date" name="birthdate" class="form-control advantage_input" required="required" t-att-value="contract.employee_id.birthday" min="1000-01-01" max="9999-12-31"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="country_of_birth">Country of birth</label>
+                                                <select name="country_of_birth" class="form-control" data-placeholder="Select a country" required="required">
+                                                    <option/>
+                                                    <t t-foreach="countries" t-as="country">
+                                                      <option t-att-value="country.id" t-att-selected="contract.employee_id.country_of_birth.name == country.name"><t t-esc="country.name"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="place_of_birth">Place of birth</label>
+                                                <input type="text" name="place_of_birth" class="form-control" required="required" t-att-value="contract.employee_id.place_of_birth"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Nationality -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="country_id">Nationality</label>
+                                                <select name="country_id" class="form-control" data-placeholder="Select a country" required="required">
+                                                    <option/>
+                                                    <t t-foreach="countries" t-as="country">
+                                                      <option t-att-value="country.id" t-att-selected="contract.employee_id.country_id.name == country.name"><t t-esc="country.name"/></option>
+                                                    </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="identification_id">National Identification Number</label>
+                                                <input type="text" name="identification_id" placeholder="00.00.00-000.00" class="form-control" required="required" t-att-value="contract.employee_id.identification_id"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Address -->
+                                    <div class="row" name="address_info">
+                                        <div class="col-md-12">
+                                            <h2>Address</h2>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="street">Street</label>
+                                                <input type="text" name="street" class="form-control" required="required" t-att-value="contract.employee_id.address_home_id.street"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="street2">Street 2</label>
+                                                <input type="text" name="street2" class="form-control" t-att-value="contract.employee_id.address_home_id.street2"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="city">City</label>
+                                                <input type="text" name="city" class="form-control" required="required" t-att-value="contract.employee_id.address_home_id.city"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="zip">Zip Code</label>
+                                                <input type="text" name="zip" class="form-control" required="required" t-att-value="contract.employee_id.address_home_id.zip"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="state">State</label>
+                                                <input type="text" name="state" class="form-control" t-att-value="contract.employee_id.address_home_id.state_id.name"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="country">Country</label>
+                                                <select name="country" class="form-control" data-placeholder="Select a country" required="required">
+                                                    <option/>
+                                                    <t t-foreach="countries" t-as="country">
+                                                      <option t-att-value="country.id" t-att-selected="contract.employee_id.address_home_id.country_id.name == country.name"><t t-esc="country.name"/></option>
+                                                  </t>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="km_home_work">Km Home to Work</label>
+                                                <input type="number" name="km_home_work" class="form-control advantage_input km_home_work" t-att-value="contract.employee_id.km_home_work" required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Certificate -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h2>Certificate</h2>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="certificate">Certificate</label>
+                                                <select name="certificate" class="form-control advantage_input" data-placeholder="Select a certificate" required="required">
+                                                    <option/>
+                                                    <option value="bachelor" t-att-selected="contract.employee_id.certificate == 'bachelor'">Bachelor</option>
+                                                    <option value="master" t-att-selected="contract.employee_id.certificate == 'master'">Master</option>
+                                                    <option value="other" t-att-selected="contract.employee_id.certificate == 'other'">Other</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="study_field">Field of Study</label>
+                                                <input type="text" name="study_field" class="form-control" placeholder="Computer Science" t-att-value="contract.employee_id.study_field" required="required"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="study_school">School</label>
+                                                <input type="text" name="study_school" class="form-control" t-att-value="contract.employee_id.study_school" required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Contact -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h2>Contact Information</h2>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="email">Email</label>
+                                                <input type="email" class="form-control" name="email" required="required" t-att-value="contract.employee_id.address_home_id.email"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="phone">Phone number</label>
+                                                <input type="text" name="phone" class="form-control" placeholder="+32 2 290 34 90" required="required" t-att-value="contract.employee_id.address_home_id.phone"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Bank Account -->
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="bank_account">Bank account</label>
+                                                <input type="text" name="bank_account" class="form-control" placeholder="BE10 3631 0709 4104" t-att-value="contract.employee_id.bank_account_id.acc_number" required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Emergency -->
+                                    <div class="row" name="emergency">
+                                        <div class="col-md-12">
+                                            <h2>In case of emergency</h2>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="emergency_contact">Person to call</label>
+                                                <input type="text" name="emergency_contact" class="form-control" placeholder="Batman" t-att-value="contract.employee_id.emergency_contact" required="required"/>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="emergency_phone">Phone number</label>
+                                                <input type="text" name="emergency_phone" class="form-control" placeholder="+32 2 290 34 90" t-att-value="contract.employee_id.emergency_phone" required="required"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Hospital Insurance -->
+                                    <div class="row" name="hospital_relatives"/>
+
+                                    <!-- Personal Documents -->
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <h2>Personal Documents</h2>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="col-form-label" for="id_card">ID card copy (Both Sides)</label>
+                                                    <input type="file" name="id_card" class="form-control document"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <img id="id_card_img" t-att-src="id_card" alt="ID Card Copy" width="256" t-att-class="'d-none' if not id_card or id_card[:28] == 'data:application/pdf;base64,' else ''"/>
+                                                    <iframe id="id_card_pdf" t-att-src="id_card" height="256" width="256" t-att-class="'d-none' if not id_card or id_card[:28] != 'data:application/pdf;base64,' else ''"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="col-form-label" for="image_1920">Employee Photo</label>
+                                                    <input type="file" name="image_1920" class="form-control document"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <img id="image_img" t-att-src="image_1920" alt="Employee Photo" width="256" t-att-class="'d-none' if not image_1920 or image_1920[:28] == 'data:application/pdf;base64,' else ''"/>
+                                                    <iframe id="image_pdf" t-att-src="image_1920" height="256" width="256" t-att-class="'d-none' if not image_1920 or image_1920[:28] != 'data:application/pdf;base64,' else ''"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" name="driving_license">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="col-form-label" for="driving_license">Driving License</label>
+                                                    <input type="file" name="driving_license" class="form-control document"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <img id="driving_license_img" t-att-src="driving_license" alt="Driving License" width="256" t-att-class="'d-none' if not driving_license or driving_license[:28] == 'data:application/pdf;base64,' else ''"/>
+                                                    <iframe id="driving_license_pdf" t-att-src="driving_license" height="256" width="256" t-att-class="'d-none' if not driving_license or driving_license[:28] != 'data:application/pdf;base64,' else ''"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" name="mobile_invoice">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="col-form-label" for="mobile_invoice">Mobile Subscription Invoice</label>
+                                                    <input type="file" name="mobile_invoice" class="form-control document"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <img id="mobile_invoice_img" t-att-src="mobile_invoice" alt="Mobile Subscription Invoice" width="256" t-att-class="'d-none' if not mobile_invoice or mobile_invoice[:28] == 'data:application/pdf;base64,' else ''"/>
+                                                    <iframe id="mobile_invoice_pdf" t-att-src="mobile_invoice" height="256" width="256" t-att-class="'d-none' if not mobile_invoice or mobile_invoice[:28] != 'data:application/pdf;base64,' else ''"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" name="sim_card">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="col-form-label" for="sim_card">Sim Card Copy</label>
+                                                    <input type="file" name="sim_card" class="form-control document"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <img id="sim_card_img" t-att-src="sim_card" alt="Sim Card Copy" width="256" t-att-class="'d-none' if not sim_card or sim_card[:28] == 'data:application/pdf;base64,' else ''"/>
+                                                    <iframe id="sim_card_pdf" t-att-src="sim_card" height="256" width="256" t-att-class="'d-none' if not sim_card or sim_card[:28] != 'data:application/pdf;base64,' else ''"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12" name="internet_invoice">
+                                            <div class="row">
+                                                <div class="form-group col-md-6">
+                                                    <label class="col-form-label" for="internet_invoice">Internet Subscription Invoice</label>
+                                                    <input type="file" name="internet_invoice" class="form-control document"/>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <img id="internet_invoice_img" t-att-src="internet_invoice" alt="Internet Subscription Invoice" width="256" t-att-class="'d-none' if not internet_invoice or internet_invoice[:28] == 'data:application/pdf;base64,' else ''"/>
+                                                    <iframe id="internet_invoice_pdf" t-att-src="internet_invoice" height="256" width="256" t-att-class="'d-none' if not internet_invoice or internet_invoice[:28] != 'data:application/pdf;base64,' else ''"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div t-att-class="'col-lg-3' + (' offset-xl-1' if need_personal_information else '')" name="personal_info_withholding_taxes">
+
+                                    <div class="form-group">
+                                        <label class="hr_cs_control hr_cs_control_checkbox">Disabled
+                                            <input type="checkbox" name="disabled" value="" class="advantage_input" t-att-checked="contract.employee_id.disabled"/>
+                                            <div class="hr_cs_control_indicator hr_cs_control_indicator_white"/>
+                                        </label>
+                                    </div>
+
+                                    <!-- Marital Status -->
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="marital">Marital Status</label>
+                                        <select name="marital" class="form-control advantage_input" data-placeholder="Select a status">
+                                            <option/>
+                                            <option value="single" t-att-selected="contract.employee_id.marital == 'single'">Single</option>
+                                            <option value="married" t-att-selected="contract.employee_id.marital == 'married'">Married</option>
+                                            <option value="cohabitant" t-att-selected="contract.employee_id.marital == 'cohabitant'">Legal Cohabitant</option>
+                                            <option value="widower" t-att-selected="contract.employee_id.marital == 'widower'">Widower</option>
+                                            <option value="divorced" t-att-selected="contract.employee_id.marital == 'divorced'">Divorced</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Spouse -->
+                                    <div name="spouse_information" class="card">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label class="hr_cs_control hr_cs_control_checkbox">Disabled Spouse
+                                                    <input type="checkbox" name="disabled_spouse_bool" class="advantage_input" t-att-checked="contract.employee_id.disabled_spouse_bool"/>
+                                                    <div class="hr_cs_control_indicator hr_cs_control_indicator_white"/>
+                                                </label>
+                                            </div>
+                                            <div class="form-group mb0" name="spouse_professional_situation">
+                                                <label class="col-form-label" for="spouse_professional_situation">Spouse Professional Situation</label>
+                                                <select name="spouse_professional_situation" class="form-control advantage_input">
+                                                    <option value="without_income" t-att-selected="contract.employee_id.spouse_fiscal_status == 'without income'">Without Income</option>
+                                                    <option value="high_income" t-att-selected="contract.employee_id.spouse_fiscal_status == 'with income' and contract.employee_id.spouse_net_revenue &gt;= 225.0">Any other income</option>
+                                                    <option value="low_income" t-att-selected="contract.employee_id.spouse_fiscal_status == 'with income' and contract.employee_id.spouse_net_revenue &lt; 225.0">With Income &lt; 225 €/month</option>
+                                                    <option value="low_pension" t-att-selected="contract.employee_id.spouse_fiscal_status == 'with income' and contract.employee_id.spouse_other_net_revenue &lt; 450.0">With Pensions &lt; 450 €/month</option>
+                                                    <option value="high_pension" t-att-selected="contract.employee_id.spouse_fiscal_status == 'with income' and contract.employee_id.spouse_other_net_revenue &gt;= 450.0">With Pensions &gt;= 450 €/month</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb0 d-none" name="spouse_fiscal_status">
+                                                <label class="col-form-label" for="spouse_fiscal_status">Tax status for spouse</label>
+                                                <select name="spouse_fiscal_status" class="form-control advantage_input">
+                                                    <option value="without income" t-att-selected="contract.employee_id.spouse_fiscal_status == 'without income'">Without Income</option>
+                                                    <option value="with income" t-att-selected="contract.employee_id.spouse_fiscal_status == 'with income'">With Income</option>
+                                                </select>
+                                            </div>
+                                            <div name="spouse_revenue_information" class="d-none">
+                                                <div class="form-group mt16">
+                                                    <label class="col-form-label" for="spouse_net_revenue">Spouse Net Revenue</label>
+                                                    <input type="number" name="spouse_net_revenue" placeholder="0" class="form-control" t-att-value="contract.employee_id.spouse_net_revenue"/>
+                                                </div>
+                                                <div class="form-group mb0">
+                                                    <label class="col-form-label" for="spouse_other_net_revenue">Spouse Other Net Revenue</label>
+                                                    <input type="number" name="spouse_other_net_revenue" placeholder="0" class="form-control" t-att-value="contract.employee_id.spouse_other_net_revenue"/>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt16">
+                                                <label class="col-form-label" for="spouse_complete_name">Spouse Name and First Name</label>
+                                                <input type="text" name="spouse_complete_name" class="form-control" t-att-value="contract.employee_id.spouse_complete_name"/>
+                                            </div>
+                                            <div class="form-group mt16">
+                                                <label class="col-form-label" for="spouse_birthdate">Spouse Birthdate</label>
+                                                <input type="date" name="spouse_birthdate" class="form-control" t-att-required="true if contract.employee_id.marital in ['married', 'cohabitant'] else false" t-att-value="contract.employee_id.spouse_birthdate"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Children -->
+                                    <div class="form-group">
+                                        <label class="col-form-label" for="children">Number of Dependent Children</label>
+                                        <input type="number" name="children" placeholder="0" class="form-control advantage_input" t-att-value="contract.employee_id.children"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="hr_cs_control hr_cs_control_checkbox mt4">Disabled Children
+                                            <input type="checkbox" name="disabled_children_bool" class="advantage_input" t-att-checked="contract.employee_id.disabled_children_bool"/>
+                                            <div class="hr_cs_control_indicator hr_cs_control_indicator_white"/>
+                                        </label>
+                                    </div>
+                                    <div name="disabled_children_info" class="card">
+                                        <div class="card-body">
+                                            <div class="form-group mb0">
+                                                <label class="col-form-label" for="disabled_children_number">Number of Disabled Children</label>
+                                                <input type="number" name="disabled_children_number" placeholder="0" class="form-control advantage_input" t-att-value="contract.employee_id.disabled_children_number"/>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Other Dependent People -->
+                                    <div class="form-group">
+                                        <label class="hr_cs_control hr_cs_control_checkbox">Other Dependent People
+                                            <input type="checkbox" name="other_dependent_people" class="advantage_input" t-att-checked="contract.employee_id.other_dependent_people"/>
+                                            <div class="hr_cs_control_indicator hr_cs_control_indicator_white"/>
+                                        </label>
+                                    </div>
+                                    <div name="other_dependent_people_info" class="card">
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="other_senior_dependant">Seniors <span class="form-text">&amp;ge; 65 years old</span></label>
+                                                <input type="number" name="other_senior_dependent" placeholder="0" class="form-control advantage_input" t-att-value="contract.employee_id.other_senior_dependent"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="other_disabled_senior_dependent">Disabled seniors <span class="form-text">&amp;ge; 65 years old</span></label>
+                                                <input type="number" name="other_disabled_senior_dependent" placeholder="0" class="form-control advantage_input" t-att-value="contract.employee_id.other_disabled_senior_dependent"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label" for="other_juniors_dependant">People <span class="form-text">&amp;le; 65 years old</span></label>
+                                                <input type="number" name="other_juniors_dependent" placeholder="0" class="form-control advantage_input" t-att-value="contract.employee_id.other_juniors_dependent"/>
+                                            </div>
+                                            <div class="form-group mb0">
+                                                <label class="col-form-label" for="other_disabled_juniors_dependant">Disabled people <span class="form-text">&amp;le; 65 years old</span></label>
+                                                <input type="number" name="other_disabled_juniors_dependent" placeholder="0" class="form-control advantage_input" t-att-value="contract.employee_id.other_disabled_juniors_dependent"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <t t-if="simulation and not redirect_to_job">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <button type="button" id="send_email" class="hr_cs_btn_submit btn">Send to Responsible</button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                    <t t-if="redirect_to_job">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 mb8">
+                                    <a t-att-href="'https://www.odoo.com/jobs/detail/' + redirect_to_job" target="_new"><button type="button" id="apply_now" class="hr_cs_btn_submit btn">Apply Now</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <t t-if="submit">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3">
+                                    <button type="button" id="hr_cs_submit" class="hr_cs_btn_submit btn" name="submit2">Review Contract &amp; Sign</button>
+                                    <div class="alert alert-danger d-none" name="scale_alert" role="alert">
+                                        Your gross salary is below the scale. You can change values of the configurator to increase the gross according to the CP 200 scales.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- Net calculation MODAL -->
+                    <div role="dialog" id="hr_cs_modal" class="modal fade" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                                <!-- Header -->
+                                <header class="modal-header">
+                                    <h3 class="modal-title">Net calculation</h3>
+                                    <a role="button" class="btn btn-secondary close" data-dismiss="modal" aria-label="close"><span t-translation="off">&amp;times</span></a>
+                                </header>
+
+                                <main class="modal-body">
+
+                                    <!--  -->
+                                    <div name="net" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="wage">BASIC SALARY</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control d-none" type="text" value="2600" disabled="disabled" name="wage"/>
+                                                    <div class="input-group-append d-none">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                    <input class="form-control" type="text" value="2600" disabled="disabled" name="wage_with_holidays"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+
+                                    <!--  -->
+                                    <div name="internet_atn" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="ATN.INT.1"><i class="fa fa-1x fa-plus fa-fw"/> Benefit in Kind (Internet)</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="5" disabled="disabled" name="ATN.INT.1"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div name="mobile_atn" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="ATN.MOB.1"><i class="fa fa-1x fa-plus fa-fw"/> Benefit in Kind Phone (Subscription)</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="12.50" disabled="disabled" name="ATN.MOB.1"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="SALARY">GROSS SALARY</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="2600" disabled="disabled" name="SALARY"/>
+                                                    <div class="input-group-append o_box_subtotal">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div name="company_car_atn" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="ATN.CAR.1"><i class="fa fa-1x fa-plus fa-fw"/> Benefit in Kind (Company Car)</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="250" disabled="disabled" name="ATN.CAR.1"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="ONSS"><i class="fa fa-1x fa-minus fa-fw"/> Social contribution</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="339.82" disabled="disabled" name="ONSS"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div name="employment_bonus" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="EMP.BONUS"><i class="fa fa-1x fa-plus fa-fw"/> Employment Bonus</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="0.0" disabled="disabled" name="EMP.BONUS"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" name="ip_div">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="IP"><i class="fa fa-1x fa-minus fa-fw"/> Intellectual Property</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" t-att-value="25.0" disabled="disabled" name="IP"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="GROSS">TAXABLE INCOME</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="2260.18" disabled="disabled" name="GROSS"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="P.P"><i class="fa fa-1x fa-minus fa-fw"/> Withholding Tax</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"  value="~" disabled="disabled" name="P.P"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div name="m_onss_div" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="M.ONSS"><i class="fa fa-1x fa-minus fa-fw"/> Special social contribution</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"  value="0.0" disabled="disabled" name="M.ONSS"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="MEAL_V_EMP"><i class="fa fa-1x fa-minus fa-fw"/> Meal Vouchers</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control"  value="21.80" disabled="disabled" name="MEAL_V_EMP"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div name="company_car_atn" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="ATN.CAR.2"><i class="fa fa-1x fa-minus fa-fw"/> Benefit in Kind (Company Car)</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" value="250" disabled="disabled" name="ATN.CAR.2"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!--  -->
+                                    <div name="internet_atn" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="ATN.INT.2"><i class="fa fa-1x fa-minus fa-fw"/> Benefit in Kind (Internet)</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="5" disabled="disabled" name="ATN.INT.2"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div name="mobile_atn" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="ATN.MOB.2"><i class="fa fa-1x fa-minus fa-fw"/> Benefit in Kind (Phone Subscription)</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="12.50" disabled="disabled" name="ATN.MOB.2"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" name="taxed_div">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="TAXED">TAXED SALARY</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="2238.38" disabled="disabled" name="TAXED"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div class="form-group" name="representation_fees_div">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="representation_fees"><i class="fa fa-1x fa-plus fa-fw"/> Representation Fees</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" t-att-value="contract.representation_fees" disabled="disabled" name="representation_fees"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group" name="private_car_amount_div">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="private_car_amount"><i class="fa fa-1x fa-plus fa-fw"/> Private Car Transport</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" t-att-value="contract.private_car_reimbursed_amount" disabled="disabled" name="private_car_reimbursed_amount"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group" name="ip_div">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="IP"><i class="fa fa-1x fa-plus fa-fw"/> Intellectual Property</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" t-att-value="25.0" disabled="disabled" name="IP"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div name="ip_div" class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="IP.DED"><i class="fa fa-1x fa-minus fa-fw"/> Intellectual Property Income Deduction</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="0" disabled="disabled" name="IP.DED"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!--  -->
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <label class="col-md-9 col-form-label" for="NET">NET SALARY</label>
+                                            <div class="col-md-3">
+                                                <div class="input-group">
+                                                    <input class="form-control" type="text" value="2238.38" disabled="disabled" name="NET"/>
+                                                    <div class="input-group-append">
+                                                        <div class="input-group-text">€</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info mt16 mb0" role="status">
+                                        <p>Please note that this information may be inaccurate and should be used for reference only.<br/> The amounts are calculated  based on a full time permanent contract.</p>
+                                    </div>
+
+                                </main>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="salary_package_thank_you" name="Submitted Salary Package">
+        <t t-call="website.layout">
+            <div class="wrap">
+                <div class="container">
+                    <div class="text-center mt48 mb48">
+                        <h1 class="hr_cs_brand_optional"><i class="fa fa-check-circle-o mr8"/>Congratulations</h1>
+                        <p class="lead mb24">Your contract has been sent to:</p>
+                        <p class="lead mb4"> <b><t t-if="responsible_name" t-esc="responsible_name"/></b></p>
+                        <p class="mb24">
+                            <a t-if="responsible_email" t-att-href="'mailto:' + responsible_email" class="hr_cs_brand_optional">
+                                <t t-if="responsible_email" t-esc="responsible_email"/>
+                            </a>
+                            <span class="text-muted mr4 ml4">|</span>
+                            <a t-if="responsible_phone" t-att-href="'tel:' + responsible_phone" class="hr_cs_brand_optional">
+                                <t t-esc="responsible_phone"/>
+                            </a>
+                        </p>
+                        <p>He/She will review your contract.<br/> Feel free to contact him/her if you have further questions.</p>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>

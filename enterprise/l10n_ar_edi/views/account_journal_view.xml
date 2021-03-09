@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_journal_form" model="ir.ui.view">
+        <field name="name">account.journal.form</field>
+        <field name="model">account.journal</field>
+        <field name="inherit_id" ref="l10n_ar.view_account_journal_form"/>
+        <field name="arch" type="xml">
+            <form>
+                <field name="l10n_ar_afip_ws" invisible="1"/>
+            </form>
+            <sheet position="before">
+                <header>
+                    <button name="l10n_ar_check_afip_pos_number" string="Check Available AFIP PoS" help="Consult in AFIP the available numbers we can use to configure the electronic journal" type="object" attrs="{'invisible':[('l10n_ar_afip_ws', '=', False)]}"  groups="base.group_no_one"/>
+                </header>
+            </sheet>
+            <field name="l10n_ar_sequence_ids" position="before">
+                <div colspan="2">
+                    <button name="l10n_ar_sync_next_number_with_afip" string="⇒ Sync Next Numbers with AFIP" help="Sync documents next number in Odoo against last numbers in AFIP" type="object" confirm="Warning! This is normally used only when you start to use Odoo to sync the last numbers of each document. It shouldn't be needed to use it again. Please double check before confirming." class="oe_link" attrs="{'invisible':[('l10n_ar_afip_ws', '=', False)]}" groups="base.group_no_one"/>
+                </div>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates id="template">
+    <t t-extend="DebugWidget">
+        <t t-jquery="div.content" t-operation="append">
+            <p class="category">Blackbox</p>
+            <ul>
+                <li class="button build-hash-and-sign-request">Build Hash&amp;Sign Request</li>
+            </ul>
+        </t>
+    </t>
+
+    <t t-name="BlackboxIdentificationWidget">
+        <div class="oe_status js_blackbox_identification">
+            <div class="oe_icon oe_green">
+                <i class='fa fa-fw fa-archive' role="img" aria-label="Blackbox identification" title="Blackbox identification"></i>
+            </div>
+        </div>
+    </t>
+
+    <t t-extend="ReceiptScreenWidget">
+        <t t-jquery=".button.print" t-operation="replace"/>
+    </t>
+
+    <t t-name="BlockingErrorPopupWidget">
+        <div class="modal-dialog">
+            <div class="popup popup-error">
+                <p class="title"><t t-esc=" widget.options.title || 'Error' " /></p>
+                <p class="body"><t t-esc=" widget.options.body || '' "/></p>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="HtmlFDMControlData">
+        <br/>
+        <div>Control data</div>
+        <div>
+            FDM time:
+            <span class="pos-receipt-right-align"><t t-esc="order.blackbox_date"/>, <t t-esc="order.blackbox_time"/></span>
+        </div>
+        <div>
+            FDM ticket counters:
+            <span class="pos-receipt-right-align"><t t-esc="order.blackbox_ticket_counters"/></span>
+        </div>
+        <div>
+            FDM ID:
+            <span class="pos-receipt-right-align"><t t-esc="order.blackbox_unique_fdm_production_number"/></span>
+        </div>
+        <div>
+            VSC ID:
+            <span class="pos-receipt-right-align"><t t-esc="order.blackbox_vsc_identification_number"/></span>
+        </div>
+        <div>
+            PLU hash:
+            <span class="pos-receipt-right-align"><t t-esc="order.blackbox_plu_hash"/></span>
+        </div>
+        <div>
+            POS version:
+            <span class="pos-receipt-right-align"><t t-esc="order.blackbox_pos_version"/></span>
+        </div>
+        <div>
+            POS production ID:
+            <span class="pos-receipt-right-align"><t t-esc="order.blackbox_pos_production_id"/></span>
+        </div>
+        <div>
+            Hash chain:
+            <span class="pos-receipt-right-align"><t t-esc="order.blackbox_hash_chain"/></span>
+        </div>
+        <div>
+            Terminal ID:
+            <span class="pos-receipt-right-align"><t t-esc="order.blackbox_terminal_id"/></span>
+        </div>
+        <br/>
+        <span class="pos-receipt-center-align">
+            <div>Ticket signature:</div>
+            <br/>
+            <div><small><t t-esc="order.blackbox_signature"/></small></div>
+        </span>
+    </t>
+
+    <t t-name="HtmlFDMTaxes">
+        <t t-foreach="order.blackbox_base_price_in_euro_per_tax_letter" t-as="tax">
+            <t t-if="tax.amount">
+                <div>
+                    <t t-esc="order.get_tax_percentage_for_tax_letter(tax.letter)"/>%
+                    <span t-esc="tax.amount" class="pos-receipt-right-align"/>
+                </div>
+            </t>
+        </t>
+    </t>
+
+    <t t-extend="OrderReceipt">
+        <t t-jquery=".pos-receipt" t-operation="prepend">
+            <t t-if="order.blackbox_signature == false">
+                <div class="pos-receipt-header"><bold>THIS IS NOT A VALID TICKET</bold></div>
+            </t>
+            <t t-else="">
+                <div class="pos-receipt-header"><bold>VAT TICKET</bold></div>
+            </t>
+        </t>
+        <t t-jquery="t[t-if='receipt.company.contact_address']" t-operation="after">
+            <div><t t-esc="receipt.company.street"/></div>
+        </t>
+        <t t-jquery="t[t-esc='receipt.date.localestring']" t-operation="replace">
+            <t t-esc="order.blackbox_pos_receipt_time.format('DD/MM/YYYY HH:mm:ss')"/>
+        </t>
+        <t t-jquery=".price_display" t-operation="inner">
+            <t t-esc='widget.format_currency_no_symbol(line.price_with_tax)' />
+            <t t-esc="line.vat_letter"/>
+        </t>
+        <t t-jquery="t[t-foreach='receipt.tax_details']" t-operation="replace">
+            <t t-call="HtmlFDMTaxes"/>
+        </t>
+        <t t-jquery=".pos-receipt" t-operation="append">
+            <t t-call="HtmlFDMControlData"/>
+        </t>
+        <t t-jquery=".pos-receipt-order-data" t-operation="prepend">
+            <t t-esc='order.blackbox_order_name'/>
+        </t>
+    </t>
+
+    <!-- pos_restaurant -->
+    <t t-extend="BillReceipt">
+        <t t-jquery=".pos-receipt" t-operation="prepend">
+            <div class="pos-receipt-header"><bold>THIS IS NOT A VALID VAT TICKET</bold></div>
+        </t>
+        <t t-jquery="t[t-if='receipt.company.contact_address']" t-operation="after">
+            <div><t t-esc="receipt.company.street"/></div>
+        </t>
+        <t t-jquery="t[t-foreach='receipt.tax_details']" t-operation="replace">
+            <t t-call="HtmlFDMTaxes"/>
+        </t>
+        <t t-jquery=".price_display" t-operation="append">
+            <t t-esc="line.vat_letter"/>
+        </t>
+        <t t-jquery=".pos-receipt-order-data" t-operation="prepend">
+            <t t-esc='order.blackbox_order_name'/>
+        </t>
+        <t t-jquery="receipt" t-operation="append">
+            <t t-call="HtmlFDMControlData"/>
+        </t>
+    </t>
+
+    <t t-extend="OrderChangeReceipt">
+        <t t-jquery=".pos-receipt" t-operation="prepend">
+            <div class="pos-receipt-header"><bold>THIS IS NOT A VALID VAT TICKET</bold></div>
+        </t>
+    </t>
+
+    <t t-name="WorkInButton">
+        <div class='control-button'>
+            <i class='fa fa-clock-o' /> Clock in
+        </div>
+    </t>
+
+    <t t-name="WorkOutButton">
+        <div class='control-button'>
+            <i class='fa fa-clock-o' /> Clock out
+        </div>
+    </t>
+
+    <t t-extend="DashboardShare">
+        <t t-jquery="div.user-heading > h3" t-operation="replace">
+            <h3>
+                Odoo <t t-esc="server_version"/>1807BE_FDM
+            </h3>
+        </t>
+    </t>
+    <t t-extend="SaleDetailsReport">
+        <t t-jquery="receipt" t-operation="prepend">
+            <div bold="on" size="double">THIS IS NOT A VALID VAT TICKET</div>
+        </t>
+    </t>
+
+    <t t-extend="Chrome">
+        <t t-jquery="img.pos-logo" t-operation="after">
+            <table class="blackbox-ids">
+                <tr>
+                    <td>
+                        <span class="placeholder-posVersion"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="placeholder-posID"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span class="placeholder-terminalID"/>
+                    </td>
+                </tr>
+            </table>
+        </t>
+    </t>
+
+    <!-- don't allow splitting up a bill into multiple PS -->
+    <!-- <t t-extend="SplitbillScreenWidget"> -->
+    <!--     <t t-jquery="div.top-content" t-operation="replace"/> -->
+    <!-- </t> -->
+</templates>

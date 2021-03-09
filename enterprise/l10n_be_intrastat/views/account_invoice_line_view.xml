@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="invoice_line_be_intrastat_data_form" model="ir.ui.view">
+        <field name="name">account.move.form.inherit.account.be.intrastat</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+             <xpath expr="//field[@name='invoice_line_ids']//field[@name='quantity']" position="before">
+                <field name="intrastat_product_origin_country_id"
+                       optional="hide"
+                       attrs="{'invisible': [('parent.type', 'not in', ('out_invoice', 'out_refund'))]}"
+                       options="{'no_create_edit': True}"/>
+            </xpath>
+            <xpath expr="//field[@name='line_ids']//field[@name='quantity']" position="before">
+                <field name="intrastat_product_origin_country_id" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="project_task_user_view_pivot" model="ir.ui.view">
+        <field name="name">report.project.task.user.pivot</field>
+        <field name="model">report.project.task.user.fsm</field>
+        <field name="arch" type="xml">
+            <pivot string="Tasks Analysis" display_quantity="true" disable_linking="True">
+                <field name="project_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="project_task_user_view_graph" model="ir.ui.view">
+        <field name="name">report.project.task.user.graph</field>
+        <field name="model">report.project.task.user.fsm</field>
+        <field name="arch" type="xml">
+            <graph string="Tasks Analysis" type="bar">
+                    <field name="project_id" type="row"/>
+                    <field name="user_id" type="col"/>
+                    <field name="nbr" type="measure"/>
+                </graph>
+            </field>
+    </record>
+
+    <record id="project_task_user_action_report_fsm" model="ir.actions.act_window">
+        <field name="name">Tasks Analysis</field>
+        <field name="res_model">report.project.task.user.fsm</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="search_view_id" ref="project.view_task_project_user_search"/>
+        <field name="context">{'group_by_no_leaf':1,'group_by':[]}</field>
+        <field name="help">This report allows you to analyse the performance of your projects and users. You can analyse the quantities of tasks, the hours spent compared to the planned hours, the average number of days to open or close a task, etc.</field>
+    </record>
+
+</odoo>

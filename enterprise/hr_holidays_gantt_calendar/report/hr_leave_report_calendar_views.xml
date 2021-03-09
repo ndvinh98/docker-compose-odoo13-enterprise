@@ -1,0 +1,41 @@
+<odoo>
+    <data>
+        <record id="hr_leave_report_calendar_view_gantt" model="ir.ui.view">
+            <field name="name">hr.leave.report.calendar.view.gantt</field>
+            <field name="model">hr.leave.report.calendar</field>
+            <field name="arch" type="xml">
+                <gantt
+                    string="Time Off"
+                    date_start="start_datetime"
+                    date_stop="stop_datetime"
+                    default_group_by="employee_id"
+                    color="employee_id"
+                    display_unavailability="True"
+                >
+                    <field name="name"/>
+
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid p-0">
+                        <div class="row no-gutters">
+                            <div class="col">
+                                <ul class="p-0 mb-0 list-unstyled d-flex flex-row">
+                                    <li class="d-flex flex-column pr-2">
+                                        <strong>Name:</strong>
+                                        <strong>From:</strong>
+                                        <strong>To:</strong>
+                                    </li>
+                                    <li class="d-flex flex-column">
+                                        <span t-esc="display_name"/>
+                                        <span t-esc="userTimezoneStartDate.format('DD MMM, hh:mm A')"/>
+                                        <span t-esc="userTimezoneStopDate.format('DD MMM, hh:mm A')"/>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+                </gantt>
+            </field>
+        </record>
+    </data>
+</odoo>

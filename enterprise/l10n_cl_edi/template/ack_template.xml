@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<odoo>
+    <data>
+        <template id="ack_template">
+            <RespuestaDTE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" version="1.0" xmlns="http://www.sii.cl/SiiDte">
+                <Resultado ID="odoo_resp">
+                    <Caratula version="1.0">
+                        <RutResponde t-esc="format_vat(move.company_id.vat)"/>
+                        <RutRecibe t-esc="format_vat(move.partner_id.vat)"/>
+                        <IdRespuesta t-esc="response_id"/>
+                        <NroDetalles>1</NroDetalles>
+                        <TmstFirmaResp t-esc="get_cl_current_strftime()"/>
+                    </Caratula>
+                    <RecepcionEnvio>
+                        <NmbEnvio t-esc="nmb_envio"/>
+                        <FchRecep t-esc="get_cl_current_strftime()"/>
+                        <CodEnvio t-esc="response_id"/>
+                        <EnvioDTEID t-esc="envio_dte_id"/>
+                        <Digest t-esc="digest_value"/>
+                        <RutEmisor t-esc="format_vat(move.company_id.vat)"/>
+                        <RutReceptor t-esc="format_vat(move.partner_id.vat)"/>
+                        <EstadoRecepEnv>0</EstadoRecepEnv>
+                        <RecepEnvGlosa>Delivery Received According</RecepEnvGlosa>
+                        <NroDTE>1</NroDTE>
+                        <RecepcionDTE>
+                            <TipoDTE t-esc="move.l10n_latam_document_type_id.code"/>
+                            <Folio t-esc="move.l10n_latam_document_number"/>
+                            <FchEmis t-esc="get_cl_current_strftime('%Y-%m-%d')"/>
+                            <RUTEmisor t-esc="format_vat(move.company_id.vat)"/>
+                            <RUTRecep t-esc="format_vat(move.partner_id.vat)"/>
+                            <MntTotal t-esc="int(move.amount_total)"/>
+                            <EstadoRecepDTE>0</EstadoRecepDTE>
+                            <RecepDTEGlosa>DTE Has been Successfully Received</RecepDTEGlosa>
+                        </RecepcionDTE>
+                    </RecepcionEnvio>
+                </Resultado>
+            </RespuestaDTE>
+        </template>
+
+    </data>
+</odoo>

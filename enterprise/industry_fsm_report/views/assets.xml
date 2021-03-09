@@ -1,0 +1,14 @@
+<odoo>
+    <template id="assets_backend" name="industry_fsm_report_assets" inherit_id="web.assets_backend">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/industry_fsm_report/static/src/js/report_widget.js"></script>
+            <script type="text/javascript" src="/industry_fsm_report/static/src/js/tours/industry_fsm_report.js"></script>
+        </xpath>
+    </template>
+    <template id="assets_frontend" name="industry_fsm_report_assets_front" inherit_id="web.assets_frontend">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/industry_fsm/static/src/js/tours/industry_fsm.js"></script>
+            <script type="text/javascript" src="/industry_fsm_report/static/src/js/tours/industry_fsm_report.js"></script>
+        </xpath>
+    </template>
+</odoo>

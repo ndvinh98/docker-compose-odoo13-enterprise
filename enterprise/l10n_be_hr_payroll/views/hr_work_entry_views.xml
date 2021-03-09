@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_work_entry_type_view_form" model="ir.ui.view">
+        <field name="name">hr.work.entry.type.be.inherit.form</field>
+        <field name="model">hr.work.entry.type</field>
+        <field name="inherit_id" ref="hr_payroll.payroll_hr_work_entry_type_view_form_inherit"/>
+        <field name="priority">30</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_leave']" position="before">
+                <field name="meal_voucher"/>
+            </xpath>
+            <xpath expr="//field[@name='is_leave']" position="after">
+                <field name="leave_right"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="search_template_intrastat_code">
+            <a type="button" class="dropdown-toggle" data-toggle="dropdown">
+                <span class="fa fa-filter"/>
+                Codes:
+                <t t-set="selected_codes" t-value="[c['name'] for c in options['intrastat_code'] if c['selected']]"/>
+                <t t-if="len(selected_codes) > 0">
+                    <t t-set="code_value" t-value="', '.join(selected_codes)"/>
+                </t>
+                <t t-else="">
+                    <t t-set="code_value">All</t>
+                </t>
+                <t t-esc="code_value"/>
+                <span class="caret"/>
+            </a>
+            <div class="dropdown-menu o_filter_menu" role="menu">
+                <t t-foreach="options['intrastat_code']" t-as="c">
+                    <a t-att-title="c.get('name')"
+                        data-filter="intrastat_code"
+                        t-att-data-id="c.get('id')"
+                        class="dropdown-item js_account_report_choice_filter">
+                        <t t-esc="c.get('name')"/>
+                    </a>
+                </t>
+            </div>
+        </template>
+
+        <template id="search_template" inherit_id="account_reports.search_template">
+            <xpath expr="." position="inside">
+                <div class="btn-group o_dropdown o_account_reports_filter_intrastat_code"
+                     t-if="options.get('intrastat_code') != None">
+                    <t t-call="l10n_lu_reports_electronic.search_template_intrastat_code"/>
+                </div>
+            </xpath>
+        </template>
+    </data>
+</odoo>

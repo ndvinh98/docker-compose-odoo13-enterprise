@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_certification">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="partner">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2 style="padding-top: 15px;">
+                                <span t-if="report_name.endswith('fuente')">CERTIFICADO DE RETENCIÓN POR TERCEROS</span>
+                                <span t-if="report_name.endswith('ica')">CERTIFICADO DE RETENCIÓN EN ICA</span>
+                                <span t-if="report_name.endswith('iva')">CERTIFICADO DE RETENCIÓN DE IVA</span>
+                            </h2>
+                            <div class="row">
+                                <div class="col-6">
+                                    NIT: <t t-esc="partner['partner_id'].vat"/>-<t t-esc="partner['partner_id'].l10n_co_verification_code"/>
+                                </div>
+                                <div class="col-6">
+                                    Fecha de Expedición: <t t-esc="options['expedition_date']"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    Nombre/Razón Social: <t t-esc="partner['partner_id'].display_name"/>
+                                </div>
+                                <div class="col-6">
+                                    Fecha de Declaración: <t t-esc="options['declaration_date']"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    Ciudad Tercero: <t t-esc="partner['partner_id'].city"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    Dirección: <t t-esc="partner['partner_id'].street"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    Durante el año gravable de <t t-esc="current_year"/>, practicó en la ciudad de
+                                    <t t-esc="env.company.city"/>
+                                    <span t-if="report_name.endswith('fuente')"> retención en la fuente a</span>
+                                    <span t-if="report_name.endswith('ica')"> retención de ICA a</span>
+                                    <span t-if="report_name.endswith('iva')"> retención de IVA a</span>
+                                    <t t-esc="partner['partner_id'].display_name"/> con NIT:
+                                    <t t-esc="partner['partner_id'].vat"/>-<t t-esc="partner['partner_id'].l10n_co_verification_code"/>.
+                                </div>
+                            </div>
+                            <div class="row">
+                                <table class="table" t-if="report_name.endswith('fuente') or report_name.endswith('ica')">
+                                    <colgroup>
+                                        <col span="1" style="width: 70%;"/>
+                                        <col span="1" style="width: 15%;"/>
+                                        <col span="1" style="width: 15%;"/>
+                                    </colgroup>
+                                    <thead>
+                                        <tr>
+                                            <th t-if="report_name.endswith('fuente')"><strong>Concepto de retención</strong></th>
+                                            <th t-if="report_name.endswith('ica')"><strong>Bimestre</strong></th>
+                                            <th><strong>Monto del pago sujeto a retención</strong></th>
+                                            <th><strong>Retenido y consignado</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="partner['lines']" t-as="line">
+                                            <td><t t-esc="line['name']"/></td>
+                                            <td><t t-esc="line['tax_base_amount']"/></td>
+                                            <td><t t-esc="line['balance']"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <table class="table" t-if="report_name.endswith('iva')">
+                                    <thead>
+                                        <tr>
+                                            <th><strong>Bimestre</strong></th>
+                                            <th><strong>Monto Total Operación</strong></th>
+                                            <th><strong>Monto del Pago Sujeto Retención</strong></th>
+                                            <th><strong>Retenido Consignado</strong></th>
+                                            <th><strong>%</strong></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr t-foreach="partner['lines']" t-as="line">
+                                            <td><t t-esc="line['name']"/></td>
+                                            <td><t t-esc="line['tax_base_amount']"/></td>
+                                            <td><t t-esc="line['balance_15_over_19']"/></td>
+                                            <td><t t-esc="line['balance']"/></td>
+                                            <td><t t-esc="line['percentage']"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div t-att-class="report_name.endswith('iva') and 'offset-1 col-11' or 'offset-5 col-7'"
+                                     style="border: 2px solid black;">
+                                    <div class="col-12 text-center">
+                                        <strong>TOTAL DE IMPUESTOS DESCONTABLES</strong>
+                                    </div>
+                                    <div t-if="report_name.endswith('iva')" class="col-4">
+                                        <div>
+                                            <strong>MONTO TOTAL OPERACIONAL:</strong>
+                                        </div>
+                                        <t t-esc="partner['tax_base_amount']"/>
+                                    </div>
+                                    <div t-att-class="not report_name.endswith('iva') and 'col-6' or 'col-4'">
+                                        <div>
+                                            <strong>MONTO DEL PAGO SUJETO A:</strong>
+                                        </div>
+                                        <t t-if="report_name.endswith('iva')">
+                                            <t t-esc="partner['balance_15_over_19']"/>
+                                        </t>
+                                        <t t-if="not report_name.endswith('iva')">
+                                            <t t-esc="partner['tax_base_amount']"/>
+                                        </t>
+                                    </div>
+                                    <div t-att-class="not report_name.endswith('iva') and 'col-6' or 'col-4'">
+                                        <div>
+                                            <strong>RETENIDO Y CONSIGNADO:</strong>
+                                        </div>
+                                        <t t-esc="partner['balance']"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 50px;">
+                                <div class="col-12" t-if="report_name.endswith('fuente')">
+                                    Señor contribuyente: Favor tener en cuenta que la base certificada por nosotros corresponde a la sometida a retención durante el periodo gravable según las normas vigentes sobre la materia y podría ser diferente a lo facturado por usted durante el mismo periodo. al declarar tenerlo presente.
+                                </div>
+                                <div class="col-12">
+                                    El presente certificado se expide on concordancia con las disposiciones legales contenidas en al artículo 381 del Estatuto Tributario.
+                                </div>
+                                <div class="col-12">
+                                    Dicha Retención fue consignada oportunamente a nombre de la Dirección de Impuestos y Aduanas Nacionales en la Ciudad de
+                                    <t t-esc="env.company.city"/>
+                                </div>
+                                <div class="col-12">
+                                    NO REQUIRE FIRMA AUTOGRAFA. <t t-esc="options['article']"/>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+
+        <report
+            id="action_report_certification"
+            string="Certification Report"
+            model="l10n_co_reports.certification_report"
+            report_type="qweb-pdf"
+            name="l10n_co_reports.report_certification"
+            file="l10n_co_reports.report_certification"
+            groups="account.group_account_user"
+            menu="False"/>
+    </data>
+</odoo>

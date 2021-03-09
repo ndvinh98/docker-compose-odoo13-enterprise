@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="cfdiv33">
+            <cfdi:Comprobante
+                xsi:schemaLocation="http://www.sat.gob.mx/cfd/3 http://www.sat.gob.mx/sitio_internet/cfd/3/cfdv33.xsd http://www.sat.gob.mx/ComercioExterior11 http://www.sat.gob.mx/sitio_internet/cfd/ComercioExterior11/ComercioExterior11.xsd"
+                xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                Version="3.3"
+                t-att-Fecha="date"
+                t-att-Folio="record._get_string_cfdi(folio or '', 40)"
+                t-att-Serie="record._get_string_cfdi(serie or '', 25)"
+                Sello=""
+                t-att-FormaPago="(payment_method or '').replace('NA', '99')"
+                t-att-NoCertificado="certificate_number"
+                t-att-Certificado="certificate"
+                t-att-CondicionesDePago="conditions"
+                t-att-SubTotal="amount_untaxed"
+                t-att-Descuento="amount_discount"
+                t-att-Moneda="currency_name"
+                t-att-TipoCambio="rate"
+                t-att-Total="amount_total"
+                t-att-TipoDeComprobante="document_type[0].upper()"
+                t-att-MetodoPago="payment_policy"
+                t-att-LugarExpedicion="issued.zip or supplier.zip"
+                t-att-Confirmacion="confirmation">
+                <t t-set="related" t-value="record.get_cfdi_related()"/>
+                <t t-if="related">
+                    <cfdi:CfdiRelacionados
+                        t-att-TipoRelacion="related['type']">
+                        <t t-foreach="related['related']" t-as="number">
+                            <cfdi:CfdiRelacionado t-att-UUID="number"/>
+                        </t>
+                    </cfdi:CfdiRelacionados>
+                </t>
+                <cfdi:Emisor
+                    t-att-Rfc="supplier.vat"
+                    t-att-Nombre="record._get_string_cfdi(supplier.name, 254)"
+                    t-att-RegimenFiscal="fiscal_regime"/>
+                <cfdi:Receptor
+                    t-att-Rfc="customer.l10n_mx_edi_get_customer_rfc()"
+                    t-att-Nombre="record._get_string_cfdi(customer.commercial_partner_id.name, 254)"
+                    t-att-ResidenciaFiscal="customer.country_id.l10n_mx_edi_code if customer.country_id.l10n_mx_edi_code != 'MEX' and customer.l10n_mx_edi_get_customer_rfc() not in ['XEXX010101000', 'XAXX010101000'] else False"
+                    t-att-NumRegIdTrib="receiver_reg_trib"
+                    t-att-UsoCFDI="use_cfdi"/>
+                <cfdi:Conceptos>
+                    <t t-foreach="record.invoice_line_ids.filtered(lambda inv: not inv.display_type)" t-as="line">
+                        <cfdi:Concepto
+                            t-att-ClaveProdServ="'01010101' if (line.is_rounding_line and not line.product_id) else line.product_id.l10n_mx_edi_code_sat_id.code"
+                            t-att-NoIdentificacion="record._get_string_cfdi(line.product_id.default_code or '')"
+                            t-att-Cantidad="'%.6f' % line.quantity"
+                            t-att-ClaveUnidad="'H87' if (line.is_rounding_line and not line.product_id) else line.product_uom_id.l10n_mx_edi_code_sat_id.code"
+                            t-att-Unidad="record._get_string_cfdi(line.product_uom_id.name, 20)"
+                            t-att-Descripcion="record._get_string_cfdi(line.name, 1000)"
+                            t-att-ValorUnitario="'%.*f' % (decimal_precision, subtotal_wo_discount(line)/line.quantity) if line.quantity else 0.0"
+                            t-att-Importe="'%.*f' % (decimal_precision, subtotal_wo_discount(line))"
+                            t-att-Descuento="total_discount(line, decimal_precision)">
+                            <t t-set="taxes_line" t-value="line.filtered('price_subtotal').tax_ids.flatten_taxes_hierarchy()"/>
+                            <t t-if="taxes_line">
+                                <t t-set="price" t-value="line.price_unit * (1.0 - (line.discount or 0.0) / 100.0)"/>
+                                <t t-set="tax_line" t-value="{tax['id']: tax for tax in taxes_line.compute_all(price, line.currency_id, line.quantity, line.product_id, line.partner_id, is_refund=record.type in ('in_refund', 'out_refund'))['taxes']}"/>
+                                <t t-set="transferred" t-value="taxes_line.filtered(lambda r: r.amount &gt;= 0)"/>
+                                <t t-set="withholding" t-value="taxes_line.filtered(lambda r: r.amount &lt; 0)"/>
+                                <cfdi:Impuestos>
+                                    <t t-if="transferred">
+                                        <cfdi:Traslados>
+                                            <t t-foreach="transferred" t-as="tax">
+                                                <t t-set="tax_dict" t-value="tax_line.get(tax.id, {})"/>
+                                                <t t-set="tasa" t-value="'%.6f' % abs(tax.amount if tax.amount_type == 'fixed' else (tax.amount / 100.0))"/>
+                                                <t t-set="tax_amount" t-value="'%.2f' % abs(tax_dict.get('amount', (tax.amount if tax.amount_type == 'fixed' else tax.amount / 100.0) * line.price_subtotal))"/>
+                                                <cfdi:Traslado
+                                                    t-att-Base="'%.*f' % (decimal_precision, float(tax_amount) / float(tasa) if tax.amount_type == 'fixed' else tax_dict.get('base', line.price_subtotal))"
+                                                    t-att-Impuesto="tax_name(tax.mapped('invoice_repartition_line_ids.tag_ids')[0].name if tax.mapped('invoice_repartition_line_ids.tag_ids') else '')"
+                                                    t-att-TipoFactor="tax.l10n_mx_cfdi_tax_type"
+                                                    t-att-TasaOCuota="tasa if tax.l10n_mx_cfdi_tax_type != 'Exento' else False"
+                                                    t-att-Importe="tax_amount if tax.l10n_mx_cfdi_tax_type != 'Exento' else False"/>
+                                            </t>
+                                        </cfdi:Traslados>
+                                    </t>
+                                    <t t-if="withholding">
+                                        <cfdi:Retenciones>
+                                            <t t-foreach="withholding" t-as="tax">
+                                                <t t-set="tax_dict" t-value="tax_line.get(tax.id, {})"/>
+                                                <t t-set="tasa" t-value="'%.6f' % abs(tax.amount if tax.amount_type == 'fixed' else (tax.amount / 100.0))"/>
+                                                <cfdi:Retencion
+                                                    t-att-Base="'%.*f' % (decimal_precision, tax_dict.get('base', line.price_subtotal))"
+                                                    t-att-Impuesto="tax_name(tax.mapped('invoice_repartition_line_ids.tag_ids')[0].name if tax.mapped('invoice_repartition_line_ids.tag_ids') else '')"
+                                                    t-att-TipoFactor="tax.l10n_mx_cfdi_tax_type"
+                                                    t-att-TasaOCuota="tasa"
+                                                    t-att-Importe="'%.2f' % abs(tax_dict.get('amount', tax.amount / 100.0 * line.price_subtotal))"/>
+                                            </t>
+                                        </cfdi:Retenciones>
+                                    </t>
+                                </cfdi:Impuestos>
+                            </t>
+                            <t t-if="not record.l10n_mx_edi_external_trade">
+                                <t t-foreach="line.l10n_mx_edi_customs_number.split(',') if line.l10n_mx_edi_customs_number else []" t-as="pedimento">
+                                    <cfdi:InformacionAduanera
+                                        xmlns:cfdi="http://www.sat.gob.mx/cfd/3"
+                                        t-att-NumeroPedimento="pedimento.strip()"/>
+                                </t>
+                            </t>
+                        </cfdi:Concepto>
+                    </t>
+                </cfdi:Conceptos>
+                <t t-if="taxes['transferred'] is not None or taxes['withholding'] is not None">
+                    <cfdi:Impuestos
+                        t-att-TotalImpuestosTrasladados="'%.*f' % (decimal_precision, taxes['total_transferred']) if taxes['transferred'] else None"
+                        t-att-TotalImpuestosRetenidos="'%.*f' % (decimal_precision, taxes['total_withhold']) if taxes['withholding'] else None">
+                        <t t-if="taxes['withholding']">
+                            <cfdi:Retenciones>
+                                <t t-foreach="taxes['withholding']" t-as="withhold">
+                                    <cfdi:Retencion
+                                        t-att-Importe="'%.*f' % (decimal_precision, withhold['amount']) or 0.0"
+                                        t-att-Impuesto="tax_name(withhold['name'])"/>
+                                </t>
+                            </cfdi:Retenciones>
+                        </t>
+                        <t t-if="taxes['transferred']">
+                            <cfdi:Traslados>
+                                <t t-foreach="taxes['transferred']" t-as="transferred">
+                                    <cfdi:Traslado
+                                        t-att-Importe="'%.*f' % (decimal_precision, transferred['amount']) or 0.0"
+                                        t-att-Impuesto="tax_name(transferred['name'])"
+                                        t-att-TipoFactor="transferred['type']"
+                                        t-att-TasaOCuota="'%.6f' % (transferred['rate'])"/>
+                                </t>
+                            </cfdi:Traslados>
+                        </t>
+                    </cfdi:Impuestos>
+                </t>
+            </cfdi:Comprobante>
+        </template>
+    </data>
+</odoo>

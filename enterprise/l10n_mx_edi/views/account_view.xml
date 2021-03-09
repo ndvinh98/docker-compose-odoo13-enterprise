@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="view_account_journal_form_inh_l10n_mx">
+            <field name="name">view.account.journal.form.inh.l10n.mx</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+            <data>
+                <xpath expr="//group[@name='column_posting']" position="attributes">
+                    <attribute name="attrs">{'invisible': [('type', 'not in', ['bank', 'cash', 'sale'])]}</attribute>
+                </xpath>
+                <xpath expr="//field[@name='loss_account_id']" position="after">
+                    <field name="l10n_mx_address_issued_id" attrs="{'invisible':  [('type', 'not in', ['sale', 'cash', 'bank'])]}" context="{'default_type': 'invoice'}"/>
+                    <field name="l10n_mx_edi_payment_method_id" attrs="{'invisible':  [('type', '!=', 'bank')]}"/>
+                </xpath>
+            </data>
+            </field>
+        </record>
+
+        <record id="view_account_tax_inh_l10n_mx" model="ir.ui.view">
+            <field name="name">view.account.tax.inh.l10n.mx</field>
+            <field name="model">account.tax</field>
+            <field name="inherit_id" ref="account.view_tax_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='analytic']" position="before">
+                    <field name="l10n_mx_cfdi_tax_type"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_bank_statement_inh_l10n_mx" model="ir.ui.view">
+            <field name="name">view.bank.statement.inh.l10n.mx</field>
+            <field name="model">account.bank.statement</field>
+            <field name="inherit_id" ref="account.view_bank_statement_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='bank_account_id']" position="after">
+                    <field name="l10n_mx_edi_payment_method_id"/>
+                </xpath>
+                <xpath expr="//field[@name='bank_account_id']" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                    <attribute name="context">{'default_partner_id': partner_id}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

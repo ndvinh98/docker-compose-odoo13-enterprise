@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="project_task_view_form" model="ir.ui.view">
+        <field name="name">project.task.view.form.inherit.project.enterprise</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra_info']/group" position="inside">
+                <group string="Gantt">
+                    <field name="planned_date_begin" attrs="{'required': [('planned_date_end', '!=', False)]}"/>
+                    <field name="planned_date_end" attrs="{'required': [('planned_date_begin', '!=', False)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!-- Add Gantt and map view -->
+    <record id="project.act_project_project_2_project_task_all" model="ir.actions.act_window">
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph,activity,gantt,map</field>
+    </record>
+
+    <!-- Adding manager gantt view to Project -->
+    <record id="project_task_view_gantt" model="ir.ui.view">
+        <field name="name">project.task.view.gantt</field>
+        <field name="model">project.task</field>
+        <field name="priority">10</field>
+        <field name="arch" type="xml">
+            <gantt date_start="planned_date_begin"
+                date_stop="planned_date_end"
+                default_scale="week"
+                scales="day,week,month,year"
+                color="project_color"
+                string="Planning"
+                thumbnails="{'user_id': 'image_128'}"
+                js_class="task_gantt"
+                display_unavailability="1"
+                precision="{'day': 'hour:quarter', 'week': 'day:half', 'month': 'day:full'}">
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row no-gutters">
+                            <div class="col">
+                                <ul class="pl-1 mb-0">
+                                    <li t-if="partner_id"><strong>Customer: </strong> <t t-esc="partner_id[1]"/></li>
+                                    <li><strong>Start Date: </strong> <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD HH:mm:ss')"/></li>
+                                    <li><strong>Stop Date: </strong> <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD HH:mm:ss')"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+                <field name="partner_id"/>
+                <field name="project_color" />
+            </gantt>
+        </field>
+    </record>
+
+    <!-- Adding map view to project-->
+    <record id="project_task_map_view" model="ir.ui.view">
+        <field name="name">project.task.view.map</field>
+        <field name="model">project.task</field>
+        <field name="priority">12</field>
+        <field name="arch" type="xml">
+            <map res_partner="partner_id"  default_order="planned_date_begin" routing="true">
+                <marker-popup>
+                    <field name="name" string="Task"/>
+                    <field name="partner_id" string="Customer" />
+                    <field name="partner_street" string="Address" />
+                    <field name="partner_zip" string=""/>
+                    <field name="partner_city" string=""/>
+                    <field name="partner_phone" string="Phone"/>
+                </marker-popup>
+            </map>
+        </field>
+    </record>
+
+
+    <!-- All Task action with map view -->
+    <record id="project.action_view_task" model="ir.actions.act_window">
+        <field name="name">Tasks</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,form,calendar,pivot,graph,gantt,activity,map</field>
+    </record>
+
+
+</odoo>

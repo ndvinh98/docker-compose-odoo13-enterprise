@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_cl_form" model="ir.ui.view">
+        <field name="name">res_config_settings_view_cl_form.electronic.inv</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="l10n_cl.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//div[@id='l10n_cl_title']" position="attributes">
+                <attribute name="attrs">{'invisible': True}</attribute>
+            </xpath>
+            <xpath expr="//div[@id='l10n_cl_section']" position="inside">
+                <field name="l10n_cl_country_code" invisible="1"/>
+                <div class="row" name="chilean_electronic_invoicing" attrs="{'invisible':[('l10n_cl_country_code', '!=', 'CL')]}">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Tax payer information</span>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                            <div class="text-muted">
+                                Define the tax payer type and SII regional office for your company. This is mandatory for
+                                electronic invoicing.
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label string="Taxpayer" for="l10n_cl_sii_taxpayer_type" class="col-lg-3 o_light_label"/>
+                                    <field name="l10n_cl_sii_taxpayer_type"/>
+                                </div>
+                                <div class="row">
+                                    <label string="SII Office" for="l10n_cl_sii_regional_office" class="col-lg-3 o_light_label"/>
+                                    <field name="l10n_cl_sii_regional_office"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Economical Activities Information</span>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                            <div class="text-muted">
+                                Register up to four economical activity codes and description for your company. This is mandatory for
+                                electronic invoicing.
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label string="Activity Codes" for="l10n_cl_company_activity_ids" class="col-lg-4 o_light_label"/>
+                                    <field name="l10n_cl_company_activity_ids" context="{'search_by_code': True}" widget="many2many_tags"/>
+                                </div>
+                                <div class="row">
+                                    <label for="l10n_cl_activity_description" class="col-lg-4 o_light_label"/>
+                                    <field name="l10n_cl_activity_description"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">SII Web Services</span>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                            <div class="text-muted">
+                                Please choose your DTE service provider (values depend on Test or Production).
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <field name="l10n_cl_dte_service_provider" class="col-lg-8 o_light_label" widget="radio"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Legal Electronic Invoicing Data</span>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                            <div class="text-muted">
+                                Hint: "Factura Electrónica/Sistema de Certificación de Mercado/Actualizar
+                                datos de la empresa autorizada".
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label string="SII Resolution Nº" for="l10n_cl_dte_resolution_number" class="col-lg-4 o_light_label"/>
+                                    <field name="l10n_cl_dte_resolution_number"/>
+                                </div>
+                                <div class="row">
+                                    <label string="SII Resolution Date"  for="l10n_cl_dte_resolution_date" class="col-lg-4 o_light_label"/>
+                                    <field name="l10n_cl_dte_resolution_date"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Email Box Electronic Invoicing</span>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                            <div class="text-muted">
+                                This email account should match both emails declared on the SII
+                                site in the section: "ACTUALIZACION DE DATOS DEL CONTRIBUYENTE",
+                                "Mail Contacto SII" and "Mail Contacto Empresas".
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <br/>
+                                    <button name="%(fetchmail.action_email_server_tree)d" icon="fa-arrow-right" type="action"
+                                        string="Configure DTE Incoming Email" class="btn-link"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Email Alias Electronic Invoicing</span>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                            <div class="text-muted">
+                                This alias will be used as sender in the outgoing emails when you send invoices attached to your customers
+                                and with invoice acknowledge / acceptation or claim sent to your vendors.
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label string="Email Alias"  for="l10n_cl_dte_email" class="col-lg-4 o_light_label"/>
+                                    <field name="l10n_cl_dte_email"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 o_setting_box" title="The parameters to configure the signature certificate.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Signature Certificates</span>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." aria-label="Values set here are company-specific." groups="base.group_multi_company" role="img"/>
+                            <div class="text-muted">
+                                Configure your signature certificates to sign SII DTEs
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <br />
+                                    <button name="%(l10n_cl_edi.certificate_list_action)d" icon="fa-arrow-right" type="action"
+                                            string="Configure Signature Certificates" class="btn-link"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[@id='l10n_cl_title']" position="attributes">
+                <attribute name="attrs">{'invisible':[('l10n_cl_country_code', '!=', 'CL')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

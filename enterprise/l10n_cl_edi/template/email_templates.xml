@@ -1,0 +1,105 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="l10n_cl_edi_email_template_invoice" model="mail.template">
+            <field name="name">DTE - Send by Email</field>
+            <field name="model_id" ref="account.model_account_move"/>
+            <field name="email_from">${(object.company_id.l10n_cl_dte_email or object.company_id.email|safe)}</field>
+            <field name="email_to">${object.partner_id.l10n_cl_dte_email|safe}</field>
+            <field name="subject">${object.company_id.name} DTE (Ref ${(object.name or 'n/a')})</field>
+            <field name="auto_delete" eval="False"/>
+            <field name="lang">${object.partner_id.lang}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        Dear
+        % if object.commercial_partner_id:
+            ${object.partner_id.name} (${object.commercial_partner_id.name}),
+        % else:
+            ${object.partner_id.name},
+        % endif
+        <br /><br />
+        Here is your
+        % if object.name:
+            invoice <strong>${object.name}</strong>
+        % else:
+            invoice
+        %endif
+        % if object.invoice_origin:
+            (with reference: ${object.invoice_origin})
+        % endif
+        with a total amount of <strong>${format_amount(object.amount_total, object.currency_id)}</strong>
+        from ${object.company_id.name}.
+        % if object.invoice_payment_state == 'paid':
+            This invoice is already paid.
+        % else:
+            Please remit payment at your earliest convenience.
+        % endif
+        <br /><br />
+        Do not hesitate to contact us if you have any questions.
+    </p>
+</div>
+            </field>
+        </record>
+
+        <record id="email_template_receipt_ack" model="mail.template">
+            <field name="name">DTE Receipt Acknowledgment</field>
+            <field name="subject">Acknowledgment of Receipt - ${object.name}</field>
+            <field name="email_from">${object.company_id.l10n_cl_dte_email}</field>
+            <field name="email_to">${object.partner_id.l10n_cl_dte_email|safe}</field>
+            <field name="model_id" ref="l10n_cl_edi.model_account_move"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html">
+            <![CDATA[
+                <header>
+                <strong>Electronic Invoice - Receipt Acknowledge of DTE Sending
+                ${object.name}</strong>
+                </header>
+                <p>In the attached File you will find the result of the revision an validation process of a sent Tax Document made by you.</p>
+                <br />
+                <p>This is an automatic application, thus you should not answer this email or make comments to the origin email address..</p>
+                <br /><br /><br /><br />
+                <p>Sent Using Odoo</p>
+            ]]>
+            </field>
+        </record>
+        <record id="email_template_receipt_commercial_accept" model="mail.template">
+            <field name="name">DTE Receipt Commercial Accepted</field>
+            <field name="subject">Commercial Acceptance Response - ${object.name}</field>
+            <field name="email_from">${object.company_id.l10n_cl_dte_email}</field>
+            <field name="email_to">${object.partner_id.l10n_cl_dte_email|safe}</field>
+            <field name="model_id" ref="account.model_account_move" />
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html">
+            <![CDATA[
+                <header>
+                <strong>Electronic Invoicing - Commercial Acceptance Response - ${object.display_name}</strong>
+                </header>
+                <p>In the attached file you will find the commercial acceptance of your Electronic Tax Document(s).</p>
+                <br /><br /><br /><br />
+                <p>Sent Using Odoo</p>
+            ]]>
+            </field>
+        </record>
+        <record id="email_template_claimed_ack" model="mail.template">
+            <field name="name">DTE Commercial Reject</field>
+            <field name="subject">Commercial Rejection response - ${object.name}</field>
+            <field name="email_from">${object.company_id.l10n_cl_dte_email}</field>
+            <field name="email_to">${object.partner_id.l10n_cl_dte_email|safe}</field>
+            <field name="model_id" ref="l10n_cl_edi.model_account_move"/>
+            <field name="auto_delete" eval="False"/>
+            <field name="body_html">
+            <![CDATA[
+                <header>
+                <strong>Electronic Invoicing - Commercial Rejection response ${object.name}</strong>
+                </header>
+                <p>In the attached file you will find the response for a commercial rejection of Electronic Tax Documents sent by you.</p>
+                <br />
+                <p>This is an automatic application, thus you should not answer this email or make comments to the origin email address..</p>
+                <br /><br /><br /><br />
+                <p>Sent Using Odoo</p>
+            ]]>
+            </field>
+        </record>
+    </data>
+</odoo>

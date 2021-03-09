@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="IoTErrorPopupWidget">
+        <div role="dialog" class="modal-dialog">
+            <div class="popup popup-error">
+                <p class="title"><t t-esc="widget.options.title || 'Error' " /></p>
+                <div class="body">
+                    <p>Please check if the IoT Box is still connected.</p>
+                    <p>If you are on a secure server (HTTPS) check if you accepted the certificate:</p>
+                    <ul>
+                        <li>Access your <a t-att-href="'https://' + widget.options.url" target="_blank">IoT Box Homepage</a></li>
+                        <li>Click on Advanced/Show Details/Details/More information</li>
+                        <li>Click on Proceed to .../Add Exception/Visit this website/Go on to the webpage</li>
+                        <li>Firefox only : Click on Confirm Security Exception</li>
+                        <li>Close this window and try again</li>
+                    </ul>
+                </div>
+                <div class="footer">
+                    <div class="button cancel">
+                        Ok
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="CloseSession">
+        <button t-att-attrs="widget.attrs.attrs" t-att-states="widget.attrs.states"
+                class="btn btn-primary">
+            <span t-esc="widget.attrs.string"/>
+        </button>
+    </t>
+
+    <t t-extend="ScaleScreenWidget">
+        <t t-jquery=".buy-product" t-operation="before">
+            <div class="read-weight" t-if="widget.manual_reading">
+                Get Weight
+            </div>
+        </t>
+    </t>
+
+</templates>

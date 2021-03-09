@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record model="ir.ui.view" id="res_config_settings_view_form">
+        <field name="name">res.config.settings.view.form.inherit.l10n_ar_afip_ws</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='account']/div" position="after">
+                <field name="l10n_ar_country_code" invisible="1"/>
+                <h2 attrs="{'invisible':[('l10n_ar_country_code', '!=', 'AR')]}">Argentina Localization</h2>
+                <div class="row mt16 o_settings_container" name="argentina_localization" attrs="{'invisible':[('l10n_ar_country_code', '!=', 'AR')]}">
+                    <div class="col-xs-12 col-md-6 o_setting_box">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">AFIP Web Services</span>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." groups="base.group_multi_company"/>
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="l10n_ar_afip_ws_environment" class="o_light_label"  widget="radio"/>
+                                </div>
+                            </div>
+                            <div class="content-group">
+                                <div class="mt16" groups="base.group_no_one">
+                                    <label for="l10n_ar_afip_ws_key" class="o_light_label"/>
+                                    <field name="l10n_ar_afip_ws_key_fname" invisible="1" force_save="1"/>
+                                    <field name="l10n_ar_afip_ws_key" widget="binary" class="oe_inline" filename="l10n_ar_afip_ws_key_fname"/>
+                                </div>
+                                <div class="mt16">
+                                    <label for="l10n_ar_afip_ws_crt" class="o_light_label"/>
+                                    <field name="l10n_ar_afip_ws_crt_fname" invisible="1" force_save="1"/>
+                                    <field name="l10n_ar_afip_ws_crt" widget="binary" class="oe_inline" filename="l10n_ar_afip_ws_crt_fname" help="Here need to upload the file with the Certificate that you download from AFIP"/>
+                                    <span attrs="{'invisible': [('l10n_ar_afip_ws_crt','!=', False)]}"> or</span>
+                                    <button name="l10n_ar_action_create_certificate_request" type="object" class="oe_link oe_inline" string="⇒ Generate Request" attrs="{'invisible': [('l10n_ar_afip_ws_crt','!=', False)]}" help="Click here to create a Resquest Certificate file. This file need to be uploaded to your AFIP Portal in order to ask AFIP for a certificate"/>
+                                </div>
+                                <div class="mt16">
+                                    <button name="l10n_ar_connection_test" type="object" class="oe_link oe_inline" string="⇒ Test Connections"/>
+                                </div>
+                                <div class="mt16" attrs="{'invisible': [('l10n_ar_afip_ws_crt','=', False)]}">
+                                    <button name="l10n_ar_action_create_certificate_request" type="object" class="oe_link oe_inline" string="Generate Renewal Request"/>
+                                </div>
+                                <div class="mt16" id="get_afip_certificate">
+                                    <a href="http://www.afip.gob.ar/ws/WSAA/wsaa_obtener_certificado_produccion.pdf" target="_blank">
+                                        How to get certificate for production?
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-6 o_setting_box" attrs="{'invisible':[('l10n_ar_country_code', '!=', 'AR')]}">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <label for="l10n_ar_afip_verification_type" string="Verify Vendor Bills validity in AFIP"/>
+                            <span class="fa fa-lg fa-building-o" title="Values set here are company-specific." groups="base.group_multi_company"/>
+                            <div class="text-muted">
+                                Allow or Require to do vendor bill verify in AFIP for documents with CAE, CAI or CAEA numbers
+                            </div>
+                            <div class="content-group">
+                                <field name="l10n_ar_afip_verification_type" widget="radio"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

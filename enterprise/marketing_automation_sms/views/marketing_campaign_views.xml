@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="marketing_campaign_view_form" model="ir.ui.view">
+        <field name="name">marketing.campaign.view.form</field>
+        <field name="model">marketing.campaign</field>
+        <field name="inherit_id" ref="marketing_automation.marketing_campaign_view_form"/>
+        <field name="arch" type="xml">
+        	<xpath expr="//div[@name='mail_details']" position="after">
+                <div t-if="record.activity_type.raw_value == 'sms'" name="sms_details" class="row o_ma_email_details text-center">
+                    <div class="col text-uppercase">
+                        <i class="fa fa-pie-chart" /> Details
+                    </div>
+                    <div class="col" title="SMS Sent">
+                        <a name="action_view_sent" type="object">
+                            <strong><t t-esc="record.total_sent.raw_value or 0"></t></strong> Sent
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a name="action_view_clicked" type="object">
+                            <strong><t t-esc="Math.round((record.total_click.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Clicked
+                        </a>
+                    </div>
+                    <div class="col">
+                        <a name="action_view_bounced" type="object">
+                            <strong><t t-esc="Math.round((record.total_bounce.raw_value/(record.total_sent.raw_value or 1)) * 100) or 0" />%</strong> Bounced
+                        </a>
+                    </div>
+                </div>
+			</xpath>
+			<xpath expr="//i[@data-type='mail_click']" position="attributes">
+        		<attribute name="t-if">record.activity_type.raw_value == 'sms' or record.activity_type.raw_value == 'email'</attribute>
+        	</xpath>
+        	<xpath expr="//i[@data-type='mail_not_click']" position="attributes">
+        		<attribute name="t-if">record.activity_type.raw_value == 'sms' or record.activity_type.raw_value == 'email'</attribute>
+        	</xpath>
+        	<xpath expr="//i[@data-type='mail_bounce']" position="attributes">
+        		<attribute name="t-if">record.activity_type.raw_value == 'sms' or record.activity_type.raw_value == 'email'</attribute>
+        	</xpath>
+            <xpath expr="//div[hasclass('o_ma_icon')]/span" position="after">
+                <span class="fa fa-comment" t-elif="record.activity_type.raw_value == 'sms'" title="SMS" role="img" aria-label="SMS"/>
+            </xpath>
+            <xpath expr="//button[@name='action_view_mailings']" position="after">
+                <button name="action_view_sms" type="object" icon="fa-comment" class="oe_stat_button">
+                    <field name="mailing_sms_count" widget="statinfo" string="SMS"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+</odoo>

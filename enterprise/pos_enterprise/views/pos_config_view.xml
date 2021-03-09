@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="pos_config_view_form" model="ir.ui.view">
+        <field name="name">pos.config.form.view</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <!-- Hide is_posbox options if pos_iot is uninstalled and replace with button to install it.
+                  When pos_iot is installed show this again, since pos_iot will reuse the iface_ fields for the IoT box. -->
+            <xpath expr="//div[@id='posbox_reference']//div[hasclass('o_setting_box')]" position="attributes">
+                <attribute name="attrs">{'invisible' : [('is_installed_pos_iot', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//div[@id='barcode_scanner']" position="before">
+                <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible' : [('is_installed_pos_iot', '=', True)]}">
+                    <div class="o_setting_left_pane">
+                        <field name="module_pos_iot"/>
+                        <field name="is_installed_pos_iot" invisible="1"/>
+                    </div>
+                    <div class="o_setting_right_pane" title="Connect Devices with IoT Box">
+                        <label for="module_pos_iot"/>
+                        <div class="text-muted" id="iot_box_expl">
+                            Connect devices to your PoS (ticket printer, barcode scanner, scale, etc.)
+                        </div>
+                        <div class="content-group" attrs="{'invisible': [('module_pos_iot', '=', False)]}">
+                            <div class="mt16" id="btn_use_iot">
+                                <button string="Save" type="object" name="execute" class="oe_highlight"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<odoo noupdate="1">
+
+    <record id="ir_cron_cancellation_invoices_open_to_cancel" model="ir.cron">
+        <field name="name">Cancellation: Invoices open and to-cancel</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">
+env['account.move'].l10n_mx_edi_action_open_to_cancel()
+        </field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+
+    <record id="ir_cron_cancellation_invoices_cancel_signed_sat" model="ir.cron">
+        <field name="name">Cancellation: Invoices canceled and signed in SAT</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">
+env['account.move'].l10n_mx_edi_action_cancel_signed_sat()
+        </field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+    </record>
+
+    <record forcecreate="True" id="ir_cron_update_state_invoice" model="ir.cron">
+        <field name="name">Automatic update of state on the SAT (for invoices)</field>
+        <field name="model_id" ref="account.model_account_move"/>
+        <field name="state">code</field>
+        <field name="code">
+invoices = model.search([
+    ('l10n_mx_edi_sat_status', 'in', ('undefined', 'not_found', 'none')),
+    ('l10n_mx_edi_pac_status', 'in', ('signed', 'cancelled')),
+    ('state', '!=', 'draft'),
+])
+invoices._l10n_mx_edi_sat_synchronously()
+        </field>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 22:00:00')"/>
+    </record>
+
+    <record forcecreate="True" id="ir_cron_update_state_payment" model="ir.cron">
+        <field name="name">Automatic update of state on the SAT (for payments)</field>
+        <field name="model_id" ref="account.model_account_payment"/>
+        <field name="state">code</field>
+        <field name="code">
+payments = model.search([
+    ('l10n_mx_edi_sat_status', 'in', ('undefined', 'not_found', 'none')),
+    ('l10n_mx_edi_pac_status', 'in', ('signed', 'cancelled')),
+    ('state', '!=', 'draft'),
+])
+payments._l10n_mx_edi_sat_synchronously()
+        </field>
+        <field name="user_id" ref="base.user_admin"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+        <field name="nextcall" eval="(DateTime.now() + timedelta(days=1)).strftime('%Y-%m-%d 22:00:00')"/>
+    </record>
+    <record id="ir_cron_download_xsd_files" model="ir.cron">
+        <field name="name">Download XSD files to CFDI</field>
+        <field name="model_id" ref="account.model_res_company"/>
+        <field name="state">code</field>
+        <field name="code">
+env['res.company']._load_xsd_attachments()
+        </field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">1</field>
+        <field name="doall" eval="True"/>
+    </record>
+</odoo>

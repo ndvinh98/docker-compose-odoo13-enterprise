@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sale_subscription_view_form_inherit_partner_commission" model="ir.ui.view">
+        <field name="name">sale.subscription.form.partner.commission</field>
+        <field name="model">sale.subscription</field>
+        <field name="inherit_id" ref="sale_subscription.sale_subscription_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header/button[@name='%(sale_subscription.wizard_action)d']" position="attributes">
+                <attribute name="context">{'default_referrer_id': referrer_id, 'default_commission_plan_id': commission_plan_id}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="referrer_id" context="{'res_partner_search_mode': 'supplier'}"/>
+                <label for="commission_plan_assignation" string="Commission Plan" attrs="{'invisible': [('referrer_id', '=', False)]}"/>
+                <div class="o_row" attrs="{'invisible': [('referrer_id', '=', False)]}">
+                    <field name="commission_plan_assignation" attrs="{'required': [('referrer_id', '!=', False)]}"/>
+                    <field name="commission_plan_id" attrs="{'readonly': [('commission_plan_assignation', '=', 'auto')]}"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='recurring_total']" position="after">
+                <field name="commission" widget='monetary' options="{'currency_field': 'currency_id'}" attrs="{'invisible': ['|', ('referrer_id', '=', False), ('commission_plan_id', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

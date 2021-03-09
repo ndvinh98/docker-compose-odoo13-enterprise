@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="base.user_demo" model="res.users">
+            <field name="groups_id" eval="[(4, ref('hr_appraisal.group_hr_appraisal_user'))]"/>
+        </record>
+
+        <record id="hr_appraisal_0" model="hr.appraisal">
+            <field name="employee_id" ref="hr.employee_admin"/>
+            <field name="state">new</field>
+            <field name="date_close" eval="(DateTime.now() + timedelta(1)).strftime('%Y-%m-%d')"/>
+            <field name="colleagues_appraisal" eval="True"/>
+            <field name="colleagues_ids" eval="[(6,0,[ref('hr.employee_al')])]"/>
+            <field name="employee_appraisal" eval="True"/>
+            <field name="collaborators_appraisal" eval="True"/>
+            <field name="collaborators_ids" eval="[(6,0,[ref('hr.employee_qdp')])]"/>
+        </record>
+        <function model="hr.employee" name="write">
+            <value model="hr.employee" eval="obj().search([]).ids"/>
+            <value eval="{
+                'appraisal_manager_ids': [(4, ref('hr.employee_admin'))]
+            }"/>
+        </function>
+        <record id="config_appraisal_reminder_employee" model="hr.appraisal.reminder">
+            <field name="notify">employee</field>
+            <field name="appraisal_reminder">7</field>
+            <field name="event">last_appraisal</field>
+            <field name="body_html">It has been a while since your last appraisal, go to your employee profile to request an appraisal to your manager.</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <record id="config_appraisal_reminder_manager_arrival" model="hr.appraisal.reminder">
+            <field name="notify">manager</field>
+            <field name="appraisal_reminder">6</field>
+            <field name="event">arrival</field>
+            <field name="body_html">One of your employee is there for 6 month. We suggest you to request an appraisal.</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+        <record id="config_appraisal_reminder_manager" model="hr.appraisal.reminder">
+            <field name="notify">manager</field>
+            <field name="appraisal_reminder">12</field>
+            <field name="event">last_appraisal</field>
+            <field name="body_html">The last appraisal of one of your employee has been done 12 months ago. We kindly remind you you can request an appraisal on its profile.</field>
+            <field name="company_id" ref="base.main_company"/>
+        </record>
+    </data>
+</odoo>

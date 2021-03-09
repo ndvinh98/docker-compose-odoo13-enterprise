@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="mail_channel_github_view_tree" model="ir.ui.view">
+		<field name="name">mail.channel.github.list</field>
+		<field name="model">mail.channel.github</field>
+		<field name="arch" type="xml">
+			<tree name="repoList">
+				<field name="name" />
+				<field name="channel_ids" />
+				<field name="github_repository_id" />
+			</tree>
+		</field>
+	</record>
+
+	<record id="mail_channel_github_view_form" model="ir.ui.view">
+		<field name="name">mail.channel.github.form</field>
+		<field name="model">mail.channel.github</field>
+		<field name="arch" type="xml">
+			<form name="Github repository">
+				<sheet>
+					<div class="oe_title">
+						<div class="oe_edit_only">
+							<label for="name"/>
+						</div>
+						<h1>
+							<field name="name" default_focus="1" placeholder="Repository full name: user/repository."/>
+						</h1>
+					</div>
+					<group>
+						<field name="channel_ids" widget="many2many_tags" options="{'no_create_edit': True}"
+								placeholder="Channels allowed to follow repositories."/>
+						<field name="secret" placeholder="The signature to be pasted when setting up the webhook on Github"/>
+						<field name="url_token"/>
+					</group>
+					<div class="alert alert-info" role="status">
+						<p>Once the repository is created in Odoo, create it on Github. Then, copy 'Payload URL' and 'Secret' in Github interface.</p>
+						<p>The webhook 'Content Type' should be set to <b>application/x-www-form-urlencoded</b>.</p>
+						<p>After that you can choose the events you want to follow in the channels. Be careful, only <i>Commit comment, Issues, Issue comment, Gollum, Pull request, Pull request review, Pull request review comment</i> and <i>Push</i> events are supported.</p>
+					</div>
+				</sheet>
+			</form>
+		</field>
+	</record>
+
+	<record id="mail_channel_github_action" model="ir.actions.act_window">
+		<field name="name">Github Repositories</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">mail.channel.github</field>
+		<field name="view_id" ref="mail_github.mail_channel_github_view_tree"/>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem id="mail_channel_menu_github"
+		name="Github Repositories"
+		groups="base.group_user"
+		parent="mail.mail_channel_integrations_menu"
+		sequence="50"
+		action="mail_channel_github_action"/>
+
+</odoo>

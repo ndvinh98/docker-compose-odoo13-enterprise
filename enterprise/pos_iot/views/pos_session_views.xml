@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/pos_iot/static/src/js/close_session.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/printers.js"></script>
+        </xpath>
+    </template>
+
+    <record id="pos_iot_session_view_form" model="ir.ui.view">
+        <field name="name">pos.iot.session.form.view</field>
+        <field name="model">pos.session</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="after">
+                <div class='pos-receipts'>
+                    <!-- here go the receipts that will be printed -->
+                </div>
+            </xpath>
+            <xpath expr="//button[@id='validate_opened']" position="replace">
+                <widget name="close_session" action="action_pos_session_closing_control" string="Validate Closing &amp; Post Entries"
+                        attrs="{'invisible' : ['|', ('cash_control', '=', True),('state', '!=', 'opened')]}"/>
+            </xpath>
+            <xpath expr="//button[@id='validate_closing_control']" position="replace">
+                <widget name="close_session" action="action_pos_session_validate" string="Validate Closing &amp; Post Entries" states="closing_control"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

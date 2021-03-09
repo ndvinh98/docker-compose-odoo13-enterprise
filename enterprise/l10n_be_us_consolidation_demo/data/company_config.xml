@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <function model="account.chart.template" name="_install_template">
+            <value eval="ref('l10n_be.l10nbe_chart_template')"/>
+            <value model="res.company" eval="obj().browse([ref('be_company')])"/>
+        </function>
+    </data>
+</odoo>

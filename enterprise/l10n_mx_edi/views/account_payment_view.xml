@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<odoo>
+    <record model="ir.ui.view" id="view_account_payment_form_inh_l10n_mx">
+        <field name="name">view.account.payment.form.inh.l10n.mx</field>
+        <field name="model">account.payment</field>
+        <field name="inherit_id" ref="account.view_account_payment_form"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="l10n_mx_edi_payment_method_id" attrs="{'invisible': [('payment_type', '=', 'transfer')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='communication']" position="after">
+                    <label for="l10n_mx_edi_pac_status" states="posted,sent,reconciled,cancelled" attrs="{'invisible': [('payment_type', '!=', 'inbound')]}"/>
+                    <div class="o_row" attrs="{'invisible': [('payment_type', '!=', 'inbound')]}">
+                        <field name="l10n_mx_edi_pac_status" states="posted,sent,reconciled,cancelled"/>
+                        <button name="l10n_mx_edi_update_pac_status" string="Retry" class="oe_link" type="object" groups="account.group_account_invoice"
+                            attrs="{'invisible':[('l10n_mx_edi_pac_status', 'in', ['none', 'signed', 'cancelled', False])]}"/>
+                        <button name="l10n_mx_edi_force_payment_complement" string="Force REP" class="oe_link" type="object" groups="account.group_account_invoice"
+                            help="It is not necessary generate the Electronic Payment Receipt (REP) for this payment, but It can be forced by pressing this button."
+                            attrs="{'invisible':['|', ('l10n_mx_edi_pac_status', 'in', ['retry', 'to_sign', 'signed', 'to_cancel', 'cancelled', False]), ('state', 'in', ['draft', 'cancelled'])]}"/>
+                    </div>
+                    <label for="l10n_mx_edi_sat_status" states="posted,sent,reconciled,cancelled" attrs="{'invisible': [('payment_type', '!=', 'inbound')]}"/>
+                    <div class="o_row" attrs="{'invisible': [('payment_type', '!=', 'inbound')]}">
+                        <field name="l10n_mx_edi_sat_status" states="posted,sent,reconciled,cancelled"/>
+                        <button name="l10n_mx_edi_update_sat_status" string="Retry" class="oe_link" type="object" groups="account.group_account_invoice"
+                            attrs="{'invisible':[('l10n_mx_edi_sat_status', 'in', ['signed', 'cancelled'])]}"/>
+                    </div>
+                    <label for="l10n_mx_edi_cfdi_uuid" states="posted,sent,reconciled,cancelled"/>
+                    <div class="o_row">
+                        <field name="l10n_mx_edi_cfdi_uuid" states="posted,sent,reconciled,cancelled"/>
+                    </div>
+                    <field name="l10n_mx_edi_origin" attrs="{'invisible': [('payment_type', '!=', 'inbound')]}"/>
+                    <field name="l10n_mx_edi_partner_bank_id" domain="['|', ('partner_id', '=', partner_id), ('partner_id', '=', False)]" context="{'default_partner_id': partner_id}"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_account_reg_payment_form_inh_l10n_mx">
+        <field name="name">view.account.reg.payment.form.inh.l10n.mx</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_form_multi"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="l10n_mx_edi_payment_method_id"/>
+                    <field name="l10n_mx_edi_partner_bank_id"/>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

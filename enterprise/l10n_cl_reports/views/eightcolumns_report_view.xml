@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_eightcolumns_report" model="ir.actions.client">
+        <field name="name">Balance Tributario (8 columnas)</field>
+        <field name="tag">account_report</field>
+        <field name="context" eval="{'model': 'account.eightcolumns.report.cl'}"/>
+    </record>
+
+    <menuitem id="menu_action_eightcolumns_report"
+        name="Balance Tributario (8 columnas)"    
+        parent="l10n_cl.account_reports_cl_statements_menu"
+        action="action_eightcolumns_report"/>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_account_report_ica" model="ir.actions.client">
+            <field name="name">Certificado de Retención en ICA</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'l10n_co_reports.certification_report.ica'}" />
+        </record>
+        <record id="action_account_report_iva" model="ir.actions.client">
+            <field name="name">Certificado de Retención en IVA</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'l10n_co_reports.certification_report.iva'}" />
+        </record>
+        <record id="action_account_report_fuente" model="ir.actions.client">
+            <field name="name">Certificado de Retención en Fuente</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'l10n_co_reports.certification_report.fuente'}" />
+        </record>
+
+        <menuitem id="account_reports_co_statements_menu" name="Colombian Statements" parent="account.menu_finance_reports" sequence="3" groups="account.group_account_user"/>
+
+        <menuitem id="menu_action_account_report_ica" name="Certificado de Retención en ICA"
+                  action="action_account_report_ica" parent="account_reports_co_statements_menu"/>
+        <menuitem id="menu_action_account_report_iva" name="Certificado de Retención en IVA"
+                  action="action_account_report_iva" parent="account_reports_co_statements_menu"/>
+        <menuitem id="menu_action_account_report_fuente" name="Certificado de Retención en Fuente"
+                  action="action_account_report_fuente" parent="account_reports_co_statements_menu"/>
+    </data>
+</odoo>

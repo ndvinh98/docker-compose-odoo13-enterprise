@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="group_sign_employee" model="res.groups">
+            <field name="name">Employee</field>
+            <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+            <field name="category_id" ref="base.module_category_sales_sign"/>
+        </record>
+
+        <record id="sign.group_sign_user" model="res.groups">
+            <field name="implied_ids" eval="[(4, ref('hr_contract_sign.group_sign_employee'))]"/>
+        </record>
+
+        <record id="hr_contract.group_hr_contract_manager" model="res.groups">
+          <field name="implied_ids" eval="[(4, ref('sign.group_sign_manager'))]"/>
+        </record>
+
+        <record id="ir_rule_sign_request_group_sign_employee" model="ir.rule">
+            <field name="name">sign.request: group_sign_employee: Read my requests</field>
+            <field name="model_id" ref="sign.model_sign_request"/>
+            <field name="domain_force">[('request_item_ids.partner_id', 'in', user.partner_id.ids)]</field>
+            <field name="groups" eval="[(4, ref('hr_contract_sign.group_sign_employee'))]"/>
+        </record>
+
+        <record id="ir_rule_sign_request_item_group_sign_employee" model="ir.rule">
+            <field name="name">sign.request.item: group_sign_employee: See only my request items</field>
+            <field name="model_id" ref="sign.model_sign_request_item"/>
+            <field name="domain_force">[('partner_id', '=', user.partner_id.id)]</field>
+            <field name="groups" eval="[(4, ref('hr_contract_sign.group_sign_employee'))]"/>
+        </record>
+
+        <record id="ir_rule_sign_request_item_group_sign_user" model="ir.rule">
+            <field name="name">sign.request.item: group_sign_user: See all request item</field>
+            <field name="model_id" ref="sign.model_sign_request_item"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('sign.group_sign_user'))]"/>
+        </record>
+    </data>
+</odoo>

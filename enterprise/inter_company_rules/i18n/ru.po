@@ -1,0 +1,331 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* inter_company_rules
+# 
+# Translators:
+# Martin Trigaux, 2019
+# Vasiliy Korobatov <korobatov@gmail.com>, 2019
+# VItaly Skopin <skopin@lab49.ru>, 2019
+# Konstantin Korovin <korovin74@gmail.com>, 2019
+# Ivan Yelizariev <yelizariev@it-projects.info>, 2019
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server saas~12.5+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-26 08:05+0000\n"
+"PO-Revision-Date: 2019-08-26 09:36+0000\n"
+"Last-Translator: Ivan Yelizariev <yelizariev@it-projects.info>, 2019\n"
+"Language-Team: Russian (https://www.transifex.com/odoo/teams/41243/ru/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/account_move.py:0
+#, python-format
+msgid "%s Invoice: %s"
+msgstr ""
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_company__applicable_on
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_config_settings__applicable_on
+msgid "Apply on"
+msgstr "Применить для"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_company__intercompany_user_id
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_config_settings__intercompany_user_id
+msgid "Assign to"
+msgstr ""
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_account_move__auto_generated
+msgid "Auto Generated Document"
+msgstr "Сгенерированный документ"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_purchase_order__auto_generated
+msgid "Auto Generated Purchase Order"
+msgstr "Сгенерированый заказ закупки"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_sale_order__auto_generated
+msgid "Auto Generated Sales Order"
+msgstr "Автогенероване заказ на продажу"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_company__auto_validation
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_config_settings__auto_validation
+msgid "Automatic Validation"
+msgstr ""
+
+#. module: inter_company_rules
+#: model:ir.model,name:inter_company_rules.model_res_company
+msgid "Companies"
+msgstr "Компании"
+
+#. module: inter_company_rules
+#: model:ir.model,name:inter_company_rules.model_res_config_settings
+msgid "Config Settings"
+msgstr "Настройки конфигурации"
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/purchase_order.py:0
+#: code:addons/inter_company_rules/models/sale_order.py:0
+#, python-format
+msgid ""
+"Configure correct warehouse for company(%s) from Menu: "
+"Settings/Users/Companies"
+msgstr ""
+"Укажите склад для компании (%s) в меню Настройки/Пользователи/Компании"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,help:inter_company_rules.field_res_company__warehouse_id
+#: model:ir.model.fields,help:inter_company_rules.field_res_config_settings__warehouse_id
+msgid ""
+"Default value to set on Purchase(Sales) Orders that will be created based on"
+" Sale(Purchase) Orders made to this company"
+msgstr ""
+"Значение по умолчанию для покупки Закупка(Продажа), которые будут созданы на"
+" основе Продажа(Закупка) заказ, сделанные этой компанией"
+
+#. module: inter_company_rules
+#: model:ir.model.fields.selection,name:inter_company_rules.selection__res_company__rule_type__not_synchronize
+msgid "Do not synchronize"
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid ""
+"Generate a %(validation)s %(generated_object)s                using "
+"warehouse %(warehouse)s when a company confirms a %(event_type)s for "
+"%(company)s."
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid ""
+"Generate a %(validation)s %(generated_object)s                when a company"
+" confirms a %(event_type)s for %(company)s."
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid ""
+"Generate a bill/invoice when a company confirms an invoice/bill for %s."
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/purchase_order.py:0
+#: code:addons/inter_company_rules/models/sale_order.py:0
+#, python-format
+msgid "Inter company user of company %s doesn't have enough access rights"
+msgstr "Пользователю внутренней компании %s не хватает прав доступа"
+
+#. module: inter_company_rules
+#: model_terms:ir.ui.view,arch_db:inter_company_rules.view_company_inter_change_inherit_form
+msgid "Inter-Company Transactions"
+msgstr "Внутренние транзакции"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_company__intercompany_transaction_message
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_config_settings__intercompany_transaction_message
+msgid "Intercompany Transaction Message"
+msgstr ""
+
+#. module: inter_company_rules
+#: model:ir.model,name:inter_company_rules.model_account_move
+msgid "Journal Entries"
+msgstr "Записи журнала"
+
+#. module: inter_company_rules
+#: model:ir.model,name:inter_company_rules.model_account_move_line
+msgid "Journal Item"
+msgstr "Элемент журнала"
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/purchase_order.py:0
+#, python-format
+msgid "Partner:"
+msgstr "Партнер:"
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/purchase_order.py:0
+#, python-format
+msgid "Pricelist:"
+msgstr "Прайс-лист:"
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/purchase_order.py:0
+#, python-format
+msgid "Provide at least one user for inter company relation for % "
+msgstr ""
+"Предоставьте по крайней мере одного пользователя для отношений между "
+"компаниями для % "
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/sale_order.py:0
+#, python-format
+msgid "Provide one user for intercompany relation for % "
+msgstr "Предоставте одного пользователя для внутри компании отношений % "
+
+#. module: inter_company_rules
+#: model:ir.model,name:inter_company_rules.model_purchase_order
+#: model:ir.model.fields.selection,name:inter_company_rules.selection__res_company__applicable_on__purchase
+msgid "Purchase Order"
+msgstr "Заказ на закупку"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,help:inter_company_rules.field_res_company__intercompany_user_id
+#: model:ir.model.fields,help:inter_company_rules.field_res_config_settings__intercompany_user_id
+msgid ""
+"Responsible user for creation of documents triggered by intercompany rules."
+msgstr ""
+"Ответственный пользователь для создания документов, вызванные "
+"внутрифирменными правилами."
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_company__rule_type
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_config_settings__rule_type
+msgid "Rule"
+msgstr "Правило"
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/purchase_order.py:0
+#, python-format
+msgid "SO currency:"
+msgstr "Валюта СНП:"
+
+#. module: inter_company_rules
+#: model:ir.model,name:inter_company_rules.model_sale_order
+#: model:ir.model.fields.selection,name:inter_company_rules.selection__res_company__applicable_on__sale
+msgid "Sales Order"
+msgstr "Заказ на продажу"
+
+#. module: inter_company_rules
+#: model:ir.model.fields.selection,name:inter_company_rules.selection__res_company__applicable_on__sale_purchase
+msgid "Sales and Purchase Order"
+msgstr ""
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_config_settings__rules_company_id
+msgid "Select Company"
+msgstr "Выберите компанию"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,help:inter_company_rules.field_res_company__rule_type
+#: model:ir.model.fields,help:inter_company_rules.field_res_config_settings__rule_type
+msgid "Select the type to setup inter company rules in selected company."
+msgstr ""
+"Выберите тип для установки внутрикорпоративных правил в выбранной компании."
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_account_move__auto_invoice_id
+msgid "Source Invoice"
+msgstr "Исходная Счет-Фактура"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_sale_order__auto_purchase_order_id
+msgid "Source Purchase Order"
+msgstr "Исходный Заказ на Закупку"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_purchase_order__auto_sale_order_id
+msgid "Source Sales Order"
+msgstr "Источник продаж заказ"
+
+#. module: inter_company_rules
+#: model:ir.model.fields.selection,name:inter_company_rules.selection__res_company__rule_type__invoice_and_refund
+msgid "Synchronize invoices/bills"
+msgstr ""
+
+#. module: inter_company_rules
+#: model:ir.model.fields.selection,name:inter_company_rules.selection__res_company__rule_type__so_and_po
+msgid "Synchronize sales/purchase orders"
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/purchase_order.py:0
+#, python-format
+msgid ""
+"The currency of the SO is obtained from the pricelist of the company "
+"partner."
+msgstr "Валюта СНП берется из прайс-листа партнера компании."
+
+#. module: inter_company_rules
+#: model_terms:ir.ui.view,arch_db:inter_company_rules.res_config_settings_view_form
+msgid "Use Warehouse"
+msgstr ""
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_company__warehouse_id
+msgid "Warehouse"
+msgstr "Склад"
+
+#. module: inter_company_rules
+#: model:ir.model.fields,field_description:inter_company_rules.field_res_config_settings__warehouse_id
+msgid "Warehouse For Purchase Orders"
+msgstr "Склад для заказов на закупку"
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/purchase_order.py:0
+#, python-format
+msgid ""
+"You cannot create SO from PO because sale price list currency is different "
+"than purchase price list currency."
+msgstr ""
+"Вы не можете создать SO от PO, потому что валюта цены продажи отличается от "
+"валюты прайса покупки."
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid ""
+"You cannot select to create invoices based on other invoices\n"
+"                        simultaneously with another option ('Create Sales Orders when buying to this\n"
+"                        company' or 'Create Purchase Orders when selling to this company')!"
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid "draft"
+msgstr "черновик"
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid "purchase order"
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid "purchase/sales order"
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid "sales order"
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid "sales/purchase order"
+msgstr ""
+
+#. module: inter_company_rules
+#: code:addons/inter_company_rules/models/res_company.py:0
+#, python-format
+msgid "validated"
+msgstr "подтверждено"

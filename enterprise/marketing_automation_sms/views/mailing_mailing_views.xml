@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<odoo>
+    <record id="mailing_mailing_view_form_marketing_activity" model="ir.ui.view">
+        <field name="name">mailing.mailing.view.form.marketing.activity.inherit.sms</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="marketing_automation.mailing_mailing_view_form_marketing_activity"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='email_from']" position="attributes">
+                <attribute name="attrs">{
+                    'invisible': [('mailing_type', '!=', 'mail')],
+                    'readonly': [('state', 'in', ('sending', 'done'))]}
+                </attribute>
+            </xpath>
+            <xpath expr="//page[@name='mail_body']" position="attributes">
+                <attribute name="attrs">{'invisible': [('mailing_type', '!=', 'mail')]}</attribute>
+            </xpath>
+            <xpath expr="//group[@name='group_mailing']" position="attributes">
+                <attribute name="attrs">{'invisible': [('mailing_type', '!=', 'mail')]}</attribute>
+            </xpath>
+            <xpath expr="//group[@name='group_mailing']" position="after">
+                <group string="SMS Options" name="group_sms" attrs="{'invisible': [('mailing_type', '=', 'mail')]}">
+                    <field name="keep_archives" groups="base.group_no_one"/>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='mail_body']" position="after">
+                <page string="SMS Content" name="sms_body" attrs="{'invisible': [('mailing_type', '!=', 'sms')]}">
+                    <field name="body_plaintext" widget="sms_widget" attrs="{'required': [('mailing_type', '=', 'sms')]}"/>
+                    <group>
+                        <field name="sms_template_id" domain="[('model', '=', mailing_model_real)]" invisible="1"/>
+                        <field name="sms_allow_unsubscribe"/>
+                    </group>
+                </page>
+            </xpath>
+         </field>
+    </record>
+
+    <record id="mailing_mailing_view_form_marketing_automation" model="ir.ui.view">
+        <field name="name">mailing.mailing.view.form.marketing.activity.inherit.sms</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="marketing_automation.mailing_mailing_view_form_marketing_automation"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='mail_body']" position="attributes">
+                <attribute name="attrs">{'invisible': [('mailing_type', '!=', 'mail')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mailing_mailing_view_tree_marketing_automation_sms" model="ir.ui.view" >
+        <field name="name">mailing.mailing.view.tree.marketing.automation</field>
+        <field name="model">mailing.mailing</field>
+        <field name="inherit_id" ref="marketing_automation.mailing_mailing_view_tree_marketing_automation"/>
+        <field name="mode">primary</field>
+        <field name="priority">20</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='opened']" position="replace"/>
+            <xpath expr="//field[@name='replied']" position="replace"/>
+        </field>
+    </record>
+
+    <record id="mass_mailing_sms.mailing_mailing_action_sms" model="ir.actions.act_window">
+        <field name="domain">['&amp;', ('mailing_type', '=', 'sms'), ('use_in_marketing_automation', '=', False)]</field>
+    </record>    
+
+    <record id="mail_mass_mailing_action_marketing_automation_sms" model="ir.actions.act_window">
+        <field name="name">Marketing Automation SMS</field>
+        <field name="res_model">mailing.mailing</field>
+        <field name="view_mode">tree,form,graph</field>
+        <field name="domain">[('use_in_marketing_automation', '=', True)]</field>
+    </record>
+    <record id="mail_mass_mailing_action_marketing_automation_sms_tree" model="ir.actions.act_window.view">
+        <field name="sequence">1</field>
+        <field name="view_mode">tree</field>
+        <field name="act_window_id" ref="mail_mass_mailing_action_marketing_automation_sms"/>
+        <field name="view_id" ref="mailing_mailing_view_tree_marketing_automation_sms"/>
+    </record>
+    <record id="mail_mass_mailing_action_marketing_automation_sms_form" model="ir.actions.act_window.view">
+        <field name="sequence">2</field>
+        <field name="view_mode">form</field>
+        <field name="act_window_id" ref="mail_mass_mailing_action_marketing_automation_sms"/>
+        <field name="view_id" ref="marketing_automation.mailing_mailing_view_form_marketing_automation"/>
+    </record>
+
+</odoo>

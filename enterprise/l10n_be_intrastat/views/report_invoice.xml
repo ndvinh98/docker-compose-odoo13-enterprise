@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <template id="report_invoice_document_intrastat_2019" inherit_id="account.report_invoice_document">
+    <xpath expr="//th[3]" position="before">
+      <th class="text-right">Origin Country</th>
+    </xpath>
+    <xpath expr="//td[2]" position="before">
+      <td class="text-right">
+        <span t-field="line.intrastat_product_origin_country_id"/>
+      </td>
+    </xpath>
+  </template>
+</odoo>

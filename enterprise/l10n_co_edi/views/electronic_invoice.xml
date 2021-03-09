@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="tim_section">
+            <TIM t-if="tax_lines">
+                <TIM_1 t-esc="'true' if retention else 'false'"/>
+                <TIM_2 t-esc="sum(tax_lines.mapped(lambda line: abs(line.amount)))"/>
+                <TIM_3 t-esc="invoice.currency_id.name"/>
+
+                <IMP t-foreach="tax_lines" t-as="tax">
+                    <IMP_1 t-esc="tax.tax_id.l10n_co_edi_type.code"/>
+                    <IMP_2 t-esc="tax.base"/>
+                    <IMP_3 t-esc="invoice.currency_id.name"/>
+                    <IMP_4 t-esc="abs(tax.amount)"/>
+                    <IMP_5 t-esc="invoice.currency_id.name"/>
+                    <IMP_6 t-esc="abs(tax.tax_id.amount)"/>
+                </IMP>
+            </TIM>
+        </template>
+        <template id="electronic_invoice_body">
+            <ENC>
+                <ENC_1 t-esc="invoice._l10n_co_edi_get_electronic_invoice_type()"/>
+                <ENC_2 t-esc="company_partner._get_vat_without_verification_code()"/>
+                <ENC_3 t-esc="invoice_partner._get_vat_without_verification_code()"/>
+                <ENC_4>UBL 2.0</ENC_4>
+                <ENC_5>DIAN 1.0</ENC_5>
+                <ENC_6 t-esc="invoice.name"/>
+                <ENC_7 t-esc="invoice.invoice_date"/>
+                <ENC_8 t-esc="invoice._l10n_co_edi_get_validation_time()"/>
+                <ENC_9 t-esc="invoice.l10n_co_edi_type if invoice.type not in ('out_refund', 'in_refund') else '9'"/>
+                <ENC_10 t-esc="invoice.currency_id.name"/>
+                <ENC_16 t-esc="invoice.invoice_date_due"/>
+                <ENC_17 t-esc="invoice.l10n_co_edi_attachment_url"/>
+            </ENC>
+
+            <EMI>
+                <EMI_1 t-esc="invoice._l10n_co_edi_get_partner_type(company_partner)"/>
+                <EMI_2 t-esc="company_partner._get_vat_without_verification_code()"/>
+                <EMI_3 t-esc="invoice._l10n_co_edi_get_carvajal_code_for_document_type(company_partner)"/>
+                <EMI_4 t-esc="invoice._l10n_co_edi_get_regime_code()"/>
+                <EMI_6 t-esc="company_partner.display_name"/>
+                <EMI_8 t-esc="company_partner.name"/>
+                <EMI_9 t-esc="company_partner.name"/>
+                <EMI_10 t-esc="company_partner.contact_address"/>
+                <EMI_12 t-esc="company_partner.state_id.name"/>
+                <EMI_13 t-esc="company_partner.city"/>
+                <EMI_14 t-esc="company_partner.zip"/>
+                <EMI_15 t-esc="company_partner.country_id.code"/>
+                <EMI_18 t-esc="company_partner._display_address(without_company=True)"/>
+
+                <TAC t-foreach="invoice._l10n_co_edi_get_fiscal_values()" t-as="type_code">
+                    <TAC_1><t t-esc="type_code.name"/></TAC_1>
+                </TAC>
+
+                <ICC/>
+
+                <CDE>
+                    <CDE_1 t-esc="'2' if sales_partner.type == 'delivery' else '1'"/>
+                    <CDE_2 t-esc="sales_partner.function"/>
+                    <CDE_3 t-esc="company_partner.phone"/>
+                    <CDE_4 t-esc="company_partner.email"/>
+                </CDE>
+            </EMI>
+            <ADQ>
+                <ADQ_1 t-esc="invoice._l10n_co_edi_get_partner_type(invoice_partner)"/>
+                <ADQ_2 t-esc="invoice_partner._get_vat_without_verification_code()"/>
+                <ADQ_3 t-esc="invoice._l10n_co_edi_get_carvajal_code_for_document_type(invoice_partner)"/>
+                <ADQ_4 t-esc="invoice._l10n_co_edi_get_regime_code()"/>
+                <ADQ_6 t-esc="invoice_partner.display_name"/>
+                <ADQ_8 t-esc="invoice_partner.name"/>
+                <ADQ_9 t-esc="invoice_partner.name"/>
+                <ADQ_10 t-esc="invoice_partner.contact_address"/>
+                <ADQ_12 t-esc="invoice_partner.state_id.name"/>
+                <ADQ_13 t-esc="invoice_partner.city"/>
+                <ADQ_14 t-esc="invoice_partner.zip"/>
+                <ADQ_15 t-esc="invoice_partner.country_id.code"/>
+                <ADQ_18 t-esc="invoice_partner.contact_address"/>
+
+                <TCR t-foreach="invoice._l10n_co_edi_get_fiscal_values()" t-as="type_code">
+                    <TCR_1><t t-esc="type_code.name"/></TCR_1>
+                </TCR>
+
+                <ICR/>
+
+                <CDA>
+                    <CDA_1 t-esc="invoice._l10n_co_edi_get_sender_type_of_contact()"/>
+                    <CDA_2 t-esc="'%s / %s' % (invoice_partner.display_name or '', invoice_partner.function or '')"/>
+                    <CDA_3 t-esc="invoice_partner.phone"/>
+                    <CDA_4 t-esc="invoice_partner.email"/>
+                </CDA>
+            </ADQ>
+            <TOT>
+                <TOT_1 t-esc="invoice.amount_untaxed"/>
+                <TOT_2 t-esc="invoice.currency_id.name"/>
+                <TOT_3 t-esc="invoice.amount_untaxed"/>
+                <TOT_4 t-esc="invoice.currency_id.name"/>
+                <TOT_5 t-esc="invoice.amount_total"/>
+                <TOT_6 t-esc="invoice.currency_id.name"/>
+            </TOT>
+            <t t-call="l10n_co_edi.tim_section">
+                <t t-set="retention" t-value="True"/>
+                <t t-set="tax_lines" t-value="retention_taxes"/>
+            </t>
+            <t t-call="l10n_co_edi.tim_section">
+                <t t-set="retention" t-value="False"/>
+                <t t-set="tax_lines" t-value="regular_taxes"/>
+            </t>
+            <DRF>
+                <DRF_1 t-esc="invoice.journal_id.l10n_co_edi_dian_authorization_number"/>
+                <DRF_2 t-esc="invoice.journal_id.l10n_co_edi_dian_authorization_date"/>
+                <DRF_4 t-esc="invoice.journal_id.sequence_id.prefix"/>
+            </DRF>
+            <ITD>
+                <ITD_5 t-esc="invoice.amount_total"/>
+                <ITD_6 t-esc="invoice.currency_id.name"/>
+            </ITD>
+
+            <NOT t-foreach="notas" t-as="nota">
+                <NOT_1 t-esc="nota"/>
+            </NOT>
+
+            <ORC>
+                <ORC_1 t-esc="invoice.name"/>
+                <ORC_4 t-esc="invoice.invoice_origin"/>
+            </ORC>
+
+            <REF>
+                <REF_1 t-esc="invoice_type_to_ref_1[invoice.type]"/>
+                <REF_2 t-esc="invoice.invoice_origin or 'N/A'"/>
+            </REF>
+
+            <IEN>
+                <IEN_1 t-esc="shipping_partner.street if shipping_partner else ''"/>
+                <IEN_4 t-esc="shipping_partner.city if shipping_partner else ''"/>
+                <IEN_6 t-esc="shipping_partner.country_id.code if shipping_partner else ''"/>
+            </IEN>
+
+            <CTS>
+                <CTS_1 t-esc="'COLGENV03'"/>
+            </CTS>
+
+            <OVT t-foreach="ovt_taxes" t-as="tax">
+                <OVT_1 t-esc="tax.tax_id.l10n_co_edi_type.code"/>
+                <OVT_2 t-esc="tax.amount"/>
+                <OVT_3 t-esc="invoice.currency_id.name"/>
+            </OVT>
+
+            <FE1>
+                <t t-if="invoice.l10n_co_edi_type == '2'">
+                    <FE1_2 t-esc="invoice.currency_id.name"/>
+                    <FE1_3 t-esc="invoice.amount_untaxed"/>
+                    <FE1_4 t-esc="invoice.amount_tax"/>
+                    <FE1_5 t-esc="invoice.amount_total"/>
+
+                    <t t-set="ft1_counter" t-value="1"/>
+                    <FT1 t-foreach="invoice.invoice_line_ids" t-as="line">
+                        <FT1_1 t-esc="ft1_counter"/>
+                        <FT1_2 t-esc="line.price_subtotal"/>
+                        <FT1_3 t-esc="line.price_unit"/>
+                        <t t-set="ft1_counter" t-value="ft1_counter + 1"/>
+                    </FT1>
+                </t>
+            </FE1>
+
+            <t t-set="ite_counter" t-value="1"/>
+            <ITE t-foreach="invoice.invoice_line_ids" t-as="line">
+                    <ITE_1 t-esc="ite_counter"/>
+                    <ITE_2 t-if="line.currency_id and float_compare(line.price_subtotal, 0, precision_rounding=line.currency_id.rounding) &lt; 1">true</ITE_2>
+                    <ITE_2 t-else="">false</ITE_2>
+                    <ITE_3 t-esc="line.quantity"/>
+                    <ITE_4 t-esc="line.product_uom_id.l10n_co_edi_ubl"/>
+                    <ITE_5 t-esc="line.price_subtotal"/>
+                    <ITE_6 t-esc="invoice.currency_id.name"/>
+                    <ITE_7 t-esc="line.price_unit"/>
+                    <ITE_8 t-esc="invoice.currency_id.name"/>
+                    <ITE_10 t-esc="line.product_id.display_name"/>
+                    <ITE_11 t-esc="(line.name or '')[:150]"/>
+                    <ITE_18 t-esc="line.product_id.default_code"/>
+                    <ITE_19 t-esc="line.price_subtotal"/>
+                    <ITE_20 t-esc="invoice.currency_id.name"/>
+                    <ITE_21 t-esc="line.price_subtotal"/>
+                    <ITE_22 t-esc="invoice.currency_id.name"/>
+
+                    <IRF>
+                        <IRF_1 t-esc="invoice_type_to_ref_1[invoice.type]"/>
+                        <IRF_2 t-esc="invoice.name"/>
+                        <IRF_3 t-esc="ite_counter"/>
+                    </IRF>
+
+                    <MYM>
+                        <MYM_1 t-esc="line.product_id.l10n_co_edi_brand"/>
+                        <MYM_2 t-esc="line.product_id.display_name"/>
+                    </MYM>
+
+                    <IDE>
+                        <IDE_1 t-esc="'false' if line.currency_id and float_compare(line.price_subtotal, 0, precision_rounding=line.currency_id.rounding) &gt;= 0 else 'true'">
+                            <t t-if="line.currency_id and float_compare(line.price_subtotal, 0, precision_rounding=line.currency_id.rounding) &gt;= 0">false</t>
+                            <t t-else="">true</t>
+                        </IDE_1>
+                        <IDE_2 t-esc="invoice.currency_id.round((line.discount / 100) * line.price_unit * line.quantity) or 0.0"/>
+                        <IDE_3 t-esc="invoice.currency_id.name"/>
+                    </IDE>
+                    <t t-set="ite_counter" t-value="ite_counter + 1"/>
+            </ITE>
+        </template>
+        <template id="electronic_invoice_xml">
+            <FACTURA t-if="'_invoice' in invoice.type">
+                <t t-call="l10n_co_edi.electronic_invoice_body"/>
+            </FACTURA>
+            <NOTA t-else="">
+                <t t-call="l10n_co_edi.electronic_invoice_body"/>
+            </NOTA>
+        </template>
+    </data>
+</odoo>

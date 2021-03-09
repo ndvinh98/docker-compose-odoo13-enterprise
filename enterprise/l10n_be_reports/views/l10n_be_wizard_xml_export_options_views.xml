@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_account_financial_report_export" model="ir.ui.view">
+            <field name="name">l10n_be_reports.periodic.vat.xml.export.form</field>
+            <field name="model">l10n_be_reports.periodic.vat.xml.export</field>
+            <field name="arch" type="xml">
+                <form string="Export Options">
+                    <div class="alert alert-warning" role="alert" attrs="{'invisible': [('control_value', '=', False)]}">
+                        Some controls failed
+                    </div>
+                    <div>
+                        Choose option(s) before exporting XML
+                    </div>
+                    <group>
+                         <group>
+                             <field name="ask_restitution"/>
+                             <field name="ask_payment"/>
+                             <field name="client_nihil"/>
+                             <field name="grid91"/>
+                         </group>
+                    </group>
+                    <field name="control_value"/>
+                    <footer>
+                        <button string='Export XML' name="print_xml" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+               </form>
+            </field>
+        </record>
+
+    </data>
+</odoo>

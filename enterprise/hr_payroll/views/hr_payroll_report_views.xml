@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="payroll_report_view_dashboard" model="ir.ui.view">
+            <field name="name">payroll.report.view.dashboard</field>
+            <field name="model">hr.payroll.report</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <dashboard>
+                    <view type="graph" ref="hr_payroll.payroll_report_view_graph"/>
+                    <group>
+                        <group>
+                            <group>
+                                <formula name="avg_net" string="Average Net Wage" value="record.net_wage / record.count" widget="monetary"/>
+                                <formula name="avg_basic" string="Average Basic Wage" value="record.basic_wage / record.count" widget="monetary"/>
+                                <formula name="avg_gross" string="Average Gross Wage" value="record.gross_wage / record.count" widget="monetary"/>
+                                <aggregate name="count" string="# Payslips" field="count"/>
+                                <aggregate name="net_wage" string="Total Net Wage" field="net_wage" widget="monetary"/>
+                                <aggregate name="basic_wage" string="Basic Wage" field="basic_wage" widget="monetary" invisible="1"/>
+                                <aggregate name="gross_wage" string="Total Gross Wage" field="gross_wage" widget="monetary"/>
+                            <group>
+                            </group>
+                                <aggregate name="count_work" field="count_work" string="Work Days" value_label="days"/>
+                                <aggregate name="count_leave" field="count_leave" string="Paid Time Off" value_label="days"/>
+                                <aggregate name="count_leave_unpaid" field="count_leave_unpaid" string="Unpaid Time Off" value_label="days"/>
+                                <aggregate name="leave_basic_wage" field="leave_basic_wage" string="Paid Time Off (Basic Wage)" widget="monetary"/>
+                                <formula name="rate_work_time" string="Attendance Rate" value="100 * record.count_work / (record.count_work + record.count_leave + record.count_leave_unpaid)" value_label="%"/>
+                                <aggregate name="count_unforeseen_absence" field="count_unforeseen_absence" invisible="1"/>
+                                <formula name="rate_absenteeism" string="Absenteeism Rate" value="100 * record.count_unforeseen_absence / (record.count_work + record.count_leave + record.count_leave_unpaid)" value_label="%"/>
+                                <aggregate name="count_work_hours" field="count_work_hours" string="Hours of Work" invisible="1"/>
+                                <formula name="total" string="Average Hours per Day of Work" value="record.count_work_hours / record.count_work"/>
+                            </group>
+                        </group>
+                        <group col="1">
+                            <widget name="pie_chart" title="Days" attrs="{'groupby': 'work_type', 'measure': 'number_of_days'}"/>
+                        </group>
+                    </group>
+                    <view type="pivot" ref="hr_payroll.payroll_report_view_pivot"/>
+                </dashboard>
+            </field>
+        </record>
+
+        <record id="payroll_report_view_pivot" model="ir.ui.view">
+            <field name="name">payroll.report.pivot</field>
+            <field name="model">hr.payroll.report</field>
+            <field name="arch" type="xml">
+                <pivot string="Payroll Analysis" disable_linking="True">
+                    <field name="department_id" type="row"/>
+                    <field name="count" type="measure"/>
+                    <field name="net_wage" type="measure"/>
+                    <field name="gross_wage" type="measure"/>
+                    <field name="count_leave" type="measure"/>
+                    <field name="count_leave_unpaid" type="measure"/>
+                </pivot>
+            </field>
+        </record>
+
+        <record id="payroll_report_view_graph" model="ir.ui.view">
+            <field name="name">payroll.report.graph</field>
+            <field name="model">hr.payroll.report</field>
+            <field name="arch" type="xml">
+                <graph string="Payroll Analysis" type="line">
+                    <field name="date_from" type="row"/>
+                    <field name="net_wage" type="measure"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="payroll_report_view_search" model="ir.ui.view">
+            <field name="name">payroll.report.search</field>
+            <field name="model">hr.payroll.report</field>
+            <field name="arch" type="xml">
+                <search string="Payroll Analysis">
+                    <field name="company_id" filter_domain="[('company_id', 'ilike', self)]"/>
+                    <field name="employee_id" filter_domain="[('employee_id', 'ilike', self)]"/>
+                    <field name="department_id" filter_domain="[('department_id', 'ilike', self)]"/>
+                    <field name="job_id" filter_domain="[('job_id', 'ilike', self)]"/>
+                    <field name="work_code" filter_domain="[('work_code', 'ilike', self)]"/>
+                    <field name="work_type" filter_domain="[('work_type', 'ilike', self)]"/>
+                    <field name="name" filter_domain="[('name', 'ilike', self)]"/>
+                    <field name="date_from"/>
+                    <filter string="Last 365 Days Payslip" name="year" domain="[
+                        ('date_from', '>=', (context_today() + relativedelta(days=-365)).strftime('%Y-%m-%d')),
+                        ('date_from', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                    <group expand="1" string="Group By">
+                        <filter string="Employee" name="employee_id" context="{'group_by':'employee_id'}"/>
+                        <filter string="Department" name="department_id" context="{'group_by':'department_id'}"/>
+                        <filter string="Job Position" name="job_id" context="{'group_by':'job_id'}"/>
+                        <filter string="Company" name="company" context="{'group_by':'company_id'}" groups="base.group_multi_company"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="payroll_report_action" model="ir.actions.act_window">
+            <field name="name">Payroll Analysis</field>
+            <field name="res_model">hr.payroll.report</field>
+            <field name="view_mode">dashboard,pivot,graph</field>
+            <field name="search_view_id" ref="payroll_report_view_search"/>
+            <field name="context">{
+                'search_default_year': True
+            }</field>
+            <field name="help">This report performs analysis on your payslip.</field>
+        </record>
+
+    </data>
+</odoo>

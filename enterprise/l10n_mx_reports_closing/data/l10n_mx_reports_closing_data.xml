@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="action_trial_closing_balance" model="ir.actions.client">
+            <field name="name">Trial Balance Month 13</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'l10n_mx.trial.closing.report'}" />
+        </record>
+        <menuitem id="menu_trial_closing_balance" name="Trial Balance Month 13"
+                  parent="l10n_mx_reports.account_reports_legal_mexican_statements_menu"
+                  sequence="100" groups="account.group_account_user"
+                  action="l10n_mx_reports_closing.action_trial_closing_balance"/>
+    </data>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="helpdesk_sale_coupon_generate_view_form" model="ir.ui.view">
+            <field name="name">helpdesk.sale.coupon.generate.form</field>
+            <field name="model">helpdesk.sale.coupon.generate</field>
+            <field name="arch" type="xml">
+                <form string="Generate a Coupon">
+                    <group>
+                        <field name="ticket_id" invisible="1"/>
+                        <field name="program" required="1" options="{'no_create': True}"/>
+                    </group>
+                    <footer>
+                        <button name="generate_coupon" type="object" string="Generate" class="oe_highlight"/>
+                        <button special="cancel" string="Cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="helpdesk_sale_coupon_generate_action" model="ir.actions.act_window">
+            <field name="name">Generate a Coupon</field>
+            <field name="res_model">helpdesk.sale.coupon.generate</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="view_id" ref="helpdesk_sale_coupon_generate_view_form"/>
+        </record>
+    </data>
+</odoo>

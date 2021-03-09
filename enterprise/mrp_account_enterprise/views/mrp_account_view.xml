@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="mrp_workcenter_view_inherit" model="ir.ui.view">
+            <field name="name">mrp.workcenter.form.inherit</field>
+            <field name="model">mrp.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+            <field name="arch" type="xml">
+                <group name="costing" position="inside">
+                    <field name="costs_hour_account_id" groups="analytic.group_analytic_accounting"/>
+                </group>
+            </field>
+        </record>
+
+        <!-- cost structure report -->
+        <report 
+            id="action_cost_struct_mrp_production"
+            model="mrp.production"
+            string="Cost Analysis"
+            report_type="qweb-html"
+            name="mrp_account_enterprise.mrp_cost_structure"
+            file="mrp_account_enterprise.mrp_cost_structure"
+            print_report_name="'Cost Analysis - %s ' % object.name"
+        />
+
+        <record model="ir.ui.view" id="mrp_production_form_inherit_view6">
+            <field name="name">mrp.production.form.inherit</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="%(mrp_account_enterprise.action_cost_struct_mrp_production)d" type="action"
+                        class="oe_stat_button" icon="fa-dollar" string="Cost Analysis" attrs="{'invisible': [('state', '!=', 'done')]}">
+                    </button>
+                </div>
+            </field>
+        </record>
+
+        <report 
+            id="action_cost_struct_product_template"
+            model="product.product"
+            string="Cost Structure Analysis"
+            report_type="qweb-html"
+            name="mrp_account_enterprise.product_template_cost_structure"
+            file="mrp_account_enterprise.product_template_cost_structure"
+            print_report_name="'Cost Structure Analysis - %s' % object.name"
+        />
+
+        <record id="product_product_inherit_form_view_cost_structure" model="ir.ui.view">
+            <field name="name">cost_structure_product_product_inherit</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="mrp.product_template_form_view_bom_button"/>
+            <field name="groups_id" eval="[(4, ref('mrp.group_mrp_user'))]"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_view_mos']" position="after">
+                    <field name="mrp_product_qty" invisible="1"/>
+                    <button name="action_cost_structure" type="object"
+                        class="oe_stat_button" icon="fa-dollar" string="Cost Analysis" attrs="{'invisible': [('mrp_product_qty', '=', 0)]}">
+                    </button>
+                </xpath>
+            </field>
+        </record>
+
+</odoo>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- trial balance templates -->
+        <template id="template_coa_table_header" inherit_id="account_reports.main_table_header" primary="True">
+            <xpath expr="//thead//tr[hasclass('o_account_report_column_header')]" position="before">
+                <tr>
+                    <th t-att-class="'o_account_report_column_header'" colspan="2"></th>
+                    <t t-foreach="model.reverse(options['comparison'].get('periods'))" t-as="column_header">
+                        <th t-att-class="'o_account_report_column_header text-center'" colspan="2">
+                            <t t-raw="column_header.get('string')"/>
+                        </th>
+                    </t>
+                    <th t-att-class="'o_account_report_column_header text-center'" colspan="2">
+                        <t t-raw="options['date'].get('string')"/>
+                    </th>
+                    <th t-att-class="'o_account_report_column_header'">
+                    </th>
+                </tr>
+            </xpath>
+        </template>
+    </data>
+</odoo>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- add css / js -->
+    <template id="assets_backend" name="mrp_plm assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/mrp_plm/static/src/js/mrp_plm.js"></script>
+            <script type="text/javascript" src="/mrp_plm/static/src/js/mrp_bom_report.js"></script>
+            <link rel="stylesheet" type="text/scss" href="/mrp_plm/static/src/scss/mrp_plm_dashboard.scss"/>
+        </xpath>
+    </template>
+    <template id="message_approval">
+        Approval: <t t-esc="approval.name"/>
+        was <t t-esc="approval.status"/>
+        by <t t-esc="approval.user_id.name"/>
+    </template>
+</odoo>

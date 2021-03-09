@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_invoice_refundinherit_l10n_co_edi" model="ir.ui.view">
+            <field name="name">account.move.reversal.form.inherit.l10n_co_edi</field>
+            <field name="model">account.move.reversal</field>
+            <field name="inherit_id" ref="account.view_account_move_reversal"/>
+            <field name="arch" type="xml">
+                <field name="reason" position="after">
+                    <field name="l10n_co_edi_description_code_credit"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

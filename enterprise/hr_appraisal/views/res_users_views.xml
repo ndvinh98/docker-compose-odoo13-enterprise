@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <!-- User preferences -->
+    <record id="res_users_view_form" model="ir.ui.view">
+        <field name="name">res.users.preferences.view.form.inherit.appraisal</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="hr.res_users_view_form_profile"/>
+        <field name="arch" type="xml">
+       <xpath expr="//div[@name='button_box']" position="inside">
+            <button name="%(hr_appraisal_action_my)d"
+                class="oe_stat_button"
+                icon="fa-sitemap"
+                type="action"
+                >
+                <div class="o_field_widget o_stat_info">
+                    <span class="o_stat_value">
+                        <field name="appraisal_date" readonly="1"/>
+                    </span>
+                    <span class="o_stat_text">
+                        Next Appraisal
+                    </span>
+                </div>
+            </button>
+        </xpath>
+        <button name="preference_change_password" position="before">
+            <field name="employee_ids" invisible="1"/>
+            <button name="action_send_appraisal_request"
+                string="Request Appraisal"
+                type="object"
+                class="btn btn-primary"/>
+        </button>
+        <xpath expr="//page[@name='hr_settings']" position="inside">
+            <page string="Appraisal">
+                <group string="Appraisals Set Up">
+                    <field name="appraisal_by_manager" invisible="1"/>
+                    <label for="appraisal_manager_ids" attrs="{'invisible':[('appraisal_by_manager', '=', False)], 'readonly': [('can_edit', '=', False)]}"/>
+                    <field name="appraisal_manager_ids" nolabel="1" widget="many2many_tags" options="{'color_field': 'color'}" attrs="{'invisible':[('appraisal_by_manager', '=', False)]}" readonly="1"/>
+
+                    <field name="appraisal_self"/>
+
+                    <field name="appraisal_by_collaborators" invisible="1"/>
+                    <label for="appraisal_collaborators_ids" attrs="{'invisible':[('appraisal_by_collaborators','=',False)], 'readonly': [('can_edit', '=', False)]}"/>
+                    <field name="appraisal_collaborators_ids" nolabel="1" widget="many2many_tags" options="{'color_field': 'color'}" attrs="{'invisible':[('appraisal_by_collaborators','=',False)]}" readonly="1"/>
+
+                    <field name="appraisal_by_colleagues" invisible="1"/>
+                    <label for="appraisal_colleagues_ids" attrs="{'invisible':[('appraisal_by_colleagues','=',False)], 'readonly': [('can_edit', '=', False)]}"/>
+                    <field name="appraisal_colleagues_ids" nolabel="1" widget="many2many_tags" options="{'color_field': 'color'}" attrs="{'invisible':[('appraisal_by_colleagues','=',False)]}" readonly="1"/>
+                </group>
+            </page>
+        </xpath>
+        </field>
+    </record>
+</odoo>

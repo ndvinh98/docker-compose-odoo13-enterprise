@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_invoice_form" model="ir.ui.view">
+        <field name="model">account.move</field>
+        <field name="name">account.move.edi.form</field>
+        <field name="inherit_id" ref="account.view_move_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//header/field[@name='state']" position="before">
+                <button name="l10n_cl_accept_document"
+                         string="Accept Document"
+                         type="object"
+                         attrs="{'invisible': ['|', '|', '|', '|', ('type', 'in', ['out_invoice', 'out_refund']), ('state', '!=', 'posted'), ('l10n_cl_dte_acceptation_status', 'in', ['claimed', 'accepted']), ('l10n_latam_use_documents', '=', False), ('l10n_latam_country_code', '!=', 'CL')]}"/>
+
+                <button name="l10n_cl_claim_document"
+                        string="Claim Document"
+                        type="object"
+                        attrs="{'invisible': ['|', '|', '|', ('type', 'in', ['out_invoice', 'out_refund']),  ('l10n_cl_dte_acceptation_status', 'in', ['claimed', 'accepted']), ('l10n_latam_use_documents', '=', False), ('l10n_latam_country_code', '!=', 'CL')]}"/>
+            </xpath>
+            <field name="journal_id" position="after">
+                <field name="l10n_cl_journal_point_of_sale_type" invisible="1"/>
+                <label for="l10n_cl_dte_status" attrs="{'invisible': ['|', '|', ('type', 'not in', ['out_invoice', 'out_refund']), ('l10n_cl_journal_point_of_sale_type', '=', False), ('l10n_latam_country_code', '!=', 'CL')]}"/>
+                <div attrs="{'invisible': ['|', ('l10n_cl_journal_point_of_sale_type', '=', False), ('l10n_latam_country_code', '!=', 'CL')]}">
+                    <field name="l10n_cl_dte_status" attrs="{'readonly': True, 'invisible': ['|', ('type', 'not in', ['out_invoice', 'out_refund']), ('l10n_cl_journal_point_of_sale_type', '=', False)]}" class="oe_inline" />
+                    <button name="l10n_cl_send_dte_to_sii" type="object" attrs="{'invisible': [('l10n_cl_dte_status', '!=', 'not_sent')]}" string="⇒ Send Now to SII" class="oe_inline oe_link" groups="base.group_user"/>
+                    <button name="l10n_cl_verify_dte_status" type="object" attrs="{'invisible': [('l10n_cl_dte_status', '!=', 'ask_for_status')]}" context="{'send_immediately': True}" string="⇒ Verify on SII" class="oe_inline oe_link" groups="base.group_user"/>
+                </div>
+                <label for="l10n_cl_dte_acceptation_status" attrs="{'invisible': ['|', ['l10n_cl_dte_acceptation_status', '=', False], ['l10n_latam_country_code', '!=', 'CL']]}"/>
+                <div attrs="{'invisible':[('l10n_latam_country_code', '!=', 'CL')]}">
+                    <field name="l10n_cl_dte_acceptation_status" attrs="{'readonly': True}" class="oe_online"/>
+                    <button name="l10n_cl_reprocess_acknowledge" type="object" attrs="{'invisible': ['|', ('l10n_cl_dte_acceptation_status', '!=', 'received'), ('type', 'not in', ['in_invoice', 'in_refund'])]}" string="⇒ Reprocess Acknowledge" class="oe_inline oe_link" groups="base.group_user"/>
+                    <button name="l10n_cl_verify_claim_status" type="object" attrs="{'invisible': ['|', ('l10n_cl_dte_acceptation_status', 'not in', ['accepted', 'claimed']), ('type', 'not in', ['out_invoice', 'out_refund'])]}" string="⇒ Verify on SII" class="oe_inline oe_link" groups="base.group_user"/>
+                </div>
+            </field>
+            <notebook>
+                <page string="Cross Reference Documents" name="cross_reference_docs" attrs="{'invisible': ['|', ('type', 'not in', ['in_invoice', 'in_refund', 'out_invoice', 'out_refund']), ('l10n_latam_country_code', '!=', 'CL')]}">
+                    <field name="l10n_cl_reference_ids" mode="tree">
+                        <form>
+                            <group>
+                                <field name="origin_doc_number" required="True"/>
+                                <field name="l10n_cl_reference_doc_type_selection" required="True"/>
+                                <field name="reference_doc_code" attrs="{'invisible': [('l10n_cl_reference_doc_type_selection', 'not in', ['39','33','34','71','38','61','56','29','30','32','40','43','45','46','55','60','901','914','911','904','905','906','907','35','41','70','110','111','112','50','52'])]}"/>
+                                <field name="reason"/>
+                                <field name="date"/>
+                            </group>
+                        </form>
+                        <tree>
+                            <field name="origin_doc_number" required="True"/>
+                            <field name="l10n_cl_reference_doc_type_selection" required="True" />
+                            <field name="reference_doc_code"/>
+                            <field name="reason"/>
+                            <field name="date"/>
+                        </tree>
+                    </field>
+                </page>
+                <page string="Electronic Invoice" name="electronic_invoice" attrs="{'invisible':['|', ('l10n_cl_dte_status', '=', False) , ('l10n_latam_country_code', '!=', 'CL')]}">
+                    <group>
+                        <field name="l10n_cl_dte_partner_status"/>
+                        <field name="l10n_cl_sii_send_ident"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+</odoo>

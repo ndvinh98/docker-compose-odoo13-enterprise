@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates xml:space="preserve">
+    <div t-name="PlanningGanttView.buttons">
+        <button t-if="widget.is_action_enabled('create')" class="o_gantt_button_add btn btn-primary mr-3" title="Add record">
+            Add
+        </button>
+        <div class="d-inline-block mr-3">
+            <button class="o_gantt_button_prev btn btn-primary" title="Previous">
+                <span class="fa fa-arrow-left"/>
+            </button>
+            <button class="o_gantt_button_today btn btn-primary">
+                Today
+            </button>
+            <button class="o_gantt_button_next btn btn-primary" title="Next">
+                <span class="fa fa-arrow-right"/>
+            </button>
+        </div>
+        <button t-foreach="allowedScales" t-as="scale" t-attf-class="o_gantt_button_scale btn btn-secondary #{activateScale == scale ? 'active' : ''}" type="button" t-att-data-value="scale">
+            <t t-esc="SCALES[scale].string"/>
+        </button>
+        <div class="btn-group">
+            <button class="o_gantt_button_expand_rows btn btn-secondary" title="Expand rows">
+                <i class="fa fa-expand"/>
+            </button>
+            <button class="o_gantt_button_collapse_rows btn btn-secondary" title="Collapse rows">
+                <i class="fa fa-compress"/>
+            </button>
+        </div>
+        <button t-if="activeActions.create &amp;&amp; activateScale == 'week'" class="o_gantt_button_copy_previous_week btn btn-secondary mr-3" title="Copy previous week">
+            Copy previous week
+        </button>
+         <button t-if="activeActions.edit" class="o_gantt_button_send_all btn btn-primary" title="Send schedule">
+            Send schedule
+        </button>
+    </div>
+
+    <t t-name="PlanningGanttView.Row" t-extend="GanttView.Row">
+        <t t-jquery=".o_gantt_row_title" t-operation="prepend">
+            <t t-if="widget.groupedByField == 'employee_id'">
+                <img t-att-src="'/web/image?model=hr.employee&amp;field=image_128&amp;id='+widget.resId+'&amp;unique='" style="height: 30px; width: 30px;" class="o_object_fit_cover rounded-circle"/>
+            </t>
+        </t>
+    </t>
+</templates>

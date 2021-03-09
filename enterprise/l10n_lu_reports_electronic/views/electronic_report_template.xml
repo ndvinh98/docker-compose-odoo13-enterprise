@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="l10n_lu_electronic_report_template">
+        <eCDFDeclarations xmlns="http://www.ctie.etat.lu/2011/ecdf">
+            <FileReference><t t-esc="filename"/></FileReference>
+            <eCDFFileVersion>1.1</eCDFFileVersion>
+            <Interface><t t-esc="interface"/></Interface>
+            <Agent>
+                <MatrNbr><t t-esc="matr_number"/></MatrNbr>
+                <RCSNbr><t t-esc="rcs_number"/></RCSNbr>
+                <VATNbr><t t-esc="vat_number"/></VATNbr>
+            </Agent>
+            <Declarations>
+                <Declarer>
+                    <MatrNbr><t t-esc="matr_number"/></MatrNbr>
+                    <RCSNbr><t t-esc="rcs_number"/></RCSNbr>
+                    <VATNbr><t t-esc="vat_number"/></VATNbr>
+                    <Declaration t-att-type="form['declaration_type']" model="1" t-att-language="lang" t-foreach="forms" t-as="form">
+                        <Year><t t-esc="form['year']"/></Year>
+                        <Period><t t-esc="form['period']"/></Period>
+                        <FormData>
+                            <t t-foreach="form['field_values']" t-as="l">
+                                <TextField t-if="l_value['field_type'] == 'char'" t-att-id="l"><t t-esc="l_value['value']"/></TextField>
+                                <Choice t-if="l_value['field_type'] == 'boolean'" t-att-id="l"><t t-esc="l_value['value']"/></Choice>
+                                <NumericField t-if="l_value['field_type'] == 'number'" t-att-id="l"><t t-esc="l_value['value']"/></NumericField>
+                            </t>
+                        </FormData>
+                    </Declaration>
+                </Declarer>
+            </Declarations>
+        </eCDFDeclarations>
+    </template>
+</odoo>

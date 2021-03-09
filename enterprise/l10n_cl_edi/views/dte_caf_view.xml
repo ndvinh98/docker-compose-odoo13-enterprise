@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="view_dte_caf_form" model="ir.ui.view">
+            <field name="name">l10n_cl.dte.caf.form</field>
+            <field name="model">l10n_cl.dte.caf</field>
+            <field name="arch" type="xml">
+                <form string="SII CAF Files for DTE">
+                    <header>
+                        <button string="Cancel" type="object" name="action_spend"
+                                status="in_use"/>
+                        <field name="status" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <group col="4">
+                            <h4>
+                                <field name="caf_file" widget="binary" filename="filename"/>
+                            </h4>
+                        </group>
+                        <group col="4">
+                            <group>
+                                <field name="issued_date" readonly="1"/>
+                            </group>
+                            <group>
+                                <field name="start_nb" readonly="1"/>
+                                <field name="final_nb" readonly="1"/>
+                            </group>
+
+
+                            <field name="company_id" invisible="1"/>
+                            <field name="sequence_id" invisible="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_dte_caf_tree" model="ir.ui.view">
+            <field name="name">CAF</field>
+            <field name="model">l10n_cl.dte.caf</field>
+            <field name="arch" type="xml">
+                <tree string="CAF Files">
+                    <field name="filename"/>
+                    <field name="start_nb" />
+                    <field name="final_nb" />
+                    <field name="company_id" />
+                    <field name="status" />
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

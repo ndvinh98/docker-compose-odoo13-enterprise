@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="mail_act_appraisal_form" model="mail.activity.type">
+            <field name="name">Appraisal Form to Fill</field>
+            <field name="icon">fa-star</field>
+            <field name="res_model_id" ref="hr_appraisal.model_hr_appraisal"/>
+        </record>
+
+        <template id="mail_template_appraisal_reminder">
+            <table border="0" cellpadding="0" style="background-color: white; padding: 0px; border-collapse:separate;">
+                <tr><td valign="top">
+                    Hello <t t-esc="record.name"/>,<br/>
+                </td></tr>
+                <tr t-if="body"><td valign="top">
+                    <div style="margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;">
+                        <span>
+                            <t t-raw="body"/>
+                        </span>
+                    </div>
+                </td></tr>
+                <tr><td valign="top">
+                    <div style="opacity: 0.7;">
+                        <span>
+                            <ul>
+                                <li t-if="employee_name">Employee name: <t t-raw="employee_name"/></li>
+                                <li t-if="employee_creation">Employee profile creation: <t t-raw="employee_creation"/></li>
+                                <li t-if="last_appraisal">Last appraisal: <t t-raw="last_appraisal"/></li>
+                                <li t-if="last_appraisal">Deadline: <t t-raw="deadline"/></li>
+                            </ul>
+                        </span>
+                    </div>
+                </td></tr>
+                <tr><td valign="top">
+                    <div style="margin:16px 0px 16px 0px;" t-if="link">
+                        <a t-att-href="link"
+                            style="padding: 8px 16px 8px 16px; border-radius: 3px; background-color:#875A7B; text-align:center; text-decoration:none; color: #FFFFFF;">
+                            <t t-raw="button_name"/>
+                        </a>
+                    </div>
+                </td></tr>
+            </table>
+    </template>
+
+    </data>
+    <data>
+        <record id="mail_template_appraisal_request" model="mail.template">
+            <field name="name">Hr Appraisal: Request an Appraisal from Manager</field>
+            <field name="model_id" ref="hr_appraisal.model_hr_appraisal"/>
+            <field name="subject">Appraisal Requested</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${ctx['partner_to_name']},
+                        <br /><br />
+                        I would like to start an Appraisal for you.
+                        <p style="margin: 16px 0px 16px 0px;">
+                            <a href="${ctx['url']}"
+                                style="background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;">
+                                View Appraisal
+                            </a>
+                        </p>
+                        <br /><br />
+                        <tr><td style="padding:15px 20px 10px 20px;">${(object.signature or '')| safe}</td></tr>
+                    </p>
+                </div>
+            </field>
+            <field name="report_name">${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.lang}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="mail_template_appraisal_request_from_employee" model="mail.template">
+            <field name="name">Hr Appraisal: Request an Appraisal From Employee</field>
+            <field name="model_id" ref="hr_appraisal.model_hr_appraisal"/>
+            <field name="subject">${object.name} requests an Appraisal</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${ctx['partner_to_name']},
+                        <br /><br />
+                        I wish to request an appraisal.<br />
+                        Here is the link of my appraisal:
+                        <p style="margin: 16px 0px 16px 0px;">
+                            <a href="${ctx['url']}"
+                                style="background-color:#875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px;">
+                                View Appraisal
+                            </a>
+                        </p>
+                        <br /><br />
+                        <tr><td style="padding:15px 20px 10px 20px;">${(object.employee_id.user_id.signature or '')| safe}</td></tr>
+                    </p>
+                </div>
+            </field>
+            <field name="report_name">${(object.name or '').replace('/','_')}</field>
+            <field name="lang">${object.lang}</field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

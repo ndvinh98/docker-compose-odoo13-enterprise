@@ -1,0 +1,276 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <menuitem name="Appraisal" id="menu_hr_appraisal_root" web_icon="hr_appraisal,static/description/icon.png" sequence="25"/>
+    <menuitem name="Configuration"
+        id="menu_hr_appraisal_configuration"
+        parent="menu_hr_appraisal_root"
+        sequence="99"/>
+
+    <record model="ir.ui.view" id="view_hr_appraisal_form">
+        <field name="name">hr.appraisal.form</field>
+        <field name="model">hr.appraisal</field>
+        <field name="arch" type="xml">
+            <form string="Appraisal">
+            <header>
+                <button name="button_send_appraisal" string="Confirm Appraisal and Send Forms" type="object" class="oe_highlight" attrs="{'invisible': ['|',('is_autorized_to_send','=',False),('state','!=','new')]}"/>
+                <button name="button_done_appraisal" string="Done" states="pending" type="object" groups="hr_appraisal.group_hr_appraisal_user"/>
+                <button name="button_cancel_appraisal" string="Cancel" states="pending" type="object"  groups="hr_appraisal.group_hr_appraisal_user"/>
+                <field name="state" widget="statusbar" statusbar_visible="new,pending,done" options="{'fold_field': 'fold'}"/>
+            </header>
+            <sheet>
+                <div class="oe_button_box" name="button_box">
+                    <button class="oe_stat_button" name="action_calendar_event" icon="fa-calendar" type="object">
+                        <div class="o_field_widget o_stat_info">
+                            <span class="o_stat_value" attrs="{'invisible': [('meeting_id', '=', False)]}">1 Meeting</span>
+                            <span class="o_stat_value" attrs="{'invisible': [('meeting_id', '!=', False)]}">No Meeting</span>
+                            <span class="o_stat_text"><field name="date_final_interview" readonly="1"/></span>
+                        </div>
+                    </button>
+                </div>
+                <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                <group>
+                    <group>
+                        <field name="employee_id" class="oe_inline"  attrs="{'readonly':[('state', '!=', 'new')]}" placeholder="Employee's Name"/>
+                        <field name="manager_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <field name="collaborators_ids" string="Subordinates" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <field name="colleagues_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        <field name="date_close" attrs="{'readonly':[('state','in', ('pending','done'))]}"/>
+                        <field name="company_id" groups="base.group_multi_company" required="1"/>
+                    </group>
+                    <group>
+                        <field name="employee_appraisal" string="Mail To Employee"/>
+                        <field name="manager_appraisal" string="Mail To Manager"/>
+                        <field name="collaborators_appraisal" string="Mail To Subordinates"/>
+                        <field name="colleagues_appraisal" string="Mail To Colleagues"/>
+                    </group>
+                </group>
+                <field name="is_autorized_to_send" invisible="1"/>
+                <field name="active" invisible="1"/>
+                <field name="meeting_id" invisible="1"/>
+                <notebook>
+                    <page string="Final Evaluation" attrs="{'invisible':[('state','=','new')]}">
+                        <field name="action_plan"/>
+                    </page>
+                    <page string="Mail To Send">
+                        <group>
+                            <field name="manager_body_html" string="Mail To Manager" attrs="{'invisible':[('manager_appraisal','=',False)]}"/>
+                            <field name="employee_body_html" string="Mail To Employee" attrs="{'invisible':[('employee_appraisal','=',False)]}"/>
+                            <field name="collaborators_body_html" string="Mail To Collaborators" attrs="{'invisible':[('collaborators_appraisal','=',False)]}"/>
+                            <field name="colleagues_body_html" string="Mail To Colleagues" attrs="{'invisible':[('colleagues_appraisal','=',False)]}"/>
+                        </group>
+                    </page>
+                </notebook>
+          </sheet>
+          <div class="oe_chatter">
+              <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+              <field name="activity_ids" widget="mail_activity"/>
+              <field name="message_ids" widget="mail_thread"/>
+          </div>
+          </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_hr_appraisal_tree">
+        <field name="name">hr.appraisal.tree</field>
+        <field name="model">hr.appraisal</field>
+        <field name="arch" type="xml">
+            <tree string="Appraisal">
+                <field name="active" invisible="1"/>
+                <field name="employee_id" string="Name"/>
+                <field name="date_close"/>
+                <field name="date_final_interview"/>
+                <field name="state"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+                <field name="activity_exception_decoration" widget="activity_exception"/>
+            </tree>
+        </field>
+    </record>
+
+   <record id="hr_appraisal_search" model="ir.ui.view">
+        <field name="name">hr.appraisal.search</field>
+        <field name="model">hr.appraisal</field>
+        <field name="arch" type="xml">
+            <search string="Search Appraisal">
+                <field name="employee_id"/>
+                <filter string="To Do" name="my_appraisals" domain="[
+                    '|', '|', '|',
+                    ('employee_id.user_id', '=', uid),
+                    ('manager_ids.user_id', 'in', [uid]),
+                    ('collaborators_ids.user_id', 'in', [uid]),
+                    ('colleagues_ids.user_id', 'in', [uid]),
+                ]"/>
+                <separator/>
+                <filter string="My Appraisals" name="my_appraisals" domain="[('employee_id.user_id', '=', uid)]"/>
+                <separator/>
+                <filter string="Late" name="late_appraisals" domain="[('date_close', '&lt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter invisible="1" string="Late Activities" name="activities_overdue"
+                    domain="[('activity_ids.date_deadline', '&lt;', context_today().strftime('%Y-%m-%d'))]"
+                    help="Show all records which has next action date is before today"/>
+                <filter invisible="1" string="Today Activities" name="activities_today"
+                    domain="[('activity_ids.date_deadline', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <filter invisible="1" string="Future Activities" name="activities_upcoming_all"
+                    domain="[('activity_ids.date_deadline', '&gt;', context_today().strftime('%Y-%m-%d'))]"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active','=',False)]"/>
+                <group expand='0' string='Group by...'>
+                    <filter string='Employee' name="employee" icon="fa-user" domain="[]" context="{'group_by': 'employee_id'}"/>
+               </group>
+           </search>
+        </field>
+    </record>
+
+    <record id="hr_appraisal_kanban" model="ir.ui.view">
+        <field name="name">hr.appraisal.kanban</field>
+        <field name="model">hr.appraisal</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" quick_create="false">
+                <field name="color"/>
+                <field name="state"/>
+                <field name="activity_ids" />
+                <field name="activity_state" />
+                <field name="manager_ids" />
+                <progressbar field="activity_state" colors='{"planned": "success", "today": "warning", "overdue": "danger"}'/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="{{!selection_mode ? 'oe_kanban_color_' + kanban_getcolor(record.color.raw_value) : ''}} oe_kanban_card oe_kanban_global_click">
+                            <span class="oe_kanban_color_help" t-attf-title="In #{kanban_getcolorname(record.color.raw_value)}" role="img" t-attf-aria-label="In #{kanban_getcolorname(record.color.raw_value)}"/>
+                            <div class="o_dropdown_kanban dropdown" groups="base.group_user">
+                                <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown" href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                    <span class="fa fa-bars fa-lg"/>
+                                </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <t t-if="widget.editable"><a type="edit" class="dropdown-item" role="menuitem">Edit</a></t>
+                                    <t t-if="widget.deletable"><a type="delete" class="dropdown-item" role="menuitem">Delete</a></t>
+                                    <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                </div>
+                            </div>
+                            <div class="oe_kanban_content">
+                                <div><strong><field name="employee_id"/></strong></div>
+                                <field name="department_id"/>
+                                <div>
+                                    <t t-if="! record.date_final_interview.raw_value and record.state.raw_value != 'new' and record.state.raw_value != 'cancel'">
+                                    <strong><a name="action_calendar_event" type="object">Schedule The Final Interview</a></strong></t>
+                                    <t t-if="record.date_final_interview.raw_value and record.state.raw_value != 'new' and record.date_final_interview.raw_value &lt; (new Date())" t-set="deadline">oe_kanban_text_red</t>
+                                    <t t-if="record.date_final_interview.raw_value and record.state.raw_value != 'new'"><strong><span>Final Interview: </span></strong>
+                                    <span t-attf-class="#{deadline}"><i><field name="date_final_interview"/></i></span></t>
+                                </div>
+                                <div class="o_kanban_record_bottom">
+                                    <div class="oe_kanban_bottom_left">
+                                        <div class="o_kanban_inline_block">
+                                            <field name="activity_ids" widget="kanban_activity"/>
+                                            <t t-if="record.date_close.raw_value and record.date_close.raw_value &lt; (new Date())" t-set="red">oe_kanban_text_red</t>
+                                                Deadline: <span t-attf-class="#{red}"><i><field name="date_close"/></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="oe_kanban_bottom_right">
+                                        <t t-foreach="record.manager_ids.raw_value.slice(0,8)" t-as="manager">
+                                            <img class="oe_kanban_avatar" t-att-src="kanban_image('hr.employee', 'image_128', manager)" t-att-title="manager.value" t-att-alt="manager.value"/>
+                                        </t>
+                                    </div>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="hr_appraisal_view_activity" model="ir.ui.view">
+        <field name="name">hr.appraisal.activity</field>
+        <field name="model">hr.appraisal</field>
+        <field name="arch" type="xml">
+            <activity string="Appraisal">
+                <field name="employee_id"/>
+                <templates>
+                    <div t-name="activity-box">
+                        <img t-att-src="activity_image('hr.employee', 'image_128', record.employee_id.raw_value)" t-att-title="record.employee_id.value" t-att-alt="record.employee_id.value"/>
+                        <div>
+                            <field name="employee_id"/>
+                        </div>
+                        <div class="text-muted">
+                            <t t-if="record.date_close.raw_value and record.date_close.raw_value &lt; (new Date())" t-set="red">text-danger</t>
+                            Deadline: <span t-attf-class="#{red}"><i><field name="date_close"/></i></span>
+                        </div>
+                    </div>
+                </templates>
+            </activity>
+        </field>
+    </record>
+
+    <record id="hr_appraisal_view_gantt" model="ir.ui.view">
+        <field name="name">hr.appraisal.gantt</field>
+        <field name="model">hr.appraisal</field>
+        <field name="arch" type="xml">
+            <gantt
+                color="employee_id"
+                date_start="date_close"
+                date_stop="date_close"
+                default_group_by='department_id'/>
+        </field>
+    </record>
+
+    <record id="hr_appraisal_view_calendar" model="ir.ui.view">
+        <field name="name">hr.appraisal.calendar</field>
+        <field name="model">hr.appraisal</field>
+        <field name="arch" type="xml">
+            <calendar date_start="date_close" date_stop="date_close" mode="month" color="employee_id">
+                <field name="display_name"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="open_view_hr_appraisal_tree">
+        <field name="name">Appraisal</field>
+        <field name="res_model">hr.appraisal</field>
+        <field name="view_mode">kanban,tree,gantt,calendar,form,activity</field>
+        <field name="context">{"search_default_next_month":1}</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new appraisal
+          </p><p>
+            You will be able to choose which forms will be sent (Employee,Managers,Collaborators or Colleagues),
+            to whom and the evaluation deadline. Once you have defined it,
+            change the stage to send it and view the results.
+          </p>
+        </field>
+    </record>
+
+    <menuitem name="Appraisal"
+        parent="menu_hr_appraisal_root"
+        id="menu_open_view_hr_appraisal_tree"
+        action="open_view_hr_appraisal_tree"
+        sequence="1"
+        groups="base.group_user"/>
+
+    <record model="ir.actions.act_window" id="open_view_hr_appraisal_tree2">
+        <field name="name">Appraisal</field>
+        <field name="res_model">hr.appraisal</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="context">{"search_default_employee_id": [active_id], "default_employee_id": active_id}}</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hr_appraisal_action">
+        <field name="name">Appraisal</field>
+        <field name="res_model">hr.appraisal</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="domain">[('employee_id.user_id', '=', uid)]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="hr_appraisal_action_my">
+        <field name="name">My Appraisals</field>
+        <field name="res_model">hr.appraisal</field>
+        <field name="view_mode">kanban,tree,form,activity</field>
+        <field name="context">{'search_default_my_appraisals': 1}</field>
+    </record>
+
+    <record id="hr_appraisal_action_from_department" model="ir.actions.act_window">
+            <field name="name">Appraisal to start</field>
+            <field name="res_model">hr.appraisal</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="hr_appraisal_search"/>
+            <field name="domain">[('department_id', '=', active_id), ('state', 'in', ['new', 'pending'])]</field>
+    </record>
+</odoo>

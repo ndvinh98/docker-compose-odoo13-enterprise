@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_account_move_closing_mx" model="ir.ui.view">
+            <field name="name">account.move.closing.mx</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="l10n_mx_closing_move" invisible="1"/>
+                    <button string="Mark as closing entry for the fiscal year"
+                            name="action_mark_as_closing_move"
+                            type="object"
+                            attrs="{'invisible':['|','|', ('state','!=','posted'), ('l10n_mx_closing_move','=',True), ('type', '!=', 'entry')]}"/>
+                </field>
+            </field>
+        </record>
+    </data>
+</odoo>

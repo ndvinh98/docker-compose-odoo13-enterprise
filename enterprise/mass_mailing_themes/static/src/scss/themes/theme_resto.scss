@@ -1,0 +1,106 @@
+// ==========================
+// Mass Mailing "Theme Resto"
+// ==========================
+
+$o-mm-resto-color-alpha: #f0ede0;
+$o-mm-resto-color-beta: #ffffff;
+$o-mm-resto-color-gamma: #E96D1F;
+$o-mm-resto-color-delta: #712b22;
+$o-mm-resto-color-epsilon: darken($o-mm-resto-color-gamma, 5%);
+$o-mm-resto-color-zeta: #795745;
+
+.o_resto_theme {
+    // ===== Editor =====
+    &.o_in_iframe {
+        background-color: $o-mm-resto-color-alpha;
+    }
+
+    @include bg-variant(".bg-beta", $o-mm-resto-color-zeta);
+    @include text-emphasis-variant(".text-beta", $o-mm-resto-color-zeta);
+    @include bg-variant(".bg-delta", $o-mm-resto-color-gamma);
+    @include text-emphasis-variant(".text-delta", $o-mm-resto-color-epsilon);
+
+    // ===== Layout =====
+    &.o_layout {
+        background-color: $o-mm-resto-color-alpha;
+
+        .o_mail_wrapper_td {
+            border: none;
+            background-color:transparent;
+        }
+    }
+
+    // ===== Snippets (general) =====
+    .o_mail_snippet_general {
+        background: rgba(0,0,0,0);
+        background: transparent;
+        color: $o-mm-resto-color-delta;
+
+        .btn.btn-primary {
+            color: $o-mm-resto-color-beta;
+            background-color: $o-mm-resto-color-gamma;
+        }
+
+        a, .btn.btn-link {
+            font-weight: normal;
+            color: $o-mm-resto-color-epsilon;
+        }
+
+        .separator {
+            background-color: lighten($o-mm-resto-color-zeta, 20%);
+        }
+
+        .bg-beta, .bg-delta {
+            h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+                color: $o-mm-resto-color-beta;
+            }
+        }
+
+        .bg-delta {
+            a, .btn.btn-link {
+                color: $o-mm-resto-color-zeta;
+            }
+
+            .btn.btn-primary {
+                color: $o-mm-resto-color-beta;
+                background-color: $o-mm-resto-color-zeta;
+            }
+        }
+    }
+
+    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+        color: darken($o-mm-resto-color-zeta, 10%);
+        font-weight: bold;
+    }
+
+    // ===== Snippets (specific) =====
+    .o_mail_block_header_social, .o_mail_block_header_text_social, .o_mail_block_header_logo {
+        table:first-child {
+            border-bottom: 5px solid $o-mm-resto-color-gamma;
+        }
+
+        .o_mail_header_social {
+            a {
+                color: $o-mm-resto-color-gamma;
+            }
+        }
+    }
+
+    .o_mail_block_steps {
+        border-top: 2px solid $o-mm-resto-color-gamma;
+        background: $o-mm-resto-color-beta;
+    }
+
+    .o_mail_block_event {
+        .o_mail_snippet_general{
+            background: darken($o-mm-resto-color-beta, 2%);
+        }
+    }
+
+    .o_mail_block_footer_social {
+        .o_mail_table_styles {
+            border-top: 2px solid lighten($o-mm-resto-color-zeta, 20%);
+            padding-top: 20px;
+        }
+    }
+}

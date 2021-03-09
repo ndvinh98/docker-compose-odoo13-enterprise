@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="payment_acquirer_form_sepa_direct_debit" model="ir.ui.view">
+        <field name="name">payment.acquirer.form.sepa</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_form"/>
+        <field name="arch" type="xml">
+            <page name="acquirer_credentials" position="attributes">
+                <attribute name="attrs">{'invisible': [('provider', 'in', ['transfer', 'sepa_direct_debit'])]}</attribute>
+            </page>
+            <field name="done_msg" position="attributes">
+                <attribute name="attrs">{'invisible': [('provider', 'in', ['transfer', 'sepa_direct_debit'])]}</attribute>
+            </field>
+            <field name="cancel_msg" position="attributes">
+                <attribute name="attrs">{'invisible': [('provider', 'in', ['transfer', 'sepa_direct_debit'])]}</attribute>
+            </field>
+            <field name="payment_icon_ids" position="attributes">
+                <attribute name="attrs">{'invisible': [('provider', '=', 'sepa_direct_debit')]}</attribute>
+            </field>
+
+            <field name="payment_flow" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('token_implemented', '=', False), ('provider', '=', 'sepa_direct_debit')]}</attribute>
+            </field>
+
+            <xpath expr="//group[@name='acquirer_config']" position="after">
+                <group attrs="{'invisible': [('provider', '!=', 'sepa_direct_debit')]}">
+                    <field name="sepa_direct_debit_sign_enabled"/>
+                    <field name="sepa_direct_debit_sms_enabled"/>
+                    <field name="iap_sms_credits"
+                           options="{'currency_field': 'currency_id'}"
+                           attrs="{'invisible': [('sepa_direct_debit_sms_enabled', '=', False)]}"/>
+                </group>
+                <group attrs="{'invisible': [('provider', '!=', 'sepa_direct_debit')]}">
+                    <widget name="iap_buy_more_credits"
+                            service_name="sms"
+                            attrs="{'invisible': [('sepa_direct_debit_sms_enabled', '=', False)]}"/>
+                </group>
+            </xpath>
+
+            <field name="image_128" position="before">
+                <div class="alert alert-warning mb16" role="status" attrs="{'invisible': ['|', ('provider', '!=', 'sepa_direct_debit'), '|', ('sepa_direct_debit_sms_enabled', '=', False), ('iap_sms_credits', '>', 0)]}">
+                    You don't have enough credit to send SMS. You can buy new credits here:
+                    <button string="Buy credits" type="object" name="buy_credits" class="btn btn-sm btn-primary pull-right mb0"/>
+                </div>
+            </field>
+        </field>
+    </record>
+
+    <!-- hide environment (test/prod) label -->
+    <record id="payment_acquirer_kanban_sepa_direct_debit" model="ir.ui.view">
+        <field name="name">payment.acquirer.kanban.sepa</field>
+        <field name="model">payment.acquirer</field>
+        <field name="inherit_id" ref="payment.acquirer_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('o_payment_acquirer_bottom')]//field[@name='state']" position="attributes">
+                <attribute name="attrs">{'invisible': [('provider', '=', 'sepa_direct_debit')]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="payment_sepa_direct_debit_mandate_form">
+        <field name="name">payment.sepa.direct.debit.mandate.form</field>
+        <field name="model">sdd.mandate</field>
+        <field name="inherit_id" ref="account_sepa_direct_debit.account_sepa_direct_debit_mandate_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/group" postion="inside">
+                <group name="signature" string="Electronic Signature" attrs="{'invisible': [('signature', '=', False), ('phone_number', '=', False)]}">
+                    <field name="signed_on"/>
+                    <field name="signed_by" attrs="{'invisible': [('signed_by', '=', False)]}"/>
+                    <field name="signature" widget="signature" attrs="{'invisible': [('signature', '=', False)]}"/>
+                    <field name="phone_number" widget="phone" attrs="{'invisible': [('phone_number', '=', False)]}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

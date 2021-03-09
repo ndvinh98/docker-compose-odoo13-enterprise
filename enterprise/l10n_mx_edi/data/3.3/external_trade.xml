@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="external_tradev11" inherit_id="l10n_mx_edi.cfdiv33">
+        <xpath expr="//*[name()='cfdi:Comprobante']" position="attributes" t-if="record.l10n_mx_edi_origin">
+            <attribute name="xmlns__cce11">http://www.sat.gob.mx/ComercioExterior11</attribute>
+        </xpath>
+        <xpath expr="(//*[local-name()='Receptor'])" position="attributes">
+            <attribute name="t-att-ResidenciaFiscal">customer.country_id.l10n_mx_edi_code if customer.country_id.l10n_mx_edi_code != 'MEX' and record.l10n_mx_edi_external_trade else False</attribute>
+        </xpath>
+        <xpath expr="*" position="inside">
+            <t t-if="record.l10n_mx_edi_external_trade">
+               <cfdi:Complemento
+                   xmlns:cfdi="http://www.sat.gob.mx/cfd/3">
+                   <cce11:ComercioExterior
+                       xmlns:cce11="http://www.sat.gob.mx/ComercioExterior11"
+                       Version="1.1"
+                       t-att-MotivoTraslado="reason_transfer"
+                       TipoOperacion="2"
+                       ClaveDePedimento="A1"
+                       t-att-CertificadoOrigen="'1' if record.l10n_mx_edi_cer_source else '0'"
+                       t-att-NumCertificadoOrigen="record.l10n_mx_edi_cer_source"
+                       t-att-NumeroExportadorConfiable="record.company_id.l10n_mx_edi_num_exporter if customer.country_id in europe_group.country_ids else None"
+                       t-att-Incoterm="record.invoice_incoterm_id.code"
+                       Subdivision="0"
+                       t-att-Observaciones="record._get_string_cfdi(record.narration, 300) if record.narration else None"
+                       t-att-TipoCambioUSD="'%.6f' % amount_usd(usd, mxn, 1)"
+                       t-att-TotalUSD="'%.2f' % total_usd(record.invoice_line_ids, usd, record.currency_id)">
+                       <cce11:Emisor
+                           t-att-Curp="supplier.l10n_mx_edi_curp or None">
+                           <cce11:Domicilio
+                               t-att-Calle="record._get_string_cfdi(supplier.street_name or '') or None"
+                               t-att-NumeroExterior="record._get_string_cfdi(supplier.street_number or '') or None"
+                               t-att-NumeroInterior="record._get_string_cfdi(supplier.street_number2 or '') or None"
+                               t-att-Colonia="supplier.l10n_mx_edi_colony_code"
+                               t-att-Localidad="supplier.l10n_mx_edi_locality_id.code"
+                               t-att-Municipio="supplier.city_id.l10n_mx_edi_code"
+                               t-att-Estado="supplier.state_id.code"
+                               t-att-Pais="supplier.country_id.l10n_mx_edi_code"
+                               t-att-CodigoPostal="supplier.zip"/>
+                       </cce11:Emisor>
+                       <cce11:Receptor>
+                           <cce11:Domicilio
+                               t-att-Calle="record._get_string_cfdi(customer.street_name or '') or None"
+                               t-att-NumeroExterior="record._get_string_cfdi(customer.street_number or '') or None"
+                               t-att-NumeroInterior="record._get_string_cfdi(customer.street_number2 or '') or None"
+                               t-att-Colonia="customer.l10n_mx_edi_colony_code if customer.country_id.l10n_mx_edi_code == 'MEX' else record._get_string_cfdi(customer.l10n_mx_edi_colony or '') or None"
+                               t-att-Localidad="customer.l10n_mx_edi_locality_id.code if customer.country_id.l10n_mx_edi_code == 'MEX' else customer.l10n_mx_edi_locality"
+                               t-att-Municipio="customer.city_id.l10n_mx_edi_code if customer.country_id.l10n_mx_edi_code == 'MEX' else customer.city"
+                               t-att-Estado="customer.state_id.code if customer.country_id.l10n_mx_edi_code in ('MEX', 'USA', 'CAN') or customer.state_id.code else 'NA'"
+                               t-att-Pais="customer.country_id.l10n_mx_edi_code"
+                               t-att-CodigoPostal="customer.zip"/>
+                       </cce11:Receptor>
+                       <t t-set="dest" t-value="record.env['res.partner'].browse(record._get_invoice_delivery_partner_id())"/>
+                       <t t-if="dest and dest != record.partner_id">
+                            <cce11:Destinatario
+                                t-att-NumRegIdTrib="dest.vat if dest.country_id == dest.commercial_partner_id.country_id else None"
+                                t-att-Nombre="dest.name">
+                                <cce11:Domicilio
+                                    t-att-Calle="record._get_string_cfdi(dest.street_name or '') or None"
+                                    t-att-NumeroExterior="record._get_string_cfdi(dest.street_number or '') or None"
+                                    t-att-NumeroInterior="record._get_string_cfdi(dest.street_number2 or '') or None"
+                                    t-att-Colonia="record._get_string_cfdi(dest.l10n_mx_edi_colony or '') or None"
+                                    t-att-Localidad="dest.l10n_mx_edi_locality"
+                                    t-att-Municipio="dest.city"
+                                    t-att-Estado="dest.state_id.code"
+                                    t-att-Pais="dest.country_id.l10n_mx_edi_code"
+                                    t-att-CodigoPostal="dest.zip"/>
+                            </cce11:Destinatario>
+                       </t>
+                       <cce11:Mercancias>
+                           <t t-set="products" t-value="[]"/>
+                           <t t-foreach="record.invoice_line_ids.filtered(lambda inv: not inv.display_type)" t-as="line">
+                               <t t-if="line.product_id.id not in products">
+                                   <cce11:Mercancia
+                                       t-att-NoIdentificacion="record._get_string_cfdi(line.product_id.default_code or '') or None"
+                                       t-att-FraccionArancelaria="line.l10n_mx_edi_tariff_fraction_id.code"
+                                       t-att-CantidadAduana="'%.3f' % quantity_aduana(line.product_id, record)"
+                                       t-att-UnidadAduana="line.l10n_mx_edi_umt_aduana_id.l10n_mx_edi_code_aduana"
+                                       t-att-ValorUnitarioAduana="'%.2f' % unit_value_usd(line, record.currency_id, usd)"
+                                       t-att-ValorDolares="'%.2f' % valor_usd(line, usd, record.currency_id)">
+                                   </cce11:Mercancia>
+                                   <t t-set="products" t-value="products + [line.product_id.id]"/>
+                               </t>
+                           </t>
+                       </cce11:Mercancias>
+                   </cce11:ComercioExterior>
+               </cfdi:Complemento>
+            </t>
+        </xpath>
+    </template>
+</odoo>

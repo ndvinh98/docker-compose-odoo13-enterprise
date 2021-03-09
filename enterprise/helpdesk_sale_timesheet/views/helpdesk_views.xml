@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="helpdesk_team_view_form_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.team.form.inherit.timesheet</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='helpdesk_sale_timesheet']" position='attributes'>
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.sale.timesheet</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='is_closed']" position="after">
+                <field name="is_overdue" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='is_task_active']" position="after">
+                <div class="alert alert-info" role="alert" style="margin-bottom:0px;" attrs="{'invisible': [('is_overdue', '=', False)]}">
+                    No more remaining hours on customer's task
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_sale_timesheet" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit.timesheet</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_timesheet.helpdesk_ticket_view_form_inherit_helpdesk_timesheet"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='timesheet_ids']/tree" position="attributes">
+                <attribute name="decoration-muted">timesheet_invoice_id != False</attribute>
+            </xpath>
+            <xpath expr="//field[@name='timesheet_ids']/tree" position="inside">
+                <field name="timesheet_invoice_id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='project_id']" position="before">
+                <field name="use_helpdesk_sale_timesheet" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='project_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="attrs">{'invisible': [('use_helpdesk_sale_timesheet', '=', False)], 'required': [('use_helpdesk_sale_timesheet', '=', True)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='task_id']" position="attributes">
+                <attribute name="invisible">0</attribute>
+                <attribute name="attrs">{'invisible': [('use_helpdesk_sale_timesheet', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

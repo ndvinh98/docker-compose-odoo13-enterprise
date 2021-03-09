@@ -1,0 +1,31 @@
+@include media-breakpoint-down(sm) {
+    .o_chatter {
+        .o_chatter_topbar {
+            flex-wrap: wrap-reverse;
+
+            > .o_topbar_right_area {
+                flex-basis: 100%;
+            }
+
+            > .o_topbar_right_area {
+                justify-content: space-between;
+                margin-left: initial;
+                border-bottom: $nav-tabs-border-width solid gray('300');
+
+                .o_followers {
+                    order: initial;
+                }
+
+                .o_chatter_button_attachment {
+                    margin-left: auto;
+                }
+            }
+        }
+        &.o_chatter_composer_active .o_chatter_topbar .btn.o_active {
+            border-top: 0;
+        }
+    }
+    .show.o_mail_systray_dropdown {
+        z-index: $zindex-tooltip + 10;
+    }
+}

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="report_281_10">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="employee">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <div class="row border">
+                                <div class="col-4 border-right">
+                                    <strong>Nr.</strong> <span t-esc="employee.id"/>
+                                </div>
+                                <div class="col-4 border-right">
+                                    <strong>Date de l'entrée:</strong> <span t-esc="data['F10_2055']"/>
+                                </div>
+                                <div class="col-4">
+                                    <strong>Date de la sortie:</strong> <span t-esc="data['F10_2056']"/>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-4 border-right">
+                                    <strong>Débiteur des revenus:</strong> <br/>
+                                    <span t-esc="data['company_name']"/> <br/>
+                                    <span t-esc="data['company_address']"/><br/>
+                                    <span t-esc="data['company_zip']"/>,
+                                    <span t-esc="data['company_city']"/> <br/>
+                                </div>
+                                <div class="col-4 border-left offset-4">
+                                    <strong>Bénéficiaire:</strong><br/>
+                                    <span t-esc="data['employee_name']"/><br/>
+                                    <span t-esc="data['employee_address']"/><br/>
+                                    <span t-esc="data['employee_zip']"/>,
+                                    <span t-esc="data['employee_city']"/><br/>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-12 text-center text-uppercase font-weight-bold">
+                                    Fiche 281.10 Revenus <span t-esc="datetime.datetime.now().year"/>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-5 border-right">
+                                    <strong>Situation de famille</strong>
+                                    <table class="table table-sm table-bordered">
+                                        <thead class="font-weight-bold">
+                                            <tr>
+                                                <th>Cjt.</th>
+                                                <th>Enf.</th>
+                                                <th>Autres</th>
+                                                <th>Divers</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td><span t-esc="data['F2020']"/></td>
+                                                <td><span t-esc="data['F2021']"/></td>
+                                                <td><span t-esc="data['F2022']"/></td>
+                                                <td><span t-esc="data['F2023']"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td><span t-esc="data['F2024']"/></td>
+                                                <td> </td>
+                                                <td> </td>
+                                                <td> </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-7">
+                                    <div class="row">
+                                        <div class="col border-bottom">
+                                            <strong>Etat Civil:</strong> <span t-esc="data['F2019']"/>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <strong>N° national:</strong>
+                                            <span t-esc="data['F10_2109']"/><br/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-12">
+                                    <div class="row border-bottom">
+                                        <div class="col-8">
+                                            <span class="text-left text-uppercase font-weight-bold">Rémunérations</span>
+                                        </div>
+                                        <div class="col-4 text-right">
+                                            <strong>Montant</strong>
+                                        </div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-7 font-weight-bold offset-1">a) Rémunérations: </div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2060']"/></div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-7 font-weight-bold offset-1">b) Avantages de toute nature - Nature: Véhicules</div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2076']"/></div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-7 font-weight-bold offset-1">A. Total: (a + b)</div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2062']"/></div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-7 font-weight-bold offset-1">B. Rémunérations ordinaires autres que visées sous "C" et comprises dans le total "A":</div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2132']"/></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7 font-weight-bold offset-1">C. Rémunérations pour préavis presté qui entrent en ligne pour l'exonération comprises dans le total "A"</div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2133']"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-12">
+                                    <div class="row border-bottom">
+                                        <div class="col-12">
+                                            <span class="text-left text-uppercase font-weight-bold">Revenus taxables distrinctement</span>
+                                        </div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-11 offset-1">
+                                            <div class="row">
+                                                <div class="col-8 font-weight-bold">a) Pécule de vacances anticipé: </div>
+                                                <div class="col-4 text-right"><span t-esc="data['F10_2063']"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-11 offset-1">
+                                            <span class="font-weight-bold">b) Arriérés:</span>
+                                            <div class="row">
+                                                <div class="col-7 font-weight-bold offset-1">1° ordinaires (autres que visés sous 2°):</div>
+                                                <div class="col-4 text-right"><span t-esc="data['F10_2064']"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-7 font-weight-bold offset-1">2° pour préavis presté qui entrent en ligne pour l'exonération:</div>
+                                                <div class="col-4 text-right"><span t-esc="data['F10_2134']"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-11 offset-1">
+                                            <span class="font-weight-bold">c) Indemnités de dédit:</span>
+                                            <div class="row">
+                                                <div class="col-7 font-weight-bold offset-1">1° qui entrent en ligne pour l'exonération:</div>
+                                                <div class="col-4 text-right"><span t-esc="data['F10_2128']"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-7 font-weight-bold offset-1">2° autres:</div>
+                                                <div class="col-4 text-right"><span t-esc="data['F10_2065']"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-11 offset-1">
+                                            <span class="font-weight-bold">d) Rémunérations du mois de décembre (Autorité publique):</span>
+                                            <div class="row">
+                                                <div class="col-7 font-weight-bold offset-1">1° ordinaires:</div>
+                                                <div class="col-4 text-right"><span t-esc="data['F10_2070']"/></div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-7 font-weight-bold offset-1">2° pour préavis presté qui entrent en ligne de compte pour l'exonération:</div>
+                                                <div class="col-4 text-right"><span t-esc="data['F10_2135']"/></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-8 font-weight-bold">
+                                    <span class="text-uppercase">Pc privé:</span> Montant de l'intervention de l'employeur:
+                                </div>
+                                <div class="col-4 text-right">
+                                    <span t-esc="data['F10_2130']"/>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-12">
+                                    <div class="row border-bottom">
+                                        <div class="col-12 font-weight-bold text-uppercase">
+                                            Intervention dans les frais de déplacement:
+                                        </div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-7 font-weight-bold offset-1">
+                                            a) Transport public en commun:
+                                        </div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2086']"/></div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-7 font-weight-bold offset-1">
+                                            b) Transport collectif organisé:
+                                        </div>
+                                        <div class="col-4 text-right">Néant</div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-7 font-weight-bold offset-1">c) Autres moyen de transport:</div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2088']"/></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7 font-weight-bold offset-1">d) Total: (a + b + c)</div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2077']"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-12">
+                                    <div class="row border-bottom">
+                                        <div class="col-12 font-weight-bold text-uppercase">
+                                            Retenues pour pensions complémentaires:
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7 font-weight-bold offset-1">
+                                            a) Cotisations et primes normales:
+                                        </div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2081']"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-8 text-uppercase font-weight-bold">
+                                    Précompte professionnel:
+                                </div>
+                                <div class="col-4 text-right">
+                                    <span t-esc="data['F10_2074']"/>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-8 text-uppercase font-weight-bold">
+                                    Cotisations spéciales pour la sécurité sociale:
+                                </div>
+                                <div class="col-4 text-right">
+                                    <span t-esc="data['F10_2075']"/>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-8 text-uppercase font-weight-bold">
+                                    Personnel du secteur public sans contrat de travail:
+                                </div>
+                                <div class="col-4 text-right">
+                                    Néant
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-8 text-uppercase font-weight-bold">
+                                    Bonus à l'emploi:
+                                </div>
+                                <div class="col-4 text-right">
+                                    <span t-esc="data['F10_2115']"/>
+                                </div>
+                            </div>
+                            <div class="row border border-top-0">
+                                <div class="col-12">
+                                    <div class="row border-bottom">
+                                        <div class="col-12 font-weight-bold text-uppercase">
+                                            Renseignements divers:
+                                        </div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-7 font-weight-bold offset-1">
+                                            a) Déplacement à vélo:
+                                            <span t-esc="data['F10_2058']"/> km
+                                            - Indeminité totale:
+                                        </div>
+                                        <div class="col-4 text-right">Néant</div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-7 font-weight-bold offset-1">
+                                            b) Dépenses propres à l'employeur:
+                                        </div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2078']"/></div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-7 font-weight-bold offset-1">e) Rémunérations pour préavis presté: date de notification du préavis: 00000000</div>
+                                        <div class="col-4 text-right"><span t-esc="data['F10_2093']"/></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

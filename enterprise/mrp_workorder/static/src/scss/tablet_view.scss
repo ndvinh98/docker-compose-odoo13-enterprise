@@ -1,0 +1,225 @@
+.o_web_client.o_fullscreen {
+    $o-wo-tablet-padding: $o-horizontal-padding;
+    $o-wo-tablet-btn-margin: 2px;
+    $o-wo-tablet-bg: #404040; // emulate the pdf reader
+    $o-wo-tablet-text: o-get-most-contrast($o-wo-tablet-bg, $body-color, #FFF);
+
+    .o_form_view.o_workorder_tablet {
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 0;
+        background-color: $o-wo-tablet-bg;
+        background-image: url(/web/static/lib/pdfjs/web/images/texture.png);
+        background-repeat: repeat;
+        color: $o-wo-tablet-text;
+        height: auto;
+
+        font-size: 16px;
+
+        @include media-breakpoint-up(xl) {
+            font-size: 18px;
+        }
+
+        // Components
+        h1,h2,h3,h4,h5,h6 {
+            color: $o-wo-tablet-text;
+        }
+
+        .btn {
+            font-size: 1em;
+            padding: 0.4em 1em;
+            margin: 0 $o-wo-tablet-btn-margin;
+
+            &.btn-secondary {
+                color: $o-wo-tablet-text;
+                background-color: $o-wo-tablet-bg;
+                border: $o-wo-tablet-bg;
+                text-transform: capitalize;
+            }
+
+            &.fa-plus-square-o {
+                margin-bottom: 1px;
+            }
+
+            &.o_workorder_icon_btn {
+                padding: 0.4em;
+
+                &.o_workorder_icon_back {
+                    padding: 0.4em 0.8em;
+                }
+            }
+
+            .o_workorder_btn_icon_small {
+                font-size: 0.8em;
+                margin-top: -1em;
+
+                &.float-right {
+                    margin-top: 0.5em;
+                }
+            }
+        }
+
+        .o_input {
+            background-color: $o-wo-tablet-bg;
+            color: $o-wo-tablet-text;
+            padding: 0.4em 1em;
+        }
+
+        .o_field_widget {
+            margin-bottom: 0;
+        }
+
+        .o_workorder_bar_content {
+            display: flex;
+            flex-flow: row nowrap;
+            flex: 1 0 auto;
+            align-items: center;
+
+            &.workorder_bar_left {
+                word-break: break-all;
+                flex-shrink: 1;
+            }
+
+            @include media-breakpoint-down(sm) {
+                justify-content: flex-start;
+                &.workorder_bar_left {
+                    flex-flow: wrap;
+                }
+            }
+
+            &.o_workorder_bar_content_right {
+                justify-content: flex-end;
+                @include media-breakpoint-down(sm) {
+                    justify-content: flex-start;
+                    .o_actions {
+                        display: flex;
+                        flex-flow: column;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        // Both Top Blocks
+        .workorder_bar, .workorder_actions {
+            background-color: darken($o-wo-tablet-bg, 5%);
+            background-image: url(/web/static/lib/pdfjs/web/images/texture.png);
+        }
+
+        // First Top Block
+        .workorder_bar {
+            display: flex;
+            flex-flow: row wrap;
+            padding: $o-wo-tablet-padding*0.5 $o-wo-tablet-padding;
+            padding-left: $o-wo-tablet-padding - $o-wo-tablet-btn-margin;
+            @include media-breakpoint-down(sm) {
+                flex-flow: column;
+            }
+        }
+
+        // Last top Block
+        .workorder_actions {
+            display: flex;
+            flex-flow: row nowrap;
+            @include media-breakpoint-down(sm) {
+                flex-flow: column;
+            }
+            padding: $o-wo-tablet-padding*0.5 $o-wo-tablet-padding - $o-wo-tablet-btn-margin $o-wo-tablet-padding;
+            box-shadow: 0 1px 1px rgba(black, 0.3);
+            font-size: 1.2em;
+        }
+
+        // Step's info block
+        .o_workorder_data {
+            padding: $o-wo-tablet-padding*0.5 $o-wo-tablet-padding 0;
+            font-size: 0.9em;
+
+            // Final resume table
+            table.o_list_table {
+                color: $body-color;
+            }
+
+            // Horizontal form
+            .o_workorder_form {
+                padding-bottom: $o-wo-tablet-padding*0.5;
+                justify-content: space-between;
+                @include media-breakpoint-down(sm) {
+                    flex-flow: column;
+                    align-items: flex-start;
+                }
+
+                > div {
+                    flex: 1 0 auto;
+                }
+
+                .o_workorder_field {
+                    > div.o_workorder_lot {
+                        width: 100%;
+                        justify-content: center;
+                        > .o_lot_number {
+                            width: 50%;
+                            &:not(.o_with_button) button.o_external_button {
+                                display: block !important;
+                                visibility: hidden;
+                            }
+                        }
+                    }
+                    > div {
+                        display: inline-flex;
+                        align-items: baseline;
+                    }
+
+                    .o_form_label {
+                        opacity: 0.7;
+                        display: inline-block;
+                        font-weight: bold;
+                    }
+                }
+
+                a, a::first-line {
+                    font-weight: bold;
+                    color: $o-wo-tablet-text;
+                }
+            }
+        }
+    }
+
+    .o_view_controller {
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    // PDF Viewer block
+    .workorder_pdf {
+        display: flex;
+        flex: 1 0 auto;
+
+        div.o_field_pdfviewer, span.o_embed_url_viewer {
+            margin: 0;
+            @include media-breakpoint-up(md) {
+                height: auto;
+            }
+            position: relative;
+            display: flex;
+            flex: 1 0 auto;
+
+            iframe {
+                display: block;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                @include o-position-absolute(0,0,0,0);
+            }
+        }
+    }
+
+    // Work order Modal
+    .workorder_menu {
+        .btn {
+            margin-bottom: $o-wo-tablet-padding;
+            padding: 1em;
+            font-size: 2em;
+            text-transform: uppercase;
+        }
+    }
+}

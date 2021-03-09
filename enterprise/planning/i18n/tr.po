@@ -1,0 +1,1287 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* planning
+# 
+# Translators:
+# Martin Trigaux, 2019
+# Levent Karakaş <levent@mektup.at>, 2019
+# Gökhan Erdoğdu <gokhan.erdogdu@mechsoft.com.tr>, 2019
+# Cécile Collart <cco@odoo.com>, 2019
+# Umur Akın <umura@projetgrup.com>, 2019
+# Buket Şeker <buket_skr@hotmail.com>, 2019
+# Murat Kaplan <muratk@projetgrup.com>, 2019
+# ANIL TAN SAĞIR <anils@projetgrup.com>, 2019
+# Yedigen, 2019
+# Ediz Duman <neps1192@gmail.com>, 2020
+# Tugay Hatıl <tugayh@projetgrup.com>, 2020
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2020
+# Murat Durmuş <muratd@projetgrup.com>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-10-18 10:09+0000\n"
+"PO-Revision-Date: 2019-09-09 12:35+0000\n"
+"Last-Translator: Murat Durmuş <muratd@projetgrup.com>, 2020\n"
+"Language-Team: Turkish (https://www.transifex.com/odoo/teams/41243/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "&amp;times;"
+msgstr "&amp;times;"
+
+#. module: planning
+#: model:mail.template,body_html:planning.email_template_planning_planning
+msgid ""
+"<div>\n"
+"                    % if ctx.get('employee'):\n"
+"                        <p>Dear ${ctx['employee'].name},</p>\n"
+"                    % else:\n"
+"                        <p>Hello,</p>\n"
+"                    % endif\n"
+"                    <p>\n"
+"                        You have been assigned new shifts:\n"
+"                    </p>\n"
+"\n"
+"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">From</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.start_datetime, tz=ctx.get('employee').tz or 'UTC', dt_format='short')}</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">To</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.end_datetime, tz=ctx.get('employee').tz or 'UTC', dt_format='short')}</td>\n"
+"                        </tr>\n"
+"                        % if object.project_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Project</th>\n"
+"                            <td style=\"padding: 5px;\">${object.project_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                    </table>\n"
+"\n"
+"                    % if ctx.get('planning_url'):\n"
+"                        <div style=\"margin: 15px;\">\n"
+"                            <a href=\"${ctx.get('planning_url')}\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">View Your Planning</a>\n"
+"                        </div>\n"
+"                    % endif\n"
+"\n"
+"                    % if ctx.get('slot_unassigned_count'):\n"
+"                        <p>There are new open shifts available. Please assign yourself if you are available.</p>\n"
+"                    % endif\n"
+"\n"
+"                    % if ctx.get('message'):\n"
+"                        <p>${ctx['message']}</p>\n"
+"                    % endif\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    % if ctx.get('employee'):\n"
+"                        <p>Sevgili ${ctx['employee'].name},</p>\n"
+"                    % else:\n"
+"                        <p>Merhaba,</p>\n"
+"                    % endif\n"
+"                    <p>\n"
+"                        Size yeni vardiyalar verildi:\n"
+"                    </p>\n"
+"\n"
+"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">From</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.start_datetime, tz=ctx.get('employee').tz veya 'UTC', dt_format='short')}</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">To</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.end_datetime, tz=ctx.get('employee').tz veya 'UTC', dt_format='short')}</td>\n"
+"                        </tr>\n"
+"                        % if object.project_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Proje</th>\n"
+"                            <td style=\"padding: 5px;\">${object.project_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                    </table>\n"
+"\n"
+"                    % if ctx.get('planning_url'):\n"
+"                        <div style=\"margin: 15px;\">\n"
+"                            <a href=\"${ctx.get('planning_url')}\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">Planlamanızı Görüntüleyin</a>\n"
+"                        </div>\n"
+"                    % endif\n"
+"\n"
+"                    % if ctx.get('slot_unassigned_count'):\n"
+"                        <p>Yeni açık vardiyalar mevcut. Mümkünse lütfen kendinizi atayın.</p>\n"
+"                    % endif\n"
+"\n"
+"                    % if ctx.get('message'):\n"
+"                        <p>${ctx['message']}</p>\n"
+"                    % endif\n"
+"                </div>\n"
+"            "
+
+#. module: planning
+#: model:mail.template,body_html:planning.email_template_slot_single
+msgid ""
+"<div>\n"
+"                    <p>Dear ${object.employee_id.name or ''},</p><br/>\n"
+"                    <p>You have been assigned the following schedule:</p><br/>\n"
+"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">From</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.start_datetime, tz=object.employee_id.tz)}</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">To</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.end_datetime, tz=object.employee_id.tz)}</td>\n"
+"                        </tr>\n"
+"                        % if object.role_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Role</th>\n"
+"                            <td style=\"padding: 5px;\">${object.role_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                        % if object.project_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Project</th>\n"
+"                            <td style=\"padding: 5px;\">${object.project_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                        % if object.name\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Note</th>\n"
+"                            <td style=\"padding: 5px;\">${object.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                    </table>\n"
+"                    <div style=\"text-align: center\">\n"
+"                        % if ctx.get('render_link')\n"
+"                        <div style=\"display: inline-block; margin: 15px; text-align: center\">\n"
+"                            <a href=\"${ctx.unavailable_path}${object.employee_id.employee_token}\" target=\"_blank\" style=\"padding: 5px 10px; color: #875A7B; text-decoration: none; background-color: #FFFFFF; border: 1px solid #FFFFFF; border-radius: 3px\">I am unavailable</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                        % if ctx.get('render_link')\n"
+"                        <div style=\"display: inline-block; margin: 15px; text-align: center\">\n"
+"                            <a href=\"/web?#action=${ctx.get('action_id')}&amp;model=planning.slot&amp;menu_id=${ctx.get('menu_id')}&amp;db=${'dbname' in ctx and ctx['dbname'] or '' }\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">View Planning</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+msgstr ""
+"<div>\n"
+"                    <p>Sevgili ${object.employee_id.name or ''},</p><br/>\n"
+"                    <p>Aşağıdaki program size atandı:</p><br/>\n"
+"                    <table style=\"table-layout: fixed; width: 80%; margin: auto;\">\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">From</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.start_datetime, tz=object.employee_id.tz)}</td>\n"
+"                        </tr>\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">To</th>\n"
+"                            <td style=\"padding: 5px;\">${format_datetime(object.end_datetime, tz=object.employee_id.tz)}</td>\n"
+"                        </tr>\n"
+"                        % if object.role_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Rol</th>\n"
+"                            <td style=\"padding: 5px;\">${object.role_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                        % if object.project_id\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Proje</th>\n"
+"                            <td style=\"padding: 5px;\">${object.project_id.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                        % if object.name\n"
+"                        <tr>\n"
+"                            <th style=\"padding: 5px;text-align: left; width: 15%;\">Note</th>\n"
+"                            <td style=\"padding: 5px;\">${object.name or ''}</td>\n"
+"                        </tr>\n"
+"                        % endif\n"
+"                    </table>\n"
+"                    <div style=\"text-align: center\">\n"
+"                        % if ctx.get('render_link')\n"
+"                        <div style=\"display: inline-block; margin: 15px; text-align: center\">\n"
+"                            <a href=\"${ctx.unavailable_path}${object.employee_id.employee_token}\" target=\"_blank\" style=\"padding: 5px 10px; color: #875A7B; text-decoration: none; background-color: #FFFFFF; border: 1px solid #FFFFFF; border-radius: 3px\">Müsait değilim</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                        % if ctx.get('render_link')\n"
+"                        <div style=\"display: inline-block; margin: 15px; text-align: center\">\n"
+"                            <a href=\"/web?#action=${ctx.get('action_id')}&amp;model=planning.slot&amp;menu_id=${ctx.get('menu_id')}&amp;db=${'dbname' in ctx and ctx['dbname'] or '' }\" target=\"_blank\" style=\"padding: 5px 10px; color: #FFFFFF; text-decoration: none; background-color: #875A7B; border: 1px solid #875A7B; border-radius: 3px\">Planlamayı Görüntüle</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                    </div>\n"
+"                </div>\n"
+"            "
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "<span aria-label=\"Close\">&amp;times;</span>"
+msgstr "<span aria-label=\"Close\">&amp;times;</span>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "<span class=\"align-middle\">for this employee at the same time.</span>"
+msgstr "<span class=\"align-middle\">bu çalışan için aynı anda</span>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "<span>week(s)</span>"
+msgstr "<span>hafta(lar)</span>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "<strong>Allocated Hours: </strong>"
+msgstr "<strong>Tahsis Edilen Saatler:</strong>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt_inherit
+msgid "<strong>Allocated Time (%): </strong>"
+msgstr "<strong>Tahsis Edilen Zaman (%): </strong>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "<strong>Start Date: </strong>"
+msgstr "<strong>Date de début:</strong>"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "<strong>Stop Date: </strong>"
+msgstr "<strong>Bitiş Tarihi: </strong>"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_until_limit
+msgid ""
+"A recurrence repeating itself until a certain date must have its limit set"
+msgstr ""
+"Belirli bir tarihe kadar kendini tekrar eden bir yineleme sınırının "
+"ayarlanmış olması gerekir"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "ASSIGN ME THIS SHIFT"
+msgstr "Bana bu değişikliği at"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Add"
+msgstr "Ekle"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Add record"
+msgstr "Kayıt ekle"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
+msgid "Additional message"
+msgstr "Ek mesaj"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_send__note
+msgid "Additional message displayed in the email sent to employees"
+msgstr "Çalışanlara gönderilen e-postada görüntülenen ek mesaj"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__number_hours
+msgid "Allocated Hours"
+msgstr "Tahsis Edilen Saatler"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Allocated Hours:"
+msgstr "Tahsis Edilen Saatler:"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_percentage
+msgid "Allocated Time (%)"
+msgstr "Tahsis Edilen Zaman (%)"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__allocated_hours
+msgid "Allocated hours"
+msgstr "Tahsis Edilen Saatler"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__allocation_type
+msgid "Allocation Type"
+msgstr "Tahsis Türü"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_allow_self_unassign
+msgid "Allow Unassignment"
+msgstr "Atamaya İzin Ver"
+
+#. module: planning
+#: code:addons/planning/models/planning_recurrency.py:0
+#, python-format
+msgid "An shift must be in the same company as its recurrency."
+msgstr "Bir vardiya, yinelemesi ile aynı şirkette olmalıdır."
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Are you sure you want to do delete this shift?"
+msgstr "Bu vardiyayı silmek istediğinizden emin misiniz?"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_schedule_by_employee
+msgid "By Employee"
+msgstr "Personele"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_schedule_by_role
+msgid "By Role"
+msgstr "Rol"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_calendar
+msgid "Calendar"
+msgstr "Takvim"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_res_company__planning_allow_self_unassign
+msgid "Can employee un-assign themselves?"
+msgstr "Çalışan kendisinin atamasını kaldırabilir mi?"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "Close"
+msgstr "Kapat"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Collapse rows"
+msgstr "Satırları daralt"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_role__color
+#: model:ir.model.fields,field_description:planning.field_planning_slot__color
+msgid "Color"
+msgstr "Renk"
+
+#. module: planning
+#: model:ir.model,name:planning.model_res_company
+msgid "Companies"
+msgstr "Şirketler"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__company_id
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__company_id
+#: model:ir.model.fields,field_description:planning.field_planning_send__company_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot__company_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__company_id
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+msgid "Company"
+msgstr "Şirket"
+
+#. module: planning
+#: model:ir.model,name:planning.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigürasyon Ayarları"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_settings
+msgid "Configuration"
+msgstr "Yapılandırma"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Copy previous week"
+msgstr "Önceki haftayı kopyala"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid ""
+"Create your first shift by clicking on Add. Alternatively, you can use the "
+"(+) on the Gantt view."
+msgstr ""
+"Ekle'ye tıklayarak ilk vardiyanızı oluşturun. Alternatif olarak, Gantt "
+"görünümünde (+) kullanabilirsiniz."
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_role__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_send__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_slot__create_uid
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_role__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_send__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_slot__create_date
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__create_date
+msgid "Created on"
+msgstr "Oluşturulma"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__entry_date
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+msgid "Date"
+msgstr "Mail"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_hr_employee__planning_role_id
+msgid "Default Planning Role"
+msgstr "Varsayılan Planlama Rolü"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_res_company__planning_generation_interval
+msgid ""
+"Delay for the rate at which recurring shift should be generated in month"
+msgstr ""
+"Ay içinde yinelenen vardiyanın oluşturulması gereken oran için gecikme."
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_res_config_settings__planning_generation_interval
+msgid "Delay for the rate at which recurring shifts should be generated"
+msgstr "Yinelenen vardiyaların oluşturulması gereken oran için gecikme"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Delete"
+msgstr "Sil"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Discard"
+msgstr "Vazgeç"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_role__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_send__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_slot__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__display_name
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__display_name
+msgid "Display Name"
+msgstr "Görünüm Adı"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__duration
+msgid "Duration (hours)"
+msgstr "Süre (saatler)"
+
+#. module: planning
+#: model:ir.model,name:planning.model_hr_employee
+#: model:ir.model.fields,field_description:planning.field_planning_slot__employee_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__employee_id
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Employee"
+msgstr "Personel"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__end_datetime
+msgid "End Date"
+msgstr "Bitiş Tarihi"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "End date"
+msgstr "Bitiş tarihi"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_hr_employee_employee_token_unique
+msgid "Error: each employee token must be unique"
+msgstr "Hata: her çalışan belirteci benzersiz olmalıdır"
+
+#. module: planning
+#: code:addons/planning/models/planning_recurrency.py:0
+#, python-format
+msgid "Every %s week(s) until %s"
+msgstr "Her %s, %s haftaya kadar"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Expand rows"
+msgstr "Satırları genişlet"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_send__note
+msgid "Extra Message"
+msgstr "Ekstra Mesaj"
+
+#. module: planning
+#: model:ir.model.fields.selection,name:planning.selection__planning_slot__allocation_type__forecast
+msgid "Forecast"
+msgstr "Öngörü"
+
+#. module: planning
+#: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_type__forever
+#: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_type__forever
+msgid "Forever"
+msgstr "Sonsuza dek"
+
+#. module: planning
+#: code:addons/planning/models/planning_recurrency.py:0
+#, python-format
+msgid "Forever, every %s week(s)"
+msgstr "Sonsuza dek, her %s hafta"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "From"
+msgstr "Başlangıç"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Future"
+msgstr "Gelecek"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Group By"
+msgstr "Grupla"
+
+#. module: planning
+#: model:ir.filters,name:planning.planning_filter_by_employee
+msgid "Hours per Employee"
+msgstr "Kişi Başı Saat"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "I am unavailable"
+msgstr "Müsait değilim"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "I take it"
+msgstr "Ben alıyorum"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__id
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__id
+#: model:ir.model.fields,field_description:planning.field_planning_role__id
+#: model:ir.model.fields,field_description:planning.field_planning_send__id
+#: model:ir.model.fields,field_description:planning.field_planning_slot__id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__id
+msgid "ID"
+msgstr "ID"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__publication_warning
+msgid ""
+"If checked, it means that the shift contains has changed since its last "
+"publish."
+msgstr ""
+"İşaretlenirse, vardiya içeriğinin son yayınlanmasından bu yana değiştiği "
+"anlamına gelir."
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__is_published
+msgid ""
+"If checked, this means the planning entry has been sent to the employee. "
+"Modifying the planning entry will mark it as not sent."
+msgstr ""
+"İşaretlenirse, bu planlama girişinin çalışana gönderildiğini gösterir. "
+"Planlama girişini değiştirmek, girişi gönderilmedi olarak işaretler."
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__repeat_until
+msgid ""
+"If set, the recurrence stop at that date. Otherwise, the recurrence is "
+"applied indefinitely."
+msgstr ""
+"Ayarlanmışsa, yineleme o tarihte durur. Aksi takdirde, tekrarlama süresiz "
+"olarak uygulanır."
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__include_unassigned
+#: model:ir.model.fields,field_description:planning.field_planning_send__include_unassigned
+msgid "Includes Open shifts"
+msgstr "Açık vardiyaları içerir"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__is_published
+msgid "Is the shift sent"
+msgstr "Vardiya gönderildi mi?"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__is_assigned_to_me
+msgid "Is this shift assigned to the current user"
+msgstr "Bu vardiya mevcut kullanıcıya mı atandı?"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__last_generated_end_datetime
+msgid "Last Generated End Date"
+msgstr "Son Oluşturulan Bitiş Tarihi"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_role____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_send____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_slot____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis____last_update
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template____last_update
+msgid "Last Modified on"
+msgstr "Son Düzenleme"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_role__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_send__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_slot__write_uid
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_role__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_send__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_slot__write_date
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__last_sent_date
+msgid "Last sent date"
+msgstr "Son gönderme tarihi"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__allow_self_unassign
+msgid "Let employee unassign themselves"
+msgstr "Çalışan atamasını kaldırsın"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "Let employees unassign themselves from shifts"
+msgstr "Çalışanların vardiyalardan kendilerini atamalarına izin verin"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__allow_self_unassign
+#: model:ir.model.fields,help:planning.field_res_company__planning_allow_self_unassign
+#: model:ir.model.fields,help:planning.field_res_config_settings__planning_allow_self_unassign
+msgid "Let your employees un-assign themselves from shifts when unavailable"
+msgstr ""
+"Çalışanlarınızın müsait olmadığında kendilerini vardiyalardan atamalarına "
+"izin verin"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid "Let's start managing your employees' schedule!"
+msgstr "Çalışanlarınızın programını yönetmeye başlayalım!"
+
+#. module: planning
+#: model:res.groups,name:planning.group_planning_manager
+msgid "Manager"
+msgstr "Yönetici"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__publication_warning
+msgid "Modified since last publication"
+msgstr "Son yayından beri değiştirildi"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_my_calendar
+#: model:ir.actions.act_window,name:planning.planning_action_my_gantt
+#: model:ir.ui.menu,name:planning.planning_menu_my_planning
+msgid "My Planning"
+msgstr "Planlamam"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "My Shifts"
+msgstr "Vardiyalarım"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_role__name
+msgid "Name"
+msgstr "Adı"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Next"
+msgstr "Sonraki"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/field_colorpicker.xml:0
+#, python-format
+msgid "No color"
+msgstr "Renk yok"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__name
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Note"
+msgstr "Not"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Note:"
+msgstr "Not:"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__working_days_count
+msgid "Number of working days"
+msgstr "İş günü sayısı"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/planning_gantt_controller.js:0
+#, python-format
+msgid "Open"
+msgstr "Açık"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/planning_gantt_model.js:0
+#: model:ir.actions.act_window,name:planning.planning_action_open_shift
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+#, python-format
+msgid "Open Shifts"
+msgstr "Açık Vardiyalar"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Open shifts available"
+msgstr "Açık vardiya mevcut"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__overlap_slot_count
+msgid "Overlapping slots"
+msgstr "Çakışan yuvalar"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Past"
+msgstr "Geçmiş"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__allocated_percentage
+msgid "Percentage of time the employee is supposed to work during the shift."
+msgstr "Vardiya sırasında çalışanın çalışması gereken sürenin yüzdesi."
+
+#. module: planning
+#: model:ir.model.fields.selection,name:planning.selection__planning_slot__allocation_type__planning
+#: model:ir.ui.menu,name:planning.planning_menu_root
+#: model_terms:ir.ui.view,arch_db:planning.hr_employee_view_form_inherit
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_calendar
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "Planning"
+msgstr "Planlama"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_planning_analysis
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_graph
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_pivot
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_graph
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_pivot
+msgid "Planning Analysis"
+msgstr "Analizleri Planlama"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_recurrency
+msgid "Planning Recurrence"
+msgstr "Tekrarlama Planlaması"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_role
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_form
+msgid "Planning Role"
+msgstr "Planlama Rolü"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_role_view_tree
+msgid "Planning Role List"
+msgstr "Planlama Rol Listesi"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_roles
+msgid "Planning Roles"
+msgstr "Planlama Rolleri"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_schedule_by_employee
+#: model:ir.actions.act_window,name:planning.planning_action_schedule_by_role
+msgid "Planning Schedule"
+msgstr "Planlama Takvimi"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_slot
+msgid "Planning Shift"
+msgstr "Vardiya Planlama"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_slot_report_analysis
+msgid "Planning Statistics"
+msgstr "Planlama İstatistikleri"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__template_id
+msgid "Planning Templates"
+msgstr "Planlama Şablonları"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_planning_check_start_date_lower_stop_date
+#: model:ir.model.constraint,message:planning.constraint_planning_send_check_start_date_lower_stop_date
+msgid "Planning end date should be greater than its start date"
+msgstr "Planlama bitiş tarihi başlangıç tarihinden büyük olmalıdır"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "Planning of %s days"
+msgstr "%s günlerin planlaması"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_planning
+msgid "Planning sent by email"
+msgstr "Planlama e-posta ile gönderildi"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Planning:"
+msgstr "Planlama:"
+
+#. module: planning
+#: model:ir.actions.server,name:planning.ir_cron_forecast_schedule_ir_actions_server
+#: model:ir.cron,cron_name:planning.ir_cron_forecast_schedule
+#: model:ir.cron,name:planning.ir_cron_forecast_schedule
+msgid "Planning: generate next recurring shifts"
+msgstr "Planlama: bir sonraki yinelenen vardiyalar oluşturun"
+
+#. module: planning
+#: model:mail.template,subject:planning.email_template_slot_single
+msgid "Planning: new schedule (single shift)"
+msgstr "Planlama: yeni program (tek vardiya)"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Previous"
+msgstr "Önceki"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Publish"
+msgstr "Yayınla"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_send_view_form
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Publish & Send"
+msgstr "Yayınla ve Gönder"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_res_company__planning_generation_interval
+#: model:ir.model.fields,field_description:planning.field_res_config_settings__planning_generation_interval
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "Rate of shift generation"
+msgstr "Vardiya değiştirme oranı"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__recurrency_id
+msgid "Recurrency"
+msgstr "Yinelenme"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_recurrency_check_repeat_interval_positive
+msgid "Recurrency repeat interval should be at least 1"
+msgstr "Tekrarlama tekrar aralığı en az 1 olmalıdır"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__slot_ids
+msgid "Related planning entries"
+msgstr "İlgili planlama girişleri"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_slot__user_id
+msgid "Related user name for the resource to manage its access."
+msgstr "Kaynağın erişimini yönetmek için ilişkilendirilmiş kullanıcı"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__repeat
+msgid "Repeat"
+msgstr "Tekrarla"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "Repeat Every"
+msgstr "Tekrarlama Durumu"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_type
+msgid "Repeat Type"
+msgstr "Tekrarlama Türü"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_until
+msgid "Repeat Until"
+msgstr "Buna Kadar Tekrarla"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_interval
+#: model:ir.model.fields,field_description:planning.field_planning_slot__repeat_interval
+msgid "Repeat every"
+msgstr "Tekrarlama Durumu"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_until
+msgid "Repeat until"
+msgstr "Buna Kadar Tekrarla"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_reporting
+msgid "Reporting"
+msgstr "Raporlama"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__role_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_report_analysis__role_id
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__role_id
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_report_view_search
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Role"
+msgstr "Rol"
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_settings_role
+msgid "Roles"
+msgstr "Roller"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form_in_gantt
+msgid "Save"
+msgstr "Kaydet"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__template_creation
+msgid "Save as a Template"
+msgstr "Şablon Olarak Kaydet"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid ""
+"Save this shift as a template to reuse it, or make it recurrent. This will "
+"greatly ease your encoding process."
+msgstr ""
+"Bu vardiyayı yeniden kullanmak için şablon olarak kaydedin veya tekrarlayın."
+" Bu, kodlama işleminizi büyük ölçüde kolaylaştıracaktır."
+
+#. module: planning
+#: model:ir.ui.menu,name:planning.planning_menu_schedule
+msgid "Schedule"
+msgstr "Planlama"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.res_config_settings_view_form
+msgid "Schedule your employee shifts"
+msgstr "Çalışan vardiyalarınızı planlayın"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_hr_employee__employee_token
+#: model:ir.model.fields,field_description:planning.field_planning_planning__access_token
+msgid "Security Token"
+msgstr "Güvenlik Token"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_send
+msgid "Send Planning"
+msgstr "Planlama Gönder"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_send_action
+msgid "Send Planning Shifts"
+msgstr "Planlama Vardiyalarını Gönder"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Send schedule"
+msgstr "Planla Gönder"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid "Send the schedule and mark the shifts as published. Congratulations!"
+msgstr ""
+"Programı gönderin ve vardiyaları yayınlanmış olarak işaretleyin. Tebrikler!"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid "Send the schedule to your employees once it is ready."
+msgstr "Program hazır olduğunda çalışanlarınıza gönderin."
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_settings
+#: model:ir.ui.menu,name:planning.planning_menu_settings_config
+msgid "Settings"
+msgstr "Ayarlar"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "Shift"
+msgstr "Vardiya"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_tree
+msgid "Shift List"
+msgstr "Vardiya Listesi"
+
+#. module: planning
+#: model:ir.model,name:planning.model_planning_slot_template
+msgid "Shift Template"
+msgstr "Vardiya Şablonu"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_form
+msgid "Shift Template Form"
+msgstr "Vardiya Şablon Formu"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_slot_template_view_tree
+msgid "Shift Template List"
+msgstr "Vardiya Şablon Listesi"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_shift_template
+#: model:ir.ui.menu,name:planning.planning_menu_settings_shift_template
+msgid "Shift Templates"
+msgstr "Vardiya Şablonları"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_check_start_date_lower_end_date
+msgid "Shift end date should be greater than its start date"
+msgstr "Vardiya bitiş tarihi başlangıç tarihinden daha büyük olmalıdır"
+
+#. module: planning
+#: model:ir.actions.act_window,name:planning.planning_action_analysis
+msgid "Shifts Analysis"
+msgstr "Vardiya Analizleri"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "Shifts in conflict"
+msgstr "Çatışmadaki değişimler"
+
+#. module: planning
+#: model:res.groups,name:planning.group_planning_show_percentage
+msgid "Show Allocated Percentage"
+msgstr "Tahsis Edilen Yüzdeyi Göster"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__slot_ids
+msgid "Slot"
+msgstr "Slot"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "Some changes were made since this shift was published."
+msgstr ""
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__start_datetime
+#: model:ir.model.fields,field_description:planning.field_planning_send__start_datetime
+#: model:ir.model.fields,field_description:planning.field_planning_slot__start_datetime
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_search
+msgid "Start Date"
+msgstr "Başlangıç Tarihi"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Start Date:"
+msgstr "Başlangıç ​​tarihi:"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "Start date"
+msgstr "Başlama tarihi"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot_template__start_time
+msgid "Start hour"
+msgstr "Başlangıç ​​Saati"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_positive
+msgid "Start hour must be a positive number"
+msgstr "Başlangıç saati pozitif bir sayı olmalıdır"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_planning__end_datetime
+#: model:ir.model.fields,field_description:planning.field_planning_send__end_datetime
+msgid "Stop Date"
+msgstr "Durdurma Tarihi"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "Stop Date:"
+msgstr "Durdurma Tarihi:"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__template_autocomplete_ids
+msgid "Template Autocomplete"
+msgstr "Şablon Otomatik Tamamlama"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "The company does not allow you to self unassign."
+msgstr "Şirket kendi atamanızı kaldırmanıza izin vermiyor."
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "This shift is not assigned to you anymore."
+msgstr "Bu değişiklik artık size atanmadı."
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_shift_notification
+msgid "This shift is now assigned to you."
+msgstr "Bu vardiya şimdi size atanmıştır."
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__was_copied
+msgid "This shift was copied from previous week"
+msgstr "Bu vardiya önceki haftadan kopyalandı"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.period_report_template
+msgid "To"
+msgstr "Bitiş"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/xml/planning_gantt.xml:0
+#, python-format
+msgid "Today"
+msgstr "Bugün"
+
+#. module: planning
+#: model:ir.model.fields.selection,name:planning.selection__planning_recurrency__repeat_type__until
+#: model:ir.model.fields.selection,name:planning.selection__planning_slot__repeat_type__until
+msgid "Until"
+msgstr "Bitiş"
+
+#. module: planning
+#: model:ir.model.fields,help:planning.field_planning_recurrency__repeat_until
+msgid "Up to which date should the plannings be repeated"
+msgstr "Planlamalar hangi tarihe kadar tekrarlanmalıdır?"
+
+#. module: planning
+#. openerp-web
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#: code:addons/planning/static/src/js/tours/planning.js:0
+#, python-format
+msgid "Use this menu to visualize and schedule shifts"
+msgstr "Vardiyaları görselleştirmek ve programlamak için bu menüyü kullanın"
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_slot__user_id
+#: model:res.groups,name:planning.group_planning_user
+msgid "User"
+msgstr "Kullanıcı"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "You can not assign yourself to an already assigned shift."
+msgstr "Kendinize önceden atanmış bir vardiyaya atayamazsınız."
+
+#. module: planning
+#: code:addons/planning/controllers/main.py:0
+#, python-format
+msgid "You can not assign yourself to this shift."
+msgstr "Kendinizi bu vardiyaya atayamazsınız."
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "You can not unassign another employee than yourself."
+msgstr "Kendinizden başka bir çalışanın atamasını kaldıramazsınız."
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_duration_positive
+msgid "You cannot have a negative duration"
+msgstr "Negatif bir süreniz olamaz"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_template_check_start_time_lower_than_24
+msgid "You cannot have a start hour greater than 24"
+msgstr "24 saatten büyük bir başlangıç saatiniz olamaz"
+
+#. module: planning
+#: model:ir.model.constraint,message:planning.constraint_planning_slot_check_allocated_hours_positive
+msgid "You cannot have negative shift"
+msgstr "Negatif vardiyaya sahip olamazsın"
+
+#. module: planning
+#: code:addons/planning/models/planning.py:0
+#, python-format
+msgid "You don't the right to self assign."
+msgstr "Kendini atama hakkın yok."
+
+#. module: planning
+#: model:mail.template,subject:planning.email_template_planning_planning
+msgid ""
+"Your planning from ${format_datetime(object.start_datetime, "
+"tz=ctx.get('employee').tz or 'UTC', dt_format='short')} to "
+"${format_datetime(object.end_datetime, tz=employee.tz if employee else "
+"'UTC', dt_format='short')}"
+msgstr ""
+"Planlaman ${format_datetime(object.start_datetime, tz=ctx.get('employee').tz"
+" or 'UTC', dt_format='short')} to ${format_datetime(object.end_datetime, "
+"tz=employee.tz if employee else 'UTC', dt_format='short')}"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_form
+msgid "other shift(s)"
+msgstr "diğer vardiya(lar)"
+
+#. module: planning
+#: model_terms:ir.ui.view,arch_db:planning.planning_view_gantt
+msgid "other shift(s) in conflict."
+msgstr ""
+
+#. module: planning
+#: model:ir.model.fields,field_description:planning.field_planning_recurrency__repeat_type
+msgid "weeks"
+msgstr "haftalar"

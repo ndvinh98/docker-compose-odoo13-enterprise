@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_task_project_user_search_with_planned_dates" model="ir.ui.view">
+        <field name="name">report.project.task.user.search</field>
+        <field name="model">report.project.task.user</field>
+        <field name="inherit_id" ref="project.view_task_project_user_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group/filter[@name='assignation_month']" position="after">
+                <filter string="Planned Date" name="planned_date" context="{'group_by': 'date_assign'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

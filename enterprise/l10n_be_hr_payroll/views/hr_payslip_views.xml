@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_payslip_view_form" model="ir.ui.view">
+        <field name="name">hr.payslip.be.inherit.form</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_title')]" position="before">
+                <field name="has_attachment_salary" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payslip_view_tree" model="ir.ui.view">
+        <field name="name">hr.payslip.be.inherit.tree</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="has_attachment_salary" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="hr_payslip_view_search" model="ir.ui.view">
+        <field name="name">hr.payslip.view.search</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_filter"/>
+        <field name="arch" type="xml">
+            <filter name="credit_note" position="after">
+                <separator/>
+                <filter string="Has Attachment" name="has_attachment_salary" domain="[('has_attachment_salary', '=', True)]"/>
+            </filter>
+        </field>
+    </record>
+</odoo>

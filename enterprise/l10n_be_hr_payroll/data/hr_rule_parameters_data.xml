@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="rule_parameter_prp_yearly_gross_revenue_bound_expense" model="hr.rule.parameter">
+            <field name="name">Withholding Taxes Income Upper bound for Business Expenses</field>
+            <field name="code">yearly_gross_revenue_bound_expense</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_yearly_gross_revenue_bound_expense_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">15733.33</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_yearly_gross_revenue_bound_expense"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_yearly_gross_revenue_bound_expense_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">16033.33</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_yearly_gross_revenue_bound_expense"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_yearly_gross_revenue_bound_expense_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">16300.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_yearly_gross_revenue_bound_expense"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_expense_deduction" model="hr.rule.parameter">
+            <field name="name">Withholding Taxes Income Upper bound for Business Expenses</field>
+            <field name="code">expense_deduction</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_expense_deduction_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">4720.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_expense_deduction"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_expense_deduction_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">4810.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_expense_deduction"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_expense_deduction_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">4890.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_expense_deduction"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_basic_bareme" model="hr.rule.parameter">
+            <field name="name">Imputed professional revenue and taxable net yearly revenue minus imputed revenue</field>
+            <field name="code">basic_bareme_rates</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_basic_bareme_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">[(12600.0, 0.2675), (18610.0, 0.428), (39660.0, 0.4815), (None, 0.535)]</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_basic_bareme"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_basic_bareme_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">[(12860.0, 0.2675), (19630.0, 0.428), (40470.0, 0.4815), (None, 0.535)]</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_basic_bareme"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_basic_bareme_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">[(13050.0, 0.2675), (19920.0, 0.428), (41070.0, 0.4815), (None, 0.535)]</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_basic_bareme"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_deduct_single_with_income" model="hr.rule.parameter">
+            <field name="name">Isolated employee or spouse with revenue</field>
+            <field name="code">deduct_single_with_income</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_deduct_single_with_income_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">1690.60</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_deduct_single_with_income"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_deduct_single_with_income_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">2065.10</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_deduct_single_with_income"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_deduct_single_with_income_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">2097.20</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_deduct_single_with_income"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_max_spouse_income" model="hr.rule.parameter">
+            <field name="name">Maximal imputed amount to the employee's spouse</field>
+            <field name="code">max_spouse_income</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_max_spouse_income_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">10710.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_max_spouse_income"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_max_spouse_income_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">10930.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_max_spouse_income"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_max_spouse_income_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">11100.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_max_spouse_income"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_dependent_children_deduction" model="hr.rule.parameter">
+            <field name="name">Dependent children deduction</field>
+            <field name="code">dependent_basic_children_deduction</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_dependent_children_deduction_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">{
+                1: 36.0, 2: 97.0, 3: 253.0, 4: 454.0,
+                5: 677.0, 6: 902.0, 7: 1127.0, 8: 1371.0,
+            }</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_dependent_children_deduction"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_dependent_children_deduction_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">{
+                1: 36.0, 2: 104.0, 3: 275.0, 4: 483.0,
+                5: 712.0, 6: 944.0, 7: 1174.0, 8: 1428.0,
+            }</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_dependent_children_deduction"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_dependent_children_deduction_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">{
+                1: 37.0, 2: 106.0, 3: 280.0, 4: 490.0,
+                5: 724.0, 6: 957.0, 7: 1191.0, 8: 1448.0,
+            }</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_dependent_children_deduction"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_more_children_deduction" model="hr.rule.parameter">
+            <field name="name">Dependent children deduction</field>
+            <field name="code">dependent_children_deduction</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_more_children_deduction_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">251</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_more_children_deduction"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_more_children_deduction_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">256</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_more_children_deduction"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_more_children_deduction_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">260</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_more_children_deduction"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_isolated_deduction" model="hr.rule.parameter">
+            <field name="name">Isolated person deduction</field>
+            <field name="code">isolated_deduction</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_isolated_deduction_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">25</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_isolated_deduction"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_isolated_deduction_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">26</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_isolated_deduction"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/> <!-- Stay the same in 2020 -->
+        </record>
+
+        <!-- This deduction is applied in several cases (can be cumulated).
+        The conditions did not changed and always used the same amount for each condition since at least 2014.
+        Hence, only one rule parameter is used. Take extra care the day it changes -->
+        <record id="rule_parameter_prp_disabled_dependent_deduction" model="hr.rule.parameter">
+            <field name="name">Deduction for isolated/window, disabled, dependant people</field>
+            <field name="code">disabled_dependent_deduction</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_disabled_dependent_2014" model="hr.rule.parameter.value">
+            <field name="parameter_value">36</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_disabled_dependent_deduction"/>
+            <field name="date_from" eval="datetime(2014, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_disabled_dependent_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">37</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_disabled_dependent_deduction"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_dependent_senior_deduction" model="hr.rule.parameter">
+            <field name="name">Dependent senior deduction</field>
+            <field name="code">dependent_senior_deduction</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_dependent_senior_deduction_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">73</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_dependent_senior_deduction"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_dependent_senior_deduction_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">80</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_dependent_senior_deduction"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_dependent_senior_deduction_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">81</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_dependent_senior_deduction"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_spouse_low_income_deduction" model="hr.rule.parameter">
+            <field name="name">Spouse with low income deduction</field>
+            <field name="code">spouse_low_income_deduction</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_low_income_deduction_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">112.5</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_low_income_deduction"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_low_income_deduction_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">115.0</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_low_income_deduction"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_low_income_deduction_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">116.5</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_low_income_deduction"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_spouse_other_income_deduction" model="hr.rule.parameter">
+            <field name="name">Spouse with other income deduction</field>
+            <field name="code">spouse_other_income_deduction</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_other_income_deduction_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">225</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_other_income_deduction"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_other_income_deduction_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">229.5</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_other_income_deduction"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_other_income_deduction_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">233</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_other_income_deduction"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_spouse_low_income_limit" model="hr.rule.parameter">
+            <field name="name">Spouse with low income limit</field>
+            <field name="code">spouse_low_income_limit</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_low_income_limit_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">225</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_low_income_limit"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_low_income_limit_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">230</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_low_income_limit"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_low_income_limit_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">233</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_low_income_limit"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_prp_spouse_other_income_limit" model="hr.rule.parameter">
+            <field name="name">Spouse with other income limit</field>
+            <field name="code">spouse_other_income_limit</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_other_income_limit_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">450</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_other_income_limit"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_other_income_limit_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">459</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_other_income_limit"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_prp_spouse_other_income_limit_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">466</field>
+            <field name="rule_parameter_id" ref="rule_parameter_prp_spouse_other_income_limit"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <!-- ***** Employment Bonus ***** -->
+
+        <record id="rule_parameter_work_bonus_reference_wage_low" model="hr.rule.parameter">
+            <field name="name">Work Bonus: Low Reference Wage</field>
+            <field name="code">work_bonus_reference_wage_low</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_work_bonus_reference_wage_low_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">1609.47</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_low"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_work_bonus_reference_wage_low_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">1641.62</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_low"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_work_bonus_reference_wage_high" model="hr.rule.parameter">
+            <field name="name">Work Bonus: High Reference Wage</field>
+            <field name="code">work_bonus_reference_wage_high</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_work_bonus_reference_wage_high_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">2510.47</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_high"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_work_bonus_reference_wage_high_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">2560.57</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_reference_wage_high"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_work_bonus_basic_amount" model="hr.rule.parameter">
+            <field name="name">Work Bonus: Basic Amount</field>
+            <field name="code">work_bonus_basic_amount</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_work_bonus_basic_amount_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">197.67</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_basic_amount"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_value_work_bonus_basic_amount_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">201.62</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_basic_amount"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_work_bonus_coeff" model="hr.rule.parameter">
+            <field name="name">Work Bonus: Coefficient</field>
+            <field name="code">work_bonus_coeff</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_value_work_bonus_coeff_2017" model="hr.rule.parameter.value">
+            <field name="parameter_value">0.2194</field>
+            <field name="rule_parameter_id" ref="rule_parameter_work_bonus_coeff"/>
+            <field name="date_from" eval="datetime(2017, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_ip_first_bracket" model="hr.rule.parameter">
+            <field name="name">IP: First deduction bracket</field>
+            <field name="code">ip_deduction_bracket_1</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_ip_first_bracket_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">15660</field>
+            <field name="rule_parameter_id" ref="rule_parameter_ip_first_bracket"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_ip_first_bracket_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">15990</field>
+            <field name="rule_parameter_id" ref="rule_parameter_ip_first_bracket"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_ip_first_bracket_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">16320</field>
+            <field name="rule_parameter_id" ref="rule_parameter_ip_first_bracket"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+
+        <record id="rule_parameter_ip_second_bracket" model="hr.rule.parameter">
+            <field name="name">IP: First deduction bracket</field>
+            <field name="code">ip_deduction_bracket_2</field>
+            <field name="country_id" ref="base.be"/>
+        </record>
+        <record id="rule_parameter_ip_second_bracket_2018" model="hr.rule.parameter.value">
+            <field name="parameter_value">31320</field>
+            <field name="rule_parameter_id" ref="rule_parameter_ip_second_bracket"/>
+            <field name="date_from" eval="datetime(2018, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_ip_second_bracket_2019" model="hr.rule.parameter.value">
+            <field name="parameter_value">31990</field>
+            <field name="rule_parameter_id" ref="rule_parameter_ip_second_bracket"/>
+            <field name="date_from" eval="datetime(2019, 1, 1).date()"/>
+        </record>
+        <record id="rule_parameter_ip_second_bracket_2020" model="hr.rule.parameter.value">
+            <field name="parameter_value">32640</field>
+            <field name="rule_parameter_id" ref="rule_parameter_ip_second_bracket"/>
+            <field name="date_from" eval="datetime(2020, 1, 1).date()"/>
+        </record>
+    </data>
+</odoo>

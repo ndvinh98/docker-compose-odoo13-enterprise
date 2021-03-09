@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="l10n_be_hr_payroll_credit_time_wizard_view_form" model="ir.ui.view">
+        <field name="name">l10n_be.hr.payroll.credit.time.wizard.view.form</field>
+        <field name="model">l10n_be.hr.payroll.credit.time.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Contract Credit Time">
+            <h1><field name="contract_id" readonly="1"/></h1>
+                <group class="o_label_nowrap">
+                    <group>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                </group>
+                <group>
+                    <group class="o_label_nowrap">
+                        <field name="work_time"/>
+                        <field name="wage"/>
+                        <field name="resource_calendar_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="validate_credit_time" string="Create new contract" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="l10n_be_hr_payroll_exit_credit_time_wizard_view_form" model="ir.ui.view">
+        <field name="name">l10n_be.hr.payroll.exit.credit.time.wizard.view.form</field>
+        <field name="model">l10n_be.hr.payroll.exit.credit.time.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Contract Full Time">
+            <h1><field name="contract_id" readonly="1"/></h1>
+                <group class="o_label_nowrap">
+                    <group>
+                        <field name="date_start"/>
+                        <field name="date_end"/>
+                    </group>
+                </group>
+                <group>
+                    <group class="o_label_nowrap">
+                        <field name="wage"/>
+                        <field name="resource_calendar_id"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="validate_full_time" string="Create new contract" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="credit_time_wizard_action" model="ir.actions.act_window">
+        <field name="name">Contract Credit Time</field>
+        <field name="res_model">l10n_be.hr.payroll.credit.time.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="exit_credit_time_wizard_action" model="ir.actions.act_window">
+        <field name="name">Contract Full Time</field>
+        <field name="res_model">l10n_be.hr.payroll.exit.credit.time.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

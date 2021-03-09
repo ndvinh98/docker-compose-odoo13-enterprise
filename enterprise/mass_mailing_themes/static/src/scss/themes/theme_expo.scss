@@ -1,0 +1,88 @@
+// ============================
+// Mass Mailing "Theme EXPO"
+// ============================
+
+$o-mm-expo-color-alpha: #262b36;
+$o-mm-expo-color-beta: white;
+$o-mm-expo-color-gamma: #ff3c00;
+$o-mm-expo-color-delta: darken($o-mm-expo-color-gamma, 5%);
+$o-mm-expo-color-epsilon: black;
+$o-mm-expo-color-zeta: #f4f0e7;
+
+.o_expo_theme {
+    // ===== Colors =====
+    color: $o-mm-expo-color-epsilon;
+
+    @include bg-variant(".bg-beta", $o-mm-expo-color-alpha);
+    @include text-emphasis-variant(".text-beta", $o-mm-expo-color-alpha);
+    @include bg-variant(".bg-delta", $o-mm-expo-color-gamma);
+
+    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+        color: $o-mm-expo-color-epsilon;
+    }
+
+    .bg-beta {
+        h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+            color: $o-mm-expo-color-beta;
+        }
+    }
+
+    .btn.btn-primary {
+        color: $o-mm-expo-color-beta;
+        background-color: $o-mm-expo-color-gamma;
+    }
+
+    // ===== Layout =====
+    &.o_layout {
+        background-color: $o-mm-expo-color-beta;
+
+        > .o_mail_wrapper {
+            background-color: $o-mm-expo-color-zeta;
+            border: none;
+        }
+    }
+
+    // ===== Snippets (general) =====
+    .o_mail_snippet_general {
+        a, .btn.btn-link {
+            color: $o-mm-expo-color-delta;
+        }
+    }
+
+    // ===== Snippets (specific) =====
+    .o_mail_block_two_cols, .o_mail_block_three_cols {
+        .o_mail_col_container {
+            padding: 20px;
+        }
+    }
+    .o_mail_block_image_text, .o_mail_block_text_image {
+        .o_mail_img_container {
+            padding: 0
+        }
+    }
+    .o_mail_block_event {
+        margin: 0;
+        .o_mail_snippet_general {
+           @extend .bg-beta;
+       }
+    }
+    .o_mail_block_image {
+        table {
+            padding: 0;
+            .o_mail_col_mv {
+                padding-left: 15px;
+                padding-right: 15px;
+            }
+        }
+    }
+    .o_mail_block_comparison_table {
+        tfoot, tbody {
+            // Exceptionally overwrite this color class for this location.
+            // Not a problem since these elements are not editable by the user.
+            @include bg-variant(".bg-gray-lighter", $o-mm-expo-color-beta);
+        }
+    }
+    .o_mail_block_steps .o_mail_snippet_general{
+        @extend .bg-beta;
+    }
+}

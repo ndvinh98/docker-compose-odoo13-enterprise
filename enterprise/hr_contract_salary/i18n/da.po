@@ -1,0 +1,2084 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* hr_contract_salary
+# 
+# Translators:
+# jonas jensen <j.jensen@tcomp.dk>, 2019
+# Jarnhold Nattestad <nattestads@gmail.com>, 2019
+# Pernille Kristensen <pernillekristensen1994@gmail.com>, 2019
+# Morten Schou <ms@msteknik.dk>, 2019
+# JonathanStein <jstein@image.dk>, 2019
+# Jesper Carstensen <jc@danodoo.dk>, 2019
+# Ejner Sønniksen <ejner@vkdata.dk>, 2019
+# Martin Trigaux, 2020
+# lhmflexerp <lhm@flexerp.dk>, 2020
+# Sanne Kristensen <sanne@vkdata.dk>, 2020
+# Mads Søndergaard, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-27 09:32+0000\n"
+"PO-Revision-Date: 2019-08-26 09:36+0000\n"
+"Last-Translator: Mads Søndergaard, 2020\n"
+"Language-Team: Danish (https://www.transifex.com/odoo/teams/41243/da/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: da\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__signatures_count
+msgid "# Signatures"
+msgstr "# Underskrifter"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "# disabled people (&lt;65):"
+msgstr "# handicappede individer (&lt;65):"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "# disabled seniors (&gt;=65):"
+msgstr "# handicappede ældre (&gt;=65):"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "# people (&lt;65):"
+msgstr "# individer (&lt;65):"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "# seniors (&gt;=65):"
+msgstr "# ældre (&gt;=65):"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "$15k"
+msgstr "$15k"
+
+#. module: hr_contract_salary
+#: model:mail.template,subject:hr_contract_salary.mail_template_send_offer
+#: model:mail.template,subject:hr_contract_salary.mail_template_send_offer_applicant
+msgid "${object.company_id.name} : Job Offer - ${object.name}"
+msgstr "${object.company_id.name} : Jobtilbud - ${object.name}"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "+32 2 290 34 90"
+msgstr "+32 2 290 34 90"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "/year"
+msgstr "/år"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "00.00.00-000.00"
+msgstr "00.00.00-000.00"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "10  / 40 people"
+msgstr "10  / 40 personer"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "110 €"
+msgstr "110 €"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "13th Month:"
+msgstr "13. Måned:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "150 €"
+msgstr "150 €"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "3 months"
+msgstr "3 måneder"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "50% YoY"
+msgstr "50% ÅoÅ"
+
+#. module: hr_contract_salary
+#: model:mail.template,body_html:hr_contract_salary.mail_template_send_offer
+#: model:mail.template,body_html:hr_contract_salary.mail_template_send_offer_applicant
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <h2>Congratulations!</h2>\n"
+"    You can configure your salary package by clicking on the link below.\n"
+"    <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"        <a href=\"${ctx.get('salary_package_url')}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Configure your package</a>\n"
+"    </div>\n"
+"</div>\n"
+"        "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <h2>Tillykke!</h2>\n"
+"    Du kan konfigurere dine lønpakker ved at klikke på linket nedenunder.\n"
+"    <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"        <a href=\"${ctx.get('salary_package_url')}\" target=\"_blank\" style=\"background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;\">Konfigurer din pakke</a>\n"
+"    </div>\n"
+"</div>\n"
+"        "
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-crosshairs fa-fw fa-lg\"/> Commissions"
+msgstr "<i class=\"fa fa-1x fa-crosshairs fa-fw fa-lg\"/> Provisioner"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-cutlery fa-fw\"/> Meal Vouchers"
+msgstr "<i class=\"fa fa-1x fa-cutlery fa-fw\"/> Måltidskuponer"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-gift fa-fw fa-lg\"/> 13<sup>th</sup> Month"
+msgstr "<i class=\"fa fa-1x fa-gift fa-fw fa-lg\"/> 13 Måned"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-globe fa-fw fa-lg\"/> Internet Subscription"
+msgstr "<i class=\"fa fa-1x fa-globe fa-fw fa-lg\"/> Internet abonnement"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-leaf fa-fw\"/> Eco Vouchers"
+msgstr "<i class=\"fa fa-1x fa-leaf fa-fw\"/> Øko-rabatkuponer"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-minus fa-fw\"/> Benefit in Kind (Company Car)"
+msgstr "<i class=\"fa fa-1x fa-minus fa-fw\"/> Fordel i form (firmabil)"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-minus fa-fw\"/> Benefit in Kind (Internet)"
+msgstr "<i class=\"fa fa-1x fa-minus fa-fw\"/> Fordel i form (internet)"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<i class=\"fa fa-1x fa-minus fa-fw\"/> Benefit in Kind (Phone Subscription)"
+msgstr "<i class=\"fa fa-1x fa-minus fa-fw\"/> Fordel i form (telefonabonnement)"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-minus fa-fw\"/> Intellectual Property"
+msgstr "<i class=\"fa fa-1x fa-minus fa-fw\"/> Intellektuel ejendom"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<i class=\"fa fa-1x fa-minus fa-fw\"/> Intellectual Property Income "
+"Deduction"
+msgstr ""
+"<i class=\"fa fa-1x fa-minus fa-fw\"/> Intellektuel ejendom indtægtsfradrag"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-minus fa-fw\"/> Meal Vouchers"
+msgstr "<i class=\"fa fa-1x fa-minus fa-fw\"/> Madkuponer"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-minus fa-fw\"/> Social contribution"
+msgstr "<i class=\"fa fa-1x fa-minus fa-fw\"/> Sociale bidrag"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-minus fa-fw\"/> Special social contribution"
+msgstr "<i class=\"fa fa-1x fa-minus fa-fw\"/> Specielle sociale bidrag"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-minus fa-fw\"/> Withholding Tax"
+msgstr "<i class=\"fa fa-1x fa-minus fa-fw\"/> Kildeskat"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-plus fa-fw\"/> Benefit in Kind (Company Car)"
+msgstr "<i class=\"fa fa-1x fa-plus fa-fw\"/> Fordel i form (firmabil)"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-plus fa-fw\"/> Benefit in Kind (Internet)"
+msgstr "<i class=\"fa fa-1x fa-plus fa-fw\"/> Fordel i form (internet)"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-plus fa-fw\"/> Benefit in Kind Phone (Subscription)"
+msgstr "<i class=\"fa fa-1x fa-plus fa-fw\"/> Fordel i form Telefon (abonnement)"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-plus fa-fw\"/> Employment Bonus"
+msgstr "<i class=\"fa fa-1x fa-plus fa-fw\"/> Ansættelsesbonus"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-plus fa-fw\"/> Intellectual Property"
+msgstr "<i class=\"fa fa-1x fa-plus fa-fw\"/> Intellektuel ejendom"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-plus fa-fw\"/> Private Car Transport"
+msgstr "<i class=\"fa fa-1x fa-plus fa-fw\"/> Privat biltransport"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-plus fa-fw\"/> Representation Fees"
+msgstr "<i class=\"fa fa-1x fa-plus fa-fw\"/> Repræsentationsafgifter"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-suitcase fa-fw\"/> Double Holiday Pay"
+msgstr "<i class=\"fa fa-1x fa-suitcase fa-fw\"/> Dobbelt feriepenge"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-suitcase fa-fw\"/> Extra Time Off"
+msgstr "<i class=\"fa fa-1x fa-suitcase fa-fw\"/> Ekstra ferie"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<i class=\"fa fa-1x fa-tint fa-fw\"/> Fuel Card"
+msgstr "<i class=\"fa fa-1x fa-tint fa-fw\"/> Benzinkort"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
+msgid "<i class=\"fa fa-check-circle-o mr8\"/>Congratulations"
+msgstr "<i class=\"fa fa-check-circle-o mr8\"/>Tillykke"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<span class=\"badge badge-secondary\">15</span>"
+msgstr "<span class=\"badge badge-secondary\">15</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<span class=\"badge badge-secondary\">500</span>"
+msgstr "<span class=\"badge badge-secondary\">500</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"col-md-3 o_form_label col-form-label\">\n"
+"                                                    <i class=\"fa fa-1x fa-male fa-fw fa-lg\"/> Representation Fees\n"
+"                                                </span>"
+msgstr ""
+"<span class=\"col-md-3 o_form_label col-form-label\">\n"
+"                                                    <i class=\"fa fa-1x fa-male fa-fw fa-lg\"/>Repræsentationsafgifter\n"
+"                                                </span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"col-md-3 o_form_label col-form-label\">\n"
+"                                                    <i class=\"fa fa-1x fa-puzzle-piece fa-fw fa-lg\"/> Intellectual Property\n"
+"                                                </span>"
+msgstr ""
+"<span class=\"col-md-3 o_form_label col-form-label\">\n"
+"                                                    <i class=\"fa fa-1x fa-puzzle-piece fa-fw fa-lg\"/> Intellektuel ejendom\n"
+"                                                </span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"col-md-3 o_form_label col-form-label\">\n"
+"                                                <i class=\"fa fa-1x fa-car fa-fw\"/> Transport\n"
+"                                            </span>"
+msgstr ""
+"<span class=\"col-md-3 o_form_label col-form-label\">\n"
+"                                                <i class=\"fa fa-1x fa-car fa-fw\"/> Transport\n"
+"                                            </span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"col-md-3 o_form_label col-form-label\">\n"
+"                                                <i class=\"fa fa-1x fa-mobile fa-fw fa-lg\"/> Phone Subscription\n"
+"                                            </span>"
+msgstr ""
+"<span class=\"col-md-3 o_form_label col-form-label\">\n"
+"                                                <i class=\"fa fa-1x fa-mobile fa-fw fa-lg\"/> Telefonabonnnement\n"
+"                                            </span>"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"<span class=\"fa fa-2x fa-calendar\"></span>\n"
+"                    Sponsored Events"
+msgstr ""
+"<span class=\"fa fa-2x fa-calendar\"></span>\n"
+"                    Sponsoreret begivenheder"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"<span class=\"fa fa-2x fa-car\"></span>\n"
+"                    Save on commute"
+msgstr ""
+"<span class=\"fa fa-2x fa-car\"></span>\n"
+"                    Spar ved pendling"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"<span class=\"fa fa-2x fa-check-circle\"></span>\n"
+"                    Discount Programs"
+msgstr ""
+"<span class=\"fa fa-2x fa-check-circle\"></span>\n"
+"                    Rabat programmer"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"<span class=\"fa fa-2x fa-coffee\"></span>\n"
+"                    Eat &amp; Drink"
+msgstr ""
+"<span class=\"fa fa-2x fa-coffee\"></span>\n"
+"                    Spis & drik"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"<span class=\"fa fa-2x fa-futbol-o\"></span>\n"
+"                    Sport Activity"
+msgstr ""
+"<span class=\"fa fa-2x fa-futbol-o\"></span>\n"
+"                    Sportsaktivitet"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"<span class=\"fa fa-2x fa-heart\"></span>\n"
+"                    Benefits"
+msgstr ""
+"<span class=\"fa fa-2x fa-heart\"></span>\n"
+"                    Fordele"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"<span class=\"fa fa-2x fa-map-marker\"></span>\n"
+"                    Prime location"
+msgstr ""
+"<span class=\"fa fa-2x fa-map-marker\"></span>\n"
+"                    Primær placering"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"<span class=\"fa fa-2x fa-sun-o\"></span>\n"
+"                    PTOs"
+msgstr ""
+"<span class=\"fa fa-2x fa-sun-o\"></span>\n"
+"                    PTOer"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text mt8\" id=\"internet_tooltip\">Enter the amount of "
+"your internet subscription invoice. If you have a pack only the internet "
+"part of your operator subscription will be paid by the employer.</span>"
+msgstr ""
+"<span class=\"form-text mt8\" id=\"internet_tooltip\">Angiv mængden på din "
+"internetabonnements faktura. Hvis du har en pakke, er det kun internet delen"
+" der vil blive betalt af din arbejdsgiver.</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text mt8\" id=\"ip_tooltip\">As Odoo invests massively in"
+" developing and writing Intellectual Property content, we benefit from "
+"fiscal ruling allowing us to pay a part of employee's salary as an "
+"intellectual property income instead of a regular salary. This amount will "
+"be paid in cash every month and is less taxed.</span>"
+msgstr ""
+"<span class=\"form-text mt8\" id=\"ip_tooltip\">Eftersom odoo investerer "
+"massivt i at udvikle og skrive intellektuel ejendomsindhold, drager vi "
+"fordel af skattemæssige afgørelser, der giver os mulighed for at betale en "
+"del af medarbejderens løn, som en intellektuel ejendomsindkomst, i stedet "
+"for en almindelig løn. Dette beløb udbetalet kontant hver måned, og "
+"beskattes mindre.</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text mt8\" id=\"mobile_tooltip\">This BASE subscription "
+"include unlimited Internet, calls and SMS in Belgium + Rooming trough Europe"
+" (International Communications are excluded).</span>"
+msgstr ""
+"<span class=\"form-text mt8\" id=\"mobile_tooltip\">Dette BASIS abonnement "
+"inkluderer ubegrænset internet, opkald, og SMS i Belgien + Roaming i Europa "
+"(Internationale kommunikationer er ekskluderet).</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text mt8\">Enter the monthly amount you spend on public "
+"transportation to go to work. The approximative amount reimbursed by the "
+"employer is calculated accordingly.</span>"
+msgstr ""
+"<span class=\"form-text mt8\">Angiv den månedlige mængde du bruger på "
+"offentlig transport til arbejde. Den omtrente værdi refusioneret af "
+"arbejdsgiveren vil udregnes i overensstemmelse dermed.</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text mt8\">Enter the number of kilometers between your "
+"home and your work place. The approximative amount reimbursed by the "
+"employer is calculated accordingly.</span>"
+msgstr ""
+"<span class=\"form-text mt8\">Angiv det antal kilometer der er mellem dit "
+"hjem og din arbejdsplads. Den omtrente mængde der vil blive refusioneret af "
+"arbejdsgiveren udregnes i overensstemmelse dermed.</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text mt8\">In addition to your legal leaves, you can chose up to 15 extra days off.</span>\n"
+"                                                <span class=\"form-text mt8\">The amount of annual time off (legal leaves) you get depends on your work schedule in the previous year. A full-time work schedule through the 12 months of the last year, under Belgian contract, will grant you 20 annual time off (legal leaves).</span>"
+msgstr ""
+"<span class=\"form-text mt8\">Udover dine lovlige orlog, kan du også vælge op til 15 ekstra feriedage.</span>\n"
+"                                                <span class=\"form-text mt8\">Mængden af årlig ferie (lovlig orlog) afhænger af din arbejdsplan for det forrige år. En fuldtids arbejdsplan gennem 12 måneder det foregårende år, under Belgisk kontrakt, vil give dig 20 årlige feriedage (lovlig orlog).</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text mt8\">The cost of a car is depreciated by 8% per "
+"year, for 7 years. So, your gross salary increases automatically to keep the"
+" same employee budget. Once a car has 7 years, the car is fully depreciated "
+"and the only remaining costs are the maintenance, insurances and "
+"taxes.</span>"
+msgstr ""
+"<span class=\"form-text mt8\">Omkostninger på en bil afskrives med 8% per "
+"år, i 7 år. Derfor stiger din brutto løn automatisk for at bibeholde det "
+"samme medarbejderbudget. Når en bil er 7 år, er bilen fuldt ud afskrevet, og"
+" de eneste tilbageværende omkostninger er vedligeholdelse, forsikring, og "
+"skatte.</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text\">Every month, you'll get 7.45€ per worked day on your meal voucher card.\n"
+"</span>"
+msgstr ""
+"<span class=\"form-text\">Hver måned modtager du 7,45€ per arbejdsdag på din madkupons kort.\n"
+"</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text\">If you meet conditions to benefit from 13th month,"
+" you will receive this amount around December. This amount may be different "
+"based on your working schedule and the number of worked days during the "
+"year.</span>"
+msgstr ""
+"<span class=\"form-text\">Hvis du opfylder betingelserne for at drage fordel"
+" af d. 13. måned, vil du automatisk modtage denne mængde omkring December. "
+"Denne mængde kan variere baseret på din arbejdsplan, og antallet af "
+"arbejdsdage i løbet af året.</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text\">This is a monthly net amount, taken into account "
+"in your payslip.</span>"
+msgstr ""
+"<span class=\"form-text\">Dette er den månedlige netto mængde, taget højde "
+"for på din lønseddel.</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text\">You'll receive this amount around June. This "
+"amount will depend on the number of worked days during the previous "
+"year.</span>"
+msgstr ""
+"<span class=\"form-text\">Du vil modtage omtrent denne mængde omkring Juni. "
+"Denne mængde vil afhænge af antallet af arbejdsdage i løbet af det forrige "
+"år.</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"<span class=\"form-text\">You'll receive this amount in the form of Eco "
+"Vouchers around June. The exact amount is based on real worked day during "
+"the period between the first of June of last year and the 31th of May of "
+"this year.</span>"
+msgstr ""
+"<span class=\"form-text\">Du vil modtage denne mængde i form af Øko-"
+"rabatkuponer omkring Juni. Den nøjagtige mængde er baseret på reelle "
+"arbejdsdage i løbet af perioden mellem den første Juni sidste år, og den 31."
+" Maj dette år.</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.res_config_settings_view_form
+msgid "<span class=\"o_form_label\">Salary Package Configurator</span>"
+msgstr "<span class=\"o_form_label\">Lønpakke konfigurator</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_applicant_view_form
+msgid "<span class=\"o_stat_text\">Contracts</span>"
+msgstr "<span class=\"o_stat_text\">Kontrakter</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
+msgid "<span class=\"o_stat_text\">Reviews</span>"
+msgstr "<span class=\"o_stat_text\">Anmeldelser</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "<span class=\"text-muted\"> (Lastname Firstname)</span>"
+msgstr "<span class=\"text-muted\"> (Efternavn Fornavn)</span>"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "<strong>Challenges</strong>"
+msgstr "<strong>Udfordringer</strong>"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "<strong>Must Have</strong>"
+msgstr "<strong>Must have</strong>"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "<strong>Responsibilities</strong>"
+msgstr "<strong>Ansvar</strong>"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "<strong>What's great in the job?</strong>"
+msgstr "<strong>Hvad er godt i arbejdet?</strong>"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__access_token_end_date
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__access_token_end_date
+msgid "Access Token Validity Date"
+msgstr "Adgangs token gyldighedsdato"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Achieve monthly targets"
+msgstr "Opnå månedlige mål"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Address"
+msgstr "Adresse"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Annual Time Off"
+msgstr "Årlig ferie"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Any other income"
+msgstr "Enhver anden indtægt"
+
+#. module: hr_contract_salary
+#: model:ir.model,name:hr_contract_salary.model_hr_applicant
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__applicant_id
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__applicant_id
+msgid "Applicant"
+msgstr "Ansøger"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Apply Now"
+msgstr "Ansøg ny"
+
+#. module: hr_contract_salary
+#: model:ir.actions.server,name:hr_contract_salary.ir_cron_clean_redundant_salary_data_ir_actions_server
+#: model:ir.cron,cron_name:hr_contract_salary.ir_cron_clean_redundant_salary_data
+#: model:ir.cron,name:hr_contract_salary.ir_cron_clean_redundant_salary_data
+msgid "Archive/Delete redundant generated salary data"
+msgstr "Arkiver/slet overflødige genererede løndata"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Avg Deal Size:"
+msgstr "Gns Aftale størrelse:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "BASIC SALARY"
+msgstr "GRUNDLØN"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "BE10 3631 0709 4104"
+msgstr "BE10 3631 0709 4104"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Bachelor"
+msgstr "Bachelor"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Bank Account Number:"
+msgstr "Bank kontonummer:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Bank account"
+msgstr "Bankkonto"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Batman"
+msgstr "Batman"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Birth"
+msgstr "Født"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Birthdate"
+msgstr "Fødselsdato"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Birthdate:"
+msgstr "Fødselsdag:"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"Brand-name product and services in categories like travel, electronics, "
+"health, fitness, cellular, and more"
+msgstr ""
+"Brand-navn produkt eller tjeneste i kategorier så som rejse, elektronik, "
+"sundhed, fitness, mobil, og flere"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields.selection,name:hr_contract_salary.selection__generate_simulation_link__contract_type__cdd
+#: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract__contract_type__cdd
+msgid "CDD"
+msgstr "CDD"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields.selection,name:hr_contract_salary.selection__generate_simulation_link__contract_type__cdi
+#: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract__contract_type__cdi
+msgid "CDI"
+msgstr "CDI"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "CO2 Emission: <span name=\"co2\"/>"
+msgstr "CO2 Udslip: <span name=\"co2\"/>"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__new_car
+msgid "Can request a new car"
+msgstr "Kan anmode om en ny bil"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
+msgid "Cancel"
+msgstr "Annullér"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Car:"
+msgstr "Bil:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Cash"
+msgstr "Kontant"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Certificate"
+msgstr "Certifikat"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Certificate Level:"
+msgstr "Certificerings niveau:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Citizenship and Other Information"
+msgstr "Borgerskab og anden information"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "City"
+msgstr "By"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "City:"
+msgstr "By:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.actions.act_window,help:hr_contract_salary.action_hr_contract_templates
+msgid "Click here to create new contracts."
+msgstr "Klik her for at oprette nye kontrakter."
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Commission on Target:"
+msgstr "Kommission ved mål:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Company Car"
+msgstr "Firmabil"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Company Growth:"
+msgstr "Virksomhedsvækst:"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Company Maturity:"
+msgstr "Virksomhedens modenhed:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Computer Science"
+msgstr "Computer videnskab"
+
+#. module: hr_contract_salary
+#: model:ir.model,name:hr_contract_salary.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigurer opsætning"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
+msgid "Configure the simulation"
+msgstr "Konfigurer simulationen"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__access_token_consumed
+msgid "Consumed Access Token"
+msgstr "Brugt adgangs token"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Contact Information"
+msgstr "Kontaktoplysninger"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Contract Information:"
+msgstr "Kontrakt information:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__contract_id
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__default_contract_id
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_job__default_contract_id
+msgid "Contract Template"
+msgstr "Kontrakt skabelon"
+
+#. module: hr_contract_salary
+#: model:ir.actions.act_window,name:hr_contract_salary.action_hr_contract_templates
+msgid "Contract Templates"
+msgstr "Kontrakt skabeloner"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__contract_type
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__contract_type
+msgid "Contract Type"
+msgstr "Kontrakt type"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Contract Type:"
+msgstr "Kontrakt type:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__contract_update_template_id
+msgid "Contract Update Document Template"
+msgstr "Kontrakt opdater dokument skabelon"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
+msgid "Contracts Reviews"
+msgstr "Kontrakter anmeldelser"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Country"
+msgstr "Land"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Country of Birth:"
+msgstr "Fødselsland:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Country of birth"
+msgstr "Fødselsland"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Country:"
+msgstr "Land:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__create_uid
+msgid "Created by"
+msgstr "Oprettet af"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__create_date
+msgid "Created on"
+msgstr "Oprettet den"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Customize your salary"
+msgstr "Tilpas din løn"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_res_config_settings__access_token_validity
+msgid "Default Access Token Validity Duration"
+msgstr "Standard adgangs token gyldighedsvarighed"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__default_contract_id
+#: model:ir.model.fields,help:hr_contract_salary.field_hr_job__default_contract_id
+msgid "Default contract used when making an offer to an applicant."
+msgstr ""
+"Standardkontrakt til anvendelse når der skal laves et tilbud til en ansøger."
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__sign_template_id
+msgid ""
+"Default document that the applicant will have to sign to accept a contract "
+"offer."
+msgstr ""
+"Standarddokument som ansøgeren skal underskrive for at acceptere et "
+"kontrakttilbud."
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__contract_update_template_id
+msgid ""
+"Default document that the employee will have to sign to update his contract."
+msgstr ""
+"Standarddokument, som ansøgeren skal underskrive for at opdatere sin "
+"kontrakt."
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Details"
+msgstr "Detaljer:"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"Direct coordination with functional consultants for qualification and follow"
+" ups"
+msgstr ""
+"Direkte koordinering med funktionelle konsulenter for kvalificering og "
+"opfølgninger"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Disabled"
+msgstr "Deaktiveret"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Disabled Children"
+msgstr "Handicappede børn"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Disabled Spouse"
+msgstr "Handicappet ægtefælle"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Disabled Spouse: No"
+msgstr "Handicappet partner: Nej"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Disabled Spouse: Yes"
+msgstr "Handicappet partner: Ja"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Disabled people <span class=\"form-text\">&amp;le; 65 years old</span>"
+msgstr "Handicappede individer <span class=\"form-text\">< 65 år gammel</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Disabled seniors <span class=\"form-text\">&amp;ge; 65 years old</span>"
+msgstr "Handicappede ældre <span class=\"form-text\">> 65 år gammel</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Disabled: No"
+msgstr "Handicappet: Nej"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Disabled: Yes"
+msgstr "Handicappet: Ja"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__display_name
+msgid "Display Name"
+msgstr "Vis navn"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Divorced"
+msgstr "Badge"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Doors Number: <span name=\"door_number\"/>"
+msgstr "Dørnummer: <span name=\"door_numer\"/>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Double Holiday Pay:"
+msgstr "Dobbelt ferieløn:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__driving_license
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_employee__driving_license
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Driving License"
+msgstr "Kørekort"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Eco Vouchers:"
+msgstr "Øko-rabatkuponer:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Education"
+msgstr "Uddannelse"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Email"
+msgstr "E-mail"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__email_to
+msgid "Email To"
+msgstr "Email til"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Email:"
+msgstr "E-mail:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Emergency Contact:"
+msgstr "Kontakt i nødstilfælde:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Emergency Phone:"
+msgstr "Nødtelefon:"
+
+#. module: hr_contract_salary
+#: model:ir.model,name:hr_contract_salary.model_hr_employee
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__employee_id
+msgid "Employee"
+msgstr "Medarbejder"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__final_yearly_costs
+msgid "Employee Budget"
+msgstr "Medarbejderbudget"
+
+#. module: hr_contract_salary
+#: model:ir.model,name:hr_contract_salary.model_hr_contract
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__employee_contract_id
+msgid "Employee Contract"
+msgstr "Ansættelseskontrakt"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Employee Name:"
+msgstr "Medarbejder navn:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Employee Photo"
+msgstr "Medarbejder foto"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Employer Cost"
+msgstr "Medarbejder omkostninger"
+
+#. module: hr_contract_salary
+#: model:hr.job,name:hr_contract_salary.job_developer_belgium
+msgid "Experienced Developer BE"
+msgstr "Erfaren udvikler Belgien"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Extra Time Off"
+msgstr "Ekstra ferie"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Female"
+msgstr "Kvinde"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Field of Study"
+msgstr "Studieområde"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Field of Study:"
+msgstr "Studieområde:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "First Name"
+msgstr "Fornavn"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Fuel Card:"
+msgstr "Benzin kort:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Fuel Type: <span name=\"fuel_type\"/>"
+msgstr "Brændstof type:"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Full sales cycle"
+msgstr "Fuld salgs cyklus"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Full time equivalent employer cost"
+msgstr "Fuldtidsækvivalent arbejdsgiver omkostninger"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "GROSS SALARY"
+msgstr "BRUTTOLØN"
+
+#. module: hr_contract_salary
+#: model:ir.model,name:hr_contract_salary.model_generate_simulation_link
+msgid "Gamification Simulation Link"
+msgstr "Gamificering simulations link"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Gender:"
+msgstr "Køn:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_applicant_view_form
+msgid "Generate Offer Link"
+msgstr "Generer tilbud link"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
+msgid "Generate Simulation Link"
+msgstr "Generer simulations link"
+
+#. module: hr_contract_salary
+#: model:ir.actions.act_window,name:hr_contract_salary.generate_offer_link_action
+#: model:ir.actions.act_window,name:hr_contract_salary.generate_simulation_link_action
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
+msgid "Generate a Simulation Link"
+msgstr "Generer et simulations link"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Gross"
+msgstr "Brutto"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Has Company Car: Yes"
+msgstr "Har firmabil: Ja"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Has Private Car: Yes"
+msgstr "Har privatbil: Ja"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Has Public Transportation: Yes"
+msgstr "Har offentlig transport: Ja"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
+msgid ""
+"He/She will review your contract.<br/> Feel free to contact him/her if you "
+"have further questions."
+msgstr ""
+"Han/Hun vil gennemgå din kontrakt.<br/> Kontakt endelig vedkommende hvis du "
+"har yderligere spørgsmål."
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"Healthcare, dental, vision, life insurance, Flexible Spending Account (FSA),"
+" Health Savings Account (HSA)"
+msgstr ""
+"Sundhedspleje, tandpleje, synspleje, livsforsikring, FSA (Flexible Spending "
+"Account), HSA (Health Savings Account)"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Hide <i class=\"fa fa-chevron-up\"/>"
+msgstr "Skjul <i class=\"fa fa-chevron-up\"/>"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "High commissions for good performers"
+msgstr "Høje kommissioner for godt præsterende"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Holidays:"
+msgstr "Feriedage:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__id
+msgid "ID"
+msgstr "ID"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__id_card
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_employee__id_card
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "ID Card Copy"
+msgstr "ID Kort kopi"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "ID card copy (Both Sides)"
+msgstr "ID kort kopi (begge sider)"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "IP percentage:"
+msgstr "IP procent:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "IP: No"
+msgstr "IP: Nej"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Identification No:"
+msgstr "Identifikationsnummer:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__image_1920
+msgid "Image"
+msgstr "Billede"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Immatriculation Date: <span name=\"immatriculation\"/>"
+msgstr "Immatrikuleringsdato: <span name=\"immatriculation\"/>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "In case of emergency"
+msgstr "I nødstilfælde"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__customer_relation
+msgid "In relations with customers"
+msgstr "I relation med kunder"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__internet_invoice
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_employee__internet_invoice
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Internet Subscription Invoice"
+msgstr "Internetabonnement faktura"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Internet:"
+msgstr "Internet:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Internet: No"
+msgstr "Internet: Nej"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Job Complexity:"
+msgstr "Job kompleksitet:"
+
+#. module: hr_contract_salary
+#: model:ir.model,name:hr_contract_salary.model_hr_job
+msgid "Job Position"
+msgstr "Stilling"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Job Position:"
+msgstr "Jobstilling:"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Job Security:"
+msgstr "Jobsikkerhed:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__job_title
+msgid "Job Title"
+msgstr "Jobtitel"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Job Title:"
+msgstr "Jobtitel:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Km Home to Work"
+msgstr "KM hjem til arbejde"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Km Home-Work:"
+msgstr "KM arbejd-hjemme:"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"Large apps scope: CRM, MRP, Accounting, Inventory, HR, Project Mgt, etc."
+msgstr ""
+"Store applikations scope: CRM, MRP, Regnskab, Inventar, HR, "
+"Projekthåndtering, osv."
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link____last_update
+msgid "Last Modified on"
+msgstr "Sidst ændret den"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Last Name"
+msgstr "Efternavn"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Last Odometer: <span name=\"odometer\"/>"
+msgstr "Sidste kilometertæller: <span name=\"odometer\"/>"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__write_uid
+msgid "Last Updated by"
+msgstr "Sidst opdateret af"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__write_date
+msgid "Last Updated on"
+msgstr "Sidst opdateret den"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Legal Cohabitant"
+msgstr "Registreret partner"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Male"
+msgstr "Mand"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Marital Status"
+msgstr "Civilstand"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Marital Status:"
+msgstr "Partnerstatus:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Married"
+msgstr "Gift"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Master"
+msgstr "Kandidat"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Meal Vouchers:"
+msgstr "Madkuponer:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__mobile_invoice
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_employee__mobile_invoice
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Mobile Subscription Invoice"
+msgstr "Mobilabonnement faktura"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Mobile: No"
+msgstr "Mobil: Nej"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Mobile: Yes"
+msgstr "Mobil: Ja"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__new_car_model_id
+msgid "Model"
+msgstr "Model"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Model:"
+msgstr "Model:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Monthly Advantages"
+msgstr "Månedlige fordele"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Monthly Advantages in Cash"
+msgstr "Månedlige forskud i kontanter"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Monthly Advantages in Net"
+msgstr "Månedlig fordele i netto"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Monthly Benefit in Kind"
+msgstr "Månedlig fordele i form"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Monthly Equivalent"
+msgstr "Månedlig ækvivalens"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Monthly Salary"
+msgstr "Månedlig løn"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "NET SALARY"
+msgstr "NETTELØN"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Name"
+msgstr "Navn"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "National Identification Number"
+msgstr "Nationalt ID nummer"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Nationality"
+msgstr "Nationalitet"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Nationality:"
+msgstr "Nationalitet:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Nature"
+msgstr "Natur"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Need More Info?"
+msgstr "Brug for mere info?"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Net"
+msgstr "Netto"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Net calculation"
+msgstr "Nettoudregning"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__sign_template_id
+msgid "New Contract Document Template"
+msgstr "Dokumentskabelon til ny kontrakt"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "No"
+msgstr "Nej"
+
+#. module: hr_contract_salary
+#: code:addons/hr_contract_salary/controllers/main.py:0
+#, python-format
+msgid ""
+"No HR responsible defined on the job position. Please contact an "
+"administrator."
+msgstr ""
+"Ingen HR ansvarlig angivet for denne stilling. Kontakt venligst en "
+"administrator."
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "No outbound calls, you get leads and focus on providing value to them"
+msgstr ""
+"Ingen udgående opkald, du modtager potentielle kunder og fokuserer på at "
+"tilføje dem værdi"
+
+#. module: hr_contract_salary
+#: code:addons/hr_contract_salary/models/hr_contract.py:0
+#: code:addons/hr_contract_salary/wizard/generate_simulation_link.py:0
+#, python-format
+msgid "No private address defined on the employee!"
+msgstr "Ingen privat adresse defineret for medarbejder!"
+
+#. module: hr_contract_salary
+#: code:addons/hr_contract_salary/controllers/main.py:0
+#, python-format
+msgid ""
+"No signature template defined on the contract. Please contact the HR "
+"responsible."
+msgstr ""
+"Ingen underskrifts skabelon defineret på kontrakten. Kontakt venligst den "
+"ansvarlige HR."
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Number of Children:"
+msgstr "Antal børn:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Number of Dependent Children"
+msgstr "Antal afhængige børn"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Number of Disabled Children"
+msgstr "Antal handicappede børn"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"Only a couple blocs from BART, Caltrain, Highway 101, carpool pickup, and "
+"Bay Bridge."
+msgstr ""
+"Kun et par blokke fra BART, Caltrain, Highway 101, samkørsel opsamling, og "
+"Bay Bridge."
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__origin_contract_id
+msgid "Origin Contract"
+msgstr "Oprindelse kontrakt"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Original Link:"
+msgstr "Original link:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Other"
+msgstr "Andet"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Other Dependent People"
+msgstr "Andre afhængige personer"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Overachieving Possibilities:"
+msgstr "Overachieving muligheder:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields.selection,name:hr_contract_salary.selection__generate_simulation_link__contract_type__pfi
+#: model:ir.model.fields.selection,name:hr_contract_salary.selection__hr_contract__contract_type__pfi
+msgid "PFI"
+msgstr "PFI"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Paid by the employee (Monthly):"
+msgstr "Betalt af medarbejderen (månedlig):"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Peet's and Philz coffee provided all day to order and pantry snacks"
+msgstr "Peet's og Philz kaffe udbydes hele dagen på bestilling samt snacks"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "People <span class=\"form-text\">&amp;le; 65 years old</span>"
+msgstr "Individer <span class=\"form-text\">< 65 år gammel</span>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Person to call"
+msgstr "Person at ringe til"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_view_form
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_employee_view_form
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Personal Documents"
+msgstr "Personlige dokumenter"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Personal Evolution:"
+msgstr "Personlig udvikling"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Personal Information"
+msgstr "Personlige oplysninger"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Phone number"
+msgstr "Telefonnummer"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Phone:"
+msgstr "Telefon:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Place of Birth:"
+msgstr "Fødselssted:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Place of birth"
+msgstr "Fødselssted"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Play any sport with colleagues and the bill is covered"
+msgstr "Spil hvilken som helst sport med kollegerne og regninger er dækket"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"Please note that this information may be inaccurate and should be used for "
+"reference only.<br/> The amounts are calculated  based on a full time "
+"permanent contract."
+msgstr ""
+"Bemærk venligst at denne information kan være upræcis og bør kun bruges som "
+"reference. <br/> Mængden er udregnet baseret på en permanent fuldtids "
+"kontrakt."
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Pre-tax commuter benefitsbr <br>(parking and transit)"
+msgstr "Før skat pendler fordele <br>(parkering og transport)"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Private car"
+msgstr "Privatbil"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Profitable"
+msgstr "Rentabel"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__proposed_contracts
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_applicant_view_form
+msgid "Proposed Contracts"
+msgstr "Foreslåede kontrakter"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__proposed_contracts_count
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__contract_reviews_count
+msgid "Proposed Contracts Count"
+msgstr "Foreslåede kontrakt antal"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Public Transportation"
+msgstr "Offentlig transport"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Recompute"
+msgstr "Genberegn"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Representation Fees:"
+msgstr "Repræsentationsafgifter:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Review Contract &amp; Sign"
+msgstr "Gennemgå kontrakt & underskriv"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__sim_card
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_employee__sim_card
+msgid "SIM Card Copy"
+msgstr "SIM kort kopi"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Sales Cycle:"
+msgstr "Salgscyklus:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "School"
+msgstr "Skole"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "School:"
+msgstr "Skole:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_applicant__access_token
+#: model:ir.model.fields,field_description:hr_contract_salary.field_hr_contract__access_token
+msgid "Security Token"
+msgstr "Sikkerheds Token"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.generate_simulation_link_view_form
+msgid "Send Offer"
+msgstr "Send tilbud"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Send to Responsible"
+msgstr "Send til ansvarlige"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Seniors <span class=\"form-text\">&amp;ge; 65 years old</span>"
+msgstr "Ældre <span class=\"form-text\">> 65 years old</span>"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"Short summary of the job: A sales job for smart people and can\n"
+"                learn quickly new industries management practices. You will be\n"
+"                in charge of the full sales cycle from the opportunity\n"
+"                qualification to the negotiation, going through astonishing\n"
+"                product demos."
+msgstr ""
+"Kort opsummering om arbejdet: Et salgsjob for kloge mennesker som hurtigt\n"
+"                  kan lære ny industri administrations praksis. Du vil være\n"
+"                  ansvarlig for det fulde salgscyklus fra muligheds \n"
+"                  kvalifikation til forhandlingen, gennem de utrolige\n"
+"                  produkt demonstrationer."
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Show <i class=\"fa fa-chevron-down\"/>"
+msgstr "Vis <i class=\"fa fa-chevron-down\"/>"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Sim Card Copy"
+msgstr "Sim kort kopi"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__url
+msgid "Simulation link"
+msgstr "Simulation link"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Single"
+msgstr "Single"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Spouse Birthdate"
+msgstr "Partners fødselsdag"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Spouse Birthdate:"
+msgstr "Partners fødselsdag:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Spouse Complete Name:"
+msgstr "Partners fulde navn:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Spouse Name and First Name"
+msgstr "Partners navn og fornavn"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Spouse Net Revenue"
+msgstr "Partners netto indtægt"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Spouse Other Net Revenue"
+msgstr "Partners anden net indtægt"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Spouse Professional Situation"
+msgstr "Partners professionelle situation"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Spouse Professional Situation: With Income greater than 225"
+msgstr "Partners professionelle situation: Med indtægt større end 225"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Spouse Professional Situation: With Income greater than 450"
+msgstr "Partners professionelle situation: Med indtægt større end 450"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Spouse Professional Situation: With Income less than 225"
+msgstr "Partners professionelle situation: Med indtægt mindre end 225"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Spouse Professional Situation: With Pensions less than 450"
+msgstr "Partners professionelle situation: Med pensioner for mindre end 450"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Spouse Professional Situation: Without Income"
+msgstr "Partners professionelle situation: Uden indtægt"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "State"
+msgstr "Stat"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "State:"
+msgstr "Stat:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Status"
+msgstr "Status"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Street"
+msgstr "Vej"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Street 2"
+msgstr "Vej 2"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Street2:"
+msgstr "Gade 2:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Street:"
+msgstr "Gade:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "TAXABLE INCOME"
+msgstr "SKATTEPLIGTIG INDKOMST"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "TAXED SALARY"
+msgstr "BESKATTET LØN"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Tax status for spouse"
+msgstr "Skattestatus for partner"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Team / Company Size:"
+msgstr "Hold / virksomhedsstørrelse"
+
+#. module: hr_contract_salary
+#: model:ir.ui.menu,name:hr_contract_salary.hr_menu_contract_templates
+msgid "Templates"
+msgstr "Skabeloner"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"The commission is scalable and starts from the 1st € sold. The commission "
+"plan has stages with accelerators. At 100% , 3 months are paid in Warrant "
+"which results to a monthly NET commission value of"
+msgstr ""
+"Kommissionen er skalerbar og starter fra den første € solgt. Kommissions "
+"planen har stadier med acceleratorer. Ved 100% , betales 3 måneder i warrant"
+" hvilket resulterer til en månedlig NET kommission værdi af"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__origin_contract_id
+msgid "The contract from which this contract has been duplicated."
+msgstr "Kontrakten som den kontrakt er et duplikat af."
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "The culture"
+msgstr "Kulturen"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "The founder’s story"
+msgstr "Grundlæggerens historie"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,help:hr_contract_salary.field_hr_contract__signatures_count
+msgid "The number of signatures on the pdf contract with the most signatures."
+msgstr "Antallet af underskrifter på pdf kontrakten med flest underskrifter."
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"This cost simulation is only for information. If you want to choose another "
+"car model, please contact your HR manager."
+msgstr ""
+"Omkostnings simulationen er kun til information. Hvis du ønsker at vælge en "
+"anden bil model, kontakt venligst din HR leder."
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Total"
+msgstr "I alt"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"Tuesday Dinners, Monthly Lunch Mixers, Monthly Happy Hour, Annual day event"
+msgstr ""
+"Tirsdags middage, månedlige frokost mixere, månedlig happy hour, årlig dags "
+"begivenhed"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "US + Canada Territory"
+msgstr "USA + Canada Territorium"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Vacation, Sick, and paid leaves"
+msgstr "Ferie, sygdom og betalte fridage"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.res_config_settings_view_form
+msgid "Validity duration for salary package requests for new applicants"
+msgstr "Gyldigheds længde for lønpakker anmodning til nye ansøgere"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "Variability of the Job:"
+msgstr "Variabiliteten i jobbet:"
+
+#. module: hr_contract_salary
+#: model:ir.model.fields,field_description:hr_contract_salary.field_generate_simulation_link__vehicle_id
+msgid "Vehicle"
+msgstr "Køretøj"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Wage:"
+msgstr "Løn:"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid "What people say about us?"
+msgstr "Hvad siger folk om os?"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Widower"
+msgstr "Enkemand"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "With Income"
+msgstr "Med indkomst"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "With Income &lt; 225 €/month"
+msgstr "Med indtægt < 225 €/måned"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "With Pensions &gt;= 450 €/month"
+msgstr "Med pensioner >= 450 €/måned"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "With Pensions &lt; 450 €/month"
+msgstr "Med pensioner < 450 €/måned"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Without Income"
+msgstr "Uden indkomst"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Yearly Advantages"
+msgstr "Årlige fordele"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Yearly Advantages in Cash"
+msgstr "Årlige forskud i kontanter"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Yes"
+msgstr "Ja"
+
+#. module: hr_contract_salary
+#: model_terms:hr.job,website_description:hr_contract_salary.job_developer_belgium
+msgid ""
+"You sell management software to directors of SMEs: interesting projects and "
+"people"
+msgstr ""
+"Du sælger administrations software til direktører for små og mellemstore "
+"virksomheder: Interessante projekter og mennesker"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Your Personal Information"
+msgstr "Dine personlige oplysninger"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package_thank_you
+msgid "Your contract has been sent to:"
+msgstr "Din kontrakt er blevet sendt til:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid ""
+"Your gross salary is below the scale. You can change values of the "
+"configurator to increase the gross according to the CP 200 scales."
+msgstr ""
+"Din brutto løn er under skalaen. Du kan ændre værdier for konfiguratioren "
+"for at forøge bruttoen i overensstemmelse med CP 200 skalaerne."
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "Zip Code"
+msgstr "Postnummer"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "Zip:"
+msgstr "Postnummer:"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "add me to the waiting list for a new car"
+msgstr "tilføj mig til ventelisten for en ny bil"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "close"
+msgstr "luk"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "days"
+msgstr "dage"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "€ and 9 months in cash which result in a GROSS monthly commission of"
+msgstr ""
+"€ og 9 måneder kontant med resultat i en BRUTTO månedlig kommission på"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.salary_package
+msgid "€, taxable like your usual monthly pay."
+msgstr "€, skattepligtig som din normale månedlige løn."
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "€/Worked Day"
+msgstr "€/arbejdsdag"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "€/month"
+msgstr "€/måned"
+
+#. module: hr_contract_salary
+#: model_terms:ir.ui.view,arch_db:hr_contract_salary.hr_contract_salary_email_template
+msgid "€/year"
+msgstr "€/år"

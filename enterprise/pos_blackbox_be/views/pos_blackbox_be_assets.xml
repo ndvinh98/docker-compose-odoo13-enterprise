@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets" inherit_id="point_of_sale.index">
+            <xpath expr="//head" position="inside">
+                <t t-if="blackbox">
+                    <link rel="stylesheet" href="/pos_blackbox_be/static/src/css/pos_blackbox_be.css"/>
+                    <script type="text/javascript" src="/pos_blackbox_be/static/lib/sha1.js"></script>
+                    <script type="text/javascript" src="/pos_blackbox_be/static/src/js/pos_blackbox_be.js"></script>
+                </t>
+            </xpath>
+            <xpath expr="//t[contains(@t-call-assets, 'point_of_sale.pos_assets_backend')]" position="before">
+                <t t-if="not blackbox">
+                    <script type="text/javascript" id="no_qweb" t-raw="init">
+                        odoo.define('pos_blackbox_be.no_qweb', function (require) {
+                            require('web.Session').include({
+                                load_qweb: function(mods) {
+                                  mods = mods.replace("pos_blackbox_be", "");
+                                  return this._super.apply(this, arguments);
+                                }
+                            });
+                        });
+                    </script>
+                    <script type="text/javascript" id="no_unregistered_transactions_on_registered_posbox" t-raw="init">
+                        odoo.define('pos_blackbox_be.no_unregistered_transactions_on_registered_posbox', function (require) {
+                            var models = require('point_of_sale.models');
+                            var posmodel_super = models.PosModel.prototype;
+                            models.PosModel = models.PosModel.extend({
+                                connect_to_proxy: function () {
+                                    var self = this;
+                                    return posmodel_super.connect_to_proxy.apply(this, arguments).then(function () {
+                                        self.proxy.message('request_serial', {}, {timeout: 5000}).then(function (response) {
+                                            self.gui.show_popup('error', {
+                                                'title': 'Error: registered IoT Box',
+                                                'body': 'Cannot do unregistered transactions on a registered IoT Box.',
+                                                'cancel': function () { window.location = '/web'; }
+                                            });
+                                            $('.pos-content, .pos-topheader').html('')
+                                        });
+                                    });
+                                }
+                            });
+                        });
+                    </script>
+                </t>
+            </xpath>
+        </template>
+
+        <template id="qunit_suite" name="pos_blackbox_be qunit" inherit_id="web.qunit_suite">
+            <xpath expr='//t[@t-set="head"]' position="inside">
+                <!-- todo jov: the issue is that we want to to test
+                     point of sale models, which aren't included in
+                     the assets_backend, so just include them here i
+                     guess -->
+                <script type="text/javascript" src="/point_of_sale/static/lib/fastclick.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/lib/waitfont.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/main.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/db.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/models.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/widget_base.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/keyboard.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/chrome.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/devices.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/gui.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/popups.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/screens.js"></script>
+                <script type="text/javascript" src="/point_of_sale/static/src/js/tests.js"></script>
+
+                <t t-call="pos_blackbox_be.assets"/>
+
+                <script type="text/javascript" src="/pos_blackbox_be/static/tests/pos_blackbox_be_test.js"></script>
+            </xpath>
+        </template>
+    </data>
+</odoo>

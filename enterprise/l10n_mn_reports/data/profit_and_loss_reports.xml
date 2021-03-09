@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_report_profit_and_loss" model="account.financial.html.report">
+        <field name="name">Profit and Loss</field>
+        <field name='parent_id' ref='l10n_mn.account_reports_mn_statements_menu'/>
+    </record>
+    <record id="report_profit_root" model="account.financial.html.report.line">
+        <field name="code">MNPL_ROOT</field>
+        <field name="name">Орлого үр дүн</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="1"/>
+        <field name="formulas">balance = MNPL_PROFIT.balance + MNPL_COMPRE.balance</field>
+        <field name="financial_report_id" ref="account_report_profit_and_loss"/>
+    </record>
+    <record id="report_line_gross_profit_sale" model="account.financial.html.report.line">
+        <field name="code">MNPL_INC</field>
+        <field name="name">Борлуулалтын орлого (цэвэр)</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_revenue'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_gross_profit_cost" model="account.financial.html.report.line">
+        <field name="code">MNPL_COS</field>
+        <field name="name">Борлуулсан бүтээгдэхүүний өртөг</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_direct_costs'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_gross_profit" model="account.financial.html.report.line">
+        <field name="code">MNPL_GRP</field>
+        <field name="name">Нийт ашиг (алдагдал)</field>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="2"/>
+        <field name="formulas">balance = MNPL_INC.balance - MNPL_COS.balance</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_income_loan" model="account.financial.html.report.line">
+        <field name="code">MNPL_RENT</field>
+        <field name="name">Түрээсийн орлого</field>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','5102%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_income_interest" model="account.financial.html.report.line">
+        <field name="code">MNPL_INTER</field>
+        <field name="name">Хүүний орлого</field>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','5103%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_income_devidend" model="account.financial.html.report.line">
+        <field name="code">MNPL_DIVID</field>
+        <field name="name">Ногдол ашгийн орлого</field>
+        <field name="sequence" eval="6"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','5104%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_income_loyalty" model="account.financial.html.report.line">
+        <field name="code">MNPL_ROYAL</field>
+        <field name="name">Эрхийн шимтгэлийн орлого</field>
+        <field name="sequence" eval="7"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','5105%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_income_other" model="account.financial.html.report.line">
+        <field name="code">MNPL_OIN</field>
+        <field name="name">Бусад орлого</field>
+        <field name="sequence" eval="8"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','52%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_expense_sale" model="account.financial.html.report.line">
+        <field name="code">MNPL_SEXP</field>
+        <field name="name">Борлуулалт, маркетингийн зардал</field>
+        <field name="sequence" eval="10"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_expenses')), ('account_id.code','=like','71%')]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_expense_admin" model="account.financial.html.report.line">
+        <field name="code">MNPL_AEXP</field>
+        <field name="name">Ерөнхий ба удирдлагын зардал</field>
+        <field name="sequence" eval="11"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_expenses')), ('account_id.code','=like','70%')]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_expense_finance" model="account.financial.html.report.line">
+        <field name="code">MNPL_FEXP</field>
+        <field name="name">Санхүүгийн зардал</field>
+        <field name="sequence" eval="12"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_expenses')), ('account_id.code','=like','72%')]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_expense_other" model="account.financial.html.report.line">
+        <field name="code">MNPL_OEXP</field>
+        <field name="name">Бусад зардал</field>
+        <field name="sequence" eval="13"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_expenses')), ('account_id.code','=like','74%')]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_gainloss_exchange" model="account.financial.html.report.line">
+        <field name="code">MNPL_EXCHANGE</field>
+        <field name="name">Гадаад валютын ханшийн зөрүүний олз (гарз)</field>
+        <field name="sequence" eval="15"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','53%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_gainloss_asset" model="account.financial.html.report.line">
+        <field name="code">MNPL_ASTGAIN</field>
+        <field name="name">Үндсэн хөрөнгө данснаас хассаны олз (гарз)</field>
+        <field name="sequence" eval="16"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','54%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_gainloss_intangible" model="account.financial.html.report.line">
+        <field name="code">MNPL_INASTGAIN</field>
+        <field name="name">Биет бус хөрөнгө данснаас хассаны олз (гарз)</field>
+        <field name="sequence" eval="17"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','55%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_gainloss_investment" model="account.financial.html.report.line">
+        <field name="code">MNPL_INVSTGAIN</field>
+        <field name="name">Хөрөнгө оруулалт борлуулсны олз (гарз)</field>
+        <field name="sequence" eval="18"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','56%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_gainloss_other" model="account.financial.html.report.line">
+        <field name="code">MNPL_OTHGAIN</field>
+        <field name="name">Бусад ашиг (алдагдал)</field>
+        <field name="sequence" eval="19"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_other_income')), ('account_id.code','=like','57%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_retained_earn" model="account.financial.html.report.line">
+        <field name="code">MNPL_TOTPROFBT</field>
+        <field name="name">Татвар төлөхийн өмнөх ашиг (алдагдал)</field>
+        <field name="sequence" eval="20"/>
+        <field name="level" eval="2"/>
+        <field name="formulas">balance = (MNPL_GRP.balance + MNPL_RENT.balance + MNPL_INTER.balance + MNPL_DIVID.balance + MNPL_ROYAL.balance + MNPL_OIN.balance) - (MNPL_SEXP.balance + MNPL_AEXP.balance + MNPL_FEXP.balance + MNPL_OEXP.balance) + (MNPL_EXCHANGE.balance + MNPL_ASTGAIN.balance + MNPL_INASTGAIN.balance + MNPL_INVSTGAIN.balance + MNPL_OTHGAIN.balance)</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_profit_tax" model="account.financial.html.report.line">
+        <field name="code">MNPL_INCTAX</field>
+        <field name="name">Орлогын албан татвар</field>
+        <field name="sequence" eval="21"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_expenses')), ('account_id.code','=like','9101%')]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_after_tax" model="account.financial.html.report.line">
+        <field name="code">MNPL_TOTPROFAT</field>
+        <field name="name">Татварын дараах ашиг (алдагдал)</field>
+        <field name="sequence" eval="22"/>
+        <field name="level" eval="2"/>
+        <field name="formulas">balance = MNPL_TOTPROFBT.balance - MNPL_INCTAX.balance</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_delayed" model="account.financial.html.report.line">
+        <field name="code">MNPL_STOPTAX</field>
+        <field name="name">Зогсоосон үйл ажиллагааны татвар</field>
+        <field name="sequence" eval="23"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_expenses')), ('account_id.code','=like','9102%')]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_net_profit" model="account.financial.html.report.line">
+        <field name="code">MNPL_PROFIT</field>
+        <field name="name">Тайлант үеийн цэвэр ашиг (алдагдал)</field>
+        <field name="sequence" eval="24"/>
+        <field name="level" eval="2"/>
+        <field name="formulas">balance = MNPL_TOTPROFAT.balance - MNPL_STOPTAX.balance</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="report_line_other" model="account.financial.html.report.line">
+        <field name="code">MNPL_COMPRE</field>
+        <field name="name">Бусад дэлгэрэнгүй орлого</field>
+        <field name="sequence" eval="25"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_expenses')), ('account_id.code','=like','9103%')]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="report_profit_root"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+</odoo>

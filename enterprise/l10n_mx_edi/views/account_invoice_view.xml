@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_l10n_mx_edi_invoice_form_inherit" model="ir.ui.view">
+            <field name="name">l10n_mx_edi.invoice.form.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_move_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//sheet/group//group[last()]" position="inside">
+                    <label for="l10n_mx_edi_pac_status" attrs="{'invisible': ['|', ('l10n_mx_edi_pac_status', '=', False), ('type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                    <div class="o_row" attrs="{'invisible': ['|', ('l10n_mx_edi_pac_status', '=', False), ('type', 'not in', ('out_invoice', 'out_refund'))]}">
+                        <field name="l10n_mx_edi_pac_status"/>
+                        <button name="l10n_mx_edi_update_pac_status" string="Retry" class="oe_link" type="object" groups="account.group_account_invoice" attrs="{'invisible':[('l10n_mx_edi_pac_status', 'in', ['signed', 'cancelled', False])]}"/>
+                        <button name="l10n_mx_edi_request_cancellation" string="Request Cancellation" class="oe_link" type="object" groups="account.group_account_invoice" attrs="{'invisible':[('l10n_mx_edi_pac_status', 'not in', ['signed'])]}"/>
+                    </div>
+                    <label for="l10n_mx_edi_sat_status" attrs="{'invisible': ['|', ('state', 'not in', ['posted', 'cancel']), ('type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                    <div class="o_row" attrs="{'invisible': ['|', ('state', 'not in', ['posted', 'cancel']), ('type', 'not in', ('out_invoice', 'out_refund'))]}">
+                        <field name="l10n_mx_edi_sat_status"/>
+                        <button name="l10n_mx_edi_update_sat_status" string="Retry" class="oe_link" type="object" groups="account.group_account_invoice" attrs="{'invisible':['|', ('l10n_mx_edi_pac_status', 'in', ['retry', 'to_sign', 'to_cancel', False]), ('state', '=', 'draft')]}"/>
+                    </div>
+                    <label for="l10n_mx_edi_cfdi_uuid" attrs="{'invisible': ['|', ('state', 'not in', ['posted', 'cancel']), ('type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                    <div class="o_row" attrs="{'invisible': ['|', ('state', 'not in', ['posted', 'cancel']), ('type', 'not in', ('out_invoice', 'out_refund'))]}">
+                        <field name="l10n_mx_edi_cfdi_uuid"/>
+                    </div>
+                    <field name="l10n_mx_edi_origin" attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                </xpath>
+                <xpath expr="//field[@name='ref']" position="after">
+                    <field name="l10n_mx_edi_partner_bank_id" domain="['|', ('partner_id', '=', commercial_partner_id), ('partner_id', '=', partner_id)]" context="{'default_partner_id': commercial_partner_id}"
+                        attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                    <!-- TODO: this should be done in account base, this field is necessary frequently for view automations -->
+                    <field name="commercial_partner_id" invisible="1"/>
+                    <field name="l10n_mx_edi_payment_method_id" attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                    <field name="l10n_mx_edi_usage" attrs="{'readonly':[('l10n_mx_edi_pac_status', '=', 'signed')], 'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='account_id']" position="after">
+                    <field name="l10n_mx_edi_customs_number"
+                           attrs="{'column_invisible': [('parent.type', 'not in', ('out_invoice', 'out_refund'))]}"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='account_id']" position="before">
+                    <field name="l10n_mx_edi_customs_number" invisible="1"/>
+                </xpath>
+                <xpath expr="//page[@name='other_info']" position="inside">
+                    <group attrs="{'invisible': [('type', 'not in', ('out_invoice', 'out_refund'))]}">
+                        <group string="External Trade">
+                            <field name="l10n_mx_edi_external_trade"/>
+                            <field name="l10n_mx_edi_cer_source" attrs="{'invisible': [('l10n_mx_edi_external_trade', '=', False)]}"/>
+                        </group>
+                    </group>
+                </xpath>
+                <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='price_subtotal']" position="after">
+                    <field name="l10n_mx_edi_qty_umt" attrs="{'column_invisible': [('parent.l10n_mx_edi_external_trade', '=', False)]}"/>
+                    <field name="l10n_mx_edi_umt_aduana_id" attrs="{'column_invisible': [('parent.l10n_mx_edi_external_trade', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='line_ids']/tree/field[@name='price_subtotal']" position="after">
+                    <field name="l10n_mx_edi_qty_umt" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_l10n_mx_edi_invoice_filter_inherit" model="ir.ui.view">
+            <field name="name">l10n_mx_edi.invoice.filter.inherit</field>
+            <field name="model">account.move</field>
+            <field name="inherit_id" ref="account.view_account_invoice_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <filter name="mx_edi_sign" string="To sign by PAC" domain="[('l10n_mx_edi_pac_status', '=', 'to_sign')]"/>
+                    <filter name="mx_edi_cancel" string="To cancel by PAC" domain="[('l10n_mx_edi_pac_status', '=', 'to_cancel')]"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

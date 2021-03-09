@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="mod_111" model="account.financial.html.report">
+            <field name="name">Tax Report(Mod 111)</field>
+            <field name="l10n_es_reports_modelo_number">111</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="analytic" eval="False"/>
+            <field name="date_range" eval="True"/>
+            <field name="comparison" eval="False"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="True"/>
+            <field name="generated_menu_id" ref="menu_mod_111_report"/>
+        </record>
+
+        <record id="mod_111_title_1" model="account.financial.html.report.line">
+            <field name="name">Rendimientos del trabajo</field>
+            <field name="code">aeat_mod_111_title_1</field>
+            <field name="financial_report_id" ref="mod_111"/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_111_title_2" model="account.financial.html.report.line">
+            <field name="name">Rendimientos dinerarios</field>
+            <field name="code">aeat_mod_111_title_2</field>
+            <field name="parent_id" ref="mod_111_title_1"/>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3"/>
+        </record>
+
+        <record id="mod_111_casilla_01" model="account.financial.html.report.line">
+            <field name="name">[01] Nº de perceptores</field>
+            <field name="code">aeat_mod_111_01</field>
+            <field name="parent_id" ref='mod_111_title_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_es.mod_111_02'), ref('l10n_es.mod_111_03')])]"/>
+            <field name="formulas">balance = count_rows</field>
+            <field name="groupby">partner_id</field>
+            <field name="figure_type">no_unit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_02" model="account.financial.html.report.line">
+            <field name="name">[02] Importe de las percepciones</field>
+            <field name="code">aeat_mod_111_02</field>
+            <field name="parent_id" ref='mod_111_title_2'/>
+            <field name="domain" eval="[('tag_ids', '=', ref('l10n_es.mod_111_02'))]"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_03" model="account.financial.html.report.line">
+            <field name="name">[03] Importe de las retenciones</field>
+            <field name="code">aeat_mod_111_03</field>
+            <field name="parent_id" ref='mod_111_title_2'/>
+            <field name="domain" eval="[('tag_ids', '=', ref('l10n_es.mod_111_03'))]"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="mod_111_title_3" model="account.financial.html.report.line">
+            <field name="name">Importe de las retenciones</field>
+            <field name="code">aeat_mod_111_title_3</field>
+            <field name="parent_id" ref="mod_111_title_1"/>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="3"/>
+        </record>
+
+        <record id="mod_111_casilla_04" model="account.financial.html.report.line">
+            <field name="name">[04] Nº de perceptores</field>
+            <field name="code">aeat_mod_111_04</field>
+            <field name="parent_id" ref='mod_111_title_3'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_es.mod_111_05'), ref('l10n_es.mod_111_06')])]"/>
+            <field name="formulas">balance = count_rows</field>
+            <field name="figure_type">no_unit</field>
+            <field name="groupby">partner_id</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_05" model="account.financial.html.report.line">
+            <field name="name">[05] Valor percepciones en especie</field>
+            <field name="code">aeat_mod_111_05</field>
+            <field name="parent_id" ref='mod_111_title_3'/>
+            <field name="domain" eval="[('tag_ids', '=', ref('l10n_es.mod_111_05'))]"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="8"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_06" model="account.financial.html.report.line">
+            <field name="name">[06] Importe de los ingresos a cuenta</field>
+            <field name="code">aeat_mod_111_06</field>
+            <field name="parent_id" ref='mod_111_title_3'/>
+            <field name="domain" eval="[('tag_ids', '=', ref('l10n_es.mod_111_06'))]"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="9"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="mod_111_title_4" model="account.financial.html.report.line">
+            <field name="name">Rendimientos actividades económicas</field>
+            <field name="code">aeat_mod_111_title_4</field>
+            <field name="financial_report_id" ref="mod_111"/>
+            <field name="sequence" eval="10"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_111_title_5" model="account.financial.html.report.line">
+            <field name="name">Rendimientos dinerarios</field>
+            <field name="code">aeat_mod_111_title_5</field>
+            <field name="parent_id" ref="mod_111_title_4"/>
+            <field name="sequence" eval="11"/>
+            <field name="level" eval="3"/>
+        </record>
+
+        <record id="mod_111_casilla_07" model="account.financial.html.report.line">
+            <field name="name">[07] Nº de perceptores</field>
+            <field name="code">aeat_mod_111_07</field>
+            <field name="parent_id" ref='mod_111_title_5'/>
+            <field name="domain" eval="[('tag_ids', '=', ref('l10n_es.mod_111_08')), ('tag_ids', '=', ref('l10n_es.mod_111_09'))]"/>
+            <field name="formulas">balance = count_rows</field>
+            <field name="figure_type">no_unit</field>
+            <field name="groupby">partner_id</field>
+            <field name="sequence" eval="12"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_08" model="account.financial.html.report.line">
+            <field name="name">[08] Importe de las percepciones</field>
+            <field name="code">aeat_mod_111_08</field>
+            <field name="parent_id" ref='mod_111_title_5'/>
+            <field name="domain" eval="[('tag_ids', '=', ref('l10n_es.mod_111_08'))]"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="13"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_09" model="account.financial.html.report.line">
+            <field name="name">[09] Importe de las retenciones</field>
+            <field name="code">aeat_mod_111_09</field>
+            <field name="parent_id" ref='mod_111_title_5'/>
+            <field name="domain" eval="[('tag_ids', '=', ref('l10n_es.mod_111_09'))]"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="14"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_title_6" model="account.financial.html.report.line">
+            <field name="name">Rendimientos en especie</field>
+            <field name="code">aeat_mod_111_title_6</field>
+            <field name="parent_id" ref="mod_111_title_4"/>
+            <field name="sequence" eval="15"/>
+            <field name="level" eval="3"/>
+        </record>
+
+        <record id="mod_111_casilla_10" model="account.financial.html.report.line">
+            <field name="name">[10] Nº de perceptores</field>
+            <field name="code">aeat_mod_111_10</field>
+            <field name="parent_id" ref='mod_111_title_6'/>
+            <field name="figure_type">no_unit</field>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="16"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_11" model="account.financial.html.report.line">
+            <field name="name">[11] Valor percepciones en especie</field>
+            <field name="code">aeat_mod_111_11</field>
+            <field name="parent_id" ref='mod_111_title_6'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="17"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_12" model="account.financial.html.report.line">
+            <field name="name">[12] Importe de los ingresos a cuenta</field>
+            <field name="code">aeat_mod_111_12</field>
+            <field name="parent_id" ref='mod_111_title_6'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="18"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="mod_111_title_7" model="account.financial.html.report.line">
+            <field name="name">Premios por la participación en juegos</field>
+            <field name="code">aeat_mod_111_title_7</field>
+            <field name="financial_report_id" ref="mod_111"/>
+            <field name="sequence" eval="19"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_111_title_8" model="account.financial.html.report.line">
+            <field name="name">Premios dinerarios</field>
+            <field name="code">aeat_mod_111_title_8</field>
+            <field name="parent_id" ref="mod_111_title_7"/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="20"/>
+            <field name="level" eval="3"/>
+        </record>
+
+        <record id="mod_111_casilla_13" model="account.financial.html.report.line">
+            <field name="name">[13] Nº de perceptores</field>
+            <field name="code">aeat_mod_111_13</field>
+            <field name="parent_id" ref='mod_111_title_8'/>
+            <field name="figure_type">no_unit</field>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="21"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_14" model="account.financial.html.report.line">
+            <field name="name">[14] Importe de las percepciones</field>
+            <field name="code">aeat_mod_111_14</field>
+            <field name="parent_id" ref='mod_111_title_8'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="22"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_15" model="account.financial.html.report.line">
+            <field name="name">[15] Importe de las retenciones</field>
+            <field name="code">aeat_mod_111_15</field>
+            <field name="parent_id" ref='mod_111_title_8'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="23"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_title_9" model="account.financial.html.report.line">
+            <field name="name">Premios en especie</field>
+            <field name="code">aeat_mod_111_title_9</field>
+            <field name="parent_id" ref="mod_111_title_7"/>
+            <field name="sequence" eval="23"/>
+            <field name="level" eval="3"/>
+        </record>
+
+        <record id="mod_111_casilla_16" model="account.financial.html.report.line">
+            <field name="name">[16] Nº de perceptores</field>
+            <field name="code">aeat_mod_111_16</field>
+            <field name="parent_id" ref='mod_111_title_9'/>
+            <field name="figure_type">no_unit</field>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="24"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_17" model="account.financial.html.report.line">
+            <field name="name">[17] Valor percepciones en especie</field>
+            <field name="code">aeat_mod_111_17</field>
+            <field name="parent_id" ref='mod_111_title_9'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="25"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_18" model="account.financial.html.report.line">
+            <field name="name">[18] Importe de los ingresos a cuenta</field>
+            <field name="code">aeat_mod_111_18</field>
+            <field name="parent_id" ref='mod_111_title_9'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="26"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_title_10" model="account.financial.html.report.line">
+            <field name="name">Ganancias patrimoniales derivadas de los aprovechamientos forestales de los vecinos en montes públicos</field>
+            <field name="code">aeat_mod_111_title_10</field>
+            <field name="financial_report_id" ref="mod_111"/>
+            <field name="sequence" eval="27"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_111_title_11" model="account.financial.html.report.line">
+            <field name="name">Percepciones dinerarias</field>
+            <field name="code">aeat_mod_111_title_11</field>
+            <field name="parent_id" ref="mod_111_title_10"/>
+            <field name="sequence" eval="28"/>
+            <field name="level" eval="3"/>
+        </record>
+
+        <record id="mod_111_casilla_19" model="account.financial.html.report.line">
+            <field name="name">[19] Nº de perceptores</field>
+            <field name="code">aeat_mod_111_19</field>
+            <field name="parent_id" ref='mod_111_title_11'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="figure_type">no_unit</field>
+            <field name="sequence" eval="28"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_20" model="account.financial.html.report.line">
+            <field name="name">[20] Importe de las percepciones</field>
+            <field name="code">aeat_mod_111_20</field>
+            <field name="parent_id" ref='mod_111_title_11'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="29"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_21" model="account.financial.html.report.line">
+            <field name="name">[21] Importe de las retenciones</field>
+            <field name="code">aeat_mod_111_21</field>
+            <field name="parent_id" ref='mod_111_title_11'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="30"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_title_12" model="account.financial.html.report.line">
+            <field name="name">Percepciones en especie</field>
+            <field name="code">aeat_mod_111_title_12</field>
+            <field name="parent_id" ref="mod_111_title_10"/>
+            <field name="sequence" eval="29"/>
+            <field name="level" eval="3"/>
+        </record>
+
+        <record id="mod_111_casilla_22" model="account.financial.html.report.line">
+            <field name="name">[22] Nº de perceptores</field>
+            <field name="code">aeat_mod_111_22</field>
+            <field name="parent_id" ref='mod_111_title_12'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="figure_type">no_unit</field>
+            <field name="sequence" eval="30"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_23" model="account.financial.html.report.line">
+            <field name="name">[23] Valor percepciones en especie</field>
+            <field name="code">aeat_mod_111_23</field>
+            <field name="parent_id" ref='mod_111_title_12'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="31"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_24" model="account.financial.html.report.line">
+            <field name="name">[24] Importe de los ingresos a cuenta</field>
+            <field name="code">aeat_mod_111_24</field>
+            <field name="parent_id" ref='mod_111_title_12'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="32"/>
+            <field name="level" eval="4"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="mod_111_title_13" model="account.financial.html.report.line">
+            <field name="name">Contraprestaciones por la cesión de derechos de imagen: ingresos a cuenta previstos en el artículo 92.8 de la Ley del Impuesto</field>
+            <field name="code">aeat_mod_111_title_13</field>
+            <field name="financial_report_id" ref="mod_111"/>
+            <field name="sequence" eval="33"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_111_casilla_25" model="account.financial.html.report.line">
+            <field name="name">[25] Nº de perceptores</field>
+            <field name="code">aeat_mod_111_25</field>
+            <field name="parent_id" ref='mod_111_title_13'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="34"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_26" model="account.financial.html.report.line">
+            <field name="name">[26] Contraprestaciones satisfechas</field>
+            <field name="code">aeat_mod_111_26</field>
+            <field name="parent_id" ref='mod_111_title_13'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="35"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_27" model="account.financial.html.report.line">
+            <field name="name">[27] Importe de los ingresos a cuenta</field>
+            <field name="code">aeat_mod_111_27</field>
+            <field name="parent_id" ref='mod_111_title_13'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="36"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+
+        <record id="mod_111_title_14" model="account.financial.html.report.line">
+            <field name="name">Total liquidación</field>
+            <field name="code">aeat_mod_111_title_14</field>
+            <field name="financial_report_id" ref="mod_111"/>
+            <field name="sequence" eval="37"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_111_casilla_28" model="account.financial.html.report.line">
+            <field name="name">[28] Suma de retenciones</field>
+            <field name="code">aeat_mod_111_28</field>
+            <field name="parent_id" ref='mod_111_title_14'/>
+            <field name="formulas">balance = aeat_mod_111_03.balance + aeat_mod_111_06.balance + aeat_mod_111_09.balance + aeat_mod_111_12.balance + aeat_mod_111_15.balance + aeat_mod_111_18.balance + aeat_mod_111_21.balance + aeat_mod_111_24.balance + aeat_mod_111_27.balance</field>
+            <field name="sequence" eval="38"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_29" model="account.financial.html.report.line">
+            <field name="name">[29] Resultados a ingresar anteriores</field>
+            <field name="code">aeat_mod_111_29</field>
+            <field name="parent_id" ref='mod_111_title_14'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="39"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_111_casilla_30" model="account.financial.html.report.line">
+            <field name="name">[30] Resultado a ingresar</field>
+            <field name="code">aeat_mod_111_30</field>
+            <field name="parent_id" ref='mod_111_title_14'/>
+            <field name="formulas">balance = aeat_mod_111_28.balance + aeat_mod_111_29.balance</field>
+            <field name="sequence" eval="40"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+    </data>
+</odoo>

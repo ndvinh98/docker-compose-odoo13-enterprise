@@ -1,0 +1,709 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Finland Balance Sheet -->
+    <record id="account_financial_report_l10n_fi_bs" model="account.financial.html.report">
+        <field name="name">Balance Sheet</field>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="date_range" eval="False" />
+        <field name='parent_id' ref='l10n_fi.account_reports_fi_statements_menu'/>
+    </record>
+
+    <record id="account_financial_report_l10n_fi_bs_line_1" model="account.financial.html.report.line">
+        <field name="name">Vastaavaa</field>
+        <field name="level" eval="0"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = FIBS_ASS_A.balance + FIBS_ASS_B.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_bs"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1" model="account.financial.html.report.line">
+        <field name="name">A) PYSYVÄT VASTAAVAT</field>
+        <field name="code">FIBS_ASS_A</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = FIBS_ASS_AI.balance + FIBS_ASS_AII.balance + FIBS_ASS_AIII.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_1" model="account.financial.html.report.line">
+        <field name="name">I. Aineettomat hyödykkeet</field>
+        <field name="code">FIBS_ASS_AI</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = FIBS_ASS_AI_1.balance + FIBS_ASS_AI_2.balance + FIBS_ASS_AI_3.balance + FIBS_ASS_AI_4.balance + FIBS_ASS_AI_5.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_1_1" model="account.financial.html.report.line">
+        <field name="name">1. Kehittämismenot</field>
+        <field name="code">FIBS_ASS_AI_1</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_development_costs')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_1_2" model="account.financial.html.report.line">
+        <field name="name">2. Aineettomat oikeudet</field>
+        <field name="code">FIBS_ASS_AI_2</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_immaterial_rights')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_1_3" model="account.financial.html.report.line">
+        <field name="name">3. Liikearvo</field>
+        <field name="code">FIBS_ASS_AI_3</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_goodwill')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_1_4" model="account.financial.html.report.line">
+        <field name="name">4. Muut pitkävaikutteiset menot</field>
+        <field name="code">FIBS_ASS_AI_4</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_long_term_expenses')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_1_5" model="account.financial.html.report.line">
+        <field name="name">5. Ennakkomaksut</field>
+        <field name="code">FIBS_ASS_AI_5</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="5"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_advance_payments_intangible')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_1"/>
+    </record>
+
+	<record id="account_financial_report_l10n_fi_bs_line_1_1_2" model="account.financial.html.report.line">
+        <field name="name">II. Aineelliset hyödykkeet</field>
+        <field name="code">FIBS_ASS_AII</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="formulas">balance = FIBS_ASS_AII_1.balance + FIBS_ASS_AII_2.balance + FIBS_ASS_AII_3.balance + FIBS_ASS_AII_4.balance + FIBS_ASS_AII_5.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_2_1" model="account.financial.html.report.line">
+        <field name="name">1. Maa- ja vesialueet</field>
+        <field name="code">FIBS_ASS_AII_1</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_land_and_water_areas_owned'), ref('l10n_fi.account_tag_land_and_water_rights_lease')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_2_2" model="account.financial.html.report.line">
+        <field name="name">2. Rakennukset ja rakennelmat</field>
+        <field name="code">FIBS_ASS_AII_2</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_buildings_owned'), ref('l10n_fi.account_tag_building_leases')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_2_3" model="account.financial.html.report.line">
+        <field name="name">3. Koneet ja kalusto</field>
+        <field name="code">FIBS_ASS_AII_3</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_machines_and_hardware')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_2_4" model="account.financial.html.report.line">
+        <field name="name">4. Muut aineelliset hyödykkeet</field>
+        <field name="code">FIBS_ASS_AII_4</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_tangible_assets')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_2_5" model="account.financial.html.report.line">
+        <field name="name">5. Ennakkomaksut ja keskeneräiset hankinnat</field>
+        <field name="code">FIBS_ASS_AII_5</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="5"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_payments_on_account_tangible')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_2"/>
+    </record>
+
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_3" model="account.financial.html.report.line">
+        <field name="name">III. Sijoitukset</field>
+        <field name="code">FIBS_ASS_AIII</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="3"/>
+        <field name="formulas">balance = FIBS_ASS_AIII_1.balance + FIBS_ASS_AIII_2.balance + FIBS_ASS_AIII_3.balance + FIBS_ASS_AIII_4.balance + FIBS_ASS_AIII_5.balance + FIBS_ASS_AIII_6.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_3_1" model="account.financial.html.report.line">
+        <field name="name">1. Osuudet saman konsernin yrityksissä</field>
+        <field name="code">FIBS_ASS_AIII_1</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_shares_in_group_companies')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_3_2" model="account.financial.html.report.line">
+        <field name="name">2. Saamiset saman konsernin yrityksiltä</field>
+        <field name="code">FIBS_ASS_AIII_2</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_receivables_from_associated_companies_investments')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_3_3" model="account.financial.html.report.line">
+        <field name="name">3. Osuudet omistusyhteysyrityksissä</field>
+        <field name="code">FIBS_ASS_AIII_3</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_shares_in_associated_companies')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_3_4" model="account.financial.html.report.line">
+        <field name="name">4. Saamiset omistusyhteysyrityksiltä</field>
+        <field name="code">FIBS_ASS_AIII_4</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_receivables_from_associated_companies_investments')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_3_5" model="account.financial.html.report.line">
+        <field name="name">5. Muut osakkeet ja osuudet</field>
+        <field name="code">FIBS_ASS_AIII_5</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="5"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_shares_and_participations')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_1_3_6" model="account.financial.html.report.line">
+        <field name="name">6. Muut saamiset</field>
+        <field name="code">FIBS_ASS_AIII_6</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="6"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_receivables_investments')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_1_3"/>
+    </record>
+
+    <record id="account_financial_report_l10n_fi_bs_line_1_2" model="account.financial.html.report.line">
+        <field name="name">B) VAIHTUVAT VASTAAVAT</field>
+        <field name="code">FIBS_ASS_B</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="2"/>
+        <field name="formulas">balance = FIBS_ASS_BI.balance + FIBS_ASS_BII.balance + FIBS_ASS_BIII.balance + FIBS_ASS_BIV.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_1" model="account.financial.html.report.line">
+        <field name="name">I. Vaihto-omaisuus</field>
+        <field name="code">FIBS_ASS_BI</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = FIBS_ASS_BI_1.balance + FIBS_ASS_BI_2.balance + FIBS_ASS_BI_3.balance + FIBS_ASS_BI_4.balance + FIBS_ASS_BI_5.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_1_1" model="account.financial.html.report.line">
+        <field name="name">1. Aineet ja tarvikkeet</field>
+        <field name="code">FIBS_ASS_BI_1</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_materials_and_supplies_inventories')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_1_2" model="account.financial.html.report.line">
+        <field name="name">2. Keskeneräiset tuotteet</field>
+        <field name="code">FIBS_ASS_BI_2</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_work_in_progress')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_1_3" model="account.financial.html.report.line">
+        <field name="name">3. Valmiit tuotteet/tavarat</field>
+        <field name="code">FIBS_ASS_BI_3</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_finished_goods_inventories'), ref('l10n_fi.account_tag_goods_in_transit')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_1_4" model="account.financial.html.report.line">
+        <field name="name">4. Muu vaihto-omaisuus</field>
+        <field name="code">FIBS_ASS_BI_4</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_current_assets')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_1_5" model="account.financial.html.report.line">
+        <field name="name">5. Ennakkomaksut</field>
+        <field name="code">FIBS_ASS_BI_5</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="5"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_advance_payments_for_property')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_2" model="account.financial.html.report.line">
+        <field name="name">II. Saamiset</field>
+        <field name="code">FIBS_ASS_BII</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = FIBS_ASS_BII_1.balance + FIBS_ASS_BII_2.balance + FIBS_ASS_BII_3.balance + FIBS_ASS_BII_4.balance + FIBS_ASS_BII_5.balance + FIBS_ASS_BII_6.balance + FIBS_ASS_BII_7.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_2_1" model="account.financial.html.report.line">
+        <field name="name">1. Myyntisaamiset</field>
+        <field name="code">FIBS_ASS_BII_1</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_trade_receivables_long-term'), ref('l10n_fi.account_tag_accounts_receivable')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_2_2" model="account.financial.html.report.line">
+        <field name="name">2. Saamiset saman konsernin yrityksiltä</field>
+        <field name="code">FIBS_ASS_BII_2</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_receivables_from_group_long-term'), ref('l10n_fi.account_tag_receivables_from_group')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_2_3" model="account.financial.html.report.line">
+        <field name="name">3. Saamiset omistusyhteysyrityksiltä</field>
+        <field name="code">FIBS_ASS_BII_3</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_receivables_from_associated_companies_non-current'), ref('l10n_fi.account_tag_accounts_receivable_from_associated_companies'), ref('l10n_fi.account_tag_receivables_from_associated_companies')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_2_4" model="account.financial.html.report.line">
+        <field name="name">4. Lainasaamiset</field>
+        <field name="code">FIBS_ASS_BII_4</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_loan_receivables_long-term'), ref('l10n_fi.account_tag_deferred_tax_assets_are_long-term'), ref('l10n_fi.account_tag_other_long-term_receivables'), ref('l10n_fi.account_tag_deferred_tax_assets'), ref('l10n_fi.account_tag_deferred_tax_liabilities_are_long-term'), ref('l10n_fi.account_tag_other_long-term_liabilities')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_2_5" model="account.financial.html.report.line">
+        <field name="name">5. Muut saamiset</field>
+        <field name="code">FIBS_ASS_BII_5</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="5"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_receivables')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_2_6" model="account.financial.html.report.line">
+        <field name="name">6. Maksamattomat osakkeet/osuudet</field>
+        <field name="code">FIBS_ASS_BII_6</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="6"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_unpaid_contributions'), ref('l10n_fi.account_tag_unpaid_shares_of_long-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_2_7" model="account.financial.html.report.line">
+        <field name="name">7. Siirtosaamiset</field>
+        <field name="code">FIBS_ASS_BII_7</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="7"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_prepayments_and_accrued_income'), ref('l10n_fi.account_tag_prepaid_expenses_and_long-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_2"/>
+    </record>
+
+     <record id="account_financial_report_l10n_fi_bs_line_1_2_3" model="account.financial.html.report.line">
+        <field name="name">III. Rahoitusarvopaperit</field>
+        <field name="code">FIBS_ASS_BIII</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="3"/>
+        <field name="formulas">balance = FIBS_ASS_BIII_1.balance + FIBS_ASS_BIII_2.balance + FIBS_ASS_BIII_3.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_3_1" model="account.financial.html.report.line">
+        <field name="name">1. Osuudet saman konsernin yrityksissä</field>
+        <field name="code">FIBS_ASS_BIII_1</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_shares_in_group_companies'), ref('l10n_fi.account_tag_shares_in_the_consolidated_financial_securities'), ref('l10n_fi.account_tag_other_shares_and_marketable_securities'), ref('l10n_fi.account_tag_other_financial_assets')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_3_2" model="account.financial.html.report.line">
+        <field name="name">2. Muut osakkeet ja osuudet</field>
+        <field name="code">FIBS_ASS_BIII_2</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_receivables_from_associated_companies_investments')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_3_3" model="account.financial.html.report.line">
+        <field name="name">3. Muut arvopaperit</field>
+        <field name="code">FIBS_ASS_BIII_3</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_shares_in_associated_companies')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_1_2_4" model="account.financial.html.report.line">
+        <field name="name">IV. Rahat ja pankkisaamiset</field>
+        <field name="code">FIBS_ASS_BIV</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_liquidity')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_1_2"/>
+    </record>
+
+    <record id="account_financial_report_l10n_fi_bs_line_2" model="account.financial.html.report.line">
+        <field name="name">Vastattavaa</field>
+        <field name="level" eval="0"/>
+        <field name="sequence" eval="2"/>
+        <field name="formulas">balance = FIBS_LIA_A.balance + FIBS_LIA_B.balance + FIBS_LIA_C.balance + FIBS_LIA_D.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_bs"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1" model="account.financial.html.report.line">
+        <field name="name">A) OMA PÄÄOMA</field>
+        <field name="code">FIBS_LIA_A</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = FIBS_LIA_AI.balance + FIBS_LIA_AII.balance + FIBS_LIA_AIII.balance + FIBS_LIA_AIV.balance + FIBS_LIA_AV.balance + FIBS_LIA_AVI.balance + FIBS_LIA_AVII.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_1" model="account.financial.html.report.line">
+        <field name="name">I. Osake-, osuus- tai muu vastaava pääoma</field>
+        <field name="code">FIBS_LIA_AI</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_stock_capital')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_2" model="account.financial.html.report.line">
+        <field name="name">II. Ylikurssirahasto</field>
+        <field name="code">FIBS_LIA_AII</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_share_premium_account')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_3" model="account.financial.html.report.line">
+        <field name="name">III. Arvonkorotusrahasto</field>
+        <field name="code">FIBS_LIA_AIII</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_revaluation_reserve')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_4" model="account.financial.html.report.line">
+        <field name="name">IV. Käyvän arvon rahasto</field>
+        <field name="code">FIBS_LIA_AIV</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_the_fair_value_reserve')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_5" model="account.financial.html.report.line">
+        <field name="name">V. Muut rahastot</field>
+        <field name="code">FIBS_LIA_AV</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="5"/>
+        <field name="formulas">balance = FIBS_LIA_AV_1.balance + FIBS_LIA_AV_2.balance + FIBS_LIA_AV_3.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_5_1" model="account.financial.html.report.line">
+        <field name="name">1. Vararahasto</field>
+        <field name="code">FIBS_LIA_AV_1</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_reserve')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1_5"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_5_2" model="account.financial.html.report.line">
+        <field name="name">2. Yhtiöjärjestyksen tai sääntöjen mukaiset rahastot</field>
+        <field name="code">FIBS_LIA_AV_2</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_the_articles_of_association_or_fund_under_the_rules'), ref('l10n_fi.account_tag_the_invested_unrestricted_equity_fund')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1_5"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_5_3" model="account.financial.html.report.line">
+        <field name="name">3. Muut rahastot</field>
+        <field name="code">FIBS_LIA_AV_3</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_reserves')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1_5"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_6" model="account.financial.html.report.line">
+        <field name="name">VI. Edellisten tilikausien voitto (tappio)</field>
+        <field name="code">FIBS_LIA_AVI</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="6"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_retained_earnings')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_1_7" model="account.financial.html.report.line">
+        <field name="name">VII. Tilikauden voitto (tappio)</field>
+        <field name="code">FIBS_LIA_AVII</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="7"/>
+        <field name="domain" eval="[('account_id.user_type_id', 'in', [
+            ref('account.data_account_type_depreciation'),
+            ref('account.data_account_type_direct_costs'),
+            ref('account.data_account_type_expenses'),
+            ref('account.data_account_type_other_income'),
+            ref('account.data_account_type_revenue')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_2" model="account.financial.html.report.line">
+        <field name="name">B) TILINPÄÄTÖSSIIRTOJEN KERTYMÄ</field>
+        <field name="code">FIBS_LIA_B</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="2"/>
+        <field name="formulas">balance = FIBS_LIA_B_1.balance + FIBS_LIA_B_2.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_2_1" model="account.financial.html.report.line">
+        <field name="name">1. Poistoero</field>
+        <field name="code">FIBS_LIA_B_1</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_depreciation_difference')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_2_2" model="account.financial.html.report.line">
+        <field name="name">2. Vapaaehtoiset varaukset</field>
+        <field name="code">FIBS_LIA_B_2</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_tax_based_reservations')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_3" model="account.financial.html.report.line">
+        <field name="name">C) PAKOLLISET VARAUKSET</field>
+        <field name="code">FIBS_LIA_C</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="3"/>
+        <field name="formulas">balance = FIBS_LIA_C_1.balance + FIBS_LIA_C_2.balance + FIBS_LIA_C_3.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_3_1" model="account.financial.html.report.line">
+        <field name="name">1. Eläkevaraukset</field>
+        <field name="code">FIBS_LIA_C_1</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_provisions_for_pensions')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_3_2" model="account.financial.html.report.line">
+        <field name="name">2. Verovaraukset</field>
+        <field name="code">FIBS_LIA_C_2</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_tax_provisions')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_3_3" model="account.financial.html.report.line">
+        <field name="name">3. Muut pakolliset varaukset</field>
+        <field name="code">FIBS_LIA_C_3</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_provisions')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_3"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4" model="account.financial.html.report.line">
+        <field name="name">D) VIERAS PÄÄOMA</field>
+        <field name="code">FIBS_LIA_D</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="4"/>
+        <field name="formulas">balance = FIBS_LIA_D_1.balance + FIBS_LIA_D_2.balance + FIBS_LIA_D_3.balance + FIBS_LIA_D_4.balance + FIBS_LIA_D_5.balance + FIBS_LIA_D_6.balance + FIBS_LIA_D_7.balance + FIBS_LIA_D_8.balance + FIBS_LIA_D_9.balance + FIBS_LIA_D_10.balance + FIBS_LIA_D_11.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_1" model="account.financial.html.report.line">
+        <field name="name">1. Joukkovelkakirjalainat</field>
+        <field name="code">FIBS_LIA_D_1</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_bonds_are_long-term'), ref('l10n_fi.account_tag_bonds_short-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_2" model="account.financial.html.report.line">
+        <field name="name">2. Vaihtovelkakirjalainat</field>
+        <field name="code">FIBS_LIA_D_2</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_convertible_bonds_long-term'), ref('l10n_fi.account_tag_convertible_bonds_short-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_3" model="account.financial.html.report.line">
+        <field name="name">3. Lainat rahoituslaitoksilta</field>
+        <field name="code">FIBS_LIA_D_3</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_loans_from_financial_institutions_long-term'), ref('l10n_fi.account_tag_loans'), ref('l10n_fi.account_tag_subordinated_loans_long-term'), ref('l10n_fi.account_tag_capital_loans_are_short-term'), ref('l10n_fi.account_tag_loans_from_financial_institutions_short-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_4" model="account.financial.html.report.line">
+        <field name="name">4. Eläkelainat</field>
+        <field name="code">FIBS_LIA_D_4</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_pension_loans_long-term'), ref('l10n_fi.account_tag_pension_loans_short-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_5" model="account.financial.html.report.line">
+        <field name="name">5. Saadut ennakot</field>
+        <field name="code">FIBS_LIA_D_5</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="5"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_advances_received_long-term'), ref('l10n_fi.account_tag_advances_received_short-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_6" model="account.financial.html.report.line">
+        <field name="name">6. Ostovelat</field>
+        <field name="code">FIBS_LIA_D_6</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="6"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_accounts_payable'), ref('l10n_fi.account_tag_accounts_payable-current'), ref('l10n_fi.account_tag_trade_payables_to_group'), ref('l10n_fi.account_tag_trade_payables_to_associated_companies')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_7" model="account.financial.html.report.line">
+        <field name="name">7. Rahoitusvekselit</field>
+        <field name="code">FIBS_LIA_D_7</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="7"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_bills_of_short-term'), ref('l10n_fi.account_tag_bills_of_long-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_8" model="account.financial.html.report.line">
+        <field name="name">8. Velat saman konsernin yrityksille</field>
+        <field name="code">FIBS_LIA_D_8</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="8"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_group_short-term_liabilities'), ref('l10n_fi.account_tag_consolidated_long-term_liabilities'), ref('l10n_fi.account_tag_payables_to_associated_companies_non-current'), ref('l10n_fi.account_tag_deferred_tax_liabilities_are_long-term'), ref('l10n_fi.account_tag_deferred_tax_liabilities_are_short-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_9" model="account.financial.html.report.line">
+        <field name="name">9. Velat omistusyhteysyrityksille</field>
+        <field name="code">FIBS_LIA_D_9</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="9"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_payables_to_associated_companies')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_10" model="account.financial.html.report.line">
+        <field name="name">10. Muut velat</field>
+        <field name="code">FIBS_LIA_D_10</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="10"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_short-term_liabilities')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_bs_line_2_4_11" model="account.financial.html.report.line">
+        <field name="name">11. -Siirtovelat</field>
+        <field name="code">FIBS_LIA_D_11</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="11"/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_accrued_liabilities_short-term'), ref('l10n_fi.account_tag_accrued_long-term')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_bs_line_2_4"/>
+    </record>
+
+</odoo>

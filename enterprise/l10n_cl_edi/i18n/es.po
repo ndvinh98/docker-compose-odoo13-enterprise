@@ -1,0 +1,2797 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* l10n_cl_edi
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-09-05 16:20+0000\n"
+"PO-Revision-Date: 2020-09-05 12:28-0400\n"
+"Last-Translator: Daniel Blanco <daniel@blancomartin.cl>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.1\n"
+
+#. module: l10n_cl_edi
+#: model:mail.template,body_html:l10n_cl_edi.email_template_receipt_ack
+msgid ""
+"\n"
+"            \n"
+"                <header>\n"
+"                <strong>Electronic Invoice - Receipt Acknowledge of DTE "
+"Sending\n"
+"                ${object.name}</strong>\n"
+"                </header>\n"
+"                <p>In the attached File you will find the result of the "
+"revision an validation process of a sent Tax Document made by you.</p>\n"
+"                <br />\n"
+"                <p>This is an automatic application, thus you should not "
+"answer this email or make comments to the origin email address..</p>\n"
+"                <br /><br /><br /><br />\n"
+"                <p>Sent Using Odoo</p>\n"
+"            \n"
+"            "
+msgstr ""
+"\n"
+"             \n"
+"                <header>\n"
+"                <strong>Facturación Electrónica - Acuse de Recibo de Envio "
+"de DTE ${object.name}</strong>\n"
+"                </header>\n"
+"                <p>En el archivo adjunto puede encontrar el resultado del "
+"proceso de revisión y\n"
+"                validación de un envío de Documentos Tributarios "
+"Electronicos que Usted\n"
+"                realizó.</p>\n"
+"                <br />\n"
+"                <p>Esta es una aplicación automática, por lo tanto no "
+"conteste este correo ni\n"
+"                haga consultas o comentarios a la dirección de origen.</p>\n"
+"                <br /><br /><br /><br />\n"
+"                <p>Enviado Usando Odoo</p> "
+
+#. module: l10n_cl_edi
+#: model:mail.template,body_html:l10n_cl_edi.email_template_receipt_commercial_accept
+msgid ""
+"\n"
+"            \n"
+"                <header>\n"
+"                <strong>Electronic Invoicing - Commercial Acceptance "
+"Response - ${object.display_name}</strong>\n"
+"                </header>\n"
+"                <p>In the attached file you will find the commercial "
+"acceptance of your Electronic Tax Document(s).</p>\n"
+"                <br /><br /><br /><br />\n"
+"                <p>Sent Using Odoo</p>\n"
+"            \n"
+"            "
+msgstr ""
+"\n"
+"<header>\n"
+"                <strong>Facturación Electrónica - Respuesta de Aceptación "
+"Comercial - ${object.display_name}</strong>\n"
+"                </header>\n"
+"                <p>En el archivo adjunto puede encontrar la respuesta de "
+"aceptación comercial\n"
+"                de su(s) Documento(s) Tributarios Electronico(s).</p>\n"
+"                <br /><br /><br /><br />\n"
+"                <p>Enviado Usando Odoo</p> "
+
+#. module: l10n_cl_edi
+#: model:mail.template,body_html:l10n_cl_edi.email_template_claimed_ack
+msgid ""
+"\n"
+"            \n"
+"                <header>\n"
+"                <strong>Electronic Invoicing - Commercial Rejection response "
+"${object.name}</strong>\n"
+"                </header>\n"
+"                <p>In the attached file you will find the response for a "
+"commercial rejection of Electronic Tax Documents sent by you.</p>\n"
+"                <br />\n"
+"                <p>This is an automatic application, thus you should not "
+"answer this email or make comments to the origin email address..</p>\n"
+"                <br /><br /><br /><br />\n"
+"                <p>Sent Using Odoo</p>\n"
+"            \n"
+"            "
+msgstr ""
+"\n"
+"                <header>\n"
+"                <strong>Facturación Electrónica - Respuesta de Rechazo "
+"Comercial ${object.name}</strong>\n"
+"                </header>\n"
+"                <p>En el archivo adjunto puede encontrar el resultado del "
+"proceso de revisión y\n"
+"                rechazo de un envío de Documentos Tributarios Electronicos "
+"que Usted\n"
+"                realizó.</p>\n"
+"                <br />\n"
+"                <p>Esta es una aplicación automática, por lo tanto no "
+"conteste este correo ni\n"
+"                haga consultas o comentarios a la dirección de origen.</p>\n"
+"                <br /><br /><br /><br />\n"
+"                <p>Enviado Usando Odoo</p> "
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_move__l10n_cl_dte_partner_status
+msgid ""
+"\n"
+"    Status of sending the DTE to the partner:\n"
+"    - Not sent: the DTE has not been sent to the partner but it has sent to "
+"SII.\n"
+"    - Sent: The DTE has been sent to the partner."
+msgstr ""
+"\n"
+"    Estado al enviar el DTE al cliente:\n"
+"    - Not enviado: El DTE no ha sido enviado al cliente pero si ha sido "
+"enviado al SII.\n"
+"    - Enviado: El DTE ha sido enviado al cliente."
+
+#. module: l10n_cl_edi
+#: model:mail.template,subject:l10n_cl_edi.l10n_cl_edi_email_template_invoice
+msgid "${object.company_id.name} DTE (Ref ${(object.name or 'n/a')})"
+msgstr ""
+"${object.company_id.name} Documento Tributario Electrónico (Ref ${(object."
+"name or 'n/a')})"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__103
+msgid "(103) Liquidación"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__108
+msgid "(108) SRF Solicitud de Registro de Factura"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__110
+msgid "(110) Factura de Exportación Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__111
+msgid "(111) Nota de Débito de Exportación Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__112
+msgid "(112) Nota de Crédito de Exportación Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__29
+msgid "(29) Factura de Inicio"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__30
+msgid "(30) Factura"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__32
+msgid "(32) Factura de Ventas y Servicios no Afectos o Exentos de IVA"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__33
+msgid "(33) Factura Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__34
+msgid "(34) Factura no Afecta o Exenta Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__35
+msgid "(35) Boleta de Venta"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__38
+msgid "(38) Boleta exenta"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__39
+msgid "(39) Boleta Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__40
+msgid "(40) Liquidación Factura"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__41
+msgid "(41) Boleta Exenta Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__43
+msgid "(43) Liquidación Factura Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__45
+msgid "(45) Factura de Compra"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__46
+msgid "(46) Factura de Compra Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__50
+msgid "(50) Guía de Despacho"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__500
+msgid "(500) Ajuste aumento Tipo de Cambio (código 500)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__501
+msgid "(501) Ajuste disminución Tipo de Cambio (código 501)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__52
+msgid "(52) Guía de Despacho Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__55
+msgid "(55) Nota de Débito"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__56
+msgid "(56) Nota de Débito Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__60
+msgid "(60) Nota de Crédito"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__61
+msgid "(61) Nota de Crédito Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__70
+msgid "(70) Boleta de Honorarios"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__71
+msgid "(71) Boleta de Honorarios Electrónica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__801
+msgid "(801) Orden de Compra"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__802
+msgid "(802) Nota de pedido"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__803
+msgid "(803) Contrato"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__804
+msgid "(804) Resolución"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__805
+msgid "(805) Proceso ChileCompra"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__806
+msgid "(806) Ficha ChileCompra"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__807
+msgid "(807) DUS"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__808
+msgid "(808) B/L (Conocimiento de embarque)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__809
+msgid "(809) AWB Airway Bill"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__810
+msgid "(810) MIC/DTA"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__811
+msgid "(811) Carta de Porte"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__812
+msgid "(812) Resolución del SNA donde califica Servicios de Exportación"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__813
+msgid "(813) Pasaporte"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__814
+msgid "(814) Certificado de Depósito Bolsa Prod. Chile."
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__815
+msgid "(815) Vale de Prenda Bolsa Prod. Chile"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__901
+msgid ""
+"(901) Factura de ventas a empresas del territorio preferencial Res. Ex. N° "
+"1057"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__902
+msgid "(902) Conocimiento de Embarque (Marítimo o aéreo)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__903
+msgid "(903) Documento Único de Salida (DUS)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__904
+msgid "(904) Factura de Traspaso"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__905
+msgid "(905) Factura de Reexpedición"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__906
+msgid "(906) Boletas Venta Módulos ZF (todas)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__907
+msgid "(907) Facturas Venta Módulo ZF (todas)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__911
+msgid "(911) Declaración de Ingreso a Zona Franca Primaria"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__914
+msgid "(914) Declaración de Ingreso (DIN)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__919
+msgid "(919) Resumen Ventas de nacionales pasajes sin Factura"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__chq
+msgid "(CHQ) Cheque"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__hem
+msgid "(HEM) Hoja de Entrada de Materiales (HEM)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__hes
+msgid "(HES) Hoja de Entrada de Servicio (HES)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__mig
+msgid "(MIG) Movimiento de Mercancías (MIGO)"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection__pag
+msgid "(PAG) Pagaré"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "- It was not possible to get a seed after %s retries."
+msgstr "- No fue posible obtener una semilla después de %s reintento."
+
+#. module: l10n_cl_edi
+#: model:ir.actions.server,name:l10n_cl_edi.ir_cron_load_sii_xsd_files_ir_actions_server
+#: model:ir.cron,cron_name:l10n_cl_edi.ir_cron_load_sii_xsd_files
+#: model:ir.cron,name:l10n_cl_edi.ir_cron_load_sii_xsd_files
+msgid "0. Cron Job - Load XSD Files (Chilean SII)"
+msgstr "0. Acción Planificada - Obtener archivos XSD (SII Chile)"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_res_company__l10n_cl_sii_taxpayer_type
+#: model:ir.model.fields,help:l10n_cl_edi.field_res_config_settings__l10n_cl_sii_taxpayer_type
+msgid ""
+"1 - VAT Affected (1st Category) (Most of the cases)\n"
+"2 - Fees Receipt Issuer (Applies to suppliers who issue fees receipt)\n"
+"3 - End consumer (only receipts)\n"
+"4 - Foreigner"
+msgstr ""
+"1 - IVA Afecto (1st Category) (La mayoría de los casos)\n"
+"2 - Emisor de Boletas de Honorarios (Aplica a proveedores que emiten boletas "
+"de honorarios)\n"
+"3 - Consumidor final (solo se le emiten boletas)\n"
+"4 - Extranjero"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_debit_note__l10n_cl_edi_reference_doc_code__1
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move_reversal__l10n_cl_edi_reference_doc_code__1
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__reference_doc_code__1
+msgid "1. Cancels Referenced Document"
+msgstr "1. Anula Documento de referencia"
+
+#. module: l10n_cl_edi
+#: model:ir.actions.server,name:l10n_cl_edi.ir_cron_send_send_ir_actions_server
+#: model:ir.cron,cron_name:l10n_cl_edi.ir_cron_send_send
+#: model:ir.cron,name:l10n_cl_edi.ir_cron_send_send
+msgid "1. Cron Job - Send document to SII"
+msgstr "1. Acción Planificada. Trabajo de envío documento al SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_payment_term__l10n_cl_sii_code__1
+msgid "1: Cash payment"
+msgstr "1: Pago contado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_debit_note__l10n_cl_edi_reference_doc_code__2
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move_reversal__l10n_cl_edi_reference_doc_code__2
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__reference_doc_code__2
+msgid "2. Corrects Referenced Document Text"
+msgstr "2. Corrige Texto en Documento de Referencia"
+
+#. module: l10n_cl_edi
+#: model:ir.actions.server,name:l10n_cl_edi.ir_cron_sii_request_ir_actions_server
+#: model:ir.cron,cron_name:l10n_cl_edi.ir_cron_sii_request
+#: model:ir.cron,name:l10n_cl_edi.ir_cron_sii_request
+msgid "2. Cron Job - General Jobs with SII and electronic invoicing for Chile"
+msgstr ""
+"2. Acción Planificada - Acciones Generales con el SII y facturación "
+"electrónica para Chile"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_payment_term__l10n_cl_sii_code__2
+msgid "2: Credit"
+msgstr "2. Crédito"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_debit_note__l10n_cl_edi_reference_doc_code__3
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move_reversal__l10n_cl_edi_reference_doc_code__3
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_account_invoice_reference__reference_doc_code__3
+msgid "3. Corrects Referenced Document Amount"
+msgstr "3. Corrige el monto del Documento de Referencia"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_payment_term__l10n_cl_sii_code__3
+msgid "3: Other"
+msgstr "3: Otro"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.barcode_stamp_footer
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.barcode_stamp_footer_with_payments
+msgid ""
+"<br/>\n"
+"                        Verifique documento en www.sii.cl"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:mail.template,body_html:l10n_cl_edi.l10n_cl_edi_email_template_invoice
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Dear\n"
+"        % if object.commercial_partner_id:\n"
+"            ${object.partner_id.name} (${object.commercial_partner_id."
+"name}),\n"
+"        % else:\n"
+"            ${object.partner_id.name},\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Here is your\n"
+"        % if object.name:\n"
+"            invoice <strong>${object.name}</strong>\n"
+"        % else:\n"
+"            invoice\n"
+"        %endif\n"
+"        % if object.invoice_origin:\n"
+"            (with reference: ${object.invoice_origin})\n"
+"        % endif\n"
+"        with a total amount of <strong>${format_amount(object.amount_total, "
+"object.currency_id)}</strong>\n"
+"        from ${object.company_id.name}.\n"
+"        % if object.invoice_payment_state == 'paid':\n"
+"            This invoice is already paid.\n"
+"        % else:\n"
+"            Please remit payment at your earliest convenience.\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Do not hesitate to contact us if you have any questions.\n"
+"    </p>\n"
+"</div>\n"
+"            "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        Estimado\n"
+"        % if object.commercial_partner_id:\n"
+"            ${object.partner_id.name} (${object.commercial_partner_id."
+"name}),\n"
+"        % else:\n"
+"            ${object.partner_id.name},\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        Aquí está su\n"
+"        % if object.name:\n"
+"            Documento Tributario Electrónico <strong>${object.name}</"
+"strong>\n"
+"        % else:\n"
+"            Documento Tributario Electrónico\n"
+"        %endif\n"
+"        % if object.invoice_origin:\n"
+"            (Con referencia: ${object.invoice_origin})\n"
+"        % endif\n"
+"        Por un monto de <strong>${format_amount(object.amount_total, object."
+"currency_id)}</strong>\n"
+"        De ${object.company_id.name}.\n"
+"        % if object.invoice_payment_state == 'paid':\n"
+"            Esta documento ya se encuentra pagado.\n"
+"        % else:\n"
+"            Por favor, envíe el pago en el plazo acordado o a la brevedad "
+"posible.\n"
+"        % endif\n"
+"        <br/><br/>\n"
+"        No dude en contactarnos si tiene cualquier consulta.\n"
+"    </p>\n"
+"</div>\n"
+"            "
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/fetchmail_server.py:0
+#, python-format
+msgid ""
+"<li><b>Name</b>: %(name)s</li><li><b>RUT</b>: %(vat)s</li><li><b>Address</"
+"b>: %(address)s</li>"
+msgstr ""
+"<li><b>Nombre</b>: %(name)s</li><li><b>RUT</b>: %(vat)s</"
+"li><li><b>Dirección</b>: %(address)s</li>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"<span class=\"o_form_label\">Economical Activities Information</span>\n"
+"                            <span class=\"fa fa-lg fa-building-o\" title="
+"\"Values set here are company-specific.\" aria-label=\"Values set here are "
+"company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+"<span class=“o_form_label”>Información de Actividades Económicas</span>\n"
+"                            <span class=“fa fa-lg fa-building-o” "
+"title=“Values set here are company-specific.” aria-label=“Values set here "
+"are company-specific.” groups=“base.group_multi_company” role=“img”/>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"<span class=\"o_form_label\">Email Alias Electronic Invoicing</span>\n"
+"                            <span class=\"fa fa-lg fa-building-o\" title="
+"\"Values set here are company-specific.\" aria-label=\"Values set here are "
+"company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+"<span class=“o_form_label”>Seudónimo de Email para Facturación Electrónica</"
+"span>\n"
+"                            <span class=“fa fa-lg fa-building-o” "
+"title=“Values set here are company-specific.” aria-label=“Values set here "
+"are company-specific.” groups=“base.group_multi_company” role=“img”/>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"<span class=\"o_form_label\">Email Box Electronic Invoicing</span>\n"
+"                            <span class=\"fa fa-lg fa-building-o\" title="
+"\"Values set here are company-specific.\" aria-label=\"Values set here are "
+"company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+"<span class=“o_form_label”>Cuenta de Correo para Factura Electrónica</span>\n"
+"                            <span class=“fa fa-lg fa-building-o” "
+"title=“Values set here are company-specific.” aria-label=“Values set here "
+"are company-specific.” groups=“base.group_multi_company” role=“img”/>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"<span class=\"o_form_label\">Legal Electronic Invoicing Data</span>\n"
+"                            <span class=\"fa fa-lg fa-building-o\" title="
+"\"Values set here are company-specific.\" aria-label=\"Values set here are "
+"company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+"<span class=“o_form_label”>Información legal para Facturación Electrónica</"
+"span>\n"
+"                            <span class=“fa fa-lg fa-building-o” "
+"title=“Values set here are company-specific.” aria-label=“Values set here "
+"are company-specific.” groups=“base.group_multi_company” role=“img”/>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"<span class=\"o_form_label\">SII Web Services</span>\n"
+"                            <span class=\"fa fa-lg fa-building-o\" title="
+"\"Values set here are company-specific.\" aria-label=\"Values set here are "
+"company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+"<span class=“o_form_label”>Servicios Web SII</span>\n"
+"                            <span class=“fa fa-lg fa-building-o” "
+"title=“Values set here are company-specific.” aria-label=“Values set here "
+"are company-specific.” groups=“base.group_multi_company” role=“img”/>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"<span class=\"o_form_label\">Signature Certificates</span>\n"
+"                            <span class=\"fa fa-lg fa-building-o\" title="
+"\"Values set here are company-specific.\" aria-label=\"Values set here are "
+"company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+"<span class=“o_form_label”>Certificados de Firma Digital</span>\n"
+"                            <span class=“fa fa-lg fa-building-o” "
+"title=“Values set here are company-specific.” aria-label=“Values set here "
+"are company-specific.” groups=“base.group_multi_company” role=“img”/>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"<span class=\"o_form_label\">Tax payer information</span>\n"
+"                            <span class=\"fa fa-lg fa-building-o\" title="
+"\"Values set here are company-specific.\" aria-label=\"Values set here are "
+"company-specific.\" groups=\"base.group_multi_company\" role=\"img\"/>"
+msgstr ""
+"<span class=“o_form_label”>Información del contribuyente</span>\n"
+"                            <span class=“fa fa-lg fa-building-o” "
+"title=“Values set here are company-specific.” aria-label=“Values set here "
+"are company-specific.” groups=“base.group_multi_company” role=“img”/>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.informations
+msgid "<span>Date</span>"
+msgstr "<span>Fecha</span>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.informations
+msgid "<span>Doc Code</span>"
+msgstr "<span>Cód. Doc</span>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.informations
+msgid "<span>Origin Ref</span>"
+msgstr "<span>Ref Orígenes</span>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.informations
+msgid "<span>Reason</span>"
+msgstr "<span>Razón</span>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.informations
+msgid "<span>Reference Doc Type</span>"
+msgstr "<span>Tipo de Doc. Ref</span>"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_invoice_form
+msgid "Accept Document"
+msgstr "Aceptar Documento"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_claim__acd
+msgid "Accept the Content of the Document"
+msgstr "Acepta el Contenido del  Documento"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_acceptation_status__accepted
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_status__accepted
+msgid "Accepted"
+msgstr "Aceptado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_status__objected
+msgid "Accepted With Objections"
+msgstr "Aceptado con reparos"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_account_move_reversal
+msgid "Account Move Reversal"
+msgstr "Reversión de Movimiento"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_acceptation_status__ack_sent
+msgid "Acknowledge Sent"
+msgstr "Acuse de recibo enviado"
+
+#. module: l10n_cl_edi
+#: model:mail.template,subject:l10n_cl_edi.email_template_receipt_ack
+msgid "Acknowledgment of Receipt - ${object.name}"
+msgstr "Acuse de Recibo - ${object.name}"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__active
+msgid "Active"
+msgstr "Activo"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_company__l10n_cl_company_activity_ids
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_config_settings__l10n_cl_company_activity_ids
+msgid "Activities Names"
+msgstr "Actividades Económicas"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__code
+msgid "Activity Code"
+msgstr "Código de Actividad"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "Activity Codes"
+msgstr "Códigos de Actividad"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_partner__l10n_cl_activity_description
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_users__l10n_cl_activity_description
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_company_l10n_cl_edi_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_partner_l10n_cl_edi_form
+msgid "Activity Description"
+msgstr "Giro"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_account_debit_note
+msgid "Add Debit Note wizard"
+msgstr "Asistente de Notas de Débito"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_company_activities__active
+msgid "Allows you to hide the activity without removing it."
+msgstr "Permite esconder la actividad sin suprimirla."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_anc
+msgid "Ancud"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_ang
+msgid "Angol"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_ant
+msgid "Antofagasta"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_ari
+msgid "Arica y Parinacota"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_status__ask_for_status
+msgid "Ask For Status"
+msgstr "Consultar Estado Doc"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Asking for DTE status with response:"
+msgstr "Consultando estado del DTE con la siguiente respuesta:"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "Asking for claim status failed due to:"
+msgstr "La consulta de estado reclamo falló debido a:"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Asking for claim status with response:"
+msgstr "Consultando el estado de reclamo con la siguiente respuesta:"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_ir_attachment
+msgid "Attachment"
+msgstr "Adjunto"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_ays
+msgid "Aysén"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_fetchmail_server__l10n_cl_is_dte
+msgid ""
+"By checking this option, this email account will be used to receive the "
+"electronic\n"
+"invoices from the suppliers, and communications from the SII regarding the "
+"electronic\n"
+"invoices issued. In this case, this email should match both emails declared "
+"on the SII\n"
+"site in the section: \"ACTUALIZACION DE DATOS DEL CONTRIBUYENTE\", \"Mail "
+"Contacto SII\"\n"
+"and \"Mail Contacto Empresas\"."
+msgstr ""
+"Al marcar esta opción, esta cuenta de correo electrónico se utilizará para "
+"recibir las facturas\n"
+"electrónicas de los proveedores y las comunicaciones del SII con respecto a "
+"las facturas electrónicas\n"
+"emitidas. En este caso, este correo electrónico debe coincidir con ambos "
+"correos electrónicos\n"
+"declarados en el sitio SII en la sección: \"ACTUALIZACIÓN DE DATOS DEL "
+"\\CONTRIBUYENTE\",\n"
+"\"Mail Contacto SII\" y \"Mail Contacto Empresas\"."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_dte_caf__final_nb
+msgid "CAF Ends to this number"
+msgstr "El CAF termina en este folio"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_dte_caf_tree
+msgid "CAF Files"
+msgstr "Archivo CAF"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_l10n_cl_dte_caf
+msgid "CAF Files for chilean electronic invoicing"
+msgstr "Archivo CAF para facturación electrónica de Chile"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_dte_caf__start_nb
+msgid "CAF Starts from this number"
+msgstr "El CAF comienza en este folio"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__caf_file
+msgid "CAF XML File"
+msgstr "Archivo XML de Timbraje (CAF)"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.sequence_view
+msgid "Cafs"
+msgstr "CAFs"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_cal
+msgid "Calama"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_dte_caf_form
+msgid "Cancel"
+msgstr "Anular"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_status__cancelled
+msgid "Cancelled"
+msgstr "Anulado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_cas
+msgid "Castro"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_cau
+msgid "Cauquenes"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__certificate
+msgid "Certificate"
+msgstr "Certificado"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.certificate_form_view
+msgid "Certificate Form"
+msgstr "Certificado "
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__signature_key_file
+msgid "Certificate Key"
+msgstr "Clave del Certificado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_certificate__signature_key_file
+msgid "Certificate Key in PFX format"
+msgstr "Clave de Certificado en formato PFX"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__user_id
+msgid "Certificate Owner"
+msgstr "Propietario del Certificado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__signature_pass_phrase
+msgid "Certificate Passkey"
+msgstr "Passkey del Certificado"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.certificate_tree_view
+msgid "Certificate Tree"
+msgstr "Arbol de certificado"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "Certificate does not exist"
+msgstr "El certificado no existe"
+
+#. module: l10n_cl_edi
+#: model:ir.actions.act_window,name:l10n_cl_edi.certificate_list_action
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_company__l10n_cl_certificate_ids
+msgid "Certificates"
+msgstr "Certificados"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_cha
+msgid "Chaitén"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_chn
+msgid "Chañaral"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_chc
+msgid "Chile Chico"
+msgstr "Chile Chico"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_account_journal_form
+msgid "Chilean Point of Sale Configuration"
+msgstr "Configuración del Punto de Venta para Chile"
+
+#. module: l10n_cl_edi
+#: model:ir.ui.menu,name:l10n_cl_edi.menu_sii_chile
+msgid "Chilean SII"
+msgstr "SII Chile"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_chi
+msgid "Chillán"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_claim
+msgid "Claim"
+msgstr "Reclamo"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_claim_description
+msgid "Claim Detail"
+msgstr "Detalle del Reclamo"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_invoice_form
+msgid "Claim Document"
+msgstr "Reclamar Documento"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_claim__rfp
+msgid "Claim for Partial Lack of Merchandise"
+msgstr "Reclamo por falta parcial de Mercadería"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_claim__rft
+msgid "Claim for Total Lack of Merchandise"
+msgstr "Reclamo por Falta Total de Mercadería"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"Claim status was not sending to SII. This feature is not available in "
+"certification/test mode"
+msgstr ""
+"La consulta de estado de reclamo no fue enviada al SII porque esta "
+"característica no está disponible (modo test/certificación)"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_claim__rcd
+msgid "Claim the Content of the Document"
+msgstr "Reclama el contenido del documento"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_acceptation_status__claimed
+msgid "Claimed"
+msgstr "Reclamo"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_coc
+msgid "Cochrane"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:mail.template,subject:l10n_cl_edi.email_template_receipt_commercial_accept
+msgid "Commercial Acceptance Response - ${object.name}"
+msgstr "Respuesta de Aceptación Comercial - ${object.name}"
+
+#. module: l10n_cl_edi
+#: model:mail.template,subject:l10n_cl_edi.email_template_claimed_ack
+msgid "Commercial Rejection response - ${object.name}"
+msgstr "Respuesta de Rechazo Comercial - ${object.display_name}"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__company_id
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__company_id
+msgid "Company"
+msgstr "Compañía"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_company_l10n_cl_edi_form
+msgid "Company Activity Codes"
+msgstr "Códigos de Actividad Compañía"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Company Not Authorized to Send Files"
+msgstr "La compañía no está autorizada a enviar archivos"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_dte_caf.py:0
+#, python-format
+msgid "Company vat %s should be the same that assigned company's vat: %s!"
+msgstr ""
+"El RUT %s de la compañía debería ser el mismo que el RUT de la compañía "
+"asignado: %s!"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__name
+msgid "Complete Name"
+msgstr "Nombre Completo"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_cop
+msgid "Concepción "
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuraciones"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "Configure DTE Incoming Email"
+msgstr "Configurar el Correo entrante de DTEs"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "Configure Signature Certificates"
+msgstr "Configure los certificados de firma"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "Configure your signature certificates to sign SII DTEs"
+msgstr "Configure su certificado de firma para firmar DTEs del SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_cos
+msgid "Constitución"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_coo
+msgid "Copiapo"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_coq
+msgid "Coquimbo"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_config_settings__l10n_cl_country_code
+msgid "Country Code"
+msgstr "Código de país"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_coy
+msgid "Coyhaique"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model_terms:ir.actions.act_window,help:l10n_cl_edi.certificate_list_action
+msgid "Create the first certificate"
+msgstr "Cree el primer certificado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__create_uid
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__create_date
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__create_date
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__create_date
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_l10n_cl_account_invoice_reference
+msgid "Cross Reference Docs for Chilean Electronic Invoicing"
+msgstr "Documentos de Referencia Cruzada para facturación electrónica de Chile"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_invoice_form
+msgid "Cross Reference Documents"
+msgstr "Referencias Cruzadas de Documentos"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_cur
+msgid "Curicó"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_dte_acceptation_status
+msgid "DTE Accept status"
+msgstr "Estado de aceptación del DTE"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_ir_sequence__l10n_cl_dte_caf_ids
+msgid "DTE Caf"
+msgstr "CAF de DTE"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_company__l10n_cl_dte_email
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_config_settings__l10n_cl_dte_email
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_partner__l10n_cl_dte_email
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_users__l10n_cl_dte_email
+msgid "DTE Email"
+msgstr "Correo DTE"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.ack_template
+msgid "DTE Has been Successfully Received"
+msgstr "El DTE fue recibido exitosamente"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_payment_term__l10n_cl_sii_code
+msgid "DTE SII Code"
+msgstr "Código de DTE"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_company__l10n_cl_dte_service_provider
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_config_settings__l10n_cl_dte_service_provider
+msgid "DTE Service Provider"
+msgstr "Proveedor de Servicios de DTE"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "DTE attachment not found => %s"
+msgstr "DTE adjunto no encontrado => %s"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_dte_file
+msgid "DTE file"
+msgstr "Archivo DTE"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "DTE has been created"
+msgstr "El DTE fue creado"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "DTE has been sent to SII with response: %s."
+msgstr "El DTE ha sido enviado al SII con la siguiente respuesta: %s."
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "DTE has been sent to the partner"
+msgstr "El DTE ha sido enviado al cliente"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/fetchmail_server.py:0
+#, python-format
+msgid "DTE reception status established as <b>%s</b> by incoming email"
+msgstr ""
+"El estado de recepción del DTE se estableció como <b>%s</b> a través de "
+"email entrante"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_fetchmail_server__l10n_cl_is_dte
+msgid "DTE server"
+msgstr "Servidor de DTE"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"Define the tax payer type and SII regional office for your company. This is "
+"mandatory for\n"
+"                                electronic invoicing."
+msgstr ""
+"Defina el tipo de contribuyente y la oficina regional que corresponde a su "
+"compañía. Esto es requerido para\n"
+"                                Facturación electrónica."
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.ack_template
+msgid "Delivery Received According"
+msgstr "Envío Recibido Conforme"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__display_name
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__display_name
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__display_name
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__display_name
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_edi_util__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__date
+msgid "Document Date"
+msgstr "Fecha del Doc"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Document Signature"
+msgstr "Firma del Documento"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__l10n_latam_document_type_id
+msgid "Document Type"
+msgstr "Tipo Documento"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_ir_sequence__l10n_latam_document_type_code
+msgid "Document Type Code"
+msgstr "Código del tipo de Documento"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Document acceptance failed with response:"
+msgstr "La aceptación del documento falló con la siguiente respuesta:"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "Document acceptance or claim failed due to:"
+msgstr "La aceptación del documento falló debido a:"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Document acceptance was accepted with response:"
+msgstr "La aceptación del documento fue recibida con la siguiente respuesta:"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Document claim failed with response:"
+msgstr "El reclamo del documento falló con la siguiente respuesta:"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Document was claimed with response:"
+msgstr "El documento ha sido reclamado con la siguiente respuesta:"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_invoice_form
+msgid "Electronic Invoice"
+msgstr "Factura Electrónica"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_company_l10n_cl_edi_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_partner_l10n_cl_edi_form
+msgid "Electronic Invoicing"
+msgstr "Facturación Electrónica"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "Email Alias"
+msgstr "Seudónimo de Email"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__final_nb
+msgid "End Number"
+msgstr "Número final"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "Error Get Seed: (Message Exception)"
+msgstr "Error obteniendo semilla: (Mensaje de excepción)"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "Error Get Seed: Retorno"
+msgstr "Error obteniendo semilla: Retorno"
+
+#. module: l10n_cl_edi
+#: model:ir.model.constraint,message:l10n_cl_edi.constraint_l10n_cl_dte_caf_filename_unique
+msgid "Error! Filename Already Exist!"
+msgstr "Error! Este nombre de archivo ya existe en el sistema!"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Exception error parsing the response: %s"
+msgstr "Error de excepción leyendo la respuesta: %s"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__cert_expiration
+msgid "Expiration date"
+msgstr "Fecha de vencimiento"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__filename
+msgid "File Name"
+msgstr "Nombre del Archivo"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "File Size Error (Too Big or Too Small)"
+msgstr "Error en el tamaño del archivo (Demasiado grande o demasiado pequeño)"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_company__l10n_cl_activity_description
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_config_settings__l10n_cl_activity_description
+msgid "Glosa Giro"
+msgstr "Glosa Giro"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"Hint: \"Factura Electrónica/Sistema de Certificación de Mercado/Actualizar\n"
+"                                datos de la empresa autorizada\"."
+msgstr ""
+"Pista: \"Factura Electrónica/Sistema de Certificación de Mercado/Actualizar\n"
+"                                datos de la empresa autorizada\"."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__id
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__id
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__id
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__id
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_edi_util__id
+msgid "ID"
+msgstr "ID"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.dte_subtemplate
+msgid "INT1"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_certificate__user_id
+msgid ""
+"If this certificate has an owner, he will be the only user authorized to use "
+"it, otherwise, the certificate will be shared with other users of the "
+"current company"
+msgstr ""
+"Si este certificado tiene un propietario, él será el único usuario "
+"autorizado a utilizarlo, de lo contrario, el certificado será compartido con "
+"otros usuarios de la compañía actual"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_company_activities__tax_category
+msgid ""
+"If your company is 2nd category tax payer type, you should use activity "
+"codes of type 2, otherwise they should be type 1. If your activity is "
+"affected by vat tax depending on other situations, SII uses type ND. In "
+"every cases the tax category is defined by the CIIU4.CL nomenclature adopted "
+"by SII, and you should only add new activities in case they are added in the "
+"future."
+msgstr ""
+"Si su compañía es un tipo de contribuyente de segunda categoría, Ud. debería "
+"usar códigos de actividad de tipo 2, de lo contrario deberían ser de tipo 1. "
+"Si su actividad está afectada por el IVA dependiendo de diversas "
+"situaciones, el SII utiliza tipo \"ND\". En todos los casos la categoría es "
+"definida por la nomenclatura CIIU4.CL adoptada por el SII y Ud debería "
+"solamente agregar nuevas actividades en el caso que fuesen agregadas en el "
+"futuro."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_ill
+msgid "Illapel"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_dte_caf__status__in_use
+msgid "In Use"
+msgstr "En Uso"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_dte_caf__status
+msgid ""
+"In Use: means that the CAF file is being used. Spent: means that the number "
+"interval has been exhausted."
+msgstr ""
+"En Uso: significa que el CAF está siendo utilizado. Consumido: significa que "
+"el intervalo de folios se ha agotado."
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_fetchmail_server
+msgid "Incoming Mail Server"
+msgstr "Servidor de correo entrante"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/fetchmail_server.py:0
+#, python-format
+msgid ""
+"Incoming SII DTE result:<br/> <li><b>ESTADO</b>: %s</li><li><b>REVISIONDTE/"
+"ESTADO</b>: %s</li><li><b>REVISIONDTE/DETALLE</b>: %s</li>"
+msgstr ""
+"Resultado entrante desde el SII sobre el DTE:<br/> <li><b>ESTADO</b>: %s</"
+"li><li><b>REVISIONDTE/ESTADO</b>: %s</li><li><b>REVISIONDTE/DETALLE</b>: %s</"
+"li>"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/fetchmail_server.py:0
+#, python-format
+msgid "Incoming SII DTE result:<br/><li><b>ESTADO</b>: %s</li>"
+msgstr ""
+"DTE entrante, con el siguiente resultado:<br/><li><b>ESTADO</b>: %s</li>"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Incomplete File (Size <> Parameter size)"
+msgstr "Archivo incompleto (Tamaño <> tamaño del parámetro)"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Internal Error"
+msgstr "Error interno"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Invalid Schema"
+msgstr "Esquema inválido"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"Invoice %s has the currency %s inactive. Please activate the currency and "
+"try again."
+msgstr ""
+"El DTE %s tiene la moneda %s inactiva. Por favor active la moneda e intente "
+"nuevamente."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_iqu
+msgid "Iquique"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__issued_date
+msgid "Issued Date"
+msgstr "Fecha de Emisión"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"It is not possible to validate invoices in %s for %s, please convert it to "
+"CLP"
+msgstr "No es posible validar DTEs en %s para %s, por favor conviértala a CLP"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"It seems that you are using items with taxes in exempt documents in invoice "
+"%s. You must either:\n"
+"   - Change the document type to a not exempt type.\n"
+"   - Set an exempt fiscal position to remove taxes automatically.\n"
+"   - Use products without taxes.\n"
+"   - Remove taxes from product lines."
+msgstr ""
+"Parece que Ud. está usando ítems con impuestos en un documento exento en la "
+"factura %s. Ud. debe realizar alguna de las siguientes opciones:\n"
+"   - Cambiar el tipo de documento a uno de tipo no exento.\n"
+"   - Utilizar una posición fiscal para remover los impuestos "
+"automáticamente.\n"
+"   - Usar productos sin impuestos.\n"
+"   - Quitar los impuestos de las líneas de producto."
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_account_journal
+msgid "Journal"
+msgstr "Diario"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_account_move
+msgid "Journal Entries"
+msgstr "Asientos contables"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_account_move_line
+msgid "Journal Item"
+msgstr "Apunte del diario"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_laf
+msgid "La Florida"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_lal
+msgid "La Ligua"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_las
+msgid "La Serena"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_lau
+msgid "La Unión"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_lan
+msgid "Lanco"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference____last_update
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate____last_update
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities____last_update
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf____last_update
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_edi_util____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__last_token
+msgid "Last Token"
+msgstr "Ultimo token"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__write_uid
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización de"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__write_date
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__write_date
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__write_date
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_fetchmail_server__l10n_cl_last_uid
+msgid "Last message UID"
+msgstr "ID de Usuario del ultimo mensaje"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_l10n_latam_document_type
+msgid "Latam Document Type"
+msgstr "Tipo Documento (LA)"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_leb
+msgid "Lebu"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_lin
+msgid "Linares"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_lod
+msgid "Los Andes"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_log
+msgid "Los Ángeles"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_journal__l10n_cl_point_of_sale_type__manual
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_status__manual
+msgid "Manual"
+msgstr "Manual"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_company_activities__tax_category__nd
+msgid "ND"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_debit_note__l10n_cl_corrected_text
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move_reversal__l10n_cl_corrected_text
+msgid "New Corrected Text"
+msgstr "Nuevo Texto Corregido"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/fetchmail_server.py:0
+#, python-format
+msgid "New move has been created from DTE %s with id: %s"
+msgstr "Un nuevo movimiento ha sido creado desde el DTE %s con id: %s"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "No possible to get a seed"
+msgstr "No es posible obtener una semilla"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "No response trying to get a token"
+msgstr "No hay respuesta tratando de obtener un token"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Not Authenticated"
+msgstr "No autenticado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_partner_status__not_sent
+msgid "Not Sent"
+msgstr "No enviado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_journal__l10n_cl_point_of_sale_type__online
+msgid "Online"
+msgstr "En Linea"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move_reversal__l10n_cl_is_text_correction
+msgid "Only Text Correction"
+msgstr "Solo corrección de Texto"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__origin_doc_number
+msgid "Origin Document Number"
+msgstr "Nro documento origen"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_account_invoice_reference__origin_doc_number
+msgid "Origin document number, the document you are referring to"
+msgstr ""
+"Número de documento de origen. Es el documento al cual Ud. se está refiriendo"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_debit_note__l10n_cl_original_text
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move_reversal__l10n_cl_original_text
+msgid "Original Text"
+msgstr "Texto de Origen"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__move_id
+msgid "Originating Document"
+msgstr "Documento originan"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_oso
+msgid "Osorno"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_ova
+msgid "Ovalle"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_pan
+msgid "Panguipulli"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_par
+msgid "Parral"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Partner DTE has been generated"
+msgstr "El DTE para el cliente ha sido generado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_dte_partner_status
+msgid "Partner DTE status"
+msgstr "Estado del DTE del Cliente"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_certificate__signature_pass_phrase
+msgid "Passphrase for the certificate key"
+msgstr "Contraseña para la clave del certificado"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_account_payment_term
+msgid "Payment Terms"
+msgstr "Plazos de pago"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_status__not_sent
+msgid "Pending To Be Sent"
+msgstr "Pendiente de ser enviado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_pic
+msgid "Pichilemu"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Please assign a partner before sending the acknowledgement"
+msgstr ""
+"Por favor, establezca un proveedor antes de enviar el acuse de recibo por "
+"email"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"Please choose your DTE service provider (values depend on Test or "
+"Production)."
+msgstr ""
+"Por favor seleccione su proveedor de DTE (el valor depende de Test o "
+"Producción)."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_res_company__l10n_cl_company_activity_ids
+#: model:ir.model.fields,help:l10n_cl_edi.field_res_config_settings__l10n_cl_company_activity_ids
+msgid ""
+"Please select the SII registered economic activities codes for the company"
+msgstr ""
+"Por favor seleccione las actividades económicas registradas en el SII para "
+"la compañía"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_res_company__l10n_cl_dte_service_provider
+#: model:ir.model.fields,help:l10n_cl_edi.field_res_config_settings__l10n_cl_dte_service_provider
+msgid "Please select your company service provider for DTE service."
+msgstr "Por favor seleccione su proveedor de servicio de DTE para su compañía."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_bank_statement_import_journal_creation__l10n_cl_point_of_sale_name
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_journal__l10n_cl_point_of_sale_name
+msgid "Point Of Sale Name"
+msgstr "Nombre de punto de venta"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_bank_statement_import_journal_creation__l10n_cl_point_of_sale_number
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_journal__l10n_cl_point_of_sale_number
+msgid "Point Of Sale Number"
+msgstr "Número de punto de venta"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_bank_statement_import_journal_creation__l10n_cl_point_of_sale_type
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_journal__l10n_cl_point_of_sale_type
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_journal_point_of_sale_type
+msgid "Point Of Sale Type"
+msgstr "Tipo de punto de venta"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_por
+msgid "Porvenir"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__private_key
+msgid "Private Key"
+msgstr "Clave Privada"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_claim__erm
+msgid "Provide Receipt of Merchandise or Services"
+msgstr "Provee recibo de mercaderías o servicios"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_pum
+msgid "Puerto Montt"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_pun
+msgid "Puerto Natales"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_puv
+msgid "Puerto Varas"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_pua
+msgid "Punta Arenas"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_ir_sequence__l10n_cl_qty_available
+msgid "Quantity Available"
+msgstr "Cantidad disponible"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_qui
+msgid "Quillota"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "RUT validation error"
+msgstr "Error de validación de RUT"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_ran
+msgid "Rancagua"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__reason
+msgid "Reason"
+msgstr "Motivo"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_acceptation_status__received
+msgid "Received"
+msgstr "Recibido"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_reference_ids
+msgid "Reference Records"
+msgstr "Registros de Referencia"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"Register up to four economical activity codes and description for your "
+"company. This is mandatory for\n"
+"                                electronic invoicing."
+msgstr ""
+"Registre hasta cuatro códigos de actividades económicas y la descripción del "
+"giro para su compañía. Esto es requerido para\n"
+"                            Facturación electrónica."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_status__rejected
+msgid "Rejected"
+msgstr "Rechazado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_dte_service_provider__sii
+msgid "SII - Production"
+msgstr "SII - Producción"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_dte_service_provider__siitest
+msgid "SII - Test"
+msgstr "SII Test/Certificación"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_sii_barcode
+msgid "SII Barcode"
+msgstr "Código de Barras SII"
+
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_dte_caf_form
+msgid "SII CAF Files for DTE"
+msgstr "Archivo CAF"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_l10n_cl_company_activities
+msgid "SII Company Economical Activities"
+msgstr "Actividades económicas de la compañía"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_dte_status
+msgid "SII DTE status"
+msgstr "Estado del DTE en SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_l10n_cl_certificate
+msgid "SII Digital Signature"
+msgstr "Firma Digital SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__l10n_cl_reference_doc_type_selection
+msgid "SII Doc Type Selector"
+msgstr "Tipo de documento SII"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_dte_caf.py:0
+#, python-format
+msgid ""
+"SII Document Type for this CAF is %s and selected sequence associated "
+"document type is %s. This values should be equal for DTE Invoicing to work "
+"properly!"
+msgstr ""
+"El tipo de documento para este CAF es %s y la secuencia asociada de este "
+"tipo de documento es %s. Estos valores deberían ser iguales para que la "
+"facturación funcione correctamente!"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_partner_activities_form
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_partner_activities_tree
+msgid "SII Economic Activities"
+msgstr "Actividades Económicas SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_company__l10n_cl_dte_resolution_date
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_config_settings__l10n_cl_dte_resolution_date
+msgid "SII Exempt Resolution Date"
+msgstr "Fecha de Resolución SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_company__l10n_cl_dte_resolution_number
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_config_settings__l10n_cl_dte_resolution_number
+msgid "SII Exempt Resolution Number"
+msgstr "Número de Resolución SII"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "SII Office"
+msgstr "Oficina Regional SII"
+
+#. module: l10n_cl_edi
+#: model:ir.actions.act_window,name:l10n_cl_edi.act_partner_activities
+#: model:ir.ui.menu,name:l10n_cl_edi.menu_action_act_partner_activities
+msgid "SII Partner Activities"
+msgstr "Actividades Económicas"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_debit_note__l10n_cl_edi_reference_doc_code
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move_reversal__l10n_cl_edi_reference_doc_code
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_account_invoice_reference__reference_doc_code
+msgid "SII Reference Code"
+msgstr "Código de referencia SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_company__l10n_cl_sii_regional_office
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_config_settings__l10n_cl_sii_regional_office
+msgid "SII Regional Office"
+msgstr "Oficina Regional SII"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "SII Resolution Date"
+msgstr "Fecha Resol. SII"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "SII Resolution Nº"
+msgstr "Nº de Resolución SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_sii_send_ident
+msgid "SII Send Identification(Track ID)"
+msgstr "Identificador de envío SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_account_move__l10n_cl_sii_send_file
+msgid "SII Send file"
+msgstr "Archivo XML de envío al SII"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_saa
+msgid "San Antonio"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_sar
+msgid "San Carlos"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_saf
+msgid "San Felipe"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_sad
+msgid "San Fernando"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_sav
+msgid "San Vicente de Tagua Tagua"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_saz
+msgid "Santa Cruz"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_sac
+msgid "Santiago Centro"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_san
+msgid "Santiago Norte"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_sao
+msgid "Santiago Oriente"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_sap
+msgid "Santiago Poniente"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_sas
+msgid "Santiago Sur"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_partner_activities_search
+msgid "Search By"
+msgstr "Buscar Por"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Sender Does Not Have Permission To Send"
+msgstr "La persona que envía (Rut) no tiene permitido el envío"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "Sending DTE to SII failed due to:"
+msgstr "Envío del DTE al SII falló debido a:"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__account_move__l10n_cl_dte_partner_status__sent
+msgid "Sent"
+msgstr "Enviado"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_ir_sequence
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__sequence_id
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__signature_filename
+msgid "Signature File Name"
+msgstr "Archivo de Firma"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__l10n_cl_dte_caf__status__spent
+msgid "Spent"
+msgstr "Consumido"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__start_nb
+msgid "Start Number"
+msgstr "Nro de Inicio"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_dte_caf__status
+msgid "Status"
+msgstr "Estado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_move__l10n_cl_dte_status
+msgid ""
+"Status of sending the DTE to the SII:\n"
+"    - Not sent: the DTE has not been sent to SII but it has created.\n"
+"    - Ask For Status: The DTE is asking for its status to the SII.\n"
+"    - Accepted: The DTE has been accepted by SII.\n"
+"    - Accepted With Objections: The DTE has been accepted with objections by "
+"SII.\n"
+"    - Rejected: The DTE has been rejected by SII.\n"
+"    - Cancelled: The DTE has been deleted by the user.\n"
+"    - Manual: The DTE is sent manually, i.e.: the DTE will not be sending "
+"manually."
+msgstr ""
+"Estado de envío del DTE al SII:\n"
+"    - No enviado: el DTE no ha sido enviado al SII pero ha sido creado.\n"
+"    - Consultar Estado:  El DTE ha sido enviado y el próximo paso es la "
+"consulta de estado en el SII.\n"
+"    - Aceptado: El DTE ha sido aceptado por el SII.\n"
+"    - Aceptado con reparos: El DTE ha sido aceptado con algún reparo por el "
+"SII.\n"
+"    - Rechazado: El DTE ha sido rechazado por el SII.\n"
+"    - Cancelado: El DTE ha sido cancelado por un usuario.\n"
+"    - Manual: El DTE ha sido generado manualmente (no involucra envío al "
+"SII)."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__subject_serial_number
+msgid "Subject Serial Number"
+msgstr "Nro de Serie del Sujeto"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "System Locked"
+msgstr "Sistema bloqueado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_company_activities__tax_category
+msgid "TAX Category"
+msgstr "Categoría impuestos"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_tat
+msgid "Tal-Tal"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_tac
+msgid "Talca"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_tah
+msgid "Talcahuano"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "Taxpayer"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_company__l10n_cl_sii_taxpayer_type
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_res_config_settings__l10n_cl_sii_taxpayer_type
+msgid "Taxpayer Type"
+msgstr "Tipo de contribuyente"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_tem
+msgid "Temuco"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"The %s has not a DTE email defined. This is mandatory for electronic "
+"invoicing."
+msgstr ""
+"%s no tiene un email DTE definido. Esto es requerido para facturación "
+"electrónica."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_res_config_settings__l10n_cl_country_code
+msgid ""
+"The ISO country code in two chars. \n"
+"You can use this field for quick search."
+msgstr ""
+"El código ISO de país en dos caracteres.\n"
+"Puede usar este valor para búsqueda rápida."
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_dte_caf.py:0
+#, python-format
+msgid ""
+"The VAT of your company has not been configured. Please go to your company "
+"data and add it."
+msgstr ""
+"El RUT de su compañía no ha sido configurado. Por favor vaya a los datos de "
+"su compañía y agréguelo."
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.barcode_stamp_footer
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.barcode_stamp_footer_with_payments
+msgid "The VAT tax of this boleta is"
+msgstr "El IVA correspondiente a esta boleta es"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid ""
+"The XSD validation files from SII has not been found, please run manually "
+"the cron: \"Download XSD\""
+msgstr ""
+"Los archivos de validación XSD del SII no se han encontrado, por favor corra "
+"manualmente la acción planificada: \"Obtener XSD\""
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_certificate.py:0
+#, python-format
+msgid "The certificate is expired since %s"
+msgstr "Este certificado ha vencido. Fecha/hora de vencimiento es %s"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_certificate.py:0
+#, python-format
+msgid "The certificate signature_key_file is invalid: %s."
+msgstr "La firma del certificado es inválido: %s."
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"The claim status was not sent to SII as this feature does not work in "
+"certification/test mode"
+msgstr ""
+"El reclamo no fue enviado al SII porque esta característica no está "
+"disponible en modo certificación/Test"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_certificate__cert_expiration
+msgid "The date on which the certificate expires"
+msgstr "La fecha de vencimiento del certificado"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_ir_sequence__l10n_latam_document_type_code
+msgid "The document name"
+msgstr "El nombre de documento"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "The document type with code %s cannot be accepted"
+msgstr "El tipo de documento con código %s no puede ser aceptado"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "The document type with code %s cannot be claimed"
+msgstr "El tipo de documento con código %s no puede ser reclamado"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid "The parameters to configure the signature certificate."
+msgstr "Los parámetros para configurar el certificado de firma."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_move__l10n_cl_claim
+msgid "The reason why the DTE was accepted or claimed by the customer"
+msgstr "La razón por la cual el DTE fue aceptado o reclamado por el cliente"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/fetchmail_server.py:0
+#, python-format
+msgid "The server must be of type IMAP."
+msgstr "El servidor debe ser de tipo IMAP."
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"The stamp date and time cannot be prior to the invoice issue date and time. "
+"TIP: check in your user preferences if the timezone is \"America/Santiago\""
+msgstr ""
+"La fecha y hora del timbre no puede ser anterior a la fecha y hora de "
+"emisión de la factura. Consejo: revise en sus preferencias de usuario si la "
+"zona horaria es “America/Santiago”"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_move__l10n_cl_dte_acceptation_status
+msgid ""
+"The status of the DTE Acceptation\n"
+"    Received: the DTE was received by us for vendor bills, by our customers "
+"for customer invoices.\n"
+"    Acknowledge Sent: the Acknowledge has been sent to the vendor.\n"
+"    Claimed: the DTE was claimed by us for vendor bills, by our customers "
+"for customer invoices.\n"
+"    Accepted: the DTE was accepted by us for vendor bills, by our customers "
+"for customer invoices.\n"
+"    "
+msgstr ""
+"El estado de aceptación del DTE\n"
+"   Recibido: el DTE fue recibido por nosotros si es una factura o documento "
+"del proveedor, o por nuestros clientes si es una \n"
+"      factura o doc de venta.\n"
+"   Acuse de recibo enviado: el acuse de recibo ha sido enviado al "
+"proveedor.\n"
+"   Reclamado: El DTE fue reclamado por nosotros a nuestro proveedor, o por "
+"nuestros clientes para las facturas de venta.\n"
+"   Aceptado: el DTE fue aceptado por nosotros para las facturas de "
+"proveedor, o por nuestros clientes si es una factura de venta.\n"
+"   "
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/ir_sequence.py:0
+#, python-format
+msgid ""
+"There are no CAFs available for folio %s in the sequence of %s. Please "
+"upload a CAF file or ask for a new one at www.sii.cl website"
+msgstr ""
+"No hay CAFs disponibles para el folio %s de la secuencia %s. Por favor suba "
+"un archivo CAF o solicite uno nuevo en el sitio web del SII (www.sii.cl)"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"There are no activity codes configured in your company. This is mandatory "
+"for electronic invoicing. Please go to your company and set the correct "
+"activity codes (www.sii.cl - Mi SII)"
+msgstr ""
+"No hay códigos de actividad económica configurados en su compañía. Esto es "
+"mandatorio para facturación electrónica. Por favor, vaya a los datos de su "
+"comañía y coloque los códigos de actividad correctos (www.sii.cl - Mi SII)"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "There is an unexpected response from SII"
+msgstr "Hay una respuesta inesperada desde el SII"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/fetchmail_server.py:0
+#, python-format
+msgid ""
+"There is an unidentified reference in this invoice:<br/><li>Origin: "
+"%(origin_doc_number)s<li/><li>Reference Code: %(reference_doc_code)s<li/"
+"><li>Doc Type: %(l10n_cl_reference_doc_type_selection)s<li/><li>Reason: "
+"%(reason)s<li/><li>Date:%(date)s"
+msgstr ""
+"Existe una referencia no identificada en este DTE:<br/><li>Orígenes: "
+"%(origin_doc_number)s<li/><li>Cod. De Referencia: %(reference_doc_code)s<li/"
+"><li>Tipo Doc: %(l10n_cl_reference_doc_type_selection)s<li/><li>Razón: "
+"%(reason)s<li/><li>Fecha: %(date)s"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"There is no SII Regional Office configured in your company. This is "
+"mandatory for electronic invoicing. Please go to your company and set the "
+"regional office, according to your company address (www.sii.cl - Mi SII)"
+msgstr ""
+"No hay una oficina regional configurada para su compañía. Esto es mandatorio "
+"para facturación electrónica. Por favor vaya a los datos de su compañía y "
+"coloque la oficina regional correcta, acorde a la dirección de su compañía."
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"There is no address configured in your customer record. This is mandatory "
+"for electronic invoicing for this type of document. Please go to the partner "
+"record and set the address"
+msgstr ""
+"No hay una dirección configurada en el registro de su cliente. Esto es "
+"requerido para la facturación electrónica, para este tipo de documento. Por "
+"favor abra el registro del cliente y establezca la dirección"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"There is no signature available to send acknowledge or acceptation of this "
+"DTE. Please setup your digital signature"
+msgstr ""
+"No hay una firma disponible para enviar el acuse de recibo o aceptación de "
+"este DTE. Por favor, establezca su firma digital"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/res_company.py:0
+#, python-format
+msgid "There is not a valid certificate for the company: %s"
+msgstr "No hay un certificado válido para la compañía: %s"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"There is not an activity description configured in the customer record. This "
+"is mandatory for electronic invoicing for this type of document. Please go "
+"to the partner record and set the activity description"
+msgstr ""
+"No hay un giro configurado en el registro de su cliente. Esto es obligatorio "
+"para la facturación electrónica. Por favor, vaya a los datos de su cliente y "
+"coloque el giro"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"This %s is accepted by SII. It cannot be cancelled. Instead you should "
+"revert it."
+msgstr ""
+"Este/a %s está aceptada por el SII. No puede ser anulada. En su lugar Ud. "
+"debería revertirla."
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"This %s is accepted by SII. It cannot be set to draft state. Instead you "
+"should revert it."
+msgstr ""
+"Este/a %s está aceptada por el SII. No puede ser puesta en estado borrador. "
+"En su lugar Ud. Debería revertirla."
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"This %s is rejected by SII. Instead of creating a reverse, you should set it "
+"to draft state, correct it and post it again."
+msgstr ""
+"Este %s fue rechazado por el SII. En lugar de crear una reversión, Ud. "
+"debería establecerla en estado de borrador, corregirla y publicarla "
+"nuevamente."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_move__l10n_cl_sii_barcode
+msgid ""
+"This XML contains the portion of the DTE XML that should be coded in PDF417 "
+"and printed in the invoice barcode should be present in the printed invoice "
+"report to be valid"
+msgstr ""
+"Este XML contiene la porción del DTE que debe ser codificada en código de "
+"barras formato PDF417 para imprimir el código de barras, el que debe estar "
+"presente en el reporte de factura para que el mismo sea válido"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"This alias will be used as sender in the outgoing emails when you send "
+"invoices attached to your customers\n"
+"                                and with invoice acknowledge / acceptation "
+"or claim sent to your vendors."
+msgstr ""
+"Este seudónimo será usado como remitente en los emails salientes cuando Ud. "
+"envía facturas adjuntas a sus clientes\n"
+"                                y con acuses de recibo / aceptaciones y "
+"reclamos enviados a sus proveedores."
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.res_config_settings_view_cl_form
+msgid ""
+"This email account should match both emails declared on the SII\n"
+"                                site in the section: \"ACTUALIZACION DE "
+"DATOS DEL CONTRIBUYENTE\",\n"
+"                                \"Mail Contacto SII\" and \"Mail Contacto "
+"Empresas\"."
+msgstr ""
+"Esta cuenta de email debe coincidir ambos emails declarados en el sitio del "
+"SII\n"
+"                                En la sección: “ACTUALIZACION DE DATOS DEL "
+"CONTRIBUYENTE”,\n"
+"                                “Mail Contacto SII” y “Mail Contacto "
+"Empresas”."
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "This feature is not available in certification/test mode"
+msgstr "Esta característica no está disponible (modo test/certificación)"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_certificate__subject_serial_number
+msgid ""
+"This is the document of the owner of this certificate.Some certificates does "
+"not provide this number and you must fill it by hand"
+msgstr ""
+"Este es el documento del propietario del certificado. Algunos certificados "
+"no proveen este número y debe ser llenado manualmente"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_bank_statement_import_journal_creation__l10n_cl_point_of_sale_name
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_journal__l10n_cl_point_of_sale_name
+msgid ""
+"This is the name that you want to assign to your point of sale. It is not "
+"mandatory."
+msgstr ""
+"Este es el nombre que Ud quiera asignarle a su punto de venta. El mismo no "
+"es mandatorio."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_debit_note__l10n_cl_original_text
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_move_reversal__l10n_cl_original_text
+msgid "This is the text that is intended to be changed"
+msgstr "Este es el texto que se requiere cambiar"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_debit_note__l10n_cl_corrected_text
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_move_reversal__l10n_cl_corrected_text
+msgid "This is the text that should say"
+msgstr "Este es el texto que debería figurar"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_bank_statement_import_journal_creation__l10n_cl_point_of_sale_number
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_journal__l10n_cl_point_of_sale_number
+msgid "This number is needed only if provided by SII."
+msgstr "Este número es necesario solo si el SII se lo ha provisto."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_fetchmail_server__l10n_cl_last_uid
+msgid ""
+"This value is pointing to the number of the last message unread by odoo in "
+"the inbox. This value will be updated by the system during its "
+"normaloperation."
+msgstr ""
+"Este número apunta al número del último mensaje no leído por Odoo en el "
+"email entrante. Este valor será actualizado por el sistema durante su "
+"operación normal."
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_res_company__l10n_cl_dte_resolution_number
+#: model:ir.model.fields,help:l10n_cl_edi.field_res_config_settings__l10n_cl_dte_resolution_number
+msgid ""
+"This value must be provided and must appear in your pdf or printed tribute "
+"document, under the electronic stamp to be legally valid."
+msgstr ""
+"Este valor debe ser provisto y debe aparecer en su PDF o documento "
+"tributario impreso, debajo del timbre electrónica para que el mismo sea "
+"válido."
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.barcode_stamp_footer
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.barcode_stamp_footer_with_payments
+msgid ""
+"Timbre Electrónico SII<br/>\n"
+"                        Resolución Nº:"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_toc
+msgid "Tocopilla"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,field_description:l10n_cl_edi.field_l10n_cl_certificate__token_time
+msgid "Token Time"
+msgstr "Hora del Token"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_edi_util.py:0
+#, python-format
+msgid "Token cannot be generated. Please try again"
+msgstr "El token no puede ser generado. Por favor intente nuevamente"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "Upload OK"
+msgstr "Subida exitosa"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_dte_caf__caf_file
+msgid "Upload the CAF XML File in this holder"
+msgstr "Suba el archivo XML del CAF en este contenedor"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_l10n_cl_account_invoice_reference__reference_doc_code
+msgid ""
+"Use one of these codes for credit or debit notes that intend to change "
+"taxable data in the origin referred document"
+msgstr ""
+"Utilice uno de estos códigos para notas de crédito o débito que cambian "
+"datos imponibles en el documento original"
+
+#. module: l10n_cl_edi
+#: model:ir.model,name:l10n_cl_edi.model_l10n_cl_edi_util
+msgid "Utility Methods for Chilean Electronic Invoicing"
+msgstr "Métodos Utilitarios para Facturación Electrónica de Chile"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_vld
+msgid "Valdivia"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_val
+msgid "Vallenar"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_vlp
+msgid "Valparaíso"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/fetchmail_server.py:0
+#, python-format
+msgid "Vendor Bill DTE has been generated for the following vendor: </br>"
+msgstr ""
+"El DTE del proveedor ha sido generado por el siguiente proveedor: </br>"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/fetchmail_server.py:0
+#, python-format
+msgid ""
+"Vendor not found: You can generate this vendor manually with the following "
+"information: </br>"
+msgstr ""
+"Proveedor no encontrado: Ud. puede generar este proveedor manualmente con la "
+"siguiente información: </br>"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_vic
+msgid "Victoria"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_via
+msgid "Villa Alemana"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_vir
+msgid "Villarrica"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields.selection,name:l10n_cl_edi.selection__res_company__l10n_cl_sii_regional_office__ur_vim
+msgid "Viña del Mar"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#: code:addons/l10n_cl_edi/wizard/account_move_debit.py:0
+#, python-format
+msgid "Where it says: %s should say: %s"
+msgstr "Donde dice: %s debería decir: %s"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/wizard/account_move_debit.py:0
+#, fuzzy, python-format
+#| msgid "You can add a debit note only if the %s is accepted by SII. "
+msgid ""
+"You can add a debit note only if the %s is accepted or objected by SII. "
+msgstr ""
+"Ud. puede agregar una nota de débito solo si esta %s es aceptada por el SII. "
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"You have not selected an invoicing service provider for your company. Please "
+"go to your company and select one"
+msgstr ""
+"No ha seleccionado un proveedor de facturación electrónica para su compañía. "
+"Por favor vaya a su compañía y seleccione uno"
+
+#. module: l10n_cl_edi
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_bank_statement_import_journal_creation__l10n_cl_point_of_sale_type
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_journal__l10n_cl_point_of_sale_type
+#: model:ir.model.fields,help:l10n_cl_edi.field_account_move__l10n_cl_journal_point_of_sale_type
+msgid ""
+"You must select \"Online\" for journals with documents that need to be\n"
+"sent to SII automatically. In this case you must upload a CAF file for each\n"
+"type of document you will use in this journal.\n"
+"You must select \"Manual\" if you are either a user of \"Facturación MiPyme"
+"\"\n"
+"(free SII's website invoicing system) or if you have already generated\n"
+"those documents using a different system in the past, and you want to\n"
+"register them in Odoo now."
+msgstr ""
+"Ud. Debe seleccionar \"En Línea\" para diarios con documentos que necesitan "
+"ser\n"
+"enviados al SII automáticamente. En este caso deberá subir un archivo CAF "
+"para cada\n"
+"Tipo de documento que vaya a utilizar en este diario.\n"
+"Debe seleccionar \"Manual\" si es usuario de \"Facturación MiPyme\"\n"
+"(Sistema web de facturación gratuito del SII) o si ya ha generado estos "
+"documentos\n"
+"utilizando un sistema diferente en el pasado y desea registrarlos ahora en "
+"Odoo."
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/l10n_cl_dte_caf.py:0
+#, python-format
+msgid "You should select a DTE sequence before enabling this CAF record"
+msgstr ""
+"Ud. Debería seleccionar una secuencia para el DTE antes de habilitar este "
+"registro del CAF"
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid ""
+"Your company has not an activity description configured. This is mandatory "
+"for electronic invoicing. Please go to your company and set the correct one "
+"(www.sii.cl - Mi SII)"
+msgstr ""
+"Su compañía no tiene descripción de la actividad configurada (giro). Esto es "
+"mandatorio para facturación electrónica. Por favor vaya a los datos de su "
+"compañía y establezca el valor correcto (www.sii.cl - Mi SII)"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.barcode_stamp_footer
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.barcode_stamp_footer_with_payments
+msgid "de Fecha:"
+msgstr ""
+
+#. module: l10n_cl_edi
+#: code:addons/l10n_cl_edi/models/account_move.py:0
+#, python-format
+msgid "failed due to:"
+msgstr "Falló debido a:"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_invoice_form
+msgid "⇒ Reprocess Acknowledge"
+msgstr "⇒ Reprocesar Acuse de Recibo"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_invoice_form
+msgid "⇒ Send Now to SII"
+msgstr "⇒ Enviar ahora al SII"
+
+#. module: l10n_cl_edi
+#: model_terms:ir.ui.view,arch_db:l10n_cl_edi.view_invoice_form
+msgid "⇒ Verify on SII"
+msgstr "⇒ Verificar en SII"
+
+#~ msgid "SII Barcode Name"
+#~ msgstr "Nombre del código de barras"

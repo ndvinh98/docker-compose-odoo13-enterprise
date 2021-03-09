@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_report_tax_report" model="account.financial.html.report">
+        <field name="name">Corporate Revenue Tax Report</field>
+        <field name='parent_id' ref='l10n_mn.account_reports_mn_statements_menu'/>
+        <field name="tax_report" eval="1"/>
+    </record>
+    <record id="tax_report_lineA" model="account.financial.html.report.line">
+        <field name="code">LINEA</field>
+        <field name="name">А. Нийтлэг хувь хэмжээгээр ногдуулах татварын тооцоолол</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="0"/>
+        <field name="financial_report_id" ref="account_report_tax_report"/>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="tax_report_line1" model="account.financial.html.report.line">
+        <field name="code">LINE1</field>
+        <field name="name">1. Нийт орлогын дүн  (1=2+...+6)</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE2.balance + LINE3.balance + LINE4.balance + LINE5.balance + LINE6.balance</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line2" model="account.financial.html.report.line">
+        <field name="code">LINE2</field>
+        <field name="name">1.1. Татвараас чөлөөлөгдөх орлогын дүн (2)</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag2'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line1"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line3" model="account.financial.html.report.line">
+        <field name="code">LINE3</field>
+        <field name="name">1.2. Тусгай хувь хэмжээгээр татвар ногдох орлогын дүн (3)</field>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE32.balance + LINE34.balance + LINE39.balance + LINE41.balance + LINE43.balance</field>
+        <field name="parent_id" ref="tax_report_line1"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line4" model="account.financial.html.report.line">
+        <field name="code">LINE4</field>
+        <field name="name">1.3. Хуулийн дагуу бусдад татвар суутгуулсан орлогын дүн (4)</field>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE46.balance + LINE48.balance + LINE50.balance + LINE52.balance</field>
+        <field name="parent_id" ref="tax_report_line1"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line5" model="account.financial.html.report.line">
+        <field name="code">LINE5</field>
+        <field name="name">1.4. Бусад орлогын дүн (5)</field>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag5'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line1"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line6" model="account.financial.html.report.line">
+        <field name="code">LINE6</field>
+        <field name="name">1.5. Нийтлэг хувь хэмжээгээр татвар ногдох орлогын дүн (6)</field>
+        <field name="sequence" eval="6"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE7.balance + LINE8.balance + LINE9.balance + LINE10.balance + LINE11.balance + LINE12.balance + LINE13.balance + LINE14.balance + LINE15.balance + LINE16.balance + LINE17.balance</field>
+        <field name="parent_id" ref="tax_report_line1"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line7" model="account.financial.html.report.line">
+        <field name="code">LINE7</field>
+        <field name="name">1.5.1. Үндсэн үйлдвэрлэл, ажил үйлчилгээний борлуулалтын орлого (7)</field>
+        <field name="sequence" eval="7"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag7'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line8" model="account.financial.html.report.line">
+        <field name="code">LINE8</field>
+        <field name="name">1.5.2. Туслах үйлдвэрлэл, ажил үйлчилгээний борлуулалтын орлого (8)</field>
+        <field name="sequence" eval="8"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag8'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line9" model="account.financial.html.report.line">
+        <field name="code">LINE9</field>
+        <field name="name">1.5.3. Хувьцаа, үнэт цаас борлуулсны орлого (9)</field>
+        <field name="sequence" eval="9"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag9'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line10" model="account.financial.html.report.line">
+        <field name="code">LINE10</field>
+        <field name="name">1.5.4. Үнэ төлбөргүйгээр бусдаас авсан бараа, ажил, үйлчилгээ (10)</field>
+        <field name="sequence" eval="10"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag10'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="tax_report_line11" model="account.financial.html.report.line">
+        <field name="code">LINE11</field>
+        <field name="name">1.5.5. Биет бус хөрөнгө борлуулсны орлого (11)</field>
+        <field name="sequence" eval="11"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag11'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line12" model="account.financial.html.report.line">
+        <field name="code">LINE12</field>
+        <field name="name">1.5.6. Техникийн, удирдлагын зөвлөх болон бусад үйлчилгээний орлого (12)</field>
+        <field name="sequence" eval="12"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag12'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line13" model="account.financial.html.report.line">
+        <field name="code">LINE13</field>
+        <field name="name">1.5.7. Гэрээгээр хүлээсэн үүргээ биелүүлээгүй этгээдээс авсан хүү, хохирлын нөхөн төлбөрийн орлого (13)</field>
+        <field name="sequence" eval="13"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag13'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line14" model="account.financial.html.report.line">
+        <field name="code">LINE14</field>
+        <field name="name">1.5.8. Гадаад валютын ханшийн зөрүүгийн бодит орлого (14)</field>
+        <field name="sequence" eval="14"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag14'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line15" model="account.financial.html.report.line">
+        <field name="code">LINE15</field>
+        <field name="name">1.5.9. Хөдлөх болон үл хөдлөх эд хөрөнгийн түрээсийн орлого (15)</field>
+        <field name="sequence" eval="15"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag15'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line16" model="account.financial.html.report.line">
+        <field name="code">LINE16</field>
+        <field name="name">1.5.10. Хөдлөх эд хөрөнгө борлуулсны орлого (16)</field>
+        <field name="sequence" eval="16"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag16'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line17" model="account.financial.html.report.line">
+        <field name="code">LINE17</field>
+        <field name="name">1.5.11. Албан татвар ногдох бусад орлого (17)</field>
+        <field name="sequence" eval="17"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag17'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_line6"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line18" model="account.financial.html.report.line">
+        <field name="code">LINE18</field>
+        <field name="name">2. Борлуулсан бүтээгдэхүүний өртөг (18)</field>
+        <field name="sequence" eval="18"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_direct_costs'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line19" model="account.financial.html.report.line">
+        <field name="code">LINE19</field>
+        <field name="name">3. Удирдлагын болон борлуулалтын үйл ажиллагааны зардал (19)</field>
+        <field name="sequence" eval="19"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_expenses')),'|',('account_id.code','=like','70%'),('account_id.code','=like','71%')]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line20" model="account.financial.html.report.line">
+        <field name="code">LINE20</field>
+        <field name="name">4. Үндсэн бус үйл ажиллагааны зардал (20)</field>
+        <field name="sequence" eval="20"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.user_type_id','=',ref('account.data_account_type_expenses')),'|','|',('account_id.code','=like','72%'),('account_id.code','=like','73%'),('account_id.code','=like','74%')]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line21" model="account.financial.html.report.line">
+        <field name="code">LINE21</field>
+        <field name="name">5. Татварын өмнөх ашиг +, алдагдал - (21=1-18-19-20)</field>
+        <field name="sequence" eval="21"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE1.balance - LINE18.balance - LINE19.balance - LINE20.balance</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line22" model="account.financial.html.report.line">
+        <field name="code">LINE22</field>
+        <field name="name">6. Татвар ногдох орлогоос хасагдахгүй зардлын дүн (22)</field>
+        <field name="sequence" eval="22"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag22'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line23" model="account.financial.html.report.line">
+        <field name="code">LINE23</field>
+        <field name="name">7. Татвар ногдуулах орлогыг бууруулах дүн (23)</field>
+        <field name="sequence" eval="23"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag23'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line24" model="account.financial.html.report.line">
+        <field name="code">LINE24</field>
+        <field name="name">8. Татвар ногдуулах орлогын дүн (24=21+22-23)</field>
+        <field name="sequence" eval="24"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE21.balance + (LINE22.balance - LINE23.balance)</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line25" model="account.financial.html.report.line">
+        <field name="code">LINE25</field>
+        <field name="name">9. Сайн дурын даатгалын хураамжийн хэтрэлт (25)</field>
+        <field name="sequence" eval="25"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag25'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line26" model="account.financial.html.report.line">
+        <field name="code">LINE26</field>
+        <field name="name">10. Зохицуулагдсан татвар ногдуулах орлогын дүн (26=24+25)</field>
+        <field name="sequence" eval="26"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE24.balance + LINE25.balance</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line27" model="account.financial.html.report.line">
+        <field name="code">LINE27</field>
+        <field name="name">11. Өмнөх жилийн татварын алдагдлаас тайлант хугацаанд шилжүүлсэн дүн (27)</field>
+        <field name="sequence" eval="27"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag27'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line28" model="account.financial.html.report.line">
+        <field name="code">LINE28</field>
+        <field name="name">12. Нийтлэг хувь хэмжээгээр татвар ногдуулах орлогын дүн (28=26-27)</field>
+        <field name="sequence" eval="28"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE26.balance - LINE27.balance</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line29" model="account.financial.html.report.line">
+        <field name="code">LINE29</field>
+        <field name="name">13. Ногдуулсан татвар (29=28*10%)</field>
+        <field name="sequence" eval="29"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE28.balance * 0.10</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line30" model="account.financial.html.report.line">
+        <field name="code">LINE30</field>
+        <field name="name">14. Хөнгөлөгдөх татварын дүн (30)</field>
+        <field name="sequence" eval="30"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag30'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line31" model="account.financial.html.report.line">
+        <field name="code">LINE31</field>
+        <field name="name">15. НИЙТЛЭГ ХУВЬ ХЭМЖЭЭГЭЭР ТӨЛБӨЛ ЗОХИХ АЛБАН ТАТВАР (31=29-30)</field>
+        <field name="sequence" eval="31"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE29.balance - LINE30.balance</field>
+        <field name="parent_id" ref="tax_report_lineA"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_lineB" model="account.financial.html.report.line">
+        <field name="code">LINEB</field>
+        <field name="name">Б. Тусгай хувь хэмжээгээр ногдуулах татварын тооцоолол</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="0"/>
+        <field name="financial_report_id" ref="account_report_tax_report"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line32" model="account.financial.html.report.line">
+        <field name="code">LINE32</field>
+        <field name="name">16. Эротик хэвлэл, ном зохиол, бичлэг худалдсан, ашиглуулсан, тоглолт явуулсан үйлчилгээний орлого (32)</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag32'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line33" model="account.financial.html.report.line">
+        <field name="code">LINE33</field>
+        <field name="name">Эротик хэвлэл, ном зохиол, бичлэг худалдсан, ашиглуулсан, тоглолт явуулсан үйлчилгээний орлогод ногдуулсан татвар (33=32*40%)</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE32.balance * 0.40</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line34" model="account.financial.html.report.line">
+        <field name="code">LINE34</field>
+        <field name="name">17.Төлбөрт таавар, бооцоот тоглоом, эд мөнгөний хонжворт сугалааны орлого (34)</field>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag34'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line35" model="account.financial.html.report.line">
+        <field name="code">LINE35</field>
+        <field name="name">Баримтаар нотлогдох зардал (35)</field>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag35'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line36" model="account.financial.html.report.line">
+        <field name="code">LINE36</field>
+        <field name="name">Хонжворт олгосон мөнгө болон барааны үнэ (36)</field>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="4"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag36'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line37" model="account.financial.html.report.line">
+        <field name="code">LINE37</field>
+        <field name="name">Татвар ногдуулах орлого (37=34-35-36)</field>
+        <field name="sequence" eval="6"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE34.balance - LINE35.balance - LINE36.balance</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line38" model="account.financial.html.report.line">
+        <field name="code">LINE38</field>
+        <field name="name">Ногдуулсан татвар (38=37x40%)</field>
+        <field name="sequence" eval="7"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE37.balance * 0.40</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line39" model="account.financial.html.report.line">
+        <field name="code">LINE39</field>
+        <field name="name">18.Хүүгийн орлого (39)</field>
+        <field name="sequence" eval="8"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=', ref('l10n_mn.tax_report_tag39'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line40" model="account.financial.html.report.line">
+        <field name="code">LINE40</field>
+        <field name="name">Хүүгийн орлогод ногдуулсан татвар (40=39x10%)</field>
+        <field name="sequence" eval="9"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE39.balance * 0.10</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line41" model="account.financial.html.report.line">
+        <field name="code">LINE41</field>
+        <field name="name">19. Давхар татварын гэрээтэй гадаад улсад олсон ногдол ашиг, хүүгийн орлого (41)</field>
+        <field name="sequence" eval="10"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=', ref('l10n_mn.tax_report_tag41'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line42" model="account.financial.html.report.line">
+        <field name="code">LINE42</field>
+        <field name="name">Давхар татварын гэрээтэй гадаад улсад олсон ногдол ашиг, хүүгийн орлогод ногдох татвар (42=41 x  гэрээнд заасан хувь)</field>
+        <field name="sequence" eval="11"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE41.balance * 0.10</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line43" model="account.financial.html.report.line">
+        <field name="code">LINE43</field>
+        <field name="name">20. Гадаад улсад олсон орлого (43)</field>
+        <field name="sequence" eval="12"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=', ref('l10n_mn.tax_report_tag43'))]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line44" model="account.financial.html.report.line">
+        <field name="code">LINE44</field>
+        <field name="name">Гадаад улсад олсон орлогод суутгасан татвар (44=43 * хуульд заасан хувь)</field>
+        <field name="sequence" eval="13"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE43.balance * 0.10</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line45" model="account.financial.html.report.line">
+        <field name="code">LINE45</field>
+        <field name="name">21. ТУСГАЙ ХУВЬ ХЭМЖЭЭГЭЭР ТӨЛБӨЛ ЗОХИХ АЛБАН ТАТВАРЫН ДҮН (45=33+38+40+42+44) </field>
+        <field name="sequence" eval="14"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE33.balance + LINE38.balance + LINE40.balance + LINE42.balance + LINE44.balance</field>
+        <field name="parent_id" ref="tax_report_lineB"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_lineC" model="account.financial.html.report.line">
+        <field name="code">LINEC</field>
+        <field name="name">В. Хуулийн дагуу бусдад суутгуулсан татварын тооцоолол</field>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="0"/>
+        <field name="financial_report_id" ref="account_report_tax_report"/>
+        <field name="special_date_changer">normal</field>
+    </record>
+    <record id="tax_report_line46" model="account.financial.html.report.line">
+        <field name="code">LINE46</field>
+        <field name="name">22. Ногдол ашгийн орлого (46)</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag46'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineC"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line47" model="account.financial.html.report.line">
+        <field name="code">LINE47</field>
+        <field name="name">Ногдол ашгийн орлогод суутгуулсан татвар (47=46*10%)</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE46.balance * 0.10</field>
+        <field name="parent_id" ref="tax_report_lineC"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line48" model="account.financial.html.report.line">
+        <field name="code">LINE48</field>
+        <field name="name">23. Эрхийн шимтгэлийн орлого (48)</field>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag48'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineC"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line49" model="account.financial.html.report.line">
+        <field name="code">LINE49</field>
+        <field name="name">Эрхийн шимтгэлийн орлогод суутгуулсан татвар (49=48*10%)</field>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE48.balance * 0.10</field>
+        <field name="parent_id" ref="tax_report_lineC"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line50" model="account.financial.html.report.line">
+        <field name="code">LINE50</field>
+        <field name="name">24. Эрх борлуулсны орлого (50)</field>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag50'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineC"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line51" model="account.financial.html.report.line">
+        <field name="code">LINE51</field>
+        <field name="name">Эрх борлуулсны орлогод суутгуулсан татвар (51=50*30%)</field>
+        <field name="sequence" eval="6"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE50.balance * 0.30</field>
+        <field name="parent_id" ref="tax_report_lineC"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line52" model="account.financial.html.report.line">
+        <field name="code">LINE52</field>
+        <field name="name">25. Үл хөдлөх эд хөрөнгө борлуулсны орлого (52)</field>
+        <field name="sequence" eval="7"/>
+        <field name="level" eval="3"/>
+        <field name="domain" eval="[('account_id.tag_ids','=',ref('l10n_mn.tax_report_tag52'))]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="groupby">account_id</field>
+        <field name="parent_id" ref="tax_report_lineC"/>
+        <field name="show_domain">foldable</field>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line53" model="account.financial.html.report.line">
+        <field name="code">LINE53</field>
+        <field name="name">Үл хөдлөх эд хөрөнгө борлуулсны орлогод суутгуулсан татвар (53=52*2%)</field>
+        <field name="sequence" eval="8"/>
+        <field name="level" eval="4"/>
+        <field name="formulas">balance = LINE52.balance * 0.02</field>
+        <field name="parent_id" ref="tax_report_lineC"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_line54" model="account.financial.html.report.line">
+        <field name="code">LINE54</field>
+        <field name="name">26. ХУУЛИЙН ДАГУУ БУСДАД СУУТГУУЛСАН АЛБАН ТАТВАРЫН ДҮН (54=47+49+51+53)</field>
+        <field name="sequence" eval="9"/>
+        <field name="level" eval="3"/>
+        <field name="formulas">balance = LINE47.balance + LINE49.balance + LINE51.balance + LINE53.balance</field>
+        <field name="parent_id" ref="tax_report_lineC"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+    <record id="tax_report_lineD" model="account.financial.html.report.line">
+        <field name="code">LINED</field>
+        <field name="name">23. НИЙТ ТӨЛБӨЛ ЗОХИХ ТАТВАРЫН ДҮН (55=31+45+54)</field>
+        <field name="sequence" eval="10"/>
+        <field name="level" eval="0"/>
+        <field name="formulas">balance = LINE31.balance + LINE45.balance + LINE54.balance</field>
+        <field name="financial_report_id" ref="account_report_tax_report"/>
+        <field name="special_date_changer">strict_range</field>
+    </record>
+</odoo>

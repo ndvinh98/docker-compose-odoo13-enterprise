@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="action_account_report_de_partner_vat_intra" model="ir.actions.client">
+            <field name="name">Partner VAT Intra</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'l10n.de.report.partner.vat.intra'}" />
+        </record>
+
+        <record id="res_company_form_l10n_de" model="ir.ui.view">
+            <field name="name">res.company.form.l10n.de</field>
+            <field name="model">res.company</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="arch" type="xml">
+            <data>
+                 <xpath expr="//field[@name='company_registry']" position="after">
+                    <field name="l10n_de_datev_consultant_number"/>
+                    <field name="l10n_de_datev_client_number"/>
+                 </xpath>
+            </data>
+            </field>
+        </record>
+
+        <record id="view_partner_form_inherit" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.l10n_de_reports</field>
+            <field name="model">res.partner</field>
+            <field name="priority">20</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='accounting_entries']" position="inside">
+                    <field name="l10n_de_datev_identifier" groups="base.group_no_one"/>
+                </xpath>
+            </field>
+        </record>
+
+        <menuitem id="menu_action_account_report_de_partner_vat_intra" name="Partner VAT Intra" action="action_account_report_de_partner_vat_intra" parent="l10n_de.account_reports_de_statements_menu"/>
+</odoo>

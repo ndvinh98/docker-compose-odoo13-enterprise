@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!--
+    	Project Task Views (in project app)
+	-->
+
+    <record id="view_task_form2_inherit" model="ir.ui.view">
+        <field name="name">view.task.form2.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="sale_timesheet_enterprise.project_task_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_timer_start'][hasclass('btn-primary')]" position='after'>
+                <field name="is_fsm" invisible="1"/>
+                <field name="allow_material" invisible="1"/>
+                <field name="allow_timesheets" invisible="1"/>
+                <field name="allow_billable" invisible="1"/>
+                <field name="allow_quotations" invisible="1"/>
+                <field name="fsm_done" invisible="1"/>
+                <field name="fsm_to_invoice" invisible="1"/>
+                <button class="btn-primary" name="action_fsm_create_invoice" type="object" string="Create Invoice"
+                    attrs="{'invisible': ['|', '|', '|', '|', '|', '|', ('allow_billable', '=', False), ('is_fsm', '=', False), ('fsm_to_invoice', '=', False), ('invoice_count', '!=', 0), '&amp;', ('display_timesheet_timer', '=', True), ('timesheet_timer_start', '=', False), '&amp;', ('allow_timesheets', '=', True), ('total_hours_spent', '=', 0), '&amp;', ('allow_material', '=', True), ('material_line_product_count', '=', 0)]}" groups="industry_fsm.group_fsm_manager"/>
+            </xpath>
+            <xpath expr="//button[@name='action_timer_start'][hasclass('btn-secondary')]" position='before'>
+                <button class="btn-secondary" name="action_fsm_create_invoice" type="object" string="Create Invoice"
+                    attrs="{'invisible': ['|', '|', '|', '|', '|', '|', ('allow_billable', '=', False), ('is_fsm', '=', False), ('fsm_to_invoice', '=', False), ('invoice_count', '=', 0), '&amp;', ('display_timesheet_timer', '=', True), ('timesheet_timer_start', '=', False), '&amp;', ('allow_timesheets', '=', True), ('total_hours_spent', '=', 0), '&amp;', ('allow_material', '=', True), ('material_line_product_count', '=', 0)]}" groups="industry_fsm.group_fsm_manager"/>
+
+            </xpath>
+            <xpath expr="//button[@name='action_timer_resume']" position='after'>
+                <button class="btn-secondary" name="action_fsm_create_quotation" type="object" string="New Quotation" attrs="{'invisible': [('allow_quotations', '=', False)]}" groups="sales_team.group_sale_salesman"/>
+            </xpath>
+            <xpath expr="//header" position="after">
+                <div role="alert" class="alert-warning p-3 text-center"
+                    attrs="{'invisible': ['|', ('is_fsm', '=', False), ('planning_overlap', '=', 0)]}">
+                    <button name="action_fsm_view_overlapping_tasks" type="object" class="btn-link pr-1">
+                        <field name="planning_overlap"/> other tasks
+                    </button>
+                    <span class="align-middle">for this employee at the same time.</span>
+                </div>
+            </xpath>
+            <xpath expr="//page[@name='extra_info']" position="attributes">
+                <attribute name="groups">base.group_no_one</attribute>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button class="oe_stat_button" name="action_timer_start" type="object" icon="fa-play" help="Launch the Timer" attrs="{'invisible': ['|', '|', '|', '|', ('display_timesheet_timer', '=', False), ('is_fsm', '=', False), ('allow_timesheets', '=', False), ('total_hours_spent', '!=', 0), ('timesheet_timer_start', '!=', False)]}" groups="hr_timesheet.group_hr_timesheet_user">
+                    <div class="o_stat_info">
+                        Start
+                    </div>
+                </button>
+                <button class="oe_stat_button" name="action_timer_stop" type="object" icon="fa-stop" help="Stop the Timer" attrs="{'invisible': ['|', '|', '|', '|', ('is_fsm', '=', False), ('display_timesheet_timer', '=', False), ('allow_timesheets', '=', False), ('total_hours_spent', '!=', 0), ('timesheet_timer_start', '=', False)]}">
+                    <div class="o_stat_info">
+                        Stop
+                    </div>
+                </button>
+                <button class="oe_stat_button" name="action_view_timesheets" type="object" icon="fa-clock-o" help="Time recorded on this task" attrs="{'invisible': ['|', '|', ('is_fsm', '=', False), ('allow_timesheets', '=', False), '&amp;', ('display_timesheet_timer', '=', True), ('total_hours_spent', '=', 0)]}" groups="hr_timesheet.group_hr_timesheet_user">
+                    <div class="o_stat_info">
+                        <div>Time</div>
+                        <span class="o_stat_value">
+                            <field name="total_hours_spent" widget="float_time" nolabel="1" class="mr-1" />
+                        </span>
+                    </div>
+                </button>
+                <button class="oe_stat_button" name="action_fsm_view_material"
+                    type="object" icon="fa-cart-plus" help="Add materials" attrs="{'invisible': ['|', ('partner_id', '=', False), ('allow_material', '=', False)]}">
+                    <div class="o_stat_info">
+                        <span class="o_stat_value">
+                            <field name="material_line_product_count" widget="statinfo" string="Products" class="mr-1"/>
+                        </span>
+                        <field name="material_line_total_price" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                        <field name="currency_id" invisible="True"/>
+                    </div>
+                </button>
+                <button name="action_view_invoices" type="object" class="oe_stat_button" icon="fa-pencil-square-o" attrs="{'invisible': ['|', ('allow_billable', '=', False), ('invoice_count', '=', 0)]}" groups="industry_fsm.group_fsm_manager">
+                    <field name="invoice_count" widget="statinfo" string="Invoices"/>
+                </button>
+            </xpath>
+            <xpath expr="//header/button[@name='action_timer_start'][hasclass('btn-primary')]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', '|', ('is_fsm', '=', True), ('total_hours_spent', '!=', 0), ('timesheet_timer_start', '!=', False), ('display_timesheet_timer', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_timer_start'][hasclass('btn-secondary')]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', ('total_hours_spent', '=', 0), ('timesheet_timer_start', '!=', False), ('display_timesheet_timer', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//header/button[@name='action_timer_stop']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', ('timesheet_timer_start', '=', False), ('display_timesheet_timer', '=', False), '&amp;', ('is_fsm', '=', True), ('total_hours_spent', '=', 0)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Timesheet tab visibility in Project Task form view -->
+    <record id="view_form2" model="ir.ui.view">
+        <field name="name">view.task.form2.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="hr_timesheet.view_task_form2_inherited"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@id='timesheets_tab']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_fsm', '=', True), ('allow_timesheets', '=', False)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_sale_service_inherit_form2" model="ir.ui.view">
+        <field name="name">view.task.form2.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="sale_timesheet.view_sale_service_inherit_form2"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_line_id']" position="attributes">
+                <attribute name="attrs">
+                    {'invisible': ['|', ('is_fsm', '=', True), ('partner_id', '=', False)]}
+                </attribute>
+            </xpath>
+            <xpath expr="//field[@name='user_id']" position="after">
+                <xpath expr="//field[@name='partner_id']" position="move"/>
+                <xpath expr="//field[@name='sale_line_id']" position="move"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Quotation button in Project task form (SALESMAN ONLY)-->
+    <record id="project_task_view_form_quotation" model="ir.ui.view">
+        <field name="name">view.form.fsm.inherit.quotation</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="sale_timesheet.project_task_view_form_sale_order"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_view_so']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_fsm', '=', True), ('sale_order_id', '=', False)]}</attribute>
+            </xpath>
+            <div name="button_box" position="inside">
+                <button name="action_fsm_view_quotations"
+                    type="object"
+                    class="oe_stat_button"
+                    icon="fa-dollar"
+                    groups="industry_fsm.group_fsm_manager"
+                    attrs="{'invisible': ['|', ('allow_quotations', '=', False), ('quotation_count', '=', 0)]}">
+                    <field string="Quotations" name="quotation_count" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman')), (4, ref('industry_fsm.group_fsm_quotation_from_task'))]"/>
+    </record>
+
+    <!--
+    	Project Views (in project app)
+	-->
+
+
+    <record id="project_view_form_inherit" model="ir.ui.view">
+        <field name="name">project.view.form.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="sale_timesheet_enterprise.project_view_form_inherit"/>
+        <field name="arch" type="xml">
+            <div id="allow_billable_setting" position="after">
+                <field name="timesheet_product_id" attrs="{'invisible': ['|', ('allow_billable', '=', False), ('allow_timesheets', '=', False)], 'required': ['&amp;', ('allow_billable', '=', True), ('allow_timesheets', '=', True)]}"/>
+            </div>
+            <xpath expr="//div[@id='allow_billable_container']" position="after">
+                <field name="is_fsm" invisible="1"/>
+                <div class="col-lg-6 o_setting_box" attrs="{'invisible': [('allow_billable', '=', False)]}">
+                    <div class="o_setting_left_pane">
+                        <field name="allow_material"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="allow_material"/>
+                        <div class="text-muted" id="allow_billable_setting">
+                            Track the material used to complete tasks
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[@id='rating_settings']" position="after">
+                <div class="col-lg-6 o_setting_box"  groups="industry_fsm.group_fsm_quotation_from_task">
+                    <div class="o_setting_left_pane">
+                        <field name="allow_quotations"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="allow_quotations"/>
+                        <div class="text-muted" id="allow_billable_setting">
+                            Create new quotations directly from tasks
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_project_view_form_simplified_inherit" model="ir.ui.view">
+        <field name="name">project.project.view.form.simplified.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="sale_timesheet_enterprise.project_project_view_form_simplified_inherit"/>
+        <field name="arch" type="xml">
+            <field name="allow_timesheet_timer" position="after">
+                <field name="timesheet_product_id" attrs="{'invisible': ['|', '|', ('allow_billable', '=', False), ('allow_timesheets', '=', False), ('timesheet_product_id', '!=', False)], 'required': ['&amp;', ('allow_billable', '=', True), ('allow_timesheets', '=', True)]}"/>
+            </field>
+            <field name="allow_billable" position="after">
+                <field name="company_id" invisible="1"/>
+                <field name="allow_material" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_employee_view_form" model="ir.ui.view">
+        <field name="name">hr.employee.form</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <page name="hr_settings" position="after">
+                <page string="Personal Documents" name="personal_documents" groups="hr.group_hr_manager">
+                    <group>
+                        <field name="id_card"/>
+                        <field name="driving_license"/>
+                        <field name="mobile_invoice"/>
+                        <field name="sim_card"/>
+                        <field name="internet_invoice"/>
+                    </group>
+                </page>
+            </page>
+        </field>
+    </record>
+</odoo>

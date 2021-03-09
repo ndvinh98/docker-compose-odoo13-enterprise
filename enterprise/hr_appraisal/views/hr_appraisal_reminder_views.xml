@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <record model="ir.ui.view" id="view_hr_appraisal_reminder_form">
+        <field name="name">hr.appraisal.reminder.form</field>
+        <field name="model">hr.appraisal.reminder</field>
+        <field name="arch" type="xml">
+            <form string="Appraisal Reminder">
+            <sheet>
+                <group>
+                    <field name="notify"/>
+                    <label for="appraisal_reminder" string="When"/>
+                    <div class="o_row" name="appraisal_reminder">
+                        <field name="appraisal_reminder" nolabel="1"/>
+                        <span> months</span>
+                        <field name="event" class="o_inline" nolabel="1"/>
+                    </div>
+                </group>
+                <group>
+                    <field name="subject" required="1" placeholder="e.g. Need an appraisal with your manager? You can schedule it."/>
+                </group>
+                <field name="body_html" type="html" widget="html" options="{'style-inline': true}"/>
+          </sheet>
+          </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_hr_appraisal_reminder_tree">
+        <field name="name">hr.appraisal.reminder.tree</field>
+        <field name="model">hr.appraisal.reminder</field>
+        <field name="arch" type="xml">
+            <tree string="Appraisal Reminder">
+                <field name="notify"/>
+                <field name="appraisal_reminder"/>
+                <field name="event"/>
+                <field name="company_id" domain="[('company_id', '=', company_id)]" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="appraisal_reminderlist_action" model="ir.actions.act_window">
+        <field name="name">Appraisal Reminders</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">hr.appraisal.reminder</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_appraisal_reminder" name="Appraisal Reminders"
+        action="hr_appraisal.appraisal_reminderlist_action"
+        parent="menu_hr_appraisal_configuration" sequence="4"
+        groups="hr_appraisal.group_hr_appraisal_manager"/>
+
+</odoo>

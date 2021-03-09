@@ -1,0 +1,54 @@
+<odoo>
+    <template id="report_mrp_bom_inherit_mrp_plm" inherit_id="mrp.report_mrp_bom">
+        <xpath expr="//th[@name='th_mrp_bom_h']" position="after">
+            <th class="o_mrp_bom_ver">BoM Version</th>
+            <th class="o_mrp_ecos">ECOs</th>
+        </xpath>
+        <xpath expr="//td[@name='td_mrp_bom']" position="after">
+            <td class="o_mrp_bom_ver">
+                <span><t t-esc="data['version']"/></span>
+            </td>
+            <td class="o_mrp_ecos">
+                <span t-if="data['report_type'] == 'html'"><a href="#" t-att-data-res-id="data['product'].id" t-att-data-model="'mrp.eco'" class="o_mrp_ecos_action"><t t-esc="data['ecos']"/></a></span>
+                <span t-if="data['report_type'] == 'pdf'"><t t-esc="data['ecos']"/></span>
+            </td>
+        </xpath>
+        <xpath expr="//td[@name='td_mrp_bom_f']" position="after">
+            <td class="o_mrp_bom_ver"/>
+            <td class="o_mrp_ecos"/>
+        </xpath>
+    </template>
+
+    <template id="report_mrp_bom_line_inherit_mrp_plm" inherit_id="mrp.report_mrp_bom_line">
+        <xpath expr="//td[@name='td_mrp_bom']" position="after">
+            <td class="o_mrp_bom_ver">
+                <span><t t-esc="l['version']"/></span>
+            </td>
+            <td class="o_mrp_ecos">
+                <span><a href="#" t-att-data-res-id="l['prod_id']" t-att-data-model="'mrp.eco'" class="o_mrp_ecos_action"><t t-esc="l['ecos']"/></a></span>
+            </td>
+        </xpath>
+        <xpath expr="//td[@name='td_opr']" position="after">
+            <td class="o_mrp_bom_ver"/>
+            <td class="o_mrp_ecos"/>
+        </xpath>
+    </template>
+
+    <template id="report_mrp_operation_line_inherit_mrp_plm" inherit_id="mrp.report_mrp_operation_line">
+        <xpath expr="//td[@name='td_opr_line']" position="after">
+            <td class="o_mrp_bom_ver"/>
+            <td class="o_mrp_ecos"/>
+        </xpath>
+    </template>
+
+    <template id="report_mrp_bom_pdf_line_inherit_mrp_plm" inherit_id="mrp.report_mrp_bom_pdf_line">
+        <xpath expr="//td[@name='td_mrp_code']" position="after">
+            <td class="o_mrp_bom_ver">
+                <span><t t-if="l.get('version')" t-esc="l['version']"/></span>
+            </td>
+            <td class="o_mrp_ecos">
+                <span><t t-if="l.get('ecos')" t-esc="l['ecos']"/></span>
+            </td>
+        </xpath>
+    </template>
+</odoo>

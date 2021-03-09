@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_add_iot_box" model="ir.ui.view">
+        <field name="name">Add IoT box</field>
+        <field name="model">add.iot.box</field>
+        <field name="arch" type="xml">
+            <form string="Connect an IoT Box">
+                <div class="row">
+                    <div class="col-8">
+                        <p>
+                            0. Power on the IoT Box<br/><br/>
+
+                            <strong>A. Ethernet Connection</strong><br/>
+                            1. Click on the "Scan" button below<br/><br/>
+
+                            <strong>B. WiFi Connection (or Ethernet Connection doesn't work)</strong><br/>
+                            1. Make sure no ethernet cable is connected to the IoT Box<br/>
+                            2. Copy the token that is below<br/>
+                            3. Connect to the IoT Box WiFi network (you should see it in your available WiFi networks)<br/>
+                            4. You will be redirected to the IoT Box Homepage<br/>
+                            5. Paste the token in token field and follow the steps described on the IoT Box Homepage<br/>
+                        </p>
+                        <group>
+                            <field name="token" widget="CopyClipboardChar" readonly="1"/>
+                        </group>
+                    </div>
+                    <div class="col-4 pl-5">
+                        <widget name="iot_scan_progress"/>
+                    </div>
+                </div>
+                <footer>
+                    <widget name='iot_detect_button' string="Detect and Add IoT devices in the network"/>
+                    <button type="object" name="reload_page" string="OK" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_add_iot_box" model="ir.actions.act_window">
+        <field name="name">Connect an IoT Box</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">add.iot.box</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_add_iot_box"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_hr_contract_sign" model="ir.ui.view">
+        <field name="name">hr_contract_sign</field>
+        <field name="model">hr.contract.sign.document.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Signature Request">
+                <group class="o_label_nowrap">
+                    <field name="contract_id" invisible="1"/>
+                    <field name="sign_template_id" options="{'no_create': True}" kanban_view_ref="%(sign.sign_template_view_kanban_mobile)s"/>
+                    <field name="responsible_id" options="{'no_create_edit': True}"/>
+                </group>
+                <group>
+                    <group>
+                        <field name="employee_role_id" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="employee_id"/>
+                    </group>
+                </group>
+                <group class="o_label_nowrap">
+                    <field name="follower_ids" widget="many2many_tags" placeholder="Write email or search contact..."/>
+                    <field name="subject" placeholder="Signature Request"/>
+                    <field name="message" placeholder="Optional Message..."/>
+                </group>
+                <footer>
+                    <button name="validate_signature" string="Send" type="object" class="oe_highlight"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="sign_contract_wizard_action" model="ir.actions.act_window">
+        <field name="name">Document Signature</field>
+        <field name="res_model">hr.contract.sign.document.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

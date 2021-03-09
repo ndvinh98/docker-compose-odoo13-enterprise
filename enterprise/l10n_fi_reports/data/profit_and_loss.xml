@@ -1,0 +1,384 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Finland Profit and Loss -->
+    <record id="account_financial_report_l10n_fi_pl" model="account.financial.html.report">
+        <field name="name">Profit and Loss</field>
+        <field name="debit_credit" eval="False"/>
+        <field name="analytic" eval="True"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='l10n_fi.account_reports_fi_statements_menu'/>
+    </record>
+
+    <record id="account_financial_report_l10n_fi_pl_line_1" model="account.financial.html.report.line">
+        <field name="name">1. LIIKEVAIHTO</field>
+        <field name="code">FIPL_1</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="1"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_sales_adjustment_items'),ref('l10n_fi.account_tag_sales')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_2" model="account.financial.html.report.line">
+        <field name="name">2. Valmiiden ja keskeneräisten tuotteiden varastojen muutos</field>
+        <field name="code">FIPL_2</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_manufacturing_warehouse_change')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_3" model="account.financial.html.report.line">
+        <field name="name">3. Valmistus omaan käyttöön</field>
+        <field name="code">FIPL_3</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="3"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_manufacturing_own_use')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_4" model="account.financial.html.report.line">
+        <field name="name">4. Liiketoiminnan muut tuotot</field>
+        <field name="code">FIPL_4</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="4"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_income_other')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_5" model="account.financial.html.report.line">
+        <field name="name">5. Materiaalit ja palvelut</field>
+        <field name="code">FIPL_5</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="5"/>
+        <field name="formulas">balance = FIPL_5a.balance + FIPL_5b.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_5_1" model="account.financial.html.report.line">
+        <field name="name">a) Aineet, tarvikkeet ja tavarat</field>
+        <field name="code">FIPL_5a</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="1"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = FIPL_5aa.balance + FIPL_5ab.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_5"/>
+    </record>
+    <!-- Todo: shoud this account account_tag_materials_and_supplies_inventories in aa or ab section?-->
+    <record id="account_financial_report_l10n_fi_pl_line_5_1_1" model="account.financial.html.report.line">
+        <field name="name">aa) Ostot tilikauden aikana</field>
+        <field name="code">FIPL_5aa</field>
+        <field name="level" eval="4" />
+        <field name="sequence" eval="1"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [
+            ref('l10n_fi.account_tag_purchases'),ref('l10n_fi.account_tag_purchases_adjustment_items')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_5_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_5_1_2" model="account.financial.html.report.line">
+        <field name="name">ab) Varastojen muutos</field>
+        <field name="code">FIPL_5ab</field>
+        <field name="level" eval="4" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_change_in_inventories')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_5_1"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_5_2" model="account.financial.html.report.line">
+        <field name="name">b) Ulkopuoliset palvelut</field>
+        <field name="code">FIPL_5b</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_external_services')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_5"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_6" model="account.financial.html.report.line">
+        <field name="name">6. Henkilöstökulut</field>
+        <field name="code">FIPL_6</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="6"/>
+        <field name="formulas">balance = FIPL_6a.balance + FIPL_6b.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_6_1" model="account.financial.html.report.line">
+        <field name="name">a) Palkat ja palkkiot</field>
+        <field name="code">FIPL_6a</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="1"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [
+            ref('l10n_fi.account_tag_wages_and_salaries_other'), ref('l10n_fi.account_tag_wages_and_salaries_in_production')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_6"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_6_2" model="account.financial.html.report.line">
+        <field name="name">b) Henkilösivukulut</field>
+        <field name="code">FIPL_6b</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = FIPL_6ba.balance + FIPL_6bb.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_6"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_6_2_1" model="account.financial.html.report.line">
+        <field name="name">ba) Eläkekulut</field>
+        <field name="code">FIPL_6ba</field>
+        <field name="level" eval="4" />
+        <field name="sequence" eval="1"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [
+            ref('l10n_fi.account_tag_pension_costs_of_production'),
+            ref('l10n_fi.account_tag_pension_costs_other')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_6_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_6_2_2" model="account.financial.html.report.line">
+        <field name="name">bb) Muut henkilösivukulut</field>
+        <field name="code">FIPL_6bb</field>
+        <field name="level" eval="4" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_additional_expenses_other')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_6_2"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_7" model="account.financial.html.report.line">
+        <field name="name">7. Poistot ja arvonalentumiset</field>
+        <field name="code">FIPL_7</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="7"/>
+        <field name="formulas">balance = FIPL_7a.balance + FIPL_7b.balance + FIPL_7c.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_7_1" model="account.financial.html.report.line">
+        <field name="name">a) Suunnitelman mukaiset poistot</field>
+        <field name="code">FIPL_7a</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="1"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_depreciation_according_to_plan')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_7"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_7_2" model="account.financial.html.report.line">
+        <field name="name">b) Arvonalentumiset pysyvien vastaavien hyödykkeistä</field>
+        <field name="code">FIPL_7b</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_impairment_of_fixed_assets')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_7"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_7_3" model="account.financial.html.report.line">
+        <field name="name">c) Vaihtuvien vastaavien poikkeukselliset arvonalentumiset</field>
+        <field name="code">FIPL_7c</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="3"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_impairment_losses_financial_assets_current_assets')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_7"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_8" model="account.financial.html.report.line">
+        <field name="name">8. Liiketoiminnan muut kulut</field>
+        <field name="code">FIPL_8</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="8"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [
+            ref('l10n_fi.account_tag_other_additional_expenses_production'),
+            ref('l10n_fi.account_tag_personnel_other'),
+            ref('l10n_fi.account_tag_premises_costs'),
+            ref('l10n_fi.account_tag_vehicle_expenses'),
+            ref('l10n_fi.account_tag_it_expenses'),
+            ref('l10n_fi.account_tag_in_machinery_and_equipment_expenses'),
+            ref('l10n_fi.account_tag_travelling'),
+            ref('l10n_fi.account_tag_representation'),
+            ref('l10n_fi.account_tag_selling_expenses'),
+            ref('l10n_fi.account_tag_marketing_expenses'),
+            ref('l10n_fi.account_tag_research_and_development'),
+            ref('l10n_fi.account_tag_administrative_services'),
+            ref('l10n_fi.account_tag_other_administrative_expenses'),
+            ref('l10n_fi.account_tag_other_fixed_costs')])]"/>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_9" model="account.financial.html.report.line">
+        <field name="name">9. LIIKEVOITTO (-TAPPIO)</field>
+        <field name="code">FIPL_9</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="9"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = FIPL_1.balance - FIPL_2.balance - FIPL_3.balance - FIPL_4.balance - FIPL_5.balance - FIPL_6.balance - FIPL_7.balance - FIPL_8.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_10" model="account.financial.html.report.line">
+        <field name="name">10. Rahoitustuotot ja -kulut</field>
+        <field name="code">FIPL_10</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="10"/>
+        <field name="formulas">balance = FIPL_10a.balance + FIPL_10b.balance + FIPL_10c.balance + FIPL_10d.balance + FIPL_10e.balance + FIPL_10f.balance + FIPL_10g.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_10_1" model="account.financial.html.report.line">
+        <field name="name">a) Tuotot osuuksista saman konsernin yrityksissä</field>
+        <field name="code">FIPL_10a</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="1"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_income_from_shares_in_group')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_10"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_10_2" model="account.financial.html.report.line">
+        <field name="name">b) Tuotot osuuksista omistusyhteysyrityksissä</field>
+        <field name="code">FIPL_10b</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_income_from_associated_company')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_10"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_10_3" model="account.financial.html.report.line">
+        <field name="name">c) Tuotot muista pysyvien vastaavien sijoituksista</field>
+        <field name="code">FIPL_10c</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="3"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_investment_income_other_current_assets_group')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_10"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_10_4" model="account.financial.html.report.line">
+        <field name="name">d) Muuto korko- ja rahoitustuotot</field>
+        <field name="code">FIPL_10d</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="4"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [
+            ref('l10n_fi.account_tag_interest_and_financial_income_from_group'),
+            ref('l10n_fi.account_tag_other_interest_and_financial_income')
+            ])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_10"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_10_5" model="account.financial.html.report.line">
+        <field name="name">e) Arvonalentumiset pysyvien vastaavien sijoituksista</field>
+        <field name="code">FIPL_10e</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="5"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_impairment_losses_on_investments_in_fixed_assets')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_10"/>
+    </record>
+
+    <record id="account_financial_report_l10n_fi_pl_line_10_6" model="account.financial.html.report.line">
+        <field name="name">f) Arvonalentumiset vaihtuvien vastaavien rahoitusarvopapereista</field>
+        <field name="code">FIPL_10f</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="6"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_impairment_losses_financial_assets_current_assets')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_10"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_10_7" model="account.financial.html.report.line">
+        <field name="name">g) Korkokulut ja muut rahoituskulut</field>
+        <field name="code">FIPL_10g</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="7"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [
+            ref('l10n_fi.account_tag_financial_expenses_group'),
+            ref('l10n_fi.account_tag_other_financial_expenses')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_10"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_11" model="account.financial.html.report.line">
+        <field name="name">11. VOITTO (TAPPIO) ENNEN SATUNNAISIA ERIÄ</field>
+        <field name="code">FIPL_11</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="11"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_retained_earnings')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+
+    <record id="account_financial_report_l10n_fi_pl_line_13" model="account.financial.html.report.line">
+        <field name="name">13. VOITTO (TAPPIO) ENNEN TILINPÄÄTÖSSIIRTOJA JAVEROJA</field>
+        <field name="code">FIPL_13</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="13"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = FIPL_9.balance + FIPL_10.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_14" model="account.financial.html.report.line">
+        <field name="name">14. Tilinpäätössiirrot</field>
+        <field name="code">FIPL_14</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="14"/>
+        <field name="formulas">balance = FIPL_14a.balance + FIPL_14b.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_14_1" model="account.financial.html.report.line">
+        <field name="name">a) Poistoeron muutos</field>
+        <field name="code">FIPL_14a</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="1"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_change_in_depreciation_difference')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_14"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_14_2" model="account.financial.html.report.line">
+        <field name="name">b) Vapaaehtoisten varausten muutos</field>
+        <field name="code">FIPL_14b</field>
+        <field name="level" eval="3" />
+        <field name="sequence" eval="2"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_change_in_provisions')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref="account_financial_report_l10n_fi_pl_line_14"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_15" model="account.financial.html.report.line">
+        <field name="name">15. Tuloverot</field>
+        <field name="code">FIPL_15</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="15"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_taxes_for_the_period')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_16" model="account.financial.html.report.line">
+        <field name="name">16. Muut välittömät verot</field>
+        <field name="code">FIPL_16</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="16"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_fi.account_tag_other_tax')])]"/>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+    <record id="account_financial_report_l10n_fi_pl_line_17" model="account.financial.html.report.line">
+        <field name="name">17. TILIKAUDEN VOITTO (TAPPIO)</field>
+        <field name="code">FIPL_17</field>
+        <field name="level" eval="2" />
+        <field name="sequence" eval="17"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = FIPL_13.balance + FIPL_14.balance + FIPL_15.balance + FIPL_16.balance</field>
+        <field name="financial_report_id" ref="account_financial_report_l10n_fi_pl"/>
+    </record>
+</odoo>

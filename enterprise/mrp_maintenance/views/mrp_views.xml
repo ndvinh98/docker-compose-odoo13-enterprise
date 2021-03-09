@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- MRP.WORKCENTER -->
+    <record id="mrp_workcenter_view_form_inherit_maintenance" model="ir.ui.view">
+        <field name="name">mrp.workcenter.form.inherit.maintenance</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Equipment">
+                    <field name="equipment_ids" widget="many2many">
+                        <tree string="Equipments">
+                            <field name="name"/>
+                            <field name="technician_user_id"/>
+                            <field name="category_id"/>
+                            <field name="mtbf"/>
+                            <field name="mttr"/>
+                            <field name="estimated_next_failure" string="Est. Next Failure"/>
+                        </tree>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="mrp_workcenter_view_kanban_inherit_maintenance" model="ir.ui.view">
+        <field name="name">mrp.workcenter.view.kanban.inherit.maintenance</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='plan_order']" position="after">
+                <div>
+                    <a name="%(maintenance.hr_equipment_request_action)d" type="action">Maintenance</a>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- MRP.PRODUCTION -->
+    <record id="mrp_production_view_form_inherit_maintenance" model="ir.ui.view">
+        <field name="name">mrp.production.view.form.inherit.maintenance</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <button name="action_cancel" position="before">
+                <button name="button_maintenance_req" type="object" string="Maintenance Request"/>
+            </button>
+            <div name="button_box" position="inside">
+                <button name="open_maintenance_request_mo" type="object" class="oe_stat_button" icon="fa-wrench" attrs="{'invisible': [('maintenance_count', '=', 0)]}" context="{'search_default_production_id': active_id}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field name="maintenance_count"/></span>
+                        <span class="o_stat_text">Maintenance</span>
+                    </div>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <!-- MRP.WORKORDER TABLET VIEW -->
+    <record id="mrp_workorder_tablet_view_form_inherit_maintenance" model="ir.ui.view">
+        <field name="name">mrp.workorder.view.form.inherit.maintenance1</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_form_tablet_menu"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='workorder_maintenance_button']" position="inside">
+                <button name="button_maintenance_req" type="object" class="btn btn-warning btn-block" string="Maintenance request"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

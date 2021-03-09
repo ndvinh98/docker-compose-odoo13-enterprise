@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="caf_per_company" model="ir.rule">
+            <field name="name">Access to CAF model per company</field>
+            <field name="model_id" ref="model_l10n_cl_dte_caf"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[['company_id', 'in', company_ids]]</field>
+        </record>
+
+        <record id="signature_certificate_per_company" model="ir.rule">
+            <field name="name">Access to Signature Certificate per company</field>
+            <field name="model_id" ref="model_l10n_cl_certificate"/>
+            <field name="global" eval="True"/>
+            <field name="domain_force">[['company_id', 'in', company_ids]]</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.l10n.mx.edi</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="account.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='invoicing_settings']" position="after">
+                <h2>Electronic invoicing (MX)</h2>
+                <div class="row mt16 o_settings_container" id="l10n_mx_edi_settings">
+                    <div class="col-12 col-lg-6 o_setting_box" title="Fields required to configure the MX CFDI.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Fiscal Regime</span>
+                            <div class="text-muted">
+                                Configure your SAT fiscal regime.
+                            </div>
+                            <div class="row mt16">
+                                <label for="l10n_mx_edi_fiscal_regime" class="col-lg-3 o_light_label"/>
+                                <field name="l10n_mx_edi_fiscal_regime"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" title="The parameters to configure the MX PAC.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">MX PAC</span>
+                            <div class="text-muted">
+                                Configure the Authorized Certification Provider (PAC).
+                            </div>
+                            <div class="row mt16">
+                                <label string="PAC" for="l10n_mx_edi_pac" class="col-lg-3 o_light_label"/>
+                                <field name="l10n_mx_edi_pac"/>
+                            </div>
+                            <div class="row">
+                                <label string="PAC username" for="l10n_mx_edi_pac_username" class="col-lg-3 o_light_label"/>
+                                <field name="l10n_mx_edi_pac_username"/>
+                            </div>
+                            <div class="row">
+                                <label string="PAC password" for="l10n_mx_edi_pac_password" class="col-lg-3 o_light_label"/>
+                                <field name="l10n_mx_edi_pac_password" password="True"/>
+                            </div>
+                            <div class="row">
+                                <label for="l10n_mx_edi_pac_test_env" class="col-lg-3 o_light_label"/>
+                                <field name="l10n_mx_edi_pac_test_env" class="oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" title="The parameters to configure the MX certificate.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">MX Certificates</span>
+                            <div class="text-muted">
+                                Configure your SAT certificates.
+                            </div>
+                            <div class="row mt16">
+                                <field name="l10n_mx_edi_certificate_ids"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" title="The parameters to configure the External Trade complement.">
+                        <div class="o_setting_left_pane"/>
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">External Trade</span>
+                            <div class="text-muted">
+                                Configure data to external trade.
+                            </div>
+                            <div class="row mt16">
+                                <label for="l10n_mx_edi_num_exporter" class="col-lg-3 o_light_label"/>
+                                <field name="l10n_mx_edi_num_exporter"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

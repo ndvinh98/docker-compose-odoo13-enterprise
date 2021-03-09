@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="SourceDocumentsTemplate">
+        <SourceDocuments t-if="invoice_data['invoices']">
+            <SalesInvoices>
+                <NumberOfEntries><t t-esc="len(invoice_data['invoices'])"/></NumberOfEntries>
+                <TotalDebit><t t-esc="invoice_data['invoice_total_debit']"/></TotalDebit>
+                <TotalCredit><t t-esc="invoice_data['invoice_total_credit']"/></TotalCredit>
+                <Invoice t-foreach="invoice_data['invoices']" t-as="invoice">
+                    <InvoiceNo><t t-esc="invoice['move_name'][:70]"/></InvoiceNo>
+                    <CustomerInfo t-if="invoice['is_customer']">
+                        <CustomerID><t t-esc="invoice['partner_id']"/></CustomerID>
+                        <BillingAddress>
+                            <t t-set="address_data" t-value="all_partner_details[invoice['partner_id']]['default_value']"/>
+                            <t t-call="account_saft.AddressStructureTemplate"/>
+                        </BillingAddress>
+                    </CustomerInfo>
+                    <SupplierInfo t-if="invoice['is_supplier']">
+                        <SupplierID><t t-esc="invoice['partner_id']"/></SupplierID>
+                        <BillingAddress>
+                            <t t-set="address_data" t-value="all_partner_details[invoice['partner_id']]['default_value']"/>
+                            <t t-call="account_saft.AddressStructureTemplate"/>
+                        </BillingAddress>
+                    </SupplierInfo>
+                    <Period t-if="invoice.get('move_date')"><t t-esc="invoice['move_date']" t-options="{'widget': 'date', 'format':'MM'}"/></Period>
+                    <PeriodYear t-if="invoice.get('move_date')"><t t-esc="invoice['move_date']" t-options="{'widget': 'date', 'format':'yyyy'}"/></PeriodYear>
+                    <InvoiceDate><t t-esc="invoice['invoice_date']"/></InvoiceDate>
+                    <InvoiceType t-if="invoice.get('move_type')"><t t-esc="invoice['move_type'][:9]"/></InvoiceType>
+                    <SourceID t-if="invoice.get('invoice_origin')"><t t-esc="invoice['invoice_origin'][:35]"/></SourceID>
+                    <GLPostingDate t-if="invoice.get('move_date')"><t t-esc="invoice['move_date']"/></GLPostingDate>
+                    <TransactionID><t t-esc="invoice['move_id']"/></TransactionID>
+                    <t t-foreach="invoice['lines'].values()" t-as="invoice_line">
+                        <Line t-if="invoice_line.get('exclude_from_invoice_tab') == False">
+                            <AccountID t-if="invoice_line.get('account_id')"><t t-esc="invoice_line['account_id']"/></AccountID>
+                            <OrderReferences t-if="invoice_line.get('move_name')">
+                                <OriginatingON><t t-esc="invoice_line['move_name'][:70]"/></OriginatingON>
+                                <OrderDate t-if="invoice_line.get('invoice_date')"><t t-esc="invoice_line['invoice_date']"/></OrderDate>
+                            </OrderReferences>
+                            <ProductCode t-if="invoice_line.get('product_code')"><t t-esc="invoice_line['product_code'][:70]"/></ProductCode>
+                            <ProductDescription t-if="invoice_line.get('name')"><t t-esc="invoice_line['name'][:256]"/></ProductDescription>
+                            <Quantity t-if="invoice_line.get('quantity')"><t t-esc="invoice_line['quantity']"/></Quantity>
+                            <InvoiceUOM t-if="invoice_line.get('uom')"><t t-esc="invoice_line['uom'][:9]"/></InvoiceUOM>
+                            <UnitPrice><t t-esc="invoice_line['price_unit_signed']" /></UnitPrice>
+                            <TaxPointDate><t t-esc="invoice_line['invoice_date']"/></TaxPointDate>
+                            <Description><t t-esc="(invoice_line['name'] or invoice_line['move_name'])[:256]"/></Description>
+                            <InvoiceLineAmount>
+                                <t t-set="amount_data" t-value="invoice_line.get('debit_amount') or invoice_line.get('credit_amount')"/>
+                                <t t-call="account_saft.AmountStructureTemplate"/>
+                            </InvoiceLineAmount>
+                            <DebitCreditIndicator><t t-esc="invoice_line['invoice_line_indicator']"/></DebitCreditIndicator>
+                            <t t-foreach="move_line_tax_info.get(invoice_line.get('move_id'), [])" t-as="tax">
+                                <TaxInformation t-if="tax['line_id'] == invoice_line.get('id')">
+                                    <t t-call="account_saft.TaxInformationStructure"/>
+                                </TaxInformation>
+                            </t>
+                        </Line>
+                    </t>
+                    <DocumentTotals>
+                        <TaxInformationTotals t-foreach="tax_information_totals.get(invoice['move_id'], [])" t-as="tax">
+                            <t t-call="account_saft.TaxInformationStructure"/>
+                        </TaxInformationTotals>
+                        <NetTotal><t t-esc="invoice.get('amount_untaxed_signed')"/></NetTotal>
+                        <GrossTotal><t t-esc="invoice.get('amount_total_signed')"/></GrossTotal>
+                    </DocumentTotals>
+                </Invoice>
+            </SalesInvoices>
+        </SourceDocuments>
+    </template>
+
+    <template id="LUMasterFilesTemplate" inherit_id="account_saft.MasterFilesTemplate">
+        <xpath expr="//TaxTable" position="after">
+            <t t-if="country_code == 'LU'">
+                <UOMTable t-if="uom_data">
+                    <UOMTableEntry t-foreach="uom_data" t-as="uom_dict">
+                        <UnitOfMeasure><t t-esc="uom_dict['name'][:9]"/></UnitOfMeasure>
+                        <Description><t t-esc="uom_dict['uom_type'][:256]"/></Description>
+                    </UOMTableEntry>
+                </UOMTable>
+                <Products t-if="product_data">
+                    <Product t-foreach="product_data" t-as="product">
+                        <ProductCode><t t-esc="product['default_code'][:70]"/></ProductCode>
+                        <ProductGroup><t t-esc="product['product_category'][:70]"/></ProductGroup>
+                        <Description><t t-esc="product['name'][:256]"/></Description>
+                        <UOMBase><t t-esc="product['base_uom'][:9]"/></UOMBase>
+                        <UOMStandard t-if="product.get('uom_type') != 'reference'"><t t-esc="product['standard_uom'][:9]"/></UOMStandard>
+                        <UOMToUOMBaseConversionFactor t-if="product.get('uom_type') != 'reference'"><t t-esc="product['uom_ratio']"/></UOMToUOMBaseConversionFactor>
+                    </Product>
+                </Products>
+            </t>
+        </xpath>
+        <xpath expr="//TaxCodeDetails" position="before">
+            <t t-if="country_code == 'LU'">
+                <TaxType t-if="tax.get('id')">TVA-<t t-esc="tax['id']"/></TaxType>
+                <Description>Taxe sur la valeur ajoutée</Description>
+            </t>
+        </xpath>
+        <xpath expr="//StandardAccountID" position="after">
+            <t t-if="country_code == 'LU'">
+                <AccountType><t t-esc="account['account_type'][:18]"/></AccountType>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="LUTaxInformationStructure" inherit_id="account_saft.TaxInformationStructure">
+        <xpath expr="//TaxCode" position="before">
+            <t t-if="country_code == 'LU'">
+                <TaxType t-if="tax.get('id')">TVA-<t t-esc="tax['id']"/></TaxType>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="LuxembourgSaftTemplate" name="Luxembourg Saft Report" inherit_id="account_saft.SaftTemplate">
+        <xpath expr="//AuditFile" position="inside">
+            <t t-if="country_code == 'LU'">
+                <t t-call="l10n_lu_saft.SourceDocumentsTemplate"/>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

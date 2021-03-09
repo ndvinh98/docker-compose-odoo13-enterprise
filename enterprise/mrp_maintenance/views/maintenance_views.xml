@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="maintenance_equipment_view_form_inherit_mrp" model="ir.ui.view">
+        <field name="name">maintenance.equipment.view.form.inherit.mrp</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button name="button_mrp_workcenter" type="object" class="oe_stat_button"
+                    icon="fa-cogs" string="Work Center" attrs="{'invisible': [('workcenter_id', '=', False)]}" groups="mrp.group_mrp_routings">
+                </button>
+            </xpath>
+            <xpath expr="//field[@name='location']" position="after">
+                <field name="workcenter_id" context="{'default_company_id':company_id}" groups="mrp.group_mrp_routings"/>
+            </xpath>
+            <xpath expr="//group[@name='maintenance']" position="after">
+                <group name="statistics">
+                    <label for="expected_mtbf" string="Expected Mean Time Between Failure"/>
+                    <div class="o_row">
+                        <field name="expected_mtbf"/> days
+                    </div>
+                    <label for="mtbf" string="Mean Time Between Failure"/>
+                    <div class="o_row">
+                        <field name="mtbf" class="oe_read_only"/> days
+                    </div>
+                    <label for="estimated_next_failure" string="Estimated Next Failure"/>
+                    <div class="o_row">
+                        <field name="estimated_next_failure" class="oe_read_only"/>
+                    </div>
+                    <field name="latest_failure_date" string="Latest Failure" class="oe_read_only"/>
+                    <label for="mttr" string="Mean Time To Repair"/>
+                    <div class="o_row">
+                        <field name="mttr" class="oe_read_only"/> days
+                    </div>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="maintenance_request_view_form_inherit_mrp" model="ir.ui.view">
+        <field name="name">maintenance.request.view.form.inherit.mrp</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='maintenance_type']" position="after">
+                <field name="production_id" options="{'no_create': True, 'no_open': True}"/>
+                <field name="workorder_id" attrs="{'invisible': [('production_id', '=', False)]}" options="{'no_create': True, 'no_open': True}" domain="[('production_id', '=', production_id)]" groups="mrp.group_mrp_routings"/>
+                <!-- <field name="repair_id"/> -->
+            </xpath>
+            <xpath expr="//div[hasclass('oe_chatter')]" position="after">
+                <div invisible="not context.get('discard_on_footer_button', False)">
+                    <footer class="oe_edit_only">
+                        <button special="save" string="Save" class="oe_highlight"/>
+                        <button string="Discard" special="cancel"/>
+                    </footer>
+                </div>
+            </xpath>
+            <field name="equipment_id" position="attributes">
+                <attribute name="domain">['|', (not workorder_id and 1 or 0, '=', 1), '|', ('workcenter_id', '=', False), ('workcenter_id.order_ids', 'in', workorder_id)]</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="maintenance_request_view_search_inherit_mrp" model="ir.ui.view">
+        <field name="name">maintenence.request.view.search.inherit.mrp</field>
+        <field name="model">maintenance.request</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_request_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='maintenance_team_id']" position="after">
+                <field name="production_id" string="Operation" filter_domain="['|', ('production_id', 'ilike', self), ('workorder_id', 'ilike', self)]"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem
+        id="maintenance.menu_equipment_form"
+        name="Equipments"
+        parent="maintenance.menu_maintenance_title"
+        groups="maintenance.group_equipment_manager,base.group_user"
+        sequence="2"/>
+    <menuitem id="menu_workcenter_tree"
+        action="mrp.mrp_workcenter_action"
+        groups="mrp.group_mrp_routings"
+        parent="maintenance.menu_equipment_form"
+        sequence="1"/>
+    <menuitem
+        id="menu_equipment_dashboard"
+        name="Machines &amp; Tools"
+        parent="maintenance.menu_equipment_form"
+        action="maintenance.hr_equipment_action"
+        sequence="2"/>
+
+</odoo>

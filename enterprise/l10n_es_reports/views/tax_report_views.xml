@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!--Mod 111-->
+
+        <record id="action_mod_111_report" model="ir.actions.server">
+            <field name="name">Mod 111 Report</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="base.model_res_company" />
+            <field name="state">code</field>
+            <field name="code">action = model.open_aeat_tax_report('111')</field>
+        </record>
+
+        <menuitem id="menu_mod_111_report"
+            name="Tax Report (Mod 111)"
+            action="action_mod_111_report"
+            parent="spanish_reports_menu"/>
+
+
+        <!--Mod 115-->
+
+        <record id="action_mod_115_report" model="ir.actions.server">
+            <field name="name">Mod 115 Report</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="base.model_res_company" />
+            <field name="state">code</field>
+            <field name="code">action = model.open_aeat_tax_report('115')</field>
+        </record>
+
+        <menuitem id="menu_mod_115_report"
+            name="Tax Report (Mod 115)"
+            action="action_mod_115_report"
+            parent="spanish_reports_menu"/>
+
+
+        <!--Mod 303-->
+
+        <record id="action_mod_303_report" model="ir.actions.server">
+            <field name="name">Mod 303 Report</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="base.model_res_company" />
+            <field name="state">code</field>
+            <field name="code">action = model.open_aeat_tax_report('303')</field>
+        </record>
+
+        <menuitem id="menu_mod_303_report"
+            name="Tax Report (Mod 303)"
+            action="action_mod_303_report"
+            parent="spanish_reports_menu"/>
+
+    </data>
+</odoo>

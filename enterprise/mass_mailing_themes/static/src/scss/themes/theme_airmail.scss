@@ -1,0 +1,217 @@
+// ============================
+// Mass Mailing "Theme Airmail"
+// ============================
+
+$o-mm-airmail-color-alpha: #EAECED;
+$o-mm-airmail-color-beta: white;
+$o-mm-airmail-color-gamma: #FB3C6B;
+$o-mm-airmail-color-delta: darken($o-mm-airmail-color-gamma, 5%);
+$o-mm-airmail-color-epsilon: black;
+$o-mm-airmail-color-zeta: #a17e92;
+
+.o_airmail_theme {
+    @include bg-variant(".bg-beta", $o-mm-airmail-color-gamma);
+    @include text-emphasis-variant(".text-beta", $o-mm-airmail-color-gamma);
+    @include bg-variant(".bg-delta", $o-mm-airmail-color-zeta);
+
+    // ===== Layout =====
+    &.o_layout {
+        background-color: $o-mm-airmail-color-alpha;
+
+        .o_mail_wrapper_td {
+            background: rgba(0, 0, 0, 0);
+            background: transparent;
+            border: none;
+
+            > * {
+                margin-bottom: 16px;
+            }
+        }
+    }
+
+    // ===== Snippets (general) =====
+    .o_mail_snippet_general {
+        background-color: $o-mm-airmail-color-beta;
+        color: $o-mm-airmail-color-epsilon;
+
+        .btn.btn-primary {
+            color: $o-mm-airmail-color-beta;
+            background-color: $o-mm-airmail-color-gamma;
+        }
+
+        a, .btn.btn-link {
+            color: $o-mm-airmail-color-delta;
+        }
+
+        .bg-beta, .bg-delta {
+            h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+                color: $o-mm-airmail-color-beta;
+            }
+        }
+
+        .bg-beta {
+            .btn.btn-primary {
+                color: $o-mm-airmail-color-delta;
+                background-color: $o-mm-airmail-color-beta;
+                font-weight: bold;
+            }
+        }
+    }
+
+    // ===== Snippets (specific) =====
+    .o_mail_block_header_social, .o_mail_block_header_text_social, .o_mail_block_header_logo {
+        margin-bottom: 0;
+
+        .o_mail_snippet_general {
+            background: rgba(0,0,0,0);
+            background: transparent;
+        }
+
+        .o_mail_h_padding {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .o_mail_header_social {
+            margin-right: 0px;
+            a {
+                color: darken($o-mm-airmail-color-alpha, 40%);
+            }
+        }
+    }
+
+    .o_mail_block_event {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .o_mail_block_footer_separator {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .o_mail_block_image {
+        .o_mail_h_padding {
+            padding: 0;
+            .o_mail_col_mv {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+            > img {
+                padding: 0;
+            }
+        }
+    }
+
+    .o_mail_block_footer_separator {
+        .o_mail_snippet_general {
+            background: rgba(0,0,0,0);
+            background: transparent;
+
+            .separator {
+                height: 3px;
+                background-color: darken($o-mm-airmail-color-alpha, 10%);
+                border-bottom: 2px solid darken(white, 3%);
+            }
+        }
+    }
+
+    .o_mail_block_two_cols, .o_mail_block_three_cols {
+        $tmp-gap: 10px;
+
+        table {
+            width: 100%;
+            max-width: (600+($tmp-gap*2));
+            .o_mail_col_container {
+                padding: 0 $tmp-gap/2;
+            }
+            .o_mail_col_container:first-child {
+                padding-left: 0px;
+            }
+            .o_mail_col_container:last-child {
+                padding-right: 0px;
+            }
+        }
+        .o_mail_snippet_general {
+            background: rgba(0,0,0,0);
+            background: transparent;
+        }
+        .o_mail_col_container {
+            padding: 0 0 ($tmp-gap*2);
+            margin: 0 $tmp-gap;
+
+            div:first-child {
+                border-top: 1px solid darken($o-mm-airmail-color-beta, 10%);
+                border-bottom: 1px solid darken($o-mm-airmail-color-alpha, 5%);
+                background-color: $o-mm-airmail-color-beta;
+
+                > * {
+                    padding: 0 ($tmp-gap*2);
+                }
+
+                > :last-child {
+                    padding: 0 ($tmp-gap*2) ($tmp-gap*2);
+                }
+
+                img {
+                    padding: 0!important;
+                }
+            }
+
+        }
+    }
+
+    .o_mail_block_footer_tag_line {
+        table.o_mail_h_padding {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    .o_mail_block_image_text {
+        .o_mail_img_container {
+            padding: 0
+        }
+    }
+
+    .o_mail_block_text_image {
+        .o_mail_img_container {
+            padding: 0
+        }
+    }
+
+    .o_mail_block_footer_social {
+        .o_mail_snippet_general {
+            background: rgba(0,0,0,0);
+            background: transparent;
+            margin-top: 30px;
+            border-top: 1px solid  darken($o-mm-airmail-color-alpha, 10%);
+        }
+
+        .o_mail_footer_social {
+            border: none;
+            a {
+                color: darken($o-mm-airmail-color-alpha, 40%);
+            }
+        }
+
+        .o_mail_footer_links a {
+            color: darken($o-mm-airmail-color-alpha, 40%);
+        }
+
+        .o_mail_footer_copy {
+            font-weight: bold;
+            font-size: 9px;
+            color: darken($o-mm-airmail-color-alpha, 30%);
+        }
+
+        &.o_mail_footer_social_left {
+            .o_mail_footer_description {
+                padding-left: 0;
+            }
+            .o_mail_footer_social {
+                padding-right: 0;
+            }
+        }
+    }
+}

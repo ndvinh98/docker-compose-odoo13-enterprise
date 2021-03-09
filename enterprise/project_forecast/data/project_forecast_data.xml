@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="ir_filter_forecast_time_by_month" model="ir.filters">
+        <field name="name">Time by month</field>
+        <field name="model_id">planning.slot</field>
+        <field name="domain">[]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{'graph_mode': 'bar', 'graph_groupbys': ['start_datetime', 'employee_id'], 'group_by': ['start_datetime', 'employee_id'], 'graph_measure': 'allocated_percentage'}</field>
+        <field name="action_id" ref="project_forecast_action_analysis"/>
+    </record>
+
+    <!--
+		Since Forecast is installed, we want the users to see the percentage to enjoy all feature
+    -->
+    <record id="planning.group_planning_user" model="res.groups">
+        <field name="implied_ids" eval="[(4, ref('planning.group_planning_show_percentage'))]"/>
+    </record>
+
+</odoo>

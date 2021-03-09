@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+         <record id="hr_work_entry.work_entry_type_attendance" model="hr.work.entry.type">
+            <field name="dmfa_code">1</field>
+        </record>
+
+        <record id="hr_payroll.work_entry_type_compensatory" model="hr.work.entry.type">
+            <field name="dmfa_code">20</field>
+        </record>
+
+        <record id="hr_payroll.work_entry_type_home_working" model="hr.work.entry.type">
+            <field name="dmfa_code">1</field>
+        </record>
+
+        <record id="hr_payroll.work_entry_type_unpaid_leave" model="hr.work.entry.type">
+            <field name="dmfa_code">30</field>
+        </record>
+
+        <record id="hr_payroll.work_entry_type_sick_leave" model="hr.work.entry.type">
+            <field name="dmfa_code">50</field>
+        </record>
+
+         <record id="hr_payroll.work_entry_type_legal_leave" model="hr.work.entry.type">
+            <field name="dmfa_code">1</field>
+        </record>
+
+        <record id="work_entry_type_small_unemployment" model="hr.work.entry.type">
+            <field name="name">Small Unemployment (Brief Holiday)</field>
+            <field name="code">LEAVE205</field>
+            <field name="dmfa_code">70</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+        <record id="holiday_type_small_unemployment" model="hr.leave.type">
+            <field name="name">Small Unemployment</field>
+            <field name="allocation_type">fixed_allocation</field>
+            <field name="request_unit">half_day</field>
+            <field name="color_name">lavender</field>
+            <field name="leave_notif_subtype_id" eval="ref('hr_holidays.mt_leave')"/>
+            <field name="work_entry_type_id" ref="work_entry_type_small_unemployment"></field>
+        </record>
+
+         <record id="work_entry_type_maternity" model="hr.work.entry.type">
+            <field name="name">Maternity Time Off</field>
+            <field name="code">LEAVE210</field>
+            <field name="dmfa_code">52</field> <!-- 51? -->
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+        <record id="holiday_type_maternity" model="hr.leave.type">
+            <field name="name">Maternity Time Off</field>
+            <field name="allocation_type">no</field>
+            <field name="validation_type">no_validation</field>
+            <field name="request_unit">half_day</field>
+            <field name="color_name">lavender</field>
+            <field name="leave_notif_subtype_id" eval="ref('hr_holidays.mt_leave')"/>
+            <field name="work_entry_type_id" ref="work_entry_type_maternity"></field>
+        </record>
+
+         <record id="work_entry_type_paternity_company" model="hr.work.entry.type">
+            <field name="name">Paternity Time Off (Paid by Company)</field>
+            <field name="code">LEAVE220</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+
+         <record id="work_entry_type_paternity_legal" model="hr.work.entry.type">
+            <field name="name">Paternity Time Off (Legal)</field>
+            <field name="code">LEAVE230</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+
+         <record id="work_entry_type_unpredictable" model="hr.work.entry.type">
+            <field name="name">Unpredictable Reason</field>
+            <field name="code">LEAVE250</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+        <record id="holiday_type_unpredictable" model="hr.leave.type">
+            <field name="name">Unpredictable Reason</field>
+            <field name="allocation_type">no</field>
+            <field name="request_unit">half_day</field>
+            <field name="color_name">lavender</field>
+            <field name="leave_notif_subtype_id" eval="ref('hr_holidays.mt_leave')"/>
+            <field name="work_entry_type_id" ref="work_entry_type_unpredictable"></field>
+        </record>
+
+         <record id="work_entry_type_training" model="hr.work.entry.type">
+            <field name="name">Training</field>
+            <field name="code">LEAVE265</field>
+            <field name="color">5</field>
+        </record>
+
+         <record id="work_entry_type_training_time_off" model="hr.work.entry.type">
+            <field name="name">Training Time Off</field>
+            <field name="code">LEAVE260</field>
+            <field name="dmfa_code">5</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+        <record id="holiday_type_training" model="hr.leave.type">
+            <field name="name">Training Time Off</field>
+            <field name="allocation_type">fixed_allocation</field>
+            <field name="request_unit">half_day</field>
+            <field name="color_name">lavender</field>
+            <field name="leave_notif_subtype_id" eval="ref('hr_holidays.mt_leave')"/>
+            <field name="work_entry_type_id" ref="work_entry_type_training_time_off"></field>
+        </record>
+
+         <record id="work_entry_type_long_sick" model="hr.work.entry.type">
+            <field name="name">Long Term Sick</field>
+            <field name="code">LEAVE280</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+
+         <record id="work_entry_type_breast_feeding" model="hr.work.entry.type">
+            <field name="name">Breastfeeding Break</field>
+            <field name="code">LEAVE290</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+
+         <record id="work_entry_type_recovery_additional" model="hr.work.entry.type">
+            <field name="name">Recovery Additional Time</field>
+            <field name="code">LEAVE295</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+
+         <record id="work_entry_type_additional_paid" model="hr.work.entry.type">
+            <field name="name">Additional Time (Paid)</field>
+            <field name="code">LEAVE297</field>
+            <field name="color">5</field>
+        </record>
+
+         <record id="work_entry_type_notice" model="hr.work.entry.type">
+            <field name="name">Notice (Unprovided)</field>
+            <field name="code">LEAVE211</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+
+         <record id="hr_payroll.work_entry_type_legal_leave" model="hr.work.entry.type">
+            <field name="name" eval="'Annual Time Off '+time.strftime('%Y')"/>
+        </record>
+        <record id="hr_holidays.holiday_status_cl" model="hr.leave.type">
+            <field name="name" eval="'Annual Time Off '+time.strftime('%Y')"/>
+        </record>
+
+         <record id="work_entry_type_extra_legal" model="hr.work.entry.type">
+            <field name="name">Extra Legal Time Off</field>
+            <field name="code">LEAVE213</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+        <record id="holiday_type_extra_legal" model="hr.leave.type">
+            <field name="name">Extra Legal Time Off</field>
+            <field name="allocation_type">fixed_allocation</field>
+            <field name="request_unit">half_day</field>
+            <field name="color_name">lavender</field>
+            <field name="leave_notif_subtype_id" eval="ref('hr_holidays.mt_leave')"/>
+            <field name="work_entry_type_id" ref="work_entry_type_extra_legal"></field>
+        </record>
+
+         <record id="work_entry_type_part_sick" model="hr.work.entry.type">
+            <field name="name">Part Time Sick</field>
+            <field name="code">LEAVE214</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+
+         <record id="work_entry_type_recovery" model="hr.work.entry.type">
+            <field name="name">Recovery Bank Holiday</field>
+            <field name="code">LEAVE215</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+        <record id="holiday_type_recovery" model="hr.leave.type">
+            <field name="name">Recovery Bank Holiday</field>
+            <field name="allocation_type">fixed_allocation</field>
+            <field name="request_unit">day</field>
+            <field name="color_name">lavender</field>
+            <field name="leave_notif_subtype_id" eval="ref('hr_holidays.mt_leave')"/>
+            <field name="work_entry_type_id" ref="work_entry_type_recovery"></field>
+        </record>
+
+         <record id="work_entry_type_european" model="hr.work.entry.type">
+            <field name="name">European Time Off</field>
+            <field name="code">LEAVE216</field>
+            <field name="is_leave">True</field>
+            <field name="color">5</field>
+        </record>
+        <record id="holiday_type_european" model="hr.leave.type">
+            <field name="name">European Time Off</field>
+            <field name="allocation_type">fixed_allocation</field>
+            <field name="request_unit">half_day</field>
+            <field name="color_name">lavender</field>
+            <field name="leave_notif_subtype_id" eval="ref('hr_holidays.mt_leave')"/>
+            <field name="work_entry_type_id" ref="work_entry_type_european"></field>
+        </record>
+    </data>
+</odoo>

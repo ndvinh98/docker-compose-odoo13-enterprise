@@ -1,0 +1,13 @@
+<odoo>
+    <record id="mrp_workcenter_view_kanban_inherit_workorder" model="ir.ui.view">
+        <field name="name">mrp.workcenter.view.kanban.inherit.mrp.workorder</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_kanban"/>
+        <field name="arch" type="xml">
+            <!-- Desktop view -->
+            <xpath expr="//div[@name='o_wo']" position="inside">
+                <button class="btn btn-secondary fa fa-desktop" name="action_work_order" type="object" context="{'search_default_ready': 1, 'search_default_progress': 1, 'search_default_pending': 1, 'desktop_list_view': 1, 'search_default_workcenter_id': active_id}" title="Work orders" aria-label="Work orders"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

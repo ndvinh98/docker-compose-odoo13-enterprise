@@ -1,0 +1,77 @@
+.modal {
+    @include media-breakpoint-up(xxl, $o-extra-grid-breakpoints) {
+        .o_attachment_preview {
+            width: 300px;
+        }
+    }
+}
+
+    @include media-breakpoint-up(xxl, $o-extra-grid-breakpoints) {
+        .o_attachment_preview {
+            display: block;
+            flex: 1 0 auto;
+            overflow: hidden;
+            width: $o-chatter-min-width;
+            border-left: 1px solid gray('400');
+
+            > .o_attachment_preview_container {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                .arrow {
+                    width: 5%;
+                    @include o-position-absolute(50%, 0);
+                    @include o-viewer-black-btn;
+                    transition: width 0.3s;
+                    padding-top: 30px;
+                    height: 75px;
+                    &:hover {
+                        width: 7%;
+                    }
+                    &.o_move_previous {
+                        left: 2px;
+                        right: 0px;
+                    }
+                }
+                > iframe {
+                    width: 100%;
+                    height: 100%;
+                }
+                > .o_attachment_preview_img {
+                    position: absolute;
+                    overflow: auto;
+                    width: 100%;
+                    height: 100%;
+                    > img {
+                        margin: auto;
+                        box-shadow: 0px 0px 5px rgba(41, 41, 41, 0.43);
+                    }
+                }
+            }
+            // fixes for jquery resizer
+            left: auto !important;
+            .ui-resizable-w {
+                cursor: ew-resize;
+                width: 10px;
+            }
+            // overlay for iframe so we get proper mouseevents
+            &.ui-resizable-resizing:before {
+                content: ' ';
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                z-index: 10;
+            }
+        }
+        // with the attachment preview, the chatter is put inside of the form
+        // sheet instead of next to it
+        .o_form_view > .o_form_sheet_bg > .oe_chatter {
+            padding: 8px $o-horizontal-padding;
+            border-top: 1px solid gray('400');
+        }
+    }
+    @include media-breakpoint-down(xl, $o-extra-grid-breakpoints) {
+        .o_attachment_preview {
+            display: none;
+        }
+    }

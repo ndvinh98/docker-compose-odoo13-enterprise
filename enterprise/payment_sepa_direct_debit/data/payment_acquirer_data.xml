@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="payment.payment_acquirer_sepa_direct_debit" model="payment.acquirer">
+            <field name="name">SEPA Direct Debit</field>
+            <field name="image_128" type="base64" file="payment_sepa_direct_debit/static/src/img/sepa_direct_debit_icon.jpg"/>
+            <field name="provider">sepa_direct_debit</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="registration_view_template_id" ref="sepa_direct_debit_form"/>
+            <field name="sepa_direct_debit_sms_enabled" eval="False"/>
+            <field name="payment_flow">s2s</field>
+            <field name="pending_msg" type="xml">
+                <p>Your payment request has been received. Waiting for bank approval.</p>
+            </field>
+            <!-- Eurozone countries -->
+            <!-- France including French Guiana, Guadeloupe, Martinique, Mayotte, Saint Barthélemy, Saint Martin (French part), Réunion and Saint Pierre and Miquelon -->
+            <!-- Monaco and San Marino have bilateral agreements with the EU to use the euro as their official currency -->
+            <!-- Non-Eurozone countries -->
+            <!-- UK including Gibraltar -->
+            <field name="country_ids" eval="[
+                         (4,(ref('base.at'))),
+                         (4,(ref('base.be'))),
+                         (4,(ref('base.cy'))),
+                         (4,(ref('base.ee'))),
+                         (4,(ref('base.fi'))),
+                         (4,(ref('base.de'))),
+                         (4,(ref('base.gr'))),
+                         (4,(ref('base.ie'))),
+                         (4,(ref('base.it'))),
+                         (4,(ref('base.lv'))),
+                         (4,(ref('base.lt'))),
+                         (4,(ref('base.lu'))),
+                         (4,(ref('base.mt'))),
+                         (4,(ref('base.nl'))),
+                         (4,(ref('base.pt'))),
+                         (4,(ref('base.sk'))),
+                         (4,(ref('base.si'))),
+                         (4,(ref('base.es'))),
+
+                         (4,(ref('base.fr'))),
+                         (4,(ref('base.gf'))),
+                         (4,(ref('base.gp'))),
+                         (4,(ref('base.mq'))),
+                         (4,(ref('base.yt'))),
+                         (4,(ref('base.bl'))),
+                         (4,(ref('base.mf'))),
+                         (4,(ref('base.re'))),
+                         (4,(ref('base.pm'))),
+
+                         (4,(ref('base.mc'))),
+                         (4,(ref('base.sm'))),
+
+                         (4,(ref('base.bg'))),
+                         (4,(ref('base.hr'))),
+                         (4,(ref('base.cz'))),
+                         (4,(ref('base.dk'))),
+                         (4,(ref('base.hu'))),
+                         (4,(ref('base.is'))),
+                         (4,(ref('base.li'))),
+                         (4,(ref('base.no'))),
+                         (4,(ref('base.pl'))),
+                         (4,(ref('base.ro'))),
+                         (4,(ref('base.se'))),
+                         (4,(ref('base.ch'))),
+
+                         (4,(ref('base.uk'))),
+                         (4,(ref('base.gi')))]"/>
+        </record>
+    </data>
+</odoo>

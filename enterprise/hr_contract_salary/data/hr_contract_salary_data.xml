@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+    <record id="mail_template_send_offer" model="mail.template">
+        <field name="name">Contract: Your Salary Package</field>
+        <field name="model_id" ref="hr_contract.model_hr_contract"/>
+        <field name="subject">${object.company_id.name} : Job Offer - ${object.name}</field>
+        <field name="partner_to" >${ctx.get('partner_to', False)}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <h2>Congratulations!</h2>
+    You can configure your salary package by clicking on the link below.
+    <div style="margin: 16px 0px 16px 0px;">
+        <a href="${ctx.get('salary_package_url')}"
+            target="_blank"
+            style="background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;">Configure your package</a>
+    </div>
+</div>
+        </field>
+        <field name="lang">${object.employee_id.address_home_id.lang}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="user_signature" eval="False"/>
+    </record>
+
+    <record id="mail_template_send_offer_applicant" model="mail.template">
+        <field name="name">Applicant: Your Salary Package</field>
+        <field name="model_id" ref="hr_recruitment.model_hr_applicant"/>
+        <field name="subject">${object.company_id.name} : Job Offer - ${object.name}</field>
+        <field name="partner_to" >${ctx.get('partner_to', False)}</field>
+        <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <h2>Congratulations!</h2>
+    You can configure your salary package by clicking on the link below.
+    <div style="margin: 16px 0px 16px 0px;">
+        <a href="${ctx.get('salary_package_url')}"
+            target="_blank"
+            style="background-color: #875a7b; text-decoration: none; color: #fff; padding: 8px 16px 8px 16px; border-radius: 5px;">Configure your package</a>
+    </div>
+</div>
+        </field>
+        <field name="lang">${object.partner_id.lang}</field>
+        <field name="auto_delete" eval="True"/>
+        <field name="user_signature" eval="False"/>
+    </record>
+
+    <template id="hr_contract_salary_email_template">
+        <div>
+            <h2>Employee Name: <t t-esc="advantages['personal_info']['name']"/></h2>
+            <h2>Job Position: <t t-esc="contract.job_id.name"/></h2>
+            <h2>Job Title: <t t-esc="job_title"/></h2>
+            <h2>Contract Type: <t t-esc="contract_type"/></h2>
+
+            <h2>Original Link: </h2>
+            <ul>
+                <li><t t-esc="original_link"/></li>
+            </ul>
+
+            <h2>Contract Information:</h2>
+
+            <h3>Monthly Advantages in Cash</h3>
+            <ul>
+                <li>Wage: <t t-esc="advantages['wage']"/>  €/month</li>
+                <li>Fuel Card: <t t-esc="advantages['fuel_card']"/> €/month</li>
+                <li>Meal Vouchers: <t t-esc="advantages['meal_voucher_amount'] / 20.0"/> €/Worked Day</li>
+                <li>Representation Fees: <t t-esc="advantages['representation_fees']"/> €/month</li>
+                <li>Commission on Target: <t t-esc="advantages['commission_on_target']"/> €/month</li>
+                <t t-if="advantages['ip']">
+                    <li>IP percentage: <t t-esc="advantages['ip_wage_rate']"/> %</li>
+                </t>
+                <t t-if="not advantages['ip']">
+                    <li>IP: No</li>
+                </t>
+            </ul>
+
+            <h3>Monthly Benefit in Kind</h3>
+            <ul name="monthly_benefit">
+                <t t-if="advantages['transport_mode_car']">
+                    <li>Has Company Car: Yes</li>
+                </t>
+                <t t-if="car_name">
+                    <li>Car: <t t-esc="car_name"/></li>
+                </t>
+                <t t-if="model_name">
+                    <li>Model: <t t-esc="model_name"/></li>
+                </t>
+                <t t-if="advantages['transport_mode_public']">
+                    <li>Has Public Transportation: Yes</li>
+                </t>
+                <t t-if="advantages['transport_mode_public']">
+                    <li>Paid by the employee (Monthly): <t t-esc="advantages['public_transport_employee_amount']"/> €/month</li>
+                </t>
+                <t t-if="advantages['transport_mode_private_car']">
+                    <li>Has Private Car: Yes</li>
+                </t>
+                <t t-if="advantages['internet']">
+                    <li>Internet: <t t-esc="advantages['internet']"/> €/month</li>
+                </t>
+                <t t-if="not advantages['internet']">
+                    <li>Internet: No</li>
+                </t>
+                <t t-if="advantages['has_mobile']">
+                    <li>Mobile: Yes</li>
+                </t>
+                <t t-if="not advantages['has_mobile']">
+                    <li>Mobile: No</li>
+                </t>
+            </ul>
+
+            <h3>Yearly Advantages</h3>
+            <ul>
+                <li>Eco Vouchers: <t t-esc="advantages['eco_checks']"/> €/year</li>
+                <li>13th Month: <t t-esc="advantages['wage']"/> €/year</li>
+                <li>Double Holiday Pay: <t t-esc="round(float(advantages['wage']) * 0.92, 2)"/> €/year</li>
+                <li>Holidays: <t t-esc="advantages['holidays']"/> /year</li>
+            </ul>
+
+            <h2>Personal Information</h2>
+
+            <h3>Citizenship and Other Information</h3>
+            <ul>
+                <li>Nationality: <t t-esc="nationality_name"/></li>
+                <li>Identification No: <t t-esc="advantages['personal_info']['identification_id']"/></li>
+                <li>Place of Birth: <t t-esc="advantages['personal_info']['place_of_birth']"/></li>
+                <li>Country of Birth: <t t-esc="country_of_birth_name"/></li>
+                <li>Bank Account Number: <t t-esc="advantages['personal_info']['bank_account']"/></li>
+            </ul>
+
+            <h3>Status</h3>
+            <ul>
+                <li>Gender: <t t-esc="advantages['personal_info']['gender']"/></li>
+                <t t-if="advantages['personal_info']['disabled']">
+                    <li>Disabled: Yes</li>
+                </t>
+                <t t-if="not advantages['personal_info']['disabled']">
+                    <li>Disabled: No</li>
+                </t>
+                <li>Marital Status: <t t-esc="advantages['personal_info']['marital']"/></li>
+                <t t-if="advantages['personal_info']['marital'] in ['married', 'cohabitant']">
+                    <t t-if="advantages['personal_info']['disabled_spouse_bool']">
+                        <li>Disabled Spouse: Yes</li>
+                    </t>
+                    <t t-if="not advantages['personal_info']['disabled_spouse_bool']">
+                        <li>Disabled Spouse: No</li>
+                    </t>
+                    <t t-if="advantages['personal_info']['spouse_professional_situation'] == 'without_income'">
+                        <li>Spouse Professional Situation: Without Income</li>
+                    </t>
+                    <t t-if="advantages['personal_info']['spouse_professional_situation'] == 'low_income'">
+                        <li>Spouse Professional Situation: With Income less than 225</li>
+                    </t>
+                    <t t-if="advantages['personal_info']['spouse_professional_situation'] == 'high_income'">
+                        <li>Spouse Professional Situation: With Income greater than 225</li>
+                    </t>
+                    <t t-if="advantages['personal_info']['spouse_professional_situation'] == 'low_pension'">
+                        <li>Spouse Professional Situation: With Pensions less than 450</li>
+                    </t>
+                    <t t-if="advantages['personal_info']['spouse_professional_situation'] == 'high_pension'">
+                        <li>Spouse Professional Situation: With Income greater than 450</li>
+                    </t>
+                </t>
+                <li>Number of Children: <t t-esc="advantages['personal_info']['children']"/></li>
+                <t t-if="advantages['personal_info']['disabled_children_bool']">
+                    <li>Number of Children: <t t-esc="advantages['personal_info']['disabled_children_number']"/></li>
+                </t>
+                <t t-if="advantages['personal_info']['other_dependent_people']">
+                    <li># seniors (&gt;=65): <t t-esc="advantages['personal_info']['other_senior_dependent']"/></li>
+                    <li># disabled seniors (&gt;=65): <t t-esc="advantages['personal_info']['other_disabled_senior_dependent']"/></li>
+                    <li># people (&lt;65): <t t-esc="advantages['personal_info']['other_juniors_dependent']"/></li>
+                    <li># disabled people (&lt;65): <t t-esc="advantages['personal_info']['other_disabled_juniors_dependent']"/></li>
+                </t>
+                <li>Spouse Complete Name: <t t-esc="advantages['personal_info']['spouse_complete_name']"/></li>
+                <li>Spouse Birthdate: <t t-esc="advantages['personal_info']['spouse_birthdate']"/></li>
+            </ul>
+
+            <h3>Contact Information</h3>
+            <ul>
+                <li>Street: <t t-esc="advantages['personal_info']['street']"/></li>
+                <li>Street2: <t t-esc="advantages['personal_info']['street2']"/></li>
+                <li>City: <t t-esc="advantages['personal_info']['city']"/></li>
+                <li>State: <t t-esc="advantages['personal_info']['state']"/></li>
+                <li>Zip: <t t-esc="advantages['personal_info']['zip']"/></li>
+                <li>Country: <t t-esc="country_name"/></li>
+                <li>Phone: <t t-esc="advantages['personal_info']['phone']"/></li>
+                <li>Email: <t t-esc="advantages['personal_info']['email']"/></li>
+                <li>Km Home-Work: <t t-esc="advantages['personal_info']['km_home_work']"/></li>
+                <li>Emergency Contact: <t t-esc="advantages['personal_info']['emergency_contact']"/></li>
+                <li>Emergency Phone: <t t-esc="advantages['personal_info']['emergency_phone']"/></li>
+            </ul>
+
+            <h3>Birth</h3>
+            <ul>
+                <li>Birthdate: <t t-esc="advantages['personal_info']['birthdate']"/></li>
+            </ul>
+
+            <h3>Education</h3>
+            <ul>
+                <li>Certificate Level: <t t-esc="advantages['personal_info']['certificate']"/></li>
+                <li>Field of Study: <t t-esc="advantages['personal_info']['study_field']"/></li>
+                <li>School: <t t-esc="advantages['personal_info']['study_school']"/></li>
+            </ul>
+
+        </div>
+    </template>
+  </data>
+  <data noupdate="1">
+        <record id="ir_cron_clean_redundant_salary_data" model="ir.cron">
+            <field name="name">Archive/Delete redundant generated salary data</field>
+            <field name="model_id" ref="hr_contract.model_hr_contract"/>
+            <field name="state">code</field>
+            <field name="code">model._clean_redundant_salary_data()</field>
+            <field name="active" eval="True"/>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+    </data>
+</odoo>

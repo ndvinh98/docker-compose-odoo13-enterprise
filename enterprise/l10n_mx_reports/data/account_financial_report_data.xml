@@ -1,0 +1,1346 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <menuitem id="account_reports_legal_mexican_statements_menu"
+                  name="Mexico" parent="account.menu_finance_reports"
+                  sequence="0" groups="account.group_account_user"/>
+        <record id="action_trial_balance" model="ir.actions.client">
+            <field name="name">Trial Balance</field>
+            <field name="tag">account_report</field>
+            <!--<field name="context" eval="{'url': '/account_reports/output_format/l10n_mx_trial_balance/1', 'model': 'l10n_mx.account.trial.balance.report'}" />-->
+            <field name="context" eval="{'model': 'l10n_mx.trial.report'}" />
+        </record>
+        <menuitem id="menu_trial_balance" name="Trial Balance"
+                  parent="account_reports_legal_mexican_statements_menu"
+                  sequence="100" groups="account.group_account_user"
+                  action="l10n_mx_reports.action_trial_balance"/>
+        <record id="action_coa" model="ir.actions.client">
+            <field name="name">COA</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'l10n_mx.coa.report'}" />
+        </record>
+        <menuitem id="menu_acountinge_coa" name="COA"
+                  parent="account_reports_legal_mexican_statements_menu"
+                  sequence="100" groups="account.group_account_user"
+                  action="l10n_mx_reports.action_coa"/>
+        <record id="action_account_report_diot" model="ir.actions.client">
+            <field name="name">DIOT</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'l10n_mx.account.diot'}"/>
+        </record>
+        <menuitem id="menu_action_account_report_diot"
+                  name="Transactions with third parties [ DIOT ]"
+                  action="action_account_report_diot"
+                  parent="account_reports_legal_mexican_statements_menu"/>
+
+        <record id="mx_afrl_1" model="account.financial.html.report.line">
+            <field name="name">1 Activos</field>
+            <field name="code">MX_COA_1</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="1"/>
+            <field name="figure_type">no_unit</field>
+        </record>
+        <record id="mx_afrl_101" model="account.financial.html.report.line">
+            <field name="name">101 Caja</field>
+            <field name="code">MX_COA_101</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_101_01'),])]" />
+        </record>
+        <record id="mx_afrl_102" model="account.financial.html.report.line">
+            <field name="name">102 Bancos</field>
+            <field name="code">MX_COA_102</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_102_01'), ref('l10n_mx.account_tag_102_02'),])]" />
+        </record>
+        <record id="mx_afrl_103" model="account.financial.html.report.line">
+            <field name="name">103 Inversiones</field>
+            <field name="code">MX_COA_103</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_103_01'), ref('l10n_mx.account_tag_103_02'), ref('l10n_mx.account_tag_103_03'),])]" />
+        </record>
+        <record id="mx_afrl_104" model="account.financial.html.report.line">
+            <field name="name">104 Otros instrumentos financieros</field>
+            <field name="code">MX_COA_104</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_104_01'),])]" />
+        </record>
+        <record id="mx_afrl_105" model="account.financial.html.report.line">
+            <field name="name">105 Clientes</field>
+            <field name="code">MX_COA_105</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_105_01'), ref('l10n_mx.account_tag_105_02'), ref('l10n_mx.account_tag_105_03'), ref('l10n_mx.account_tag_105_04'),])]" />
+        </record>
+        <record id="mx_afrl_106" model="account.financial.html.report.line">
+            <field name="name">106 Cuentas y documentos por cobrar a corto plazo</field>
+            <field name="code">MX_COA_106</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_106_01'), ref('l10n_mx.account_tag_106_02'), ref('l10n_mx.account_tag_106_03'), ref('l10n_mx.account_tag_106_04'), ref('l10n_mx.account_tag_106_05'), ref('l10n_mx.account_tag_106_06'), ref('l10n_mx.account_tag_106_07'), ref('l10n_mx.account_tag_106_08'), ref('l10n_mx.account_tag_106_09'), ref('l10n_mx.account_tag_106_10'),])]" />
+        </record>
+        <record id="mx_afrl_107" model="account.financial.html.report.line">
+            <field name="name">107 Deudores diversos</field>
+            <field name="code">MX_COA_107</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_107_01'), ref('l10n_mx.account_tag_107_02'), ref('l10n_mx.account_tag_107_03'), ref('l10n_mx.account_tag_107_04'), ref('l10n_mx.account_tag_107_05'),])]" />
+        </record>
+        <record id="mx_afrl_108" model="account.financial.html.report.line">
+            <field name="name">108 Estimación de cuentas incobrables</field>
+            <field name="code">MX_COA_108</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_108_01'), ref('l10n_mx.account_tag_108_02'), ref('l10n_mx.account_tag_108_03'), ref('l10n_mx.account_tag_108_04'),])]" />
+        </record>
+        <record id="mx_afrl_109" model="account.financial.html.report.line">
+            <field name="name">109 Pagos anticipados</field>
+            <field name="code">MX_COA_109</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_109_01'), ref('l10n_mx.account_tag_109_02'), ref('l10n_mx.account_tag_109_03'), ref('l10n_mx.account_tag_109_04'), ref('l10n_mx.account_tag_109_05'), ref('l10n_mx.account_tag_109_06'), ref('l10n_mx.account_tag_109_07'), ref('l10n_mx.account_tag_109_08'), ref('l10n_mx.account_tag_109_09'), ref('l10n_mx.account_tag_109_10'), ref('l10n_mx.account_tag_109_11'), ref('l10n_mx.account_tag_109_12'), ref('l10n_mx.account_tag_109_13'), ref('l10n_mx.account_tag_109_14'), ref('l10n_mx.account_tag_109_15'), ref('l10n_mx.account_tag_109_16'), ref('l10n_mx.account_tag_109_17'), ref('l10n_mx.account_tag_109_18'), ref('l10n_mx.account_tag_109_19'), ref('l10n_mx.account_tag_109_20'), ref('l10n_mx.account_tag_109_21'), ref('l10n_mx.account_tag_109_22'), ref('l10n_mx.account_tag_109_23'),])]" />
+        </record>
+        <record id="mx_afrl_110" model="account.financial.html.report.line">
+            <field name="name">110 Subsidio al empleo por aplicar</field>
+            <field name="code">MX_COA_110</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_110_01'),])]" />
+        </record>
+        <record id="mx_afrl_111" model="account.financial.html.report.line">
+            <field name="name">111 Crédito al diesel por acreditar</field>
+            <field name="code">MX_COA_111</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_111_01'),])]" />
+        </record>
+        <record id="mx_afrl_112" model="account.financial.html.report.line">
+            <field name="name">112 Otros estímulos</field>
+            <field name="code">MX_COA_112</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_112_01'),])]" />
+        </record>
+        <record id="mx_afrl_113" model="account.financial.html.report.line">
+            <field name="name">113 Impuestos a favor</field>
+            <field name="code">MX_COA_113</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_113_01'), ref('l10n_mx.account_tag_113_02'), ref('l10n_mx.account_tag_113_03'), ref('l10n_mx.account_tag_113_04'), ref('l10n_mx.account_tag_113_05'), ref('l10n_mx.account_tag_113_06'), ref('l10n_mx.account_tag_113_07'), ref('l10n_mx.account_tag_113_08'),])]" />
+        </record>
+        <record id="mx_afrl_114" model="account.financial.html.report.line">
+            <field name="name">114 Pagos provisionales</field>
+            <field name="code">MX_COA_114</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_114_01'),])]" />
+        </record>
+        <record id="mx_afrl_115" model="account.financial.html.report.line">
+            <field name="name">115 Inventario</field>
+            <field name="code">MX_COA_115</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_115_01'), ref('l10n_mx.account_tag_115_02'), ref('l10n_mx.account_tag_115_03'), ref('l10n_mx.account_tag_115_04'), ref('l10n_mx.account_tag_115_05'), ref('l10n_mx.account_tag_115_06'), ref('l10n_mx.account_tag_115_07'),])]" />
+        </record>
+        <record id="mx_afrl_116" model="account.financial.html.report.line">
+            <field name="name">116 Estimación de inventarios obsoletos y de lento movimiento</field>
+            <field name="code">MX_COA_116</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_116_01'),])]" />
+        </record>
+        <record id="mx_afrl_117" model="account.financial.html.report.line">
+            <field name="name">117 Obras en proceso de inmuebles</field>
+            <field name="code">MX_COA_117</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_117_01'),])]" />
+        </record>
+        <record id="mx_afrl_118" model="account.financial.html.report.line">
+            <field name="name">118 Impuestos acreditables pagados</field>
+            <field name="code">MX_COA_118</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_118_01'), ref('l10n_mx.account_tag_118_02'), ref('l10n_mx.account_tag_118_03'), ref('l10n_mx.account_tag_118_04'),])]" />
+        </record>
+        <record id="mx_afrl_119" model="account.financial.html.report.line">
+            <field name="name">119 Impuestos acreditables por pagar</field>
+            <field name="code">MX_COA_119</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_119_01'), ref('l10n_mx.account_tag_119_02'), ref('l10n_mx.account_tag_119_03'), ref('l10n_mx.account_tag_119_04'),])]" />
+        </record>
+        <record id="mx_afrl_120" model="account.financial.html.report.line">
+            <field name="name">120 Anticipo a proveedores</field>
+            <field name="code">MX_COA_120</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_120_01'), ref('l10n_mx.account_tag_120_02'), ref('l10n_mx.account_tag_120_03'), ref('l10n_mx.account_tag_120_04'),])]" />
+        </record>
+        <record id="mx_afrl_121" model="account.financial.html.report.line">
+            <field name="name">121 Otros activos a corto plazo</field>
+            <field name="code">MX_COA_121</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_121_01'),])]" />
+        </record>
+        <record id="mx_afrl_151" model="account.financial.html.report.line">
+            <field name="name">151 Terrenos</field>
+            <field name="code">MX_COA_151</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_151_01'),])]" />
+        </record>
+        <record id="mx_afrl_152" model="account.financial.html.report.line">
+            <field name="name">152 Edificios</field>
+            <field name="code">MX_COA_152</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_152_01'),])]" />
+        </record>
+        <record id="mx_afrl_153" model="account.financial.html.report.line">
+            <field name="name">153 Maquinaria y equipo</field>
+            <field name="code">MX_COA_153</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_153_01'),])]" />
+        </record>
+        <record id="mx_afrl_154" model="account.financial.html.report.line">
+            <field name="name">154 Automóviles, autobuses, camiones de carga, tractocamiones, montacargas y remolques</field>
+            <field name="code">MX_COA_154</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_154_01'),])]" />
+        </record>
+        <record id="mx_afrl_155" model="account.financial.html.report.line">
+            <field name="name">155 Mobiliario y equipo de oficina</field>
+            <field name="code">MX_COA_155</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_155_01'),])]" />
+        </record>
+        <record id="mx_afrl_156" model="account.financial.html.report.line">
+            <field name="name">156 Equipo de cómputo</field>
+            <field name="code">MX_COA_156</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_156_01'),])]" />
+        </record>
+        <record id="mx_afrl_157" model="account.financial.html.report.line">
+            <field name="name">157 Equipo de comunicación</field>
+            <field name="code">MX_COA_157</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_157_01'),])]" />
+        </record>
+        <record id="mx_afrl_158" model="account.financial.html.report.line">
+            <field name="name">158 Activos biológicos, vegetales y semovientes</field>
+            <field name="code">MX_COA_158</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_158_01'),])]" />
+        </record>
+        <record id="mx_afrl_159" model="account.financial.html.report.line">
+            <field name="name">159 Obras en proceso de activos fijos</field>
+            <field name="code">MX_COA_159</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_159_01'),])]" />
+        </record>
+        <record id="mx_afrl_160" model="account.financial.html.report.line">
+            <field name="name">160 Otros activos fijos</field>
+            <field name="code">MX_COA_160</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_160_01'),])]" />
+        </record>
+        <record id="mx_afrl_161" model="account.financial.html.report.line">
+            <field name="name">161 Ferrocarriles</field>
+            <field name="code">MX_COA_161</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_161_01'),])]" />
+        </record>
+        <record id="mx_afrl_162" model="account.financial.html.report.line">
+            <field name="name">162 Embarcaciones</field>
+            <field name="code">MX_COA_162</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_162_01'),])]" />
+        </record>
+        <record id="mx_afrl_163" model="account.financial.html.report.line">
+            <field name="name">163 Aviones</field>
+            <field name="code">MX_COA_163</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_163_01'),])]" />
+        </record>
+        <record id="mx_afrl_164" model="account.financial.html.report.line">
+            <field name="name">164 Troqueles, moldes, matrices y herramental</field>
+            <field name="code">MX_COA_164</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_164_01'),])]" />
+        </record>
+        <record id="mx_afrl_165" model="account.financial.html.report.line">
+            <field name="name">165 Equipo de comunicaciones telefónicas</field>
+            <field name="code">MX_COA_165</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_165_01'),])]" />
+        </record>
+        <record id="mx_afrl_166" model="account.financial.html.report.line">
+            <field name="name">166 Equipo de comunicación satelital</field>
+            <field name="code">MX_COA_166</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_166_01'),])]" />
+        </record>
+        <record id="mx_afrl_167" model="account.financial.html.report.line">
+            <field name="name">167 Equipo de adaptaciones para personas con capacidades diferentes</field>
+            <field name="code">MX_COA_167</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_167_01'),])]" />
+        </record>
+        <record id="mx_afrl_168" model="account.financial.html.report.line">
+            <field name="name">168 Maquinaria y equipo de generación de energía de fuentes renovables o de sistemas de cogeneración de electricidad eficiente</field>
+            <field name="code">MX_COA_168</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_168_01'),])]" />
+        </record>
+        <record id="mx_afrl_169" model="account.financial.html.report.line">
+            <field name="name">169 Otra maquinaria y equipo</field>
+            <field name="code">MX_COA_169</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_169_01'),])]" />
+        </record>
+        <record id="mx_afrl_170" model="account.financial.html.report.line">
+            <field name="name">170 Adaptaciones y mejoras</field>
+            <field name="code">MX_COA_170</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_170_01'),])]" />
+        </record>
+        <record id="mx_afrl_171" model="account.financial.html.report.line">
+            <field name="name">171 Depreciación acumulada de activos fijos</field>
+            <field name="code">MX_COA_171</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_171_01'), ref('l10n_mx.account_tag_171_02'), ref('l10n_mx.account_tag_171_03'), ref('l10n_mx.account_tag_171_04'), ref('l10n_mx.account_tag_171_05'), ref('l10n_mx.account_tag_171_06'), ref('l10n_mx.account_tag_171_07'), ref('l10n_mx.account_tag_171_08'), ref('l10n_mx.account_tag_171_09'), ref('l10n_mx.account_tag_171_10'), ref('l10n_mx.account_tag_171_11'), ref('l10n_mx.account_tag_171_12'), ref('l10n_mx.account_tag_171_13'), ref('l10n_mx.account_tag_171_14'), ref('l10n_mx.account_tag_171_15'), ref('l10n_mx.account_tag_171_16'), ref('l10n_mx.account_tag_171_17'), ref('l10n_mx.account_tag_171_18'),])]" />
+        </record>
+        <record id="mx_afrl_172" model="account.financial.html.report.line">
+            <field name="name">172 Pérdida por deterioro acumulado de activos fijos</field>
+            <field name="code">MX_COA_172</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_172_01'), ref('l10n_mx.account_tag_172_02'), ref('l10n_mx.account_tag_172_03'), ref('l10n_mx.account_tag_172_04'), ref('l10n_mx.account_tag_172_05'), ref('l10n_mx.account_tag_172_06'), ref('l10n_mx.account_tag_172_07'), ref('l10n_mx.account_tag_172_08'), ref('l10n_mx.account_tag_172_09'), ref('l10n_mx.account_tag_172_10'), ref('l10n_mx.account_tag_172_11'), ref('l10n_mx.account_tag_172_12'), ref('l10n_mx.account_tag_172_13'), ref('l10n_mx.account_tag_172_14'), ref('l10n_mx.account_tag_172_15'), ref('l10n_mx.account_tag_172_16'), ref('l10n_mx.account_tag_172_17'), ref('l10n_mx.account_tag_172_18'),])]" />
+        </record>
+        <record id="mx_afrl_173" model="account.financial.html.report.line">
+            <field name="name">173 Gastos diferidos</field>
+            <field name="code">MX_COA_173</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_173_01'),])]" />
+        </record>
+        <record id="mx_afrl_174" model="account.financial.html.report.line">
+            <field name="name">174 Gastos pre operativos</field>
+            <field name="code">MX_COA_174</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_174_01'),])]" />
+        </record>
+        <record id="mx_afrl_175" model="account.financial.html.report.line">
+            <field name="name">175 Regalías, asistencia técnica y otros gastos diferidos</field>
+            <field name="code">MX_COA_175</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_175_01'),])]" />
+        </record>
+        <record id="mx_afrl_176" model="account.financial.html.report.line">
+            <field name="name">176 Activos intangibles</field>
+            <field name="code">MX_COA_176</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_176_01'),])]" />
+        </record>
+        <record id="mx_afrl_177" model="account.financial.html.report.line">
+            <field name="name">177 Gastos de organización</field>
+            <field name="code">MX_COA_177</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_177_01'),])]" />
+        </record>
+        <record id="mx_afrl_178" model="account.financial.html.report.line">
+            <field name="name">178 Investigación y desarrollo de mercado</field>
+            <field name="code">MX_COA_178</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_178_01'),])]" />
+        </record>
+        <record id="mx_afrl_179" model="account.financial.html.report.line">
+            <field name="name">179 Marcas y patentes</field>
+            <field name="code">MX_COA_179</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_179_01'),])]" />
+        </record>
+        <record id="mx_afrl_180" model="account.financial.html.report.line">
+            <field name="name">180 Crédito mercantil</field>
+            <field name="code">MX_COA_180</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_180_01'),])]" />
+        </record>
+        <record id="mx_afrl_181" model="account.financial.html.report.line">
+            <field name="name">181 Gastos de instalación</field>
+            <field name="code">MX_COA_181</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_181_01'),])]" />
+        </record>
+        <record id="mx_afrl_182" model="account.financial.html.report.line">
+            <field name="name">182 Otros activos diferidos</field>
+            <field name="code">MX_COA_182</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_182_01'),])]" />
+        </record>
+        <record id="mx_afrl_183" model="account.financial.html.report.line">
+            <field name="name">183 Amortización acumulada de activos diferidos</field>
+            <field name="code">MX_COA_183</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_183_01'), ref('l10n_mx.account_tag_183_02'), ref('l10n_mx.account_tag_183_03'), ref('l10n_mx.account_tag_183_04'), ref('l10n_mx.account_tag_183_05'), ref('l10n_mx.account_tag_183_06'), ref('l10n_mx.account_tag_183_07'), ref('l10n_mx.account_tag_183_08'), ref('l10n_mx.account_tag_183_09'), ref('l10n_mx.account_tag_183_10'),])]" />
+        </record>
+        <record id="mx_afrl_184" model="account.financial.html.report.line">
+            <field name="name">184 Depósitos en garantía</field>
+            <field name="code">MX_COA_184</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_184_01'), ref('l10n_mx.account_tag_184_02'), ref('l10n_mx.account_tag_184_03'),])]" />
+        </record>
+        <record id="mx_afrl_185" model="account.financial.html.report.line">
+            <field name="name">185 Impuestos diferidos</field>
+            <field name="code">MX_COA_185</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_185_01'),])]" />
+        </record>
+        <record id="mx_afrl_186" model="account.financial.html.report.line">
+            <field name="name">186 Cuentas y documentos por cobrar a largo plazo</field>
+            <field name="code">MX_COA_186</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_186_01'), ref('l10n_mx.account_tag_186_02'), ref('l10n_mx.account_tag_186_03'), ref('l10n_mx.account_tag_186_04'), ref('l10n_mx.account_tag_186_05'), ref('l10n_mx.account_tag_186_06'), ref('l10n_mx.account_tag_186_07'), ref('l10n_mx.account_tag_186_08'), ref('l10n_mx.account_tag_186_09'), ref('l10n_mx.account_tag_186_10'),])]" />
+        </record>
+        <record id="mx_afrl_187" model="account.financial.html.report.line">
+            <field name="name">187 Participación de los trabajadores en las utilidades diferidas</field>
+            <field name="code">MX_COA_187</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_187_01'),])]" />
+        </record>
+        <record id="mx_afrl_188" model="account.financial.html.report.line">
+            <field name="name">188 Inversiones permanentes en acciones</field>
+            <field name="code">MX_COA_188</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_188_01'), ref('l10n_mx.account_tag_188_02'), ref('l10n_mx.account_tag_188_03'),])]" />
+        </record>
+        <record id="mx_afrl_189" model="account.financial.html.report.line">
+            <field name="name">189 Estimación por deterioro de inversiones permanentes en acciones</field>
+            <field name="code">MX_COA_189</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_189_01'),])]" />
+        </record>
+        <record id="mx_afrl_190" model="account.financial.html.report.line">
+            <field name="name">190 Otros instrumentos financieros</field>
+            <field name="code">MX_COA_190</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_190_01'),])]" />
+        </record>
+        <record id="mx_afrl_191" model="account.financial.html.report.line">
+            <field name="name">191 Otros activos a largo plazo</field>
+            <field name="code">MX_COA_191</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_191_01'),])]" />
+        </record>
+        <record id="mx_afrl_2" model="account.financial.html.report.line">
+            <field name="name">2 Pasivos</field>
+            <field name="code">MX_COA_2</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1"/>
+            <field name="figure_type">no_unit</field>
+        </record>
+        <record id="mx_afrl_201" model="account.financial.html.report.line">
+            <field name="name">201 Proveedores</field>
+            <field name="code">MX_COA_201</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_201_01'), ref('l10n_mx.account_tag_201_02'), ref('l10n_mx.account_tag_201_03'), ref('l10n_mx.account_tag_201_04'),])]" />
+        </record>
+        <record id="mx_afrl_202" model="account.financial.html.report.line">
+            <field name="name">202 Cuentas por pagar a corto plazo</field>
+            <field name="code">MX_COA_202</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_202_01'), ref('l10n_mx.account_tag_202_02'), ref('l10n_mx.account_tag_202_03'), ref('l10n_mx.account_tag_202_04'), ref('l10n_mx.account_tag_202_05'), ref('l10n_mx.account_tag_202_06'), ref('l10n_mx.account_tag_202_07'), ref('l10n_mx.account_tag_202_08'), ref('l10n_mx.account_tag_202_09'), ref('l10n_mx.account_tag_202_10'), ref('l10n_mx.account_tag_202_11'), ref('l10n_mx.account_tag_202_12'),])]" />
+        </record>
+        <record id="mx_afrl_203" model="account.financial.html.report.line">
+            <field name="name">203 Cobros anticipados a corto plazo</field>
+            <field name="code">MX_COA_203</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_203_01'), ref('l10n_mx.account_tag_203_02'), ref('l10n_mx.account_tag_203_03'), ref('l10n_mx.account_tag_203_04'), ref('l10n_mx.account_tag_203_05'), ref('l10n_mx.account_tag_203_06'), ref('l10n_mx.account_tag_203_07'), ref('l10n_mx.account_tag_203_08'), ref('l10n_mx.account_tag_203_09'), ref('l10n_mx.account_tag_203_10'), ref('l10n_mx.account_tag_203_11'), ref('l10n_mx.account_tag_203_12'), ref('l10n_mx.account_tag_203_13'), ref('l10n_mx.account_tag_203_14'), ref('l10n_mx.account_tag_203_15'), ref('l10n_mx.account_tag_203_16'), ref('l10n_mx.account_tag_203_17'), ref('l10n_mx.account_tag_203_18'),])]" />
+        </record>
+        <record id="mx_afrl_204" model="account.financial.html.report.line">
+            <field name="name">204 Instrumentos financieros a corto plazo</field>
+            <field name="code">MX_COA_204</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_204_01'),])]" />
+        </record>
+        <record id="mx_afrl_205" model="account.financial.html.report.line">
+            <field name="name">205 Acreedores diversos a corto plazo</field>
+            <field name="code">MX_COA_205</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_205_01'), ref('l10n_mx.account_tag_205_02'), ref('l10n_mx.account_tag_205_03'), ref('l10n_mx.account_tag_205_04'), ref('l10n_mx.account_tag_205_05'), ref('l10n_mx.account_tag_205_06'),])]" />
+        </record>
+        <record id="mx_afrl_206" model="account.financial.html.report.line">
+            <field name="name">206 Anticipo de cliente</field>
+            <field name="code">MX_COA_206</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_206_01'), ref('l10n_mx.account_tag_206_02'), ref('l10n_mx.account_tag_206_03'), ref('l10n_mx.account_tag_206_04'), ref('l10n_mx.account_tag_206_05'),])]" />
+        </record>
+        <record id="mx_afrl_207" model="account.financial.html.report.line">
+            <field name="name">207 Impuestos trasladados</field>
+            <field name="code">MX_COA_207</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_207_01'), ref('l10n_mx.account_tag_207_02'),])]" />
+        </record>
+        <record id="mx_afrl_208" model="account.financial.html.report.line">
+            <field name="name">208 Impuestos trasladados cobrados</field>
+            <field name="code">MX_COA_208</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_208_01'), ref('l10n_mx.account_tag_208_02'),])]" />
+        </record>
+        <record id="mx_afrl_209" model="account.financial.html.report.line">
+            <field name="name">209 Impuestos trasladados no cobrados</field>
+            <field name="code">MX_COA_209</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_209_01'), ref('l10n_mx.account_tag_209_02'),])]" />
+        </record>
+        <record id="mx_afrl_210" model="account.financial.html.report.line">
+            <field name="name">210 Provisión de sueldos y salarios por pagar</field>
+            <field name="code">MX_COA_210</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_210_01'), ref('l10n_mx.account_tag_210_02'), ref('l10n_mx.account_tag_210_03'), ref('l10n_mx.account_tag_210_04'), ref('l10n_mx.account_tag_210_05'), ref('l10n_mx.account_tag_210_06'), ref('l10n_mx.account_tag_210_07'),])]" />
+        </record>
+        <record id="mx_afrl_211" model="account.financial.html.report.line">
+            <field name="name">211 Provisión de contribuciones de seguridad social por pagar</field>
+            <field name="code">MX_COA_211</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_211_01'), ref('l10n_mx.account_tag_211_02'), ref('l10n_mx.account_tag_211_03'),])]" />
+        </record>
+        <record id="mx_afrl_212" model="account.financial.html.report.line">
+            <field name="name">212 Provisión de impuesto estatal sobre nómina por pagar</field>
+            <field name="code">MX_COA_212</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_212_01'),])]" />
+        </record>
+        <record id="mx_afrl_213" model="account.financial.html.report.line">
+            <field name="name">213 Impuestos y derechos por pagar</field>
+            <field name="code">MX_COA_213</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_213_01'), ref('l10n_mx.account_tag_213_02'), ref('l10n_mx.account_tag_213_03'), ref('l10n_mx.account_tag_213_04'), ref('l10n_mx.account_tag_213_05'), ref('l10n_mx.account_tag_213_06'), ref('l10n_mx.account_tag_213_07'),])]" />
+        </record>
+        <record id="mx_afrl_214" model="account.financial.html.report.line">
+            <field name="name">214 Dividendos por pagar</field>
+            <field name="code">MX_COA_214</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_214_01'),])]" />
+        </record>
+        <record id="mx_afrl_215" model="account.financial.html.report.line">
+            <field name="name">215 PTU por pagar</field>
+            <field name="code">MX_COA_215</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_215_01'), ref('l10n_mx.account_tag_215_02'), ref('l10n_mx.account_tag_215_03'),])]" />
+        </record>
+        <record id="mx_afrl_216" model="account.financial.html.report.line">
+            <field name="name">216 Impuestos retenidos</field>
+            <field name="code">MX_COA_216</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_216_01'), ref('l10n_mx.account_tag_216_02'), ref('l10n_mx.account_tag_216_03'), ref('l10n_mx.account_tag_216_04'), ref('l10n_mx.account_tag_216_05'), ref('l10n_mx.account_tag_216_06'), ref('l10n_mx.account_tag_216_07'), ref('l10n_mx.account_tag_216_08'), ref('l10n_mx.account_tag_216_09'), ref('l10n_mx.account_tag_216_10'), ref('l10n_mx.account_tag_216_11'), ref('l10n_mx.account_tag_216_12'),])]" />
+        </record>
+        <record id="mx_afrl_217" model="account.financial.html.report.line">
+            <field name="name">217 Pagos realizados por cuenta de terceros</field>
+            <field name="code">MX_COA_217</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_217_01'),])]" />
+        </record>
+        <record id="mx_afrl_218" model="account.financial.html.report.line">
+            <field name="name">218 Otros pasivos a corto plazo</field>
+            <field name="code">MX_COA_218</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_218_01'),])]" />
+        </record>
+        <record id="mx_afrl_251" model="account.financial.html.report.line">
+            <field name="name">251 Acreedores diversos a largo plazo</field>
+            <field name="code">MX_COA_251</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_251_01'), ref('l10n_mx.account_tag_251_02'), ref('l10n_mx.account_tag_251_03'), ref('l10n_mx.account_tag_251_03'), ref('l10n_mx.account_tag_251_05'), ref('l10n_mx.account_tag_251_06'),])]" />
+        </record>
+        <record id="mx_afrl_252" model="account.financial.html.report.line">
+            <field name="name">252 Cuentas por pagar a largo plazo</field>
+            <field name="code">MX_COA_252</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_252_01'), ref('l10n_mx.account_tag_252_02'), ref('l10n_mx.account_tag_252_03'), ref('l10n_mx.account_tag_252_04'), ref('l10n_mx.account_tag_252_05'), ref('l10n_mx.account_tag_252_06'), ref('l10n_mx.account_tag_252_07'), ref('l10n_mx.account_tag_252_08'), ref('l10n_mx.account_tag_252_09'), ref('l10n_mx.account_tag_252_10'), ref('l10n_mx.account_tag_252_11'), ref('l10n_mx.account_tag_252_12'), ref('l10n_mx.account_tag_252_13'), ref('l10n_mx.account_tag_252_14'), ref('l10n_mx.account_tag_252_15'), ref('l10n_mx.account_tag_252_16'), ref('l10n_mx.account_tag_252_17'),])]" />
+        </record>
+        <record id="mx_afrl_253" model="account.financial.html.report.line">
+            <field name="name">253 Cobros anticipados a largo plazo</field>
+            <field name="code">MX_COA_253</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_253_01'), ref('l10n_mx.account_tag_253_02'), ref('l10n_mx.account_tag_253_03'), ref('l10n_mx.account_tag_253_04'), ref('l10n_mx.account_tag_253_05'), ref('l10n_mx.account_tag_253_06'), ref('l10n_mx.account_tag_253_07'), ref('l10n_mx.account_tag_253_08'), ref('l10n_mx.account_tag_253_09'), ref('l10n_mx.account_tag_253_10'), ref('l10n_mx.account_tag_253_11'), ref('l10n_mx.account_tag_253_12'), ref('l10n_mx.account_tag_253_13'), ref('l10n_mx.account_tag_253_14'), ref('l10n_mx.account_tag_253_15'), ref('l10n_mx.account_tag_253_16'), ref('l10n_mx.account_tag_253_17'), ref('l10n_mx.account_tag_253_18'),])]" />
+        </record>
+        <record id="mx_afrl_254" model="account.financial.html.report.line">
+            <field name="name">254 Instrumentos financieros a largo plazo</field>
+            <field name="code">MX_COA_254</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_254_01'),])]" />
+        </record>
+        <record id="mx_afrl_255" model="account.financial.html.report.line">
+            <field name="name">255 Pasivos por beneficios a los empleados a largo plazo</field>
+            <field name="code">MX_COA_255</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_255_01'),])]" />
+        </record>
+        <record id="mx_afrl_256" model="account.financial.html.report.line">
+            <field name="name">256 Otros pasivos a largo plazo</field>
+            <field name="code">MX_COA_256</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_256_01'),])]" />
+        </record>
+        <record id="mx_afrl_257" model="account.financial.html.report.line">
+            <field name="name">257 Participación de los trabajadores en las utilidades diferida</field>
+            <field name="code">MX_COA_257</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_257_01'),])]" />
+        </record>
+        <record id="mx_afrl_258" model="account.financial.html.report.line">
+            <field name="name">258 Obligaciones contraídas de fideicomisos</field>
+            <field name="code">MX_COA_258</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_258_01'),])]" />
+        </record>
+        <record id="mx_afrl_259" model="account.financial.html.report.line">
+            <field name="name">259 Impuestos diferidos</field>
+            <field name="code">MX_COA_259</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_259_01'), ref('l10n_mx.account_tag_259_02'), ref('l10n_mx.account_tag_259_03'),])]" />
+        </record>
+        <record id="mx_afrl_260" model="account.financial.html.report.line">
+            <field name="name">260 Pasivos diferidos</field>
+            <field name="code">MX_COA_260</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_2'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_260_01'),])]" />
+        </record>
+        <record id="mx_afrl_3" model="account.financial.html.report.line">
+            <field name="name">3 Capital Contable</field>
+            <field name="code">MX_COA_3</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="1"/>
+            <field name="figure_type">no_unit</field>
+        </record>
+        <record id="mx_afrl_301" model="account.financial.html.report.line">
+            <field name="name">301 Capital social</field>
+            <field name="code">MX_COA_301</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_3'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_301_01'), ref('l10n_mx.account_tag_301_02'), ref('l10n_mx.account_tag_301_03'), ref('l10n_mx.account_tag_301_04'), ref('l10n_mx.account_tag_301_05'),])]" />
+        </record>
+        <record id="mx_afrl_302" model="account.financial.html.report.line">
+            <field name="name">302 Patrimonio</field>
+            <field name="code">MX_COA_302</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_3'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_302_01'), ref('l10n_mx.account_tag_302_02'), ref('l10n_mx.account_tag_302_03'),])]" />
+        </record>
+        <record id="mx_afrl_303" model="account.financial.html.report.line">
+            <field name="name">303 Reserva legal</field>
+            <field name="code">MX_COA_303</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_3'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_303_01'),])]" />
+        </record>
+        <record id="mx_afrl_304" model="account.financial.html.report.line">
+            <field name="name">304 Resultado de ejercicios anteriores</field>
+            <field name="code">MX_COA_304</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_3'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_304_01'), ref('l10n_mx.account_tag_304_02'), ref('l10n_mx.account_tag_304_03'), ref('l10n_mx.account_tag_304_04'),])]" />
+        </record>
+        <record id="mx_afrl_305" model="account.financial.html.report.line">
+            <field name="name">305 Resultado del ejercicio</field>
+            <field name="code">MX_COA_305</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_3'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_305_01'), ref('l10n_mx.account_tag_305_02'), ref('l10n_mx.account_tag_305_03'),])]" />
+        </record>
+        <record id="mx_afrl_306" model="account.financial.html.report.line">
+            <field name="name">306 Otras cuentas de capital</field>
+            <field name="code">MX_COA_306</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_3'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_306_01'),])]" />
+        </record>
+        <record id="mx_afrl_4" model="account.financial.html.report.line">
+            <field name="name">4 Ingresos</field>
+            <field name="code">MX_COA_4</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="1"/>
+            <field name="figure_type">no_unit</field>
+        </record>
+        <record id="mx_afrl_401" model="account.financial.html.report.line">
+            <field name="name">401 Ingresos</field>
+            <field name="code">MX_COA_401</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_4'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_401_01'), ref('l10n_mx.account_tag_401_02'), ref('l10n_mx.account_tag_401_03'), ref('l10n_mx.account_tag_401_04_new'), ref('l10n_mx.account_tag_401_05_new'), ref('l10n_mx.account_tag_401_06_new'), ref('l10n_mx.account_tag_401_04'), ref('l10n_mx.account_tag_401_05'), ref('l10n_mx.account_tag_401_06'), ref('l10n_mx.account_tag_401_07'), ref('l10n_mx.account_tag_401_08'), ref('l10n_mx.account_tag_401_09'), ref('l10n_mx.account_tag_401_10'), ref('l10n_mx.account_tag_401_11'), ref('l10n_mx.account_tag_401_12'), ref('l10n_mx.account_tag_401_13'), ref('l10n_mx.account_tag_401_14'), ref('l10n_mx.account_tag_401_15'), ref('l10n_mx.account_tag_401_16'), ref('l10n_mx.account_tag_401_17'), ref('l10n_mx.account_tag_401_18'), ref('l10n_mx.account_tag_401_19'), ref('l10n_mx.account_tag_401_20'), ref('l10n_mx.account_tag_401_21'), ref('l10n_mx.account_tag_401_22'), ref('l10n_mx.account_tag_401_23'), ref('l10n_mx.account_tag_401_24'), ref('l10n_mx.account_tag_401_25'), ref('l10n_mx.account_tag_401_26'), ref('l10n_mx.account_tag_401_27'), ref('l10n_mx.account_tag_401_28'), ref('l10n_mx.account_tag_401_29'), ref('l10n_mx.account_tag_401_30'), ref('l10n_mx.account_tag_401_31'), ref('l10n_mx.account_tag_401_32'), ref('l10n_mx.account_tag_401_33'), ref('l10n_mx.account_tag_401_34'), ref('l10n_mx.account_tag_401_35'), ref('l10n_mx.account_tag_401_36'), ref('l10n_mx.account_tag_401_37'), ref('l10n_mx.account_tag_401_38'),])]" />
+        </record>
+        <record id="mx_afrl_402" model="account.financial.html.report.line">
+            <field name="name">402 Devoluciones, descuentos o bonificaciones sobre ingresos</field>
+            <field name="code">MX_COA_402</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_4'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_402_01'), ref('l10n_mx.account_tag_402_02_new'), ref('l10n_mx.account_tag_402_02'), ref('l10n_mx.account_tag_402_03'), ref('l10n_mx.account_tag_402_04'),])]" />
+        </record>
+        <record id="mx_afrl_403" model="account.financial.html.report.line">
+            <field name="name">403 Otros ingresos</field>
+            <field name="code">MX_COA_403</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_4'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_403_01'), ref('l10n_mx.account_tag_403_02'), ref('l10n_mx.account_tag_403_03'), ref('l10n_mx.account_tag_403_04'), ref('l10n_mx.account_tag_403_05'),])]" />
+        </record>
+        <record id="mx_afrl_5" model="account.financial.html.report.line">
+            <field name="name">5 Costos</field>
+            <field name="code">MX_COA_5</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="1"/>
+            <field name="figure_type">no_unit</field>
+        </record>
+        <record id="mx_afrl_501" model="account.financial.html.report.line">
+            <field name="name">501 Costo de venta y/o servicio</field>
+            <field name="code">MX_COA_501</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_5'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_501_01'), ref('l10n_mx.account_tag_501_02'), ref('l10n_mx.account_tag_501_03'), ref('l10n_mx.account_tag_501_04'), ref('l10n_mx.account_tag_501_05'), ref('l10n_mx.account_tag_501_06'), ref('l10n_mx.account_tag_501_07'), ref('l10n_mx.account_tag_501_08'),])]" />
+        </record>
+        <record id="mx_afrl_502" model="account.financial.html.report.line">
+            <field name="name">502 Compras</field>
+            <field name="code">MX_COA_502</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_5'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_502_01'), ref('l10n_mx.account_tag_502_02'), ref('l10n_mx.account_tag_502_03'), ref('l10n_mx.account_tag_502_04'),])]" />
+        </record>
+        <record id="mx_afrl_503" model="account.financial.html.report.line">
+            <field name="name">503 Devoluciones, descuentos o bonificaciones sobre compras</field>
+            <field name="code">MX_COA_503</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_5'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_503_01'),])]" />
+        </record>
+        <record id="mx_afrl_504" model="account.financial.html.report.line">
+            <field name="name">504 Otras cuentas de costos</field>
+            <field name="code">MX_COA_504</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_5'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_504_01'), ref('l10n_mx.account_tag_504_02'), ref('l10n_mx.account_tag_504_03'), ref('l10n_mx.account_tag_504_04'), ref('l10n_mx.account_tag_504_05'), ref('l10n_mx.account_tag_504_06'), ref('l10n_mx.account_tag_504_07'), ref('l10n_mx.account_tag_504_08'), ref('l10n_mx.account_tag_504_09'), ref('l10n_mx.account_tag_504_10'), ref('l10n_mx.account_tag_504_11'), ref('l10n_mx.account_tag_504_12'), ref('l10n_mx.account_tag_504_13'), ref('l10n_mx.account_tag_504_14'), ref('l10n_mx.account_tag_504_15'), ref('l10n_mx.account_tag_504_16'), ref('l10n_mx.account_tag_504_17'), ref('l10n_mx.account_tag_504_18'), ref('l10n_mx.account_tag_504_19'), ref('l10n_mx.account_tag_504_20'), ref('l10n_mx.account_tag_504_21'), ref('l10n_mx.account_tag_504_22'), ref('l10n_mx.account_tag_504_23'), ref('l10n_mx.account_tag_504_24'), ref('l10n_mx.account_tag_504_25'),])]"/>
+        </record>
+        <record id="mx_afrl_505" model="account.financial.html.report.line">
+            <field name="name">505 Costo de activo fijo</field>
+            <field name="code">MX_COA_505</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_5'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_505_01'), ref('l10n_mx.account_tag_505_02'),])]" />
+        </record>
+        <record id="mx_afrl_6" model="account.financial.html.report.line">
+            <field name="name">6 Gastos</field>
+            <field name="code">MX_COA_6</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="1"/>
+            <field name="figure_type">no_unit</field>
+        </record>
+        <record id="mx_afrl_601" model="account.financial.html.report.line">
+            <field name="name">601 Gastos generales</field>
+            <field name="code">MX_COA_601</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_601_01'), ref('l10n_mx.account_tag_601_02'), ref('l10n_mx.account_tag_601_03'), ref('l10n_mx.account_tag_601_04'), ref('l10n_mx.account_tag_601_05'), ref('l10n_mx.account_tag_601_06'), ref('l10n_mx.account_tag_601_07'), ref('l10n_mx.account_tag_601_08'), ref('l10n_mx.account_tag_601_09'), ref('l10n_mx.account_tag_601_10'), ref('l10n_mx.account_tag_601_11'), ref('l10n_mx.account_tag_601_12'), ref('l10n_mx.account_tag_601_13'), ref('l10n_mx.account_tag_601_14'), ref('l10n_mx.account_tag_601_15'), ref('l10n_mx.account_tag_601_16'), ref('l10n_mx.account_tag_601_17'), ref('l10n_mx.account_tag_601_18'), ref('l10n_mx.account_tag_601_19'), ref('l10n_mx.account_tag_601_20'), ref('l10n_mx.account_tag_601_21'), ref('l10n_mx.account_tag_601_22'), ref('l10n_mx.account_tag_601_23'), ref('l10n_mx.account_tag_601_24'), ref('l10n_mx.account_tag_601_25'), ref('l10n_mx.account_tag_601_26'), ref('l10n_mx.account_tag_601_27'), ref('l10n_mx.account_tag_601_28'), ref('l10n_mx.account_tag_601_29'), ref('l10n_mx.account_tag_601_30'), ref('l10n_mx.account_tag_601_31'), ref('l10n_mx.account_tag_601_32'), ref('l10n_mx.account_tag_601_33'), ref('l10n_mx.account_tag_601_34'), ref('l10n_mx.account_tag_601_35'), ref('l10n_mx.account_tag_601_36'), ref('l10n_mx.account_tag_601_37'), ref('l10n_mx.account_tag_601_38'), ref('l10n_mx.account_tag_601_39'), ref('l10n_mx.account_tag_601_40'), ref('l10n_mx.account_tag_601_41'), ref('l10n_mx.account_tag_601_42'), ref('l10n_mx.account_tag_601_43'), ref('l10n_mx.account_tag_601_44'), ref('l10n_mx.account_tag_601_45'), ref('l10n_mx.account_tag_601_46'), ref('l10n_mx.account_tag_601_47'), ref('l10n_mx.account_tag_601_48'), ref('l10n_mx.account_tag_601_49'), ref('l10n_mx.account_tag_601_50'), ref('l10n_mx.account_tag_601_51'), ref('l10n_mx.account_tag_601_52'), ref('l10n_mx.account_tag_601_53'), ref('l10n_mx.account_tag_601_54'), ref('l10n_mx.account_tag_601_55'), ref('l10n_mx.account_tag_601_56'), ref('l10n_mx.account_tag_601_57'), ref('l10n_mx.account_tag_601_58'), ref('l10n_mx.account_tag_601_59'), ref('l10n_mx.account_tag_601_60'), ref('l10n_mx.account_tag_601_61'), ref('l10n_mx.account_tag_601_62'), ref('l10n_mx.account_tag_601_63'), ref('l10n_mx.account_tag_601_64'), ref('l10n_mx.account_tag_601_65'), ref('l10n_mx.account_tag_601_66'), ref('l10n_mx.account_tag_601_67'), ref('l10n_mx.account_tag_601_68'), ref('l10n_mx.account_tag_601_69'), ref('l10n_mx.account_tag_601_70'), ref('l10n_mx.account_tag_601_71'), ref('l10n_mx.account_tag_601_72'), ref('l10n_mx.account_tag_601_73'), ref('l10n_mx.account_tag_601_74'), ref('l10n_mx.account_tag_601_75'), ref('l10n_mx.account_tag_601_76'), ref('l10n_mx.account_tag_601_77'), ref('l10n_mx.account_tag_601_78'), ref('l10n_mx.account_tag_601_79'), ref('l10n_mx.account_tag_601_80'), ref('l10n_mx.account_tag_601_81'), ref('l10n_mx.account_tag_601_82'), ref('l10n_mx.account_tag_601_83'), ref('l10n_mx.account_tag_601_84'),])]" />
+        </record>
+        <record id="mx_afrl_602" model="account.financial.html.report.line">
+            <field name="name">602 Gastos de venta</field>
+            <field name="code">MX_COA_602</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_602_01'), ref('l10n_mx.account_tag_602_02'), ref('l10n_mx.account_tag_602_03'), ref('l10n_mx.account_tag_602_04'), ref('l10n_mx.account_tag_602_05'), ref('l10n_mx.account_tag_602_06'), ref('l10n_mx.account_tag_602_07'), ref('l10n_mx.account_tag_602_08'), ref('l10n_mx.account_tag_602_09'), ref('l10n_mx.account_tag_602_10'), ref('l10n_mx.account_tag_602_11'), ref('l10n_mx.account_tag_602_12'), ref('l10n_mx.account_tag_602_13'), ref('l10n_mx.account_tag_602_14'), ref('l10n_mx.account_tag_602_15'), ref('l10n_mx.account_tag_602_16'), ref('l10n_mx.account_tag_602_17'), ref('l10n_mx.account_tag_602_18'), ref('l10n_mx.account_tag_602_19'), ref('l10n_mx.account_tag_602_20'), ref('l10n_mx.account_tag_602_21'), ref('l10n_mx.account_tag_602_22'), ref('l10n_mx.account_tag_602_23'), ref('l10n_mx.account_tag_602_24'), ref('l10n_mx.account_tag_602_25'), ref('l10n_mx.account_tag_602_26'), ref('l10n_mx.account_tag_602_27'), ref('l10n_mx.account_tag_602_28'), ref('l10n_mx.account_tag_602_29'), ref('l10n_mx.account_tag_602_30'), ref('l10n_mx.account_tag_602_31'), ref('l10n_mx.account_tag_602_32'), ref('l10n_mx.account_tag_602_33'), ref('l10n_mx.account_tag_602_34'), ref('l10n_mx.account_tag_602_35'), ref('l10n_mx.account_tag_602_36'), ref('l10n_mx.account_tag_602_37'), ref('l10n_mx.account_tag_602_38'), ref('l10n_mx.account_tag_602_39'), ref('l10n_mx.account_tag_602_40'), ref('l10n_mx.account_tag_602_41'), ref('l10n_mx.account_tag_602_42'), ref('l10n_mx.account_tag_602_43'), ref('l10n_mx.account_tag_602_44'), ref('l10n_mx.account_tag_602_45'), ref('l10n_mx.account_tag_602_46'), ref('l10n_mx.account_tag_602_47'), ref('l10n_mx.account_tag_602_48'), ref('l10n_mx.account_tag_602_49'), ref('l10n_mx.account_tag_602_50'), ref('l10n_mx.account_tag_602_51'), ref('l10n_mx.account_tag_602_52'), ref('l10n_mx.account_tag_602_53'), ref('l10n_mx.account_tag_602_54'), ref('l10n_mx.account_tag_602_55'), ref('l10n_mx.account_tag_602_56'), ref('l10n_mx.account_tag_602_57'), ref('l10n_mx.account_tag_602_58'), ref('l10n_mx.account_tag_602_59'), ref('l10n_mx.account_tag_602_60'), ref('l10n_mx.account_tag_602_61'), ref('l10n_mx.account_tag_602_62'), ref('l10n_mx.account_tag_602_63'), ref('l10n_mx.account_tag_602_64'), ref('l10n_mx.account_tag_602_65'), ref('l10n_mx.account_tag_602_66'), ref('l10n_mx.account_tag_602_67'), ref('l10n_mx.account_tag_602_68'), ref('l10n_mx.account_tag_602_69'), ref('l10n_mx.account_tag_602_70'), ref('l10n_mx.account_tag_602_71'), ref('l10n_mx.account_tag_602_72'), ref('l10n_mx.account_tag_602_73'), ref('l10n_mx.account_tag_602_74'), ref('l10n_mx.account_tag_602_75'), ref('l10n_mx.account_tag_602_76'), ref('l10n_mx.account_tag_602_77'), ref('l10n_mx.account_tag_602_78'), ref('l10n_mx.account_tag_602_79'), ref('l10n_mx.account_tag_602_80'), ref('l10n_mx.account_tag_602_81'), ref('l10n_mx.account_tag_602_82'), ref('l10n_mx.account_tag_602_83'), ref('l10n_mx.account_tag_602_84'),])]" />
+        </record>
+        <record id="mx_afrl_603" model="account.financial.html.report.line">
+            <field name="name">603 Gastos de administración</field>
+            <field name="code">MX_COA_603</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_603_01'), ref('l10n_mx.account_tag_603_02'), ref('l10n_mx.account_tag_603_03'), ref('l10n_mx.account_tag_603_04'), ref('l10n_mx.account_tag_603_05'), ref('l10n_mx.account_tag_603_06'), ref('l10n_mx.account_tag_603_07'), ref('l10n_mx.account_tag_603_08'), ref('l10n_mx.account_tag_603_09'), ref('l10n_mx.account_tag_603_10'), ref('l10n_mx.account_tag_603_11'), ref('l10n_mx.account_tag_603_12'), ref('l10n_mx.account_tag_603_13'), ref('l10n_mx.account_tag_603_14'), ref('l10n_mx.account_tag_603_15'), ref('l10n_mx.account_tag_603_16'), ref('l10n_mx.account_tag_603_17'), ref('l10n_mx.account_tag_603_18'), ref('l10n_mx.account_tag_603_19'), ref('l10n_mx.account_tag_603_20'), ref('l10n_mx.account_tag_603_21'), ref('l10n_mx.account_tag_603_22'), ref('l10n_mx.account_tag_603_23'), ref('l10n_mx.account_tag_603_24'), ref('l10n_mx.account_tag_603_25'), ref('l10n_mx.account_tag_603_26'), ref('l10n_mx.account_tag_603_27'), ref('l10n_mx.account_tag_603_28'), ref('l10n_mx.account_tag_603_29'), ref('l10n_mx.account_tag_603_30'), ref('l10n_mx.account_tag_603_31'), ref('l10n_mx.account_tag_603_32'), ref('l10n_mx.account_tag_603_33'), ref('l10n_mx.account_tag_603_34'), ref('l10n_mx.account_tag_603_35'), ref('l10n_mx.account_tag_603_36'), ref('l10n_mx.account_tag_603_37'), ref('l10n_mx.account_tag_603_38'), ref('l10n_mx.account_tag_603_39'), ref('l10n_mx.account_tag_603_40'), ref('l10n_mx.account_tag_603_41'), ref('l10n_mx.account_tag_603_42'), ref('l10n_mx.account_tag_603_43'), ref('l10n_mx.account_tag_603_44'), ref('l10n_mx.account_tag_603_45'), ref('l10n_mx.account_tag_603_46'), ref('l10n_mx.account_tag_603_47'), ref('l10n_mx.account_tag_603_48'), ref('l10n_mx.account_tag_603_49'), ref('l10n_mx.account_tag_603_50'), ref('l10n_mx.account_tag_603_51'), ref('l10n_mx.account_tag_603_52'), ref('l10n_mx.account_tag_603_53'), ref('l10n_mx.account_tag_603_54'), ref('l10n_mx.account_tag_603_55'), ref('l10n_mx.account_tag_603_56'), ref('l10n_mx.account_tag_603_57'), ref('l10n_mx.account_tag_603_58'), ref('l10n_mx.account_tag_603_59'), ref('l10n_mx.account_tag_603_60'), ref('l10n_mx.account_tag_603_61'), ref('l10n_mx.account_tag_603_62'), ref('l10n_mx.account_tag_603_63'), ref('l10n_mx.account_tag_603_64'), ref('l10n_mx.account_tag_603_65'), ref('l10n_mx.account_tag_603_66'), ref('l10n_mx.account_tag_603_67'), ref('l10n_mx.account_tag_603_68'), ref('l10n_mx.account_tag_603_69'), ref('l10n_mx.account_tag_603_70'), ref('l10n_mx.account_tag_603_71'), ref('l10n_mx.account_tag_603_72'), ref('l10n_mx.account_tag_603_73'), ref('l10n_mx.account_tag_603_74'), ref('l10n_mx.account_tag_603_75'), ref('l10n_mx.account_tag_603_76'), ref('l10n_mx.account_tag_603_77'), ref('l10n_mx.account_tag_603_78'), ref('l10n_mx.account_tag_603_79'), ref('l10n_mx.account_tag_603_80'), ref('l10n_mx.account_tag_603_81'), ref('l10n_mx.account_tag_603_82'),])]" />
+        </record>
+        <record id="mx_afrl_604" model="account.financial.html.report.line">
+            <field name="name">604 Gastos de fabricación</field>
+            <field name="code">MX_COA_604</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_604_01'), ref('l10n_mx.account_tag_604_02'), ref('l10n_mx.account_tag_604_03'), ref('l10n_mx.account_tag_604_04'), ref('l10n_mx.account_tag_604_05'), ref('l10n_mx.account_tag_604_06'), ref('l10n_mx.account_tag_604_07'), ref('l10n_mx.account_tag_604_08'), ref('l10n_mx.account_tag_604_09'), ref('l10n_mx.account_tag_604_10'), ref('l10n_mx.account_tag_604_11'), ref('l10n_mx.account_tag_604_12'), ref('l10n_mx.account_tag_604_13'), ref('l10n_mx.account_tag_604_14'), ref('l10n_mx.account_tag_604_15'), ref('l10n_mx.account_tag_604_16'), ref('l10n_mx.account_tag_604_17'), ref('l10n_mx.account_tag_604_18'), ref('l10n_mx.account_tag_604_19'), ref('l10n_mx.account_tag_604_20'), ref('l10n_mx.account_tag_604_21'), ref('l10n_mx.account_tag_604_22'), ref('l10n_mx.account_tag_604_23'), ref('l10n_mx.account_tag_604_24'), ref('l10n_mx.account_tag_604_25'), ref('l10n_mx.account_tag_604_26'), ref('l10n_mx.account_tag_604_27'), ref('l10n_mx.account_tag_604_28'), ref('l10n_mx.account_tag_604_29'), ref('l10n_mx.account_tag_604_30'), ref('l10n_mx.account_tag_604_31'), ref('l10n_mx.account_tag_604_32'), ref('l10n_mx.account_tag_604_33'), ref('l10n_mx.account_tag_604_34'), ref('l10n_mx.account_tag_604_35'), ref('l10n_mx.account_tag_604_36'), ref('l10n_mx.account_tag_604_37'), ref('l10n_mx.account_tag_604_38'), ref('l10n_mx.account_tag_604_39'), ref('l10n_mx.account_tag_604_40'), ref('l10n_mx.account_tag_604_41'), ref('l10n_mx.account_tag_604_42'), ref('l10n_mx.account_tag_604_43'), ref('l10n_mx.account_tag_604_44'), ref('l10n_mx.account_tag_604_45'), ref('l10n_mx.account_tag_604_46'), ref('l10n_mx.account_tag_604_47'), ref('l10n_mx.account_tag_604_48'), ref('l10n_mx.account_tag_604_49'), ref('l10n_mx.account_tag_604_50'), ref('l10n_mx.account_tag_604_51'), ref('l10n_mx.account_tag_604_52'), ref('l10n_mx.account_tag_604_53'), ref('l10n_mx.account_tag_604_54'), ref('l10n_mx.account_tag_604_55'), ref('l10n_mx.account_tag_604_56'), ref('l10n_mx.account_tag_604_57'), ref('l10n_mx.account_tag_604_58'), ref('l10n_mx.account_tag_604_59'), ref('l10n_mx.account_tag_604_60'), ref('l10n_mx.account_tag_604_61'), ref('l10n_mx.account_tag_604_62'), ref('l10n_mx.account_tag_604_63'), ref('l10n_mx.account_tag_604_64'), ref('l10n_mx.account_tag_604_65'), ref('l10n_mx.account_tag_604_66'), ref('l10n_mx.account_tag_604_67'), ref('l10n_mx.account_tag_604_68'), ref('l10n_mx.account_tag_604_69'), ref('l10n_mx.account_tag_604_70'), ref('l10n_mx.account_tag_604_71'), ref('l10n_mx.account_tag_604_72'), ref('l10n_mx.account_tag_604_73'), ref('l10n_mx.account_tag_604_74'), ref('l10n_mx.account_tag_604_75'), ref('l10n_mx.account_tag_604_76'), ref('l10n_mx.account_tag_604_77'), ref('l10n_mx.account_tag_604_78'), ref('l10n_mx.account_tag_604_79'), ref('l10n_mx.account_tag_604_80'), ref('l10n_mx.account_tag_604_81'), ref('l10n_mx.account_tag_604_82'),])]" />
+        </record>
+        <record id="mx_afrl_605" model="account.financial.html.report.line">
+            <field name="name">605 Mano de obra directa</field>
+            <field name="code">MX_COA_605</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_605_01'), ref('l10n_mx.account_tag_605_02'), ref('l10n_mx.account_tag_605_03'), ref('l10n_mx.account_tag_605_04'), ref('l10n_mx.account_tag_605_05'), ref('l10n_mx.account_tag_605_06'), ref('l10n_mx.account_tag_605_07'), ref('l10n_mx.account_tag_605_08'), ref('l10n_mx.account_tag_605_09'), ref('l10n_mx.account_tag_605_10'), ref('l10n_mx.account_tag_605_11'), ref('l10n_mx.account_tag_605_12'), ref('l10n_mx.account_tag_605_13'), ref('l10n_mx.account_tag_605_14'), ref('l10n_mx.account_tag_605_15'), ref('l10n_mx.account_tag_605_16'), ref('l10n_mx.account_tag_605_17'), ref('l10n_mx.account_tag_605_18'), ref('l10n_mx.account_tag_605_19'), ref('l10n_mx.account_tag_605_20'), ref('l10n_mx.account_tag_605_21'), ref('l10n_mx.account_tag_605_22'), ref('l10n_mx.account_tag_605_23'), ref('l10n_mx.account_tag_605_24'), ref('l10n_mx.account_tag_605_25'), ref('l10n_mx.account_tag_605_26'), ref('l10n_mx.account_tag_605_27'), ref('l10n_mx.account_tag_605_28'), ref('l10n_mx.account_tag_605_29'), ref('l10n_mx.account_tag_605_30'), ref('l10n_mx.account_tag_605_31'),])]"/>
+        </record>
+        <record id="mx_afrl_606" model="account.financial.html.report.line">
+            <field name="name">606 Facilidades administrativas fiscales</field>
+            <field name="code">MX_COA_606</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_606_01'),])]" />
+        </record>
+        <record id="mx_afrl_607" model="account.financial.html.report.line">
+            <field name="name">607 Participación de los trabajadores en las utilidades</field>
+            <field name="code">MX_COA_607</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_607_01'),])]" />
+        </record>
+        <record id="mx_afrl_608" model="account.financial.html.report.line">
+            <field name="name">608 Participación en resultados de subsidiarias</field>
+            <field name="code">MX_COA_608</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_608_01'),])]" />
+        </record>
+        <record id="mx_afrl_609" model="account.financial.html.report.line">
+            <field name="name">609 Participación en resultados de asociadas</field>
+            <field name="code">MX_COA_609</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_609_01'),])]" />
+        </record>
+        <record id="mx_afrl_610" model="account.financial.html.report.line">
+            <field name="name">610 Participación de los trabajadores en las utilidades diferida</field>
+            <field name="code">MX_COA_610</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_610_01'),])]" />
+        </record>
+        <record id="mx_afrl_611" model="account.financial.html.report.line">
+            <field name="name">611 Impuesto Sobre la renta</field>
+            <field name="code">MX_COA_611</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_611_01'), ref('l10n_mx.account_tag_611_02'),])]" />
+        </record>
+        <record id="mx_afrl_612" model="account.financial.html.report.line">
+            <field name="name">612 Gastos no deducibles para CUFIN</field>
+            <field name="code">MX_COA_612</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_612_01'),])]" />
+        </record>
+        <record id="mx_afrl_613" model="account.financial.html.report.line">
+            <field name="name">613 Depreciación contable</field>
+            <field name="code">MX_COA_613</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_613_01'), ref('l10n_mx.account_tag_613_02'), ref('l10n_mx.account_tag_613_03'), ref('l10n_mx.account_tag_613_04'), ref('l10n_mx.account_tag_613_05'), ref('l10n_mx.account_tag_613_06'), ref('l10n_mx.account_tag_613_07'), ref('l10n_mx.account_tag_613_08'), ref('l10n_mx.account_tag_613_09'), ref('l10n_mx.account_tag_613_10'), ref('l10n_mx.account_tag_613_11'), ref('l10n_mx.account_tag_613_12'), ref('l10n_mx.account_tag_613_13'), ref('l10n_mx.account_tag_613_14'), ref('l10n_mx.account_tag_613_15'), ref('l10n_mx.account_tag_613_16'), ref('l10n_mx.account_tag_613_17'), ref('l10n_mx.account_tag_613_18'),])]" />
+        </record>
+        <record id="mx_afrl_614" model="account.financial.html.report.line">
+            <field name="name">614 Amortización contable</field>
+            <field name="code">MX_COA_614</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_6'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_614_01'), ref('l10n_mx.account_tag_614_02'), ref('l10n_mx.account_tag_614_03'), ref('l10n_mx.account_tag_614_04'), ref('l10n_mx.account_tag_614_05'), ref('l10n_mx.account_tag_614_06'), ref('l10n_mx.account_tag_614_07'), ref('l10n_mx.account_tag_614_08'), ref('l10n_mx.account_tag_614_09'), ref('l10n_mx.account_tag_614_10'),])]"/>
+        </record>
+        <record id="mx_afrl_7" model="account.financial.html.report.line">
+            <field name="name">7 Resultado</field>
+            <field name="code">MX_COA_7</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="1"/>
+            <field name="figure_type">no_unit</field>
+        </record>
+        <record id="mx_afrl_701" model="account.financial.html.report.line">
+            <field name="name">701 Gastos financieros</field>
+            <field name="code">MX_COA_701</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_7'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_701_01'), ref('l10n_mx.account_tag_701_02'), ref('l10n_mx.account_tag_701_03'), ref('l10n_mx.account_tag_701_04'), ref('l10n_mx.account_tag_701_05'), ref('l10n_mx.account_tag_701_06'), ref('l10n_mx.account_tag_701_07'), ref('l10n_mx.account_tag_701_08'), ref('l10n_mx.account_tag_701_09'), ref('l10n_mx.account_tag_701_10'), ref('l10n_mx.account_tag_701_11'),])]"/>
+        </record>
+        <record id="mx_afrl_702" model="account.financial.html.report.line">
+            <field name="name">702 Productos financieros</field>
+            <field name="code">MX_COA_702</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_7'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_702_01'), ref('l10n_mx.account_tag_702_02'), ref('l10n_mx.account_tag_702_03'), ref('l10n_mx.account_tag_702_04'), ref('l10n_mx.account_tag_702_05'), ref('l10n_mx.account_tag_702_06'), ref('l10n_mx.account_tag_702_07'), ref('l10n_mx.account_tag_702_08'), ref('l10n_mx.account_tag_702_09'), ref('l10n_mx.account_tag_702_10'),])]"/>
+        </record>
+        <record id="mx_afrl_703" model="account.financial.html.report.line">
+            <field name="name">703 Otros gastos</field>
+            <field name="code">MX_COA_703</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_7'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_703_01'), ref('l10n_mx.account_tag_703_02'), ref('l10n_mx.account_tag_703_03'), ref('l10n_mx.account_tag_703_04'), ref('l10n_mx.account_tag_703_05'), ref('l10n_mx.account_tag_703_06'), ref('l10n_mx.account_tag_703_07'), ref('l10n_mx.account_tag_703_08'), ref('l10n_mx.account_tag_703_09'), ref('l10n_mx.account_tag_703_10'), ref('l10n_mx.account_tag_703_11'), ref('l10n_mx.account_tag_703_12'), ref('l10n_mx.account_tag_703_13'), ref('l10n_mx.account_tag_703_14'), ref('l10n_mx.account_tag_703_15'), ref('l10n_mx.account_tag_703_16'), ref('l10n_mx.account_tag_703_17'), ref('l10n_mx.account_tag_703_18'), ref('l10n_mx.account_tag_703_19'), ref('l10n_mx.account_tag_703_20'), ref('l10n_mx.account_tag_703_21'),])]" />
+        </record>
+        <record id="mx_afrl_704" model="account.financial.html.report.line">
+            <field name="name">704 Otros productos</field>
+            <field name="code">MX_COA_704</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_7'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_704_01'), ref('l10n_mx.account_tag_704_02'), ref('l10n_mx.account_tag_704_03'), ref('l10n_mx.account_tag_704_04'), ref('l10n_mx.account_tag_704_05'), ref('l10n_mx.account_tag_704_06'), ref('l10n_mx.account_tag_704_07'), ref('l10n_mx.account_tag_704_08'), ref('l10n_mx.account_tag_704_09'), ref('l10n_mx.account_tag_704_10'), ref('l10n_mx.account_tag_704_11'), ref('l10n_mx.account_tag_704_12'), ref('l10n_mx.account_tag_704_13'), ref('l10n_mx.account_tag_704_14'), ref('l10n_mx.account_tag_704_15'), ref('l10n_mx.account_tag_704_16'), ref('l10n_mx.account_tag_704_17'), ref('l10n_mx.account_tag_704_18'), ref('l10n_mx.account_tag_704_19'), ref('l10n_mx.account_tag_704_20'), ref('l10n_mx.account_tag_704_21'), ref('l10n_mx.account_tag_704_22'), ref('l10n_mx.account_tag_704_23'),])]" />
+        </record>
+        <record id="mx_afrl_8" model="account.financial.html.report.line">
+            <field name="name">8 Cuentas de Orden</field>
+            <field name="code">MX_COA_8</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="1"/>
+            <field name="figure_type">no_unit</field>
+        </record>
+        <record id="mx_afrl_801" model="account.financial.html.report.line">
+            <field name="name">801 UFIN del ejercicio</field>
+            <field name="code">MX_COA_801</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_801_01'), ref('l10n_mx.account_tag_801_02'),])]" />
+        </record>
+        <record id="mx_afrl_802" model="account.financial.html.report.line">
+            <field name="name">802 CUFIN del ejercicio</field>
+            <field name="code">MX_COA_802</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_802_01'), ref('l10n_mx.account_tag_802_02'),])]" />
+        </record>
+        <record id="mx_afrl_803" model="account.financial.html.report.line">
+            <field name="name">803 CUFIN de ejercicios anteriores</field>
+            <field name="code">MX_COA_803</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_803_01'), ref('l10n_mx.account_tag_803_02'),])]" />
+        </record>
+        <record id="mx_afrl_804" model="account.financial.html.report.line">
+            <field name="name">804 CUFINRE del ejercicio</field>
+            <field name="code">MX_COA_804</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_804_01'), ref('l10n_mx.account_tag_804_02'),])]" />
+        </record>
+        <record id="mx_afrl_805" model="account.financial.html.report.line">
+            <field name="name">805 CUFINRE de ejercicios anteriores</field>
+            <field name="code">MX_COA_805</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_805_01'), ref('l10n_mx.account_tag_805_02'),])]" />
+        </record>
+        <record id="mx_afrl_806" model="account.financial.html.report.line">
+            <field name="name">806 CUCA del ejercicio</field>
+            <field name="code">MX_COA_806</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_806_01'), ref('l10n_mx.account_tag_806_02'),])]" />
+        </record>
+        <record id="mx_afrl_807" model="account.financial.html.report.line">
+            <field name="name">807 CUCA de ejercicios anteriores</field>
+            <field name="code">MX_COA_807</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_807_01'), ref('l10n_mx.account_tag_807_02'),])]" />
+        </record>
+        <record id="mx_afrl_808" model="account.financial.html.report.line">
+            <field name="name">808 Ajuste anual por inflación acumulable</field>
+            <field name="code">MX_COA_808</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_808_01'), ref('l10n_mx.account_tag_808_02'),])]" />
+        </record>
+        <record id="mx_afrl_809" model="account.financial.html.report.line">
+            <field name="name">809 Ajuste anual por inflación deducible</field>
+            <field name="code">MX_COA_809</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_809_01'), ref('l10n_mx.account_tag_809_02'),])]" />
+        </record>
+        <record id="mx_afrl_810" model="account.financial.html.report.line">
+            <field name="name">810 Deducción de inversión</field>
+            <field name="code">MX_COA_810</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_810_01'), ref('l10n_mx.account_tag_810_02'),])]" />
+        </record>
+        <record id="mx_afrl_811" model="account.financial.html.report.line">
+            <field name="name">811 Utilidad o pérdida fiscal en venta y/o baja de activo fijo</field>
+            <field name="code">MX_COA_811</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_811_01'), ref('l10n_mx.account_tag_811_02'),])]" />
+        </record>
+        <record id="mx_afrl_812" model="account.financial.html.report.line">
+            <field name="name">812 Utilidad o pérdida fiscal en venta acciones o partes sociales</field>
+            <field name="code">MX_COA_812</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_812_01'), ref('l10n_mx.account_tag_812_02'),])]" />
+        </record>
+        <record id="mx_afrl_813" model="account.financial.html.report.line">
+            <field name="name">813 Pérdidas fiscales pendientes de amortizar actualizadas de ejercicios anteriores</field>
+            <field name="code">MX_COA_813</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_813_01'), ref('l10n_mx.account_tag_813_02'),])]" />
+        </record>
+        <record id="mx_afrl_814" model="account.financial.html.report.line">
+            <field name="name">814 Mercancías recibidas en consignación</field>
+            <field name="code">MX_COA_814</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_814_01'), ref('l10n_mx.account_tag_814_02'),])]" />
+        </record>
+        <record id="mx_afrl_815" model="account.financial.html.report.line">
+            <field name="name">815 Crédito fiscal de IVA e IEPS por la importación de mercancías para empresas certificadas</field>
+            <field name="code">MX_COA_815</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_815_01'), ref('l10n_mx.account_tag_815_02'),])]" />
+        </record>
+        <record id="mx_afrl_816" model="account.financial.html.report.line">
+            <field name="name">816 Crédito fiscal de IVA e IEPS por la importación de activos fijos para empresas certificadas</field>
+            <field name="code">MX_COA_816</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_816_01'), ref('l10n_mx.account_tag_816_02'),])]" />
+        </record>
+        <record id="mx_afrl_899" model="account.financial.html.report.line">
+            <field name="name">899 Otras cuentas de orden</field>
+            <field name="code">MX_COA_899</field>
+            <field name="sequence" eval="0"/>
+            <field name="level" eval="2"/>
+            <field name="figure_type">no_unit</field>
+            <field name="parent_id" ref='mx_afrl_8'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_mx.account_tag_899_01'), ref('l10n_mx.account_tag_899_02'),])]" />
+        </record>
+
+    </data>
+</odoo>

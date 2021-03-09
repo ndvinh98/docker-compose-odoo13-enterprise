@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Luxembourg Balance Sheet (abridged) -->
+    <record id="account_financial_report_l10n_lu_bs_abr" model="account.financial.html.report">
+        <field name="name">Balance Sheet (abridged)</field>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="date_range" eval="False" />
+        <field name='parent_id' ref='l10n_lu.account_reports_lu_statements_menu'/>
+    </record>
+
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1" model="account.financial.html.report.line">
+        <field name="name">ASSETS</field>
+        <field name="level" eval="0"/>
+        <field name="sequence" eval="1"/>
+        <field name="financial_report_id" ref="account_financial_report_l10n_lu_bs_abr"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_1" model="account.financial.html.report.line">
+        <field name="name">A. Subscribed capital unpaid</field>
+        <field name="code">LU_BSABR_101</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = LU_BSABR_103.balance + LU_BSABR_105.balance; credit = LU_BSABR_103.credit + LU_BSABR_105.credit; debit = LU_BSABR_103.debit + LU_BSABR_105.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_1_1" model="account.financial.html.report.line">
+        <field name="name">I. Subscribed capital not called</field>
+        <field name="code">LU_BSABR_103</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '102%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_1_2" model="account.financial.html.report.line">
+        <field name="name">II. Subscribed capital called but unpaid</field>
+        <field name="code">LU_BSABR_105</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.code', '=like', '103%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_2" model="account.financial.html.report.line">
+        <field name="name">B. Formation expenses</field>
+        <field name="code">LU_BSABR_107</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.code', '=like', '20%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_3" model="account.financial.html.report.line">
+        <field name="name">C. Fixed assets</field>
+        <field name="code">LU_BSABR_109</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="3"/>
+        <field name="formulas">balance = LU_BSABR_111.balance + LU_BSABR_125.balance + LU_BSABR_135.balance; credit = LU_BSABR_111.credit + LU_BSABR_125.credit + LU_BSABR_135.credit; debit = LU_BSABR_111.debit + LU_BSABR_125.debit + LU_BSABR_135.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_3_1" model="account.financial.html.report.line">
+        <field name="name">I. Intangible assets</field>
+        <field name="code">LU_BSABR_111</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="[('account_id.code', '=like', '21%')]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_3"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_3_2" model="account.financial.html.report.line">
+        <field name="name">II. Tangible assets</field>
+        <field name="code">LU_BSABR_125</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.code', '=like', '22%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_3"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_3_3" model="account.financial.html.report.line">
+        <field name="name">III. Financial assets</field>
+        <field name="code">LU_BSABR_135</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.code', '=like', '23%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_3"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_4" model="account.financial.html.report.line">
+        <field name="name">D. Current assets</field>
+        <field name="code">LU_BSABR_151</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="4"/>
+        <field name="formulas">balance = LU_BSABR_153.balance + LU_BSABR_163.balance + LU_BSABR_189.balance + LU_BSABR_197.balance; credit = LU_BSABR_153.credit + LU_BSABR_163.credit + LU_BSABR_189.credit + LU_BSABR_197.credit; debit = LU_BSABR_153.debit + LU_BSABR_163.debit + LU_BSABR_189.debit + LU_BSABR_197.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_4_1" model="account.financial.html.report.line">
+        <field name="name">I. Stocks</field>
+        <field name="code">LU_BSABR_153</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="['|', '|', '|', '|', '|', ('account_id.code', '=like', '30%'), ('account_id.code', '=like', '31%'), ('account_id.code', '=like', '32%'), ('account_id.code', '=like', '34%'), ('account_id.code', '=like', '36%'), ('account_id.code', '=like', '37%')]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_4"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_4_2" model="account.financial.html.report.line">
+        <field name="name">II. Debtors</field>
+        <field name="code">LU_BSABR_163</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="formulas">balance = LU_BSABR_203.balance + LU_BSABR_205.balance; credit = LU_BSABR_203.credit + LU_BSABR_205.credit; debit = LU_BSABR_203.debit + LU_BSABR_205.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_4"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_4_2_1" model="account.financial.html.report.line">
+        <field name="name">a) becoming due and payable within one year</field>
+        <field name="code">LU_BSABR_203</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="['|', '|', '|', '|', ('account_id.code', '=like', '401%'), ('account_id.code', '=like', '4111%'), ('account_id.code', '=like', '4121%'), ('account_id.code', '=like', '421%'), ('account_id.code', '=like', '44113%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_4_2"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_4_2_2" model="account.financial.html.report.line">
+        <field name="name">b) becoming due and payable after more than one year</field>
+        <field name="code">LU_BSABR_205</field>
+        <field name="level" eval="3"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="['|', '|', '|', '|', ('account_id.code', '=like', '402%'), ('account_id.code', '=like', '4112%'), ('account_id.code', '=like', '4122%'), ('account_id.code', '=like', '422%'), ('account_id.code', '=like', '44123%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_4_2"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_4_3" model="account.financial.html.report.line">
+        <field name="name">III. Investments</field>
+        <field name="code">LU_BSABR_189</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="3"/>
+        <field name="groupby">account_id</field>
+        <field name="domain" eval="[('account_id.code', '=like', '50%')]"/>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_4"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_4_4" model="account.financial.html.report.line">
+        <field name="name">IV. Cash at bank and in hand</field>
+        <field name="code">LU_BSABR_197</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.code', '=like', '51%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1_4"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_5" model="account.financial.html.report.line">
+        <field name="name">E. Prepayments</field>
+        <field name="code">LU_BSABR_199</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="5"/>
+        <field name="domain" eval="['|', '|', ('account_id.code', '=like', '481%'), ('account_id.code', '=like', '484%'), ('account_id.code', '=like', '486%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_1_6" model="account.financial.html.report.line">
+        <field name="name">TOTAL (ASSETS)</field>
+        <field name="code">LU_BSABR_201</field>
+        <field name="level" eval="0"/>
+        <field name="sequence" eval="6"/>
+        <field name="formulas">balance = LU_BSABR_101.balance + LU_BSABR_107.balance + LU_BSABR_109.balance + LU_BSABR_151.balance + LU_BSABR_199.balance; credit = LU_BSABR_101.credit + LU_BSABR_107.credit + LU_BSABR_109.credit + LU_BSABR_151.credit + LU_BSABR_199.credit; debit = LU_BSABR_101.debit + LU_BSABR_107.debit + LU_BSABR_109.debit + LU_BSABR_151.debit + LU_BSABR_199.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_1"/>
+    </record>
+
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2" model="account.financial.html.report.line">
+        <field name="name">CAPITAL, RESERVES AND LIABILITIES</field>
+        <field name="level" eval="0"/>
+        <field name="sequence" eval="2"/>
+        <field name="financial_report_id" ref="account_financial_report_l10n_lu_bs_abr"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_1" model="account.financial.html.report.line">
+        <field name="name">A. Capital and reserves</field>
+        <field name="code">LU_BSABR_301</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="1"/>
+        <field name="formulas">balance = LU_BSABR_303.balance + LU_BSABR_305.balance + LU_BSABR_307.balance + LU_BSABR_309.balance + LU_BSABR_319.balance + LU_BSABR_321.balance + LU_BSABR_323.balance + LU_BSABR_325.balance; credit = LU_BSABR_303.credit + LU_BSABR_305.credit + LU_BSABR_307.credit + LU_BSABR_309.credit + LU_BSABR_319.credit + LU_BSABR_321.credit + LU_BSABR_323.credit + LU_BSABR_325.credit; debit = LU_BSABR_303.debit + LU_BSABR_305.debit + LU_BSABR_307.debit + LU_BSABR_309.debit + LU_BSABR_319.debit + LU_BSABR_321.debit + LU_BSABR_323.debit + LU_BSABR_325.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_1_1" model="account.financial.html.report.line">
+        <field name="name">I. Subscribed capital</field>
+        <field name="code">LU_BSABR_303</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="['|', '|', '|', ('account_id.code', '=like', '101%'), ('account_id.code', '=like', '104%'), ('account_id.code', '=like', '105%'), ('account_id.code', '=like', '106%')]"/>
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_1_2" model="account.financial.html.report.line">
+        <field name="name">II. Share premium account</field>
+        <field name="code">LU_BSABR_305</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="[('account_id.code', '=like', '11%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_1_3" model="account.financial.html.report.line">
+        <field name="name">III. Revaluation reserve</field>
+        <field name="code">LU_BSABR_307</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.code', '=like', '12%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_1_4" model="account.financial.html.report.line">
+        <field name="name">IV. Reserves</field>
+        <field name="code">LU_BSABR_309</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="4"/>
+        <field name="domain" eval="[('account_id.code', '=like', '13%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_1_5" model="account.financial.html.report.line">
+        <field name="name">V. Profit or loss brought forward</field>
+        <field name="code">LU_BSABR_319</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="5"/>
+        <field name="domain" eval="[('account_id.code', '=like', '141%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_1_6" model="account.financial.html.report.line">
+        <field name="name">VI. Profit or loss for the financial year</field>
+        <field name="code">LU_BSABR_321</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="6"/>
+        <field name="domain" eval="['|', ('account_id.user_type_id', 'in', [ref('account.data_account_type_other_income'), ref('account.data_account_type_revenue'), ref('account.data_account_type_depreciation'), ref('account.data_account_type_expenses'), ref('account.data_account_type_direct_costs')]), ('account_id.code', '=like', '142%')]"/>
+        <field name="groupby"/>
+        <field name="special_date_changer">from_beginning</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_1"/>
+        <field name="action_id" ref="account_financial_report_l10n_lu_pl_abr_action"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_1_7" model="account.financial.html.report.line">
+        <field name="name">VII. Interim dividends</field>
+        <field name="code">LU_BSABR_323</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="7"/>
+        <field name="domain" eval="[('account_id.code', '=like', '15%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_1_8" model="account.financial.html.report.line">
+        <field name="name">VIII. Capital investment subsidies</field>
+        <field name="code">LU_BSABR_325</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="8"/>
+        <field name="domain" eval="[('account_id.code', '=like', '16%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_1"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_2" model="account.financial.html.report.line">
+        <field name="name">B. Provisions</field>
+        <field name="code">LU_BSABR_331</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="3"/>
+        <field name="domain" eval="[('account_id.code', '=like', '18%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_3" model="account.financial.html.report.line">
+        <field name="name">C. Creditors</field>
+        <field name="code">LU_BSABR_435</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="4"/>
+        <field name="formulas">balance = LU_BSABR_453.balance + LU_BSABR_455.balance; credit = LU_BSABR_453.credit + LU_BSABR_455.credit; debit = LU_BSABR_453.debit + LU_BSABR_455.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_3_1" model="account.financial.html.report.line">
+        <field name="name">a) becoming due and payable within one year</field>
+        <field name="code">LU_BSABR_453</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="1"/>
+        <field name="domain" eval="['|', '|', '|', '|', '|', '|', '|', '|', '|', '|', '|', '|', '|', ('account_id.code', '=like', '1911%'), ('account_id.code', '=like', '1921%'), ('account_id.code', '=like', '1931%'), ('account_id.code', '=like', '1941%'), ('account_id.code', '=like', '431%'), '&amp;', ('account_id.code', '=like', '4411%'), ('account_id.code', 'not like', '44113%'), ('account_id.code', '=like', '4421%'), ('account_id.code', '=like', '4511%'), ('account_id.code', '=like', '4521%'), ('account_id.code', '=like', '46%'), ('account_id.code', '=like', '471%'), ('account_id.code', '=like', '5132%'), ('account_id.code', '=like', '5172%'), ('account_id.code', '=like', '4015%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_3"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_3_2" model="account.financial.html.report.line">
+        <field name="name">b) becoming due and payable after more than one year</field>
+        <field name="code">LU_BSABR_455</field>
+        <field name="level" eval="2"/>
+        <field name="sequence" eval="2"/>
+        <field name="domain" eval="['|', '|', '|', '|', '|', '|', '|', '|', '|', '|', ('account_id.code', '=like', '1912%'), ('account_id.code', '=like', '1922%'), ('account_id.code', '=like', '1932%'), ('account_id.code', '=like', '1942%'), ('account_id.code', '=', '4025%'), ('account_id.code', '=like', '432%'), ('account_id.code', '=like', '4412%'), ('account_id.code', '=like', '4422%'), ('account_id.code', '=like', '4512%'), ('account_id.code', '=like', '4522%'), ('account_id.code', '=like', '472%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2_3"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_4" model="account.financial.html.report.line">
+        <field name="name">D. Deferred income</field>
+        <field name="code">LU_BSABR_403</field>
+        <field name="level" eval="1"/>
+        <field name="sequence" eval="5"/>
+        <field name="domain" eval="['|', '|', '|', ('account_id.code', '=like', '482%'), ('account_id.code', '=like', '483%'), ('account_id.code', '=like', '485%'), ('account_id.code', '=like', '487%')]" />
+        <field name="groupby">account_id</field>
+        <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2"/>
+    </record>
+    <record id="account_financial_report_l10n_lu_bs_abr_line_2_5" model="account.financial.html.report.line">
+        <field name="name">TOTAL (CAPITAL, RESERVES AND LIABILITIES)</field>
+        <field name="code">LU_BSABR_405</field>
+        <field name="level" eval="0"/>
+        <field name="sequence" eval="6"/>
+        <field name="formulas">balance = LU_BSABR_301.balance + LU_BSABR_331.balance + LU_BSABR_435.balance + LU_BSABR_403.balance; credit = LU_BSABR_301.credit + LU_BSABR_331.credit + LU_BSABR_435.credit + LU_BSABR_403.credit; debit = LU_BSABR_301.debit + LU_BSABR_331.debit + LU_BSABR_435.debit + LU_BSABR_403.debit</field>
+        <field name="parent_id" ref="account_financial_report_l10n_lu_bs_abr_line_2"/>
+    </record>
+</odoo>

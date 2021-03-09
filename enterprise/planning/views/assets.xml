@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="planning_backend_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/planning/static/src/js/planning_gantt_controller.js"/>
+            <script type="text/javascript" src="/planning/static/src/js/planning_gantt_model.js"/>
+            <script type="text/javascript" src="/planning/static/src/js/planning_gantt_view.js"/>
+
+            <link rel="stylesheet" type="text/scss" href="/planning/static/src/scss/field_colorpicker.scss"/>
+            <script type="text/javascript" src="/planning/static/src/js/field_colorpicker.js" />
+            <script type="text/javascript" src="/planning/static/src/js/tours/planning.js"></script>
+       	</xpath>
+    </template>
+
+    <template id="assets_common_planning" name="Planning Own Assets Common" inherit_id="web.assets_common" primary="True">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" href="/web/static/lib/fullcalendar/css/fullcalendar.css"/>
+            <link rel="stylesheet" type="text/scss" href="/planning/static/src/scss/planning_calendar_report.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/scss/form_view.scss"/>
+            <script type="text/javascript" src="/web/static/lib/fullcalendar/js/fullcalendar.js"/>
+        </xpath>
+    </template>
+</odoo>

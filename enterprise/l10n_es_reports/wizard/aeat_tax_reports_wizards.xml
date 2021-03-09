@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+
+        <record id="aeat_report_wizard" model="ir.ui.view">
+            <field name="name">l10n_es_reports.aeat.report.wizard.form</field>
+            <field name="model">l10n_es_reports.aeat.report.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <div>
+                        <div name="casillas">
+                            <!--To be filled by inheriting views-->
+                        </div>
+                    </div>
+
+                    <footer>
+                        <button string="Cancel" special="cancel"/>
+                        <button string="Generate Report" type="object" class="oe_highlight" name="close_and_show_report"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+
+        <record id="mod111_report_wizard" model="ir.ui.view">
+            <field name="name">l10n_es_reports.mod111.wizard.form</field>
+            <field name="model">l10n_es_reports.mod111.wizard</field>
+            <field name="inherit_id" ref="aeat_report_wizard"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='casillas']" position="inside">
+                    <div class="row">
+                        <div class="col-6">
+                            <h2>Rendimientos actividades económicas</h2>
+                            <strong>Redimientos en especie</strong>
+                            <group>
+                                <field name="casilla_10"/>
+                                <field name="casilla_11"/>
+                                <field name="casilla_12"/>
+                            </group>
+
+                            <h2>Premios por la participación en juegos</h2>
+                            <strong>Premios dinerarios</strong>
+                            <group>
+                                <field name="casilla_13"/>
+                                <field name="casilla_14"/>
+                                <field name="casilla_15"/>
+                            </group>
+                            <strong>Premios en especie</strong>
+                            <group>
+                                <field name="casilla_16"/>
+                                <field name="casilla_17"/>
+                                <field name="casilla_18"/>
+                            </group>
+
+                            <h2>Total liquidación</h2>
+                            <group>
+                                <field name="casilla_29"/>
+                            </group>
+                        </div>
+
+                        <div class="col-6">
+                            <h2>Ganancias patrimoniales derivadas de los aprovechamientos forestales de los vecinos en montes públicos</h2>
+                            <strong>Percepciones dinerarias</strong>
+                            <group>
+                                <field name="casilla_19"/>
+                                <field name="casilla_20"/>
+                                <field name="casilla_21"/>
+                            </group>
+                            <strong>Percepciones en especie</strong>
+                            <group>
+                                <field name="casilla_22"/>
+                                <field name="casilla_23"/>
+                                <field name="casilla_24"/>
+                            </group>
+
+                            <h2>Contraprestaciones por la cesión de derechos de imagen: ingresos a cuenta previstos en el artículo 92.8 de la Ley del Impuesto</h2>
+                            <group>
+                                <field name="casilla_25"/>
+                                <field name="casilla_26"/>
+                                <field name="casilla_27"/>
+                            </group>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mod115_report_wizard" model="ir.ui.view">
+            <field name="name">l10n_es_reports.mod115.wizard.form</field>
+            <field name="model">l10n_es_reports.mod115.wizard</field>
+            <field name="inherit_id" ref="aeat_report_wizard"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='casillas']" position="inside">
+                    <h2>Total liquidación</h2>
+                    <group>
+                        <field name="casilla_04"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="mod303_report_wizard" model="ir.ui.view">
+            <field name="name">l10n_es_reports.mod303.wizard.form</field>
+            <field name="model">l10n_es_reports.mod303.wizard</field>
+            <field name="inherit_id" ref="aeat_report_wizard"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='casillas']" position="inside">
+                    <h2>IVA : Rectificación de Deducciones</h2>
+                    <group>
+                        <field name="casilla_43"/>
+                        <field name="casilla_44"/>
+                    </group>
+
+                    <h2>Importes de las entregas de bienes y prestaciones de servicios a las que habiéndoles sido aplicado el régimen especial del criterio de caja hubieran resultado devengadas</h2>
+                    <group>
+                        <field name="casilla_62"/>
+                        <field name="casilla_63"/>
+                    </group>
+
+                    <h2>Resultado</h2>
+                    <group>
+                        <field name="casilla_65"/>
+                        <field name="casilla_67"/>
+                        <field name="casilla_68"/>
+                        <field name="casilla_69"/>
+                        <field name="casilla_70"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

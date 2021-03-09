@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="view_company_inter_change_inherit_form">
+            <field name="name">res.company.form.inherit</field>
+            <field name="inherit_id" ref="base.view_company_form"/>
+            <field name="model">res.company</field>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook" position="inside">
+                    <page string="Inter-Company Transactions" groups="base.group_no_one">
+                        <group>
+                            <group>
+                                <field name="rule_type" widget="radio"/>
+                                <field name="applicable_on" attrs="{'required':[('rule_type', '=', 'so_and_po')], 'invisible':[('rule_type', '!=', 'so_and_po')]}"/>
+                                <field name="warehouse_id" options="{'no_create_edit': True}" domain="[('company_id', '=', id)]" attrs="{'invisible':['|', ('rule_type', '!=', 'so_and_po'), ('applicable_on', '=', 'sale')]}"/>
+                                <field name="intercompany_user_id" require="1" attrs="{'required':[('rule_type', '!=', 'not_synchronize')], 'invisible':[('rule_type', '=', 'not_synchronize')]}"/>
+                                <field name="auto_validation" attrs="{'invisible':[('rule_type', '!=', 'so_and_po')]}"/>
+                            </group>
+                            <group col="1">
+                                <div class="alert alert-info" role="alert" attrs="{'invisible':[('rule_type', '=', 'not_synchronize')]}">
+                                    <field name="intercompany_transaction_message" readonly='1' class="oe_inline"/>
+                                </div>
+                            </group>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+	</data>
+</odoo>

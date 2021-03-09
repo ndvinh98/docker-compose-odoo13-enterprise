@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<div role="dialog" t-name="mrp_plm.SetCoverModal" class="modal" tabindex="-1" data-backdrop="static">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <header class="modal-header">
+                <h4 class="modal-title">Set a Cover Image</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">&amp;times;</button>
+            </header>
+            <main class="modal-body">
+                <div class="container-fluid">
+                    <div t-if="attachment_ids.length > 0" class="row">
+                        <t t-foreach="attachment_ids" t-as="attachment">
+                            <div class="col-md-3" style="height: 100%">
+                                <img alt="Attachment" style="cursor: pointer;" class="img img-fluid" t-att-src="'/web/image/' + attachment['ir_attachment_id'][0] + '?unique=1'" t-att-data-id="attachment['id']"/>
+                            </div>
+                        </t>
+                    </div>
+                    <div t-if="attachment_ids.length == 0">
+                        There is no available image to be set as cover. Add an image as an attachment to the the engineering order.
+                    </div>
+                </div>
+            </main>
+            <footer class="modal-footer"><button type="button" class="btn btn-primary" data-dismiss="modal">Close</button></footer>
+        </div>
+    </div>
+</div>
+
+</templates>

@@ -1,0 +1,38 @@
+// ===============================
+// Mass Mailing "Theme Newsletter"
+// ===============================
+
+$o-mm-news-color-alpha: #f5f5f5;
+$o-mm-news-color-beta: #ffffff;
+$o-mm-news-color-gamma: #1cc1a9;
+$o-mm-news-color-delta: #464646;
+$o-mm-news-color-epsilon: darken($o-mm-news-color-gamma, 5%);
+$o-mm-news-color-zeta: #906784;
+$o-mm-news-color-eta: #87a6b5;
+
+.o_newsletter_theme {
+    @include bg-variant(".bg-beta", $o-mm-news-color-zeta);
+    @include text-emphasis-variant(".text-beta", $o-mm-news-color-zeta);
+    @include bg-variant(".bg-delta", $o-mm-news-color-eta);
+
+    // ===== Snippets (general) =====
+    .o_mail_snippet_general {
+        .btn.btn-primary {
+            color: $o-mm-news-color-beta;
+            background-color: $o-mm-news-color-gamma;
+        }
+        a, .btn.btn-link {
+            color: $o-mm-news-color-epsilon;
+        }
+
+        .bg-delta {
+            .btn.btn-primary {
+                color: $o-mm-news-color-beta;
+                background-color:  $o-mm-news-color-zeta;
+            }
+            a, .btn.btn-link {
+                color: $o-mm-news-color-zeta;
+            }
+        }
+    }
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <template id="report_281_45">
+            <t t-call="web.html_container">
+                <t t-set="employee" t-value="data['employee']"/>
+                <t t-set="company" t-value="employee.company_id"/>
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-10 border text-center text-uppercase font-weight-bold">
+                                Fiche 281.45 - Income <span t-esc="data['year']"/>
+                            </div>
+                            <div class="col-2 border text-center" t-esc="datetime.datetime.now().date()"/>
+                        </div>
+                        <div class="row border">
+                            <div class="col-12">
+                                <strong>Sequence number:</strong> <span t-esc="data['sequence']"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6 border">
+                                <div class="font-weight-bold">2. Income debtor</div>
+                                <div class="ml-4" t-esc="company.name"></div>
+                                <div class="ml-4" t-esc="company.street"></div>
+                                <div class="ml-4" t-esc="company.street2"></div>
+                                <div class="ml-4">
+                                    <span t-esc="company.city"/>
+                                    <span t-esc="company.zip"/>
+                                </div>
+                                <div>
+                                    <span class="font-weight-bold">Company number: </span>
+                                    <t t-esc="company.company_registry"/>
+                                </div>
+                            </div>
+                            <div class="col-6 border">
+                                <div class="font-weight-bold">3. Recipient</div>
+                                <div class="ml-4" t-esc="employee.name"/>
+                                <div class="ml-4" t-esc="employee.address_home_id.street"/>
+                                <div class="ml-4" t-esc="employee.address_home_id.street2"/>
+                                <div class="ml-4" >
+                                    <span t-esc="employee.address_home_id.city"/>
+                                    <span t-esc="employee.address_home_id.zip"/>
+                                </div>
+                                <div>
+                                    <span class="font-weight-bold">National number: </span>
+                                    <t t-esc="employee.identification_id"/>
+                                </div>
+                                <div>
+                                    <span class="font-weight-bold">Birth date: </span>
+                                    <t t-esc="employee.birthday"/>
+                                </div>
+                                <div>
+                                    <span class="font-weight-bold">Birth place: </span>
+                                    <t t-esc="employee.place_of_birth"/>
+                                </div>
+                                <div>
+                                    <span class="font-weight-bold">Recipient category: </span>
+                                    <span>Natural person</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row border">
+                            <div class="col-7 font-weight-bold">4. Gross income amount</div>
+                            <div class="col-5 text-right"><span t-esc="data['gross_amout']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/></div>
+                        </div>
+                        <div class="row border">
+                            <div class="col-3">
+                                <div class="font-weight-bold">5. Deduction</div>
+                            </div>
+                            <div class="col-5">
+                                <div class="font-weight-bold">A. Lump sum</div>
+                                <div class="font-weight-bold">B. Real</div>
+                            </div>
+                            <div class="col-4 text-right">
+                                <div t-esc="data['lump_sum_deduction']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                                <div t-esc="data['real_deduction']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/>
+                            </div>
+                        </div>
+                        <div class="row border">
+                            <div class="col-7 font-weight-bold">6. Withholding tax amount</div>
+                            <div class="col-5 text-right"><span t-esc="data['onss_amount']" t-options='{"widget": "monetary", "display_currency": company.currency_id}'/></div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

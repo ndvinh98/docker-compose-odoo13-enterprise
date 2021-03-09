@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_financial_report_intrastat" model="ir.actions.client">
+            <field name="name">Intrastat Report (ICP)</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'l10n.nl.report.intrastat'}" />
+        </record>
+
+        <menuitem id="menu_action_account_report_intrastat" name="Intrastat Report (ICP)"
+                  action="account_financial_report_intrastat"
+                  parent="l10n_nl.account_reports_nl_statements_menu"/>
+    </data>
+</odoo>

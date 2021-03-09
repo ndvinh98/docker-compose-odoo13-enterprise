@@ -1,0 +1,482 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data noupdate="1">
+        <!-- volume is always sent in milliliter to blackbox -->
+        <record id="product_uom_millilitre" model="uom.uom">
+            <field name="name">Milliliters</field>
+            <field name="category_id" ref="uom.product_uom_categ_vol"/>
+            <field name="factor">1000</field>
+            <field name="uom_type">smaller</field>
+        </record>
+
+        <record id="product_product_work_in" model="product.product">
+            <field name="name">WORK IN</field>
+            <field name="standard_price">0.0</field>
+            <field name="list_price">0.0</field>
+            <field name="type">consu</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="available_in_pos">True</field>
+            <field name="taxes_id" eval="[]"/>
+        </record>
+        <record id="product_product_work_out" model="product.product">
+            <field name="name">WORK OUT</field>
+            <field name="standard_price">0.0</field>
+            <field name="list_price">0.0</field>
+            <field name="type">consu</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="available_in_pos">True</field>
+            <field name="taxes_id" eval="[]"/>
+        </record>
+
+        <!--read-only user that minfin functionaries can use to export data-->
+        <record id="fdm_minfin" model="res.partner">
+            <field name="name">MinFin personnel</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="country_id" ref="base.be"/>
+        </record>
+
+        <record id="fdm_minfin_user" model="res.users">
+            <field name="partner_id" ref="fdm_minfin"/>
+            <field name="login">minfin_personnel</field>
+            <field name="email">minfin_personnel@minfin.fgov.be</field>
+            <field name="password">12345678</field>
+            <field name="active" eval="False"/>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="groups_id" eval="[(6,0,[ref('base.group_user'), ref('group_minfin_personnel')])]"/>
+        </record>
+
+        <record id="minfin_export_orders" model="ir.exports">
+            <field name="name">MinFin export orders</field>
+            <field name="resource">pos.order</field>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">name</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/product_id/name</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">create_uid/login</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">create_uid/insz_or_bis_number</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">create_date</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">config_id/name</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">partner_id/name</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">location_id/name</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/vat_letter</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/tax_ids</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/price_unit</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/qty</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/discount</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/price_subtotal_incl</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/product_id/name</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">plu_hash</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pos_production_id</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pos_terminal_id</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pos_version</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pricelist_id/name</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">session_id/name</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">table_id</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">user_id/name</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">sequence_number</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_tax_category_a</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_tax_category_b</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_tax_category_c</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_tax_category_d</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">fiscal_position_id</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">amount_tax</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_signature</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_unique_fdm_production_number</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_date</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_ticket_counters</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_time</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pos_reference</field>
+            <field name="export_id" ref="minfin_export_orders"/>
+        </record>
+
+        <record id="minfin_export_pro_forma_orders" model="ir.exports">
+            <field name="name">MinFin export pro forma orders</field>
+            <field name="resource">pos.order_pro_forma</field>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">name</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/product_id/name</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">create_uid/login</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">create_uid/insz_or_bis_number</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">create_date</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">config_id/name</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">partner_id/name</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/vat_letter</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/tax_ids</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/price_unit</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/qty</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/discount</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/price_subtotal_incl</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">lines/product_id/name</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">plu_hash</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pos_production_id</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pos_terminal_id</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pos_version</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pricelist_id/name</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">session_id/name</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">table_id</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">user_id/name</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_tax_category_a</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_tax_category_b</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_tax_category_c</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_tax_category_d</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">fiscal_position_id</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_signature</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_unique_fdm_production_number</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_date</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_ticket_counters</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">blackbox_time</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">pos_reference</field>
+            <field name="export_id" ref="minfin_export_pro_forma_orders"/>
+        </record>
+
+        <record id="minfin_export_users" model="ir.exports">
+            <field name="name">MinFin export users</field>
+            <field name="resource">res.users</field>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">login</field>
+            <field name="export_id" ref="minfin_export_users"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">insz_or_bis_number</field>
+            <field name="export_id" ref="minfin_export_users"/>
+        </record>
+
+        <record id="minfin_export_products" model="ir.exports">
+            <field name="name">MinFin export products</field>
+            <field name="resource">product.product</field>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">name</field>
+            <field name="export_id" ref="minfin_export_products"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">list_price</field>
+            <field name="export_id" ref="minfin_export_products"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">taxes_id/name</field>
+            <field name="export_id" ref="minfin_export_products"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">taxes_id/identification_letter</field>
+            <field name="export_id" ref="minfin_export_products"/>
+        </record>
+
+        <record id="minfin_export_logbook" model="ir.exports">
+            <field name="name">MinFin export logbook</field>
+            <field name="resource">pos_blackbox_be.log</field>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">user/login</field>
+            <field name="export_id" ref="minfin_export_logbook"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">action</field>
+            <field name="export_id" ref="minfin_export_logbook"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">date</field>
+            <field name="export_id" ref="minfin_export_logbook"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">model_name</field>
+            <field name="export_id" ref="minfin_export_logbook"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">record_name</field>
+            <field name="export_id" ref="minfin_export_logbook"/>
+        </record>
+
+        <record model="ir.exports.line">
+            <field name="name">description</field>
+            <field name="export_id" ref="minfin_export_logbook"/>
+        </record>
+
+        <function model="product.product" name="set_tax_on_work_in_out" context="{'install_mode' : True}"/>
+    </data>
+</odoo>

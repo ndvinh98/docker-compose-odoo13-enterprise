@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Regular Pay -->
+        <record id="l10n_be_hr_payroll.cp200_employees_salary_company_car" model="hr.salary.rule">
+            <field name="condition_python">result = bool(contract.transport_mode_car and (payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from))</field>
+            <field name="amount_python_compute">result = (payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from)</field>
+        </record>
+        <record id="l10n_be_hr_payroll.cp200_employees_salary_company_car_2" model="hr.salary.rule">
+            <field name="condition_python">result = bool(contract.transport_mode_car and (payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from))</field>
+            <field name="amount_python_compute">result = -(payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from)</field>
+        </record>
+        <!-- PFI -->
+        <record id="l10n_be_hr_payroll.cp200_pfi_company_car" model="hr.salary.rule">
+            <field name="condition_python">result = bool(contract.transport_mode_car and (payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from))</field>
+            <field name="amount_python_compute">result = (payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from)</field>
+        </record>
+        <record id="l10n_be_hr_payroll.cp200_pfi_company_car_2" model="hr.salary.rule">
+            <field name="condition_python">result = bool(contract.transport_mode_car and (payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from))</field>
+            <field name="amount_python_compute">result = -(payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from)</field>
+        </record>
+        <record id="l10n_be_hr_payroll.cp200_pfi_salary_withholding_taxes" model="hr.salary.rule">
+            <field name="amount_python_compute">
+result = contract.wage
+# The car atn is included for withholding taxes in pfi contracts, not the other advantages
+car_atn = (payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from)
+if bool(contract.transport_mode_car and car_atn):
+    result += car_atn
+result *= -0.2
+            </field>
+        </record>
+        <!-- Termination Fees -->
+        <record id="l10n_be_hr_payroll.cp200_employees_termination_fees_company_car_annual" model="hr.salary.rule">
+            <field name="amount_python_compute">
+result_qty = 12
+result = -(payslip.dict.vehicle_id or contract.car_id)._get_car_atn(date=payslip.dict.date_from)</field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_document_file_kanban_mrp_plm" model="ir.ui.view">
+        <field name="name">mrp.document kanban.mrp.plm</field>
+        <field name="inherit_id" ref="mrp.view_document_file_kanban_mrp"/>
+        <field name="model">mrp.document</field>
+        <field name="arch" type="xml">
+            <field name="mimetype" position="after">
+                <field name="active"/>
+            </field>
+            <xpath expr="//div[hasclass('o_kanban_details')]" position="before">
+                <span class="float-right mx-2">
+                  <a name="toggle_active" type="object" t-if="record.active.raw_value"><i class="fa fa-remove" role="img" aria-label="Remove" title="Remove"/></a>
+                  <a name="toggle_active" type="object" t-if="!record.active.raw_value"><i class="fa fa-undo" role="img" aria-label="Undo" title="Undo"/></a>
+                </span>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_kanban_global_area')]" position="attributes">
+                <attribute name="t-att-style">(!record.active.raw_value) &amp;&amp; "background: linear-gradient(45deg, white 25%, lightgrey 25%, lightgrey 50%, white 50%, white 75%, lightgrey 75%); background-size: 20px 20px;"</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_document_search_mrp_plm" model="ir.ui.view">
+        <field name="name">mrp.document search.mrp.plm</field>
+        <field name="inherit_id" ref="base.view_attachment_search"/>
+        <field name="model">mrp.document</field>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//separator" position="after">
+                <filter name="all" string="All" domain="['|', ('active', '=', True), ('active', '=', False)]"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/> 
+            </xpath>
+        </field>
+    </record>
+
+
+</odoo>

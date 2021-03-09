@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+
+        <!-- Gantt view -->
+        <record id="hr_leave_gantt_view" model="ir.ui.view">
+            <field name="name">hr.leave.gantt</field>
+            <field name="model">hr.leave</field>
+            <field name="arch" type="xml">
+                <gantt
+                       date_start="date_from"
+                       date_stop="date_to"
+                       string="Days"
+                       color="holiday_status_id"
+                       default_group_by='employee_id'
+                       decoration-warning="state == 'refuse'"
+                       decoration-info="state in ['confirm', 'validate1']"
+                       precision="{'week': 'day:half', 'month': 'day:full'}"
+                       plan="0"
+                       total_row="True"
+                       thumbnails="{'employee_id': 'image_128'}"
+                       display_unavailability="1"
+                >
+                    <field name="state" invisible="1"/>
+                </gantt>
+            </field>
+        </record>
+
+        <record id="hr_leave_allocation_gantt_view" model="ir.ui.view">
+            <field name="name">hr.leave.allocation.gantt</field>
+            <field name="model">hr.leave.allocation</field>
+            <field name="arch" type="xml">
+                <gantt
+                    date_start="date_from"
+                    date_stop="date_to"
+                    string="Days"
+                    default_group_by="employee_id"
+                    decoration-warning="state == 'refuse'"
+                    decoration-info="state in ['confirm', 'validate1']"
+                    plan="0"
+                >
+                    <field name="state" invisible="1"/>
+                </gantt>
+            </field>
+        </record>
+
+        <!-- Add gantt view mode to the hr.holidays dashboard -->
+        <record id="hr_holidays.action_hr_holidays_dashboard" model="ir.actions.act_window">
+            <field name="view_mode">gantt,calendar,tree,form</field>
+            <field name="context">{}</field>
+        </record>
+
+        <record id="hr_holidays.hr_leave_action_all" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,form,gantt,calendar,activity</field>
+        </record>
+
+        <record id="hr_holidays.hr_leave_action_action_approve_department" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,gantt,form,calendar,activity</field>
+        </record>
+        <record id="hr_holidays.hr_leave_action_payroll" model="ir.actions.act_window">
+            <field name="view_mode">tree,kanban,gantt,form,calendar,activity</field>
+        </record>
+
+    </data>
+</odoo>

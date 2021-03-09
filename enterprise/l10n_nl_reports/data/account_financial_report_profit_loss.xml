@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="account_financial_report_pnl" model="account.financial.html.report">
+            <field name="name">Profit and Loss</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="analytic" eval="True"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name='parent_id' ref="l10n_nl.account_reports_nl_statements_menu"/>
+        </record>
+
+        <record id="account_financial_report_pnl_1" model="account.financial.html.report.line">
+            <field name="name">EBITDA</field>
+            <field name="code">NL_EBITDA</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl"/>
+            <field name="formulas">balance = NL_PROFIT.balance - NL_PCOST.balance</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="0" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_1" model="account.financial.html.report.line">
+            <field name="name">OMZET</field>
+            <field name="code">NL_PROFIT</field>
+            <field name="formulas">balance = NL_GROSS.balance + NL_SCOST.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1"/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_1_1" model="account.financial.html.report.line">
+            <field name="name">Bruto omzet</field>
+            <field name="code">NL_GROSS</field>
+            <field name="formulas">balance = NL_NET.balance + NL_OTH.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_1"/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_1_1_1" model="account.financial.html.report.line">
+            <field name="name">Netto omzet</field>
+            <field name="code">NL_NET</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_1_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_11'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_1_1_2" model="account.financial.html.report.line">
+            <field name="name">Overige bedrijfsopbrengsten</field>
+            <field name="code">NL_OTH</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_1_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_16'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+        
+        <record id="account_financial_report_pnl_1_1_2" model="account.financial.html.report.line">
+            <field name="name">Kostprijs van de omzet</field>
+            <field name="code">NL_SCOST</field>
+            <field name="formulas">balance = NL_COGS.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_1"/>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_1_2_1" model="account.financial.html.report.line">
+            <field name="name">Kostprijs van de omzet</field>
+            <field name="code">NL_COGS</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_1_2"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_10'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1" model="account.financial.html.report.line">
+            <field name="name">PRODUCTIEKOSTEN</field>
+            <field name="code">NL_PCOST</field>
+            <field name="formulas">balance = NL_SALA.balance + NL_SOC.balance + NL_OPC.balance + NL_PENS.balance + NL_HOUS.balance + NL_TRANS.balance + NL_SALE.balance + NL_DISTR.balance + NL_OFF.balance + NL_GEN.balance + NL_ERR.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1"/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_1" model="account.financial.html.report.line">
+            <field name="name">Lonen en salarissen</field>
+            <field name="code">NL_SALA</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_1'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_2" model="account.financial.html.report.line">
+            <field name="name">Sociale lasten</field>
+            <field name="code">NL_SOC</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_18'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_3" model="account.financial.html.report.line">
+            <field name="name">Overige personeelskosten</field>
+            <field name="code">NL_OPC</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_19'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_4" model="account.financial.html.report.line">
+            <field name="name">Pensioenlasten</field>
+            <field name="code">NL_PENS</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_20'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_5" model="account.financial.html.report.line">
+            <field name="name">Huisvestingskosten</field>
+            <field name="code">NL_HOUS</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_2'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_6" model="account.financial.html.report.line">
+            <field name="name">Vervoerskosten</field>
+            <field name="code">NL_TRANS</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_6'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_7" model="account.financial.html.report.line">
+            <field name="name">Verkoopkosten</field>
+            <field name="code">NL_SALE</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_7'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_8" model="account.financial.html.report.line">
+            <field name="name">Distributiekosten</field>
+            <field name="code">NL_DISTR</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_26'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="8"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_9" model="account.financial.html.report.line">
+            <field name="name">Kantoorkosten</field>
+            <field name="code">NL_OFF</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_5'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="9"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_10" model="account.financial.html.report.line">
+            <field name="name">Algemene kosten</field>
+            <field name="code">NL_GEN</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_8'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="10"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_1_2_1_11" model="account.financial.html.report.line">
+            <field name="name">Foutenrekening</field>
+            <field name="code">NL_ERR</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_1_2_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_29'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="11"/>
+            <field name="level" eval="3" />
+        </record>
+
+        <record id="account_financial_report_pnl_2" model="account.financial.html.report.line">
+            <field name="name">NETTO RESULTAAT</field>
+            <field name="code">NL_NETTO</field>
+            <field name="financial_report_id" ref="account_financial_report_pnl"/>
+            <field name="formulas">balance = NL_EBITDA.balance + NL_OTC.balance</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="0" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1" model="account.financial.html.report.line">
+            <field name="name">OVERIGE KOSTEN</field>
+            <field name="code">NL_OTC</field>
+            <field name="formulas">balance = NL_FRES.balance + NL_TAXES.balance + NL_DEPR.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2"/>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="1" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1_1" model="account.financial.html.report.line">
+            <field name="name">Financiële resultaat</field>
+            <field name="code">NL_FRES</field>
+            <field name="formulas">balance = NL_INTP.balance + NL_INTL.balance + NL_RESO.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2_1"/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1_1_1" model="account.financial.html.report.line">
+            <field name="name">Rente baten</field>
+            <field name="code">NL_INTP</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2_1_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_30'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1_1_2" model="account.financial.html.report.line">
+            <field name="name">Rente en overige financiële lasten</field>
+            <field name="code">NL_INTL</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2_1_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_31'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1_1_3" model="account.financial.html.report.line">
+            <field name="name">Resultaat overige activa</field>
+            <field name="code">NL_RESO</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2_1_1"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_12'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1_2" model="account.financial.html.report.line">
+            <field name="name">Belastingen</field>
+            <field name="code">NL_TAXES</field>
+            <field name="formulas">balance = NL_TAX.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2_1"/>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="1" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1_2_1" model="account.financial.html.report.line">
+            <field name="name">Belastingen</field>
+            <field name="code">NL_TAX</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2_1_2"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_33'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1_3" model="account.financial.html.report.line">
+            <field name="name">Afschrijvingen</field>
+            <field name="code">NL_DEPR</field>
+            <field name="formulas">balance = NL_MDEP.balance + NL_IDEP.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2_1"/>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="1" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1_3_1" model="account.financial.html.report.line">
+            <field name="name">Afschrijving materiële vaste activa</field>
+            <field name="code">NL_MDEP</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2_1_3"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_21'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record id="account_financial_report_pnl_2_1_3_2" model="account.financial.html.report.line">
+            <field name="name">Afschrijving immateriële vaste activa</field>
+            <field name="code">NL_IDEP</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="parent_id" ref="account_financial_report_pnl_2_1_3"/>
+            <field name="domain" eval="[('account_id.tag_ids', 'in', ref('l10n_nl.account_tag_22'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+    </data>
+</odoo>

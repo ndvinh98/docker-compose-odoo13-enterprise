@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<odoo>
+    <data>
+        <record id="account.email_template_edi_invoice" model="mail.template">
+            <field name="report_name">${object['l10n_mx_edi_is_required'] and object.l10n_mx_edi_is_required() and object.l10n_mx_edi_cfdi_name and object.l10n_mx_edi_cfdi_name.replace('.xml', '.pdf') or (object.state == 'posted') and ('INV'+(object.name or '').replace('/','')+'.pdf')}</field>
+        </record>
+    </data>
+</odoo>

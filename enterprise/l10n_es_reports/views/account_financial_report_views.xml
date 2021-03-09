@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="spanish_balance_sheet_action" model="ir.actions.server">
+            <field name="name">Balance Sheet</field>
+            <field name="type">ir.actions.server</field>
+            <field name="model_id" ref="base.model_res_company" />
+            <field name="state">code</field>
+            <field name="code">action = model.balance_sheet_menu_item_clicked()</field>
+        </record>
+
+        <menuitem id="spanish_reports_menu" name="Spain" parent="account.menu_finance_reports" sequence="0"/>
+
+        <menuitem id="spanish_balance_sheet_menu" groups="account.group_account_user" name="Balance Sheet" action="spanish_balance_sheet_action"  parent="spanish_reports_menu"/>
+
+    </data>
+</odoo>

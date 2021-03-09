@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record id="hr_payroll.hr_employee_payroll" model="hr.employee">
+            <field name="address_home_id" ref="base.res_partner_main2"/>
+        </record>
+
+        <record id="demo_account" model="account.account">
+            <field name="name">Account Payslip Houserental</field>
+            <field name="code">123456</field>
+            <field name="user_type_id" ref="account.data_account_type_payable"/>
+            <field name="reconcile" eval="True"/>
+        </record>
+
+        <record id="hr_payroll.hr_salary_rule_houserentallowance1" model="hr.salary.rule">
+            <field name="account_debit" ref="demo_account"/>
+            <field name="account_credit" ref="demo_account"/>
+        </record>
+
+        <record id="hr_salaries_account_journal" model="account.journal">
+            <field name="name">Salaries</field>
+            <field name="code">SAL</field>
+            <field name="type">general</field>
+            <!-- avoid being selected as default journal -->
+            <field name="sequence">99</field>
+        </record>
+
+        <record id="hr_payroll.structure_002" model="hr.payroll.structure">
+            <field name="journal_id" ref="hr_payroll_account.hr_salaries_account_journal"/>
+        </record>
+
+        <record id="hr_payroll.structure_003" model="hr.payroll.structure">
+            <field name="journal_id" ref="hr_payroll_account.hr_salaries_account_journal"/>
+        </record>
+
+        <record id="hr_payroll.structure_worker_001" model="hr.payroll.structure">
+            <field name="journal_id" ref="hr_payroll_account.hr_salaries_account_journal"/>
+        </record>
+</odoo>

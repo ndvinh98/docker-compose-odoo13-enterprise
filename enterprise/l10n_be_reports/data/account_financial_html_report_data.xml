@@ -1,0 +1,1591 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <!--
+            BILAN
+        -->
+
+        <record id="account_financial_report_be_balancesheet0" model="account.financial.html.report">
+            <field name="name">Bilan</field>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="date_range" eval="False" />
+            <field name='parent_id' ref='l10n_be.account_reports_be_statements_menu'/>
+        </record>
+
+        <record id="account_financial_report_be_actif_title0" model="account.financial.html.report.line">
+            <field name="name">ACTIF</field>
+            <field name="sequence" eval="1000"/>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_actif0" model="account.financial.html.report.line">
+            <field name="name">TOTAL DE L'ACTIF</field>
+            <field name="code">BE_ACTIF</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_title0'/>
+            <field name="formulas">balance = BE_20_28.balance + BE_29_58.balance; credit = BE_20_28.credit + BE_29_58.credit; debit = BE_20_28.debit + BE_29_58.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_actif_imm0" model="account.financial.html.report.line">
+            <field name="name">20/28 - Actifs immobilisés</field>
+            <field name="code">BE_20_28</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_title0'/>
+            <field name="formulas">balance = BE_20.balance + BE_21.balance + BE_22_27.balance + BE_28.balance; credit = BE_20.credit + BE_21.credit + BE_22_27.credit + BE_28.credit; debit = BE_20.debit + BE_21.debit + BE_22_27.debit + BE_28.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_etablissement0" model="account.financial.html.report.line">
+            <field name="name">20 - Frais d'établissement</field>
+            <field name="code">BE_20</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '20%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_imm_incorporelles0" model="account.financial.html.report.line">
+            <field name="name">21 - Immobilisations incorporelles</field>
+            <field name="code">BE_21</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '21%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_actif_imm_corporelles0" model="account.financial.html.report.line">
+            <field name="name">22/27 - Immobilisations corporelles</field>
+            <field name="code">BE_22_27</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm0'/>
+            <field name="formulas">balance = BE_22.balance + BE_23.balance + BE_24.balance + BE_25.balance + BE_26.balance + BE_27.balance; credit = BE_22.credit + BE_23.credit + BE_24.credit + BE_25.credit + BE_26.credit + BE_27.credit; debit = BE_22.debit + BE_23.debit + BE_24.debit + BE_25.debit + BE_26.debit + BE_27.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_terrains0" model="account.financial.html.report.line">
+            <field name="name">22 - Terrains et constructions</field>
+            <field name="code">BE_22</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm_corporelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '22%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_machines0" model="account.financial.html.report.line">
+            <field name="name">23 - Installations, machines et outillage</field>
+            <field name="code">BE_23</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm_corporelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '23%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_mobilier0" model="account.financial.html.report.line">
+            <field name="name">24 - Mobilier et matériel roulant</field>
+            <field name="code">BE_24</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm_corporelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '24%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_location_financement0" model="account.financial.html.report.line">
+            <field name="name">25 - Location-financement et droits similaires</field>
+            <field name="code">BE_25</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm_corporelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '25%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_autres_corp0" model="account.financial.html.report.line">
+            <field name="name">26 - Autres immobilisations corporelles</field>
+            <field name="code">BE_26</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm_corporelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '26%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_imm_en_cours0" model="account.financial.html.report.line">
+            <field name="name">27 - Immobilisations en cours et acomptes versés</field>
+            <field name="code">BE_27</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm_corporelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '27%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_imm_financieres0" model="account.financial.html.report.line">
+            <field name="name">28 - Immobilisations financières</field>
+            <field name="code">BE_28</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_imm0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '28%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_actif_circ0" model="account.financial.html.report.line">
+            <field name="name">29/58 - Actif circulants</field>
+            <field name="code">BE_29_58</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_title0'/>
+            <field name="formulas">balance = BE_29.balance + BE_3.balance + BE_40_41.balance + BE_50_53.balance + BE_54_58.balance + BE_490_1.balance; credit = BE_29.credit + BE_3.credit + BE_40_41.credit + BE_50_53.credit + BE_54_58.credit + BE_490_1.credit; debit = BE_29.debit + BE_3.debit + BE_40_41.debit + BE_50_53.debit  + BE_54_58.debit + BE_490_1.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_creances_plus_d_un_an0" model="account.financial.html.report.line">
+            <field name="name">29 - Créances à plus d'un an</field>
+            <field name="code">BE_29</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_circ0'/>
+            <field name="formulas">balance = BE_290.balance + BE_291.balance; credit = BE_290.credit + BE_291.credit; debit = BE_290.debit + BE_291.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_creances_plus_d_un_an_commerciales0" model="account.financial.html.report.line">
+            <field name="name">290 - Créances commerciales</field>
+            <field name="code">BE_290</field>
+            <field name="parent_id" ref='account_financial_report_be_creances_plus_d_un_an0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '290%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_creances_plus_d_un_an_autres0" model="account.financial.html.report.line">
+            <field name="name">291 - Autres créances</field>
+            <field name="code">BE_291</field>
+            <field name="parent_id" ref='account_financial_report_be_creances_plus_d_un_an0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '291%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_stocks_commandes0" model="account.financial.html.report.line">
+            <field name="name">3 - Stocks et commandes en cours d'exécution</field>
+            <field name="code">BE_3</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_circ0'/>
+            <field name="formulas">balance = BE_30_36.balance + BE_37.balance; credit = BE_30_36.credit + BE_37.credit; debit = BE_30_36.debit + BE_37.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_stocks0" model="account.financial.html.report.line">
+            <field name="name">30/36 - Stocks</field>
+            <field name="code">BE_30_36</field>
+            <field name="parent_id" ref='account_financial_report_be_stocks_commandes0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '30%'), '|', ('account_id.code', '=like', '31%'), '|', ('account_id.code', '=like', '32%'), '|', ('account_id.code', '=like', '33%'), '|', ('account_id.code', '=like', '34%'), '|', ('account_id.code', '=like', '35%'), ('account_id.code', '=like', '36%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_commandes0" model="account.financial.html.report.line">
+            <field name="name">37 - Commandes en cours d'exécution</field>
+            <field name="code">BE_37</field>
+            <field name="parent_id" ref='account_financial_report_be_stocks_commandes0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '37%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_creances_au_plus_un_an0" model="account.financial.html.report.line">
+            <field name="name">40/41 - Créances à un an au plus</field>
+            <field name="code">BE_40_41</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_circ0'/>
+            <field name="formulas">balance = BE_40.balance + BE_41.balance; credit = BE_40.credit + BE_41.credit; debit = BE_40.debit + BE_41.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_creances_au_plus_un_an_commerciales0" model="account.financial.html.report.line">
+            <field name="name">40 - Créances commerciales</field>
+            <field name="code">BE_40</field>
+            <field name="parent_id" ref='account_financial_report_be_creances_au_plus_un_an0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '40%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_creances_au_plus_un_an_autres0" model="account.financial.html.report.line">
+            <field name="name">41 - Autres créances</field>
+            <field name="code">BE_41</field>
+            <field name="parent_id" ref='account_financial_report_be_creances_au_plus_un_an0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '41%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_tresorerie0" model="account.financial.html.report.line">
+            <field name="name">50/53 - Placements de trésorerie</field>
+            <field name="code">BE_50_53</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_circ0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '50%'), '|', ('account_id.code', '=like', '51%'), '|', ('account_id.code', '=like', '52%'), ('account_id.code', '=like', '53%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_valeurs_disponibles0" model="account.financial.html.report.line">
+            <field name="name">54/58 - Valeurs disponibles</field>
+            <field name="code">BE_54_58</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_circ0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '54%'), '|', ('account_id.code', '=like', '55%'), '|', ('account_id.code', '=like', '56%'), '|', ('account_id.code', '=like', '57%'), ('account_id.code', '=like', '58%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_regularisation0" model="account.financial.html.report.line">
+            <field name="name">490/1 - Comptes de régularisation</field>
+            <field name="code">BE_490_1</field>
+            <field name="parent_id" ref='account_financial_report_be_actif_circ0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '490%'), ('account_id.code', '=like', '491%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_passif_title0" model="account.financial.html.report.line">
+            <field name="name">PASSIF</field>
+            <field name="sequence" eval="2000"/>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_passif0" model="account.financial.html.report.line">
+            <field name="name">TOTAL DU PASSIF</field>
+            <field name="code">BE_PASSIF</field>
+            <field name="parent_id" ref="account_financial_report_be_passif_title0"/>
+            <field name="formulas">balance = BE_10_15.balance + BE_16.balance + BE_17_49.balance; credit = BE_10_15.credit + BE_16.credit + BE_17_49.credit; debit = BE_10_15.debit + BE_16.debit + BE_17_49.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_capitaux_propres0" model="account.financial.html.report.line">
+            <field name="name">10/15 - Capitaux propres</field>
+            <field name="code">BE_10_15</field>
+            <field name="parent_id" ref='account_financial_report_be_passif_title0'/>
+            <field name="formulas">balance = BE_UNAFFECTED_EARNINGS.balance + BE_10.balance + BE_11.balance + BE_12.balance + BE_13.balance + BE_14.balance + BE_15.balance + BE_19.balance; credit = BE_UNAFFECTED_EARNINGS.credit + BE_10.credit + BE_11.credit + BE_12.credit + BE_13.credit + BE_14.credit + BE_15.credit + BE_19.credit; debit = BE_UNAFFECTED_EARNINGS.debit + BE_10.debit + BE_11.debit + BE_12.debit + BE_13.debit + BE_14.debit + BE_15.debit + BE_19.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_capital0" model="account.financial.html.report.line">
+            <field name="name">10 - Capital</field>
+            <field name="code">BE_10</field>
+            <field name="parent_id" ref='account_financial_report_be_capitaux_propres0'/>
+            <field name="formulas">balance = BE_100.balance + BE_101.balance; credit = BE_100.credit + BE_101.credit; debit = BE_100.debit + BE_101.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_capital_souscrit0" model="account.financial.html.report.line">
+            <field name="name">100 - Capital souscrit</field>
+            <field name="code">BE_100</field>
+            <field name="parent_id" ref='account_financial_report_be_capital0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '100%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_capital_appele0" model="account.financial.html.report.line">
+            <field name="name">101 - Capital non appelé</field>
+            <field name="code">BE_101</field>
+            <field name="parent_id" ref='account_financial_report_be_capital0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '101%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_primes_demission0" model="account.financial.html.report.line">
+            <field name="name">11 - Primes d'émission</field>
+            <field name="code">BE_11</field>
+            <field name="parent_id" ref='account_financial_report_be_capitaux_propres0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '11%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_reevaluation0" model="account.financial.html.report.line">
+            <field name="name">12 - Plus-values de réévaluation</field>
+            <field name="code">BE_12</field>
+            <field name="parent_id" ref='account_financial_report_be_capitaux_propres0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '12%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_reserves0" model="account.financial.html.report.line">
+            <field name="name">13 - Réserves</field>
+            <field name="code">BE_13</field>
+            <field name="parent_id" ref='account_financial_report_be_capitaux_propres0'/>
+            <field name="formulas">balance = BE_130.balance + BE_131.balance + BE_132.balance + BE_133.balance; credit = BE_130.credit + BE_131.credit + BE_132.credit + BE_133.credit; debit = BE_130.debit + BE_131.debit + BE_132.debit + BE_133.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_reserve_legale0" model="account.financial.html.report.line">
+            <field name="name">130 - Réserve légale</field>
+            <field name="code">BE_130</field>
+            <field name="parent_id" ref='account_financial_report_be_reserves0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '130%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_reserves_indisponibles0" model="account.financial.html.report.line">
+            <field name="name">131 - Réserves indisponibles</field>
+            <field name="code">BE_131</field>
+            <field name="parent_id" ref='account_financial_report_be_reserves0'/>
+            <field name="formulas">balance = BE_1310.balance + BE_1311.balance; credit = BE_1310.credit + BE_1311.credit; debit = BE_1310.debit + BE_1311.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_reserve_actions0" model="account.financial.html.report.line">
+            <field name="name">1310 - Pour actions propres</field>
+            <field name="code">BE_1310</field>
+            <field name="parent_id" ref='account_financial_report_be_reserves_indisponibles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '1310%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_reserve_autres0" model="account.financial.html.report.line">
+            <field name="name">1311 - Autres</field>
+            <field name="code">BE_1311</field>
+            <field name="parent_id" ref='account_financial_report_be_reserves_indisponibles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '1311%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_reserves_immunisees0" model="account.financial.html.report.line">
+            <field name="name">132 - Réserves immunisées</field>
+            <field name="code">BE_132</field>
+            <field name="parent_id" ref='account_financial_report_be_reserves0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '132%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_reserves_disponibles0" model="account.financial.html.report.line">
+            <field name="name">133 - Réserves disponibles</field>
+            <field name="code">BE_133</field>
+            <field name="parent_id" ref='account_financial_report_be_reserves0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '133%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_benefice_reporte0" model="account.financial.html.report.line">
+            <field name="name">14 - Bénéfice (Perte) reporté(e)</field>
+            <field name="code">BE_14</field>
+            <field name="parent_id" ref='account_financial_report_be_capitaux_propres0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '14%'), ('account_id.user_type_id', '!=', ref('account.data_unaffected_earnings'))]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_be_current_year_earnings0" model="account.financial.html.report.line">
+            <field name="name">149 - Bénéfice (Perte) en cours</field>
+            <field name="code">BE_UNAFFECTED_EARNINGS</field>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '7%'), ('account_id.code', '=like', '6%')]" />
+            <field name="formulas">balance = -sum.balance; debit = sum.debit; credit = sum.credit</field>
+            <field name="sequence" eval="6"/>
+            <field name="special_date_changer">from_beginning</field>
+            <field name="show_domain">never</field>
+            <field name="parent_id" ref='account_financial_report_be_capitaux_propres0'/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_subsides_capital0" model="account.financial.html.report.line">
+            <field name="name">15 - Subsides en capital</field>
+            <field name="code">BE_15</field>
+            <field name="parent_id" ref='account_financial_report_be_capitaux_propres0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '15%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_subsides_avance_aux_associes0" model="account.financial.html.report.line">
+            <field name="name">19 - Avance aux associés sur répartition de l'actif net</field>
+            <field name="code">BE_19</field>
+            <field name="parent_id" ref='account_financial_report_be_capitaux_propres0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '19%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="8"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_provisions0" model="account.financial.html.report.line">
+            <field name="name">16 - Provisions et impôts différés</field>
+            <field name="code">BE_16</field>
+            <field name="parent_id" ref='account_financial_report_be_passif_title0'/>
+            <field name="formulas">balance = BE_160_5.balance + BE_168.balance; credit = BE_160_5.credit + BE_168.credit; debit = BE_160_5.debit + BE_168.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_provisions_risques_charges0" model="account.financial.html.report.line">
+            <field name="name">160/5 - Provisions pour risques et charges</field>
+            <field name="code">BE_160_5</field>
+            <field name="parent_id" ref='account_financial_report_be_provisions0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '160%'), '|', ('account_id.code', '=like', '161%'), '|', ('account_id.code', '=like', '162%'), '|', ('account_id.code', '=like', '163%'), '|', ('account_id.code', '=like', '164%'), ('account_id.code', '=like', '165%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_impots_differes0" model="account.financial.html.report.line">
+            <field name="name">168 - Impôts différés</field>
+            <field name="code">BE_168</field>
+            <field name="parent_id" ref='account_financial_report_be_provisions0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '168%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_dettes0" model="account.financial.html.report.line">
+            <field name="name">17/49 - Dettes</field>
+            <field name="code">BE_17_49</field>
+            <field name="parent_id" ref='account_financial_report_be_passif_title0'/>
+            <field name="formulas">balance = BE_17.balance + BE_42_48.balance + BE_49.balance; credit = BE_17.credit + BE_42_48.credit + BE_49.credit; debit = BE_17.debit + BE_42_48.debit + BE_49.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_dettes_plus_un_an0" model="account.financial.html.report.line">
+            <field name="name">17 - Dettes à plus d'un an</field>
+            <field name="code">BE_17</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes0'/>
+            <field name="formulas">balance = BE_170_4.balance + BE_175.balance + BE_176.balance + BE_178_9.balance + BE_171.balance; credit = BE_170_4.credit + BE_175.credit + BE_176.credit + BE_178_9.credit + BE_171.credit; debit = BE_170_4.debit + BE_175.debit + BE_176.debit + BE_178_9.debit + BE_171.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_dettes_financieres0" model="account.financial.html.report.line">
+            <field name="name">170/4 - Dettes financières</field>
+            <field name="code">BE_170_4</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_plus_un_an0'/>
+            <field name="formulas">balance = BE_172_3.balance + BE_174_0.balance; credit = BE_172_3.credit + BE_174_0.credit; debit = BE_172_3.debit + BE_174_0.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_emprunts_obligataires_non_subordones0" model="account.financial.html.report.line">
+            <field name="name">171 - Emprunts obligataires non subordonnés</field>
+            <field name="code">BE_171</field>
+            <field name="domain" eval="[('account_id.code', '=like', '171%')]" />
+            <field name="groupby">account_id</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_plus_un_an0'/>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_dettes_financieres1" model="account.financial.html.report.line">
+            <field name="name">172/3 - Etablissements de crédit, dettes de location-financement et assmilisées</field>
+            <field name="code">BE_172_3</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_financieres0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '172%'), ('account_id.code', '=like', '173%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_dettes_financieres2" model="account.financial.html.report.line">
+            <field name="name">174/0 - Autres emprunts</field>
+            <field name="code">BE_174_0</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_financieres0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '174%'), ('account_id.code', '=like', '170%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_dettes_commerciales0" model="account.financial.html.report.line">
+            <field name="name">175 - Dettes commerciales</field>
+            <field name="code">BE_175</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_plus_un_an0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '175%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_acomptes_recus0" model="account.financial.html.report.line">
+            <field name="name">176 - Acomptes recus sur commandes</field>
+            <field name="code">BE_176</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_plus_un_an0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '176%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_autres_dettes0" model="account.financial.html.report.line">
+            <field name="name">178/9 - Autres dettes</field>
+            <field name="code">BE_178_9</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_plus_un_an0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '178%'), ('account_id.code', '=like', '179%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_dettes_un_an_au_plus0" model="account.financial.html.report.line">
+            <field name="name">42/48 - Dettes à un an au plus</field>
+            <field name="code">BE_42_48</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes0'/>
+            <field name="formulas">balance = BE_42.balance + BE_43.balance + BE_44.balance + BE_46.balance + BE_45.balance + BE_47_8.balance; credit = BE_42.credit + BE_43.credit + BE_44.credit + BE_46.credit + BE_45.credit + BE_47_8.credit; debit = BE_42.debit + BE_43.debit + BE_44.debit + BE_46.debit + BE_45.debit + BE_47_8.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_dettes_plus_dun_an_dans_lannee0" model="account.financial.html.report.line">
+            <field name="name">42 - Dettes à plus d'un an échéant dans l'année</field>
+            <field name="code">BE_42</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_un_an_au_plus0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '42%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_dettes_financieres0b" model="account.financial.html.report.line">
+            <field name="name">43 - Dettes financières</field>
+            <field name="code">BE_43</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_un_an_au_plus0'/>
+            <field name="formulas">balance = BE_430_8.balance + BE_439.balance; credit = BE_430_8.credit + BE_439.credit; debit = BE_430_8.debit + BE_439.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_dettes_financieres1b" model="account.financial.html.report.line">
+            <field name="name">430/8 - Etablissements de crédit</field>
+            <field name="code">BE_430_8</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_financieres0b'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '430%'), '|', ('account_id.code', '=like', '431%'), '|', ('account_id.code', '=like', '432%'), '|', ('account_id.code', '=like', '433%'), '|', ('account_id.code', '=like', '434%'), '|', ('account_id.code', '=like', '435%'), '|', ('account_id.code', '=like', '436%'), '|', ('account_id.code', '=like', '437%'), ('account_id.code', '=like', '438%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_dettes_financieres2b" model="account.financial.html.report.line">
+            <field name="name">439 - Autres emprunts</field>
+            <field name="code">BE_439</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_financieres0b'/>
+            <field name="domain" eval="[('account_id.code', '=like', '439%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_dettes_commerciales0b" model="account.financial.html.report.line">
+            <field name="name">44 - Dettes commerciales</field>
+            <field name="code">BE_44</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_un_an_au_plus0'/>
+            <field name="formulas">balance = BE_440_4.balance + BE_441.balance; credit = BE_440_4.credit + BE_441.credit; debit = BE_440_4.debit + BE_441.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_dettes_commerciales_fournisseurs0" model="account.financial.html.report.line">
+            <field name="name">440/4 - Fournisseurs</field>
+            <field name="code">BE_440_4</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_commerciales0b'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '440%'), '|', ('account_id.code', '=like', '442%'), '|', ('account_id.code', '=like', '443%'), ('account_id.code', '=like', '444%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_effets_a_payer0" model="account.financial.html.report.line">
+            <field name="name">441 - Effets à payer</field>
+            <field name="code">BE_441</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_commerciales0b'/>
+            <field name="domain" eval="[('account_id.code', '=like', '441%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_acomptes_recus0b" model="account.financial.html.report.line">
+            <field name="name">46 - Acomptes recus sur commandes</field>
+            <field name="code">BE_46</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_un_an_au_plus0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '46%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_dettes_fiscales0" model="account.financial.html.report.line">
+            <field name="name">45 - Dettes fiscales, salariales et sociales</field>
+            <field name="code">BE_45</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_un_an_au_plus0'/>
+            <field name="formulas">balance = BE_450_3.balance + BE_454_9.balance; credit = BE_450_3.credit + BE_454_9.credit; debit = BE_450_3.debit + BE_454_9.debit</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_dettes_fiscales_impots0" model="account.financial.html.report.line">
+            <field name="name">450/3 - Impôts</field>
+            <field name="code">BE_450_3</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_fiscales0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '450%'), '|', ('account_id.code', '=like', '451%'), '|', ('account_id.code', '=like', '452%'), ('account_id.code', '=like', '453%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_remuneration_charges_sociales" model="account.financial.html.report.line">
+            <field name="name">454/9 - Rémunérations et charges sociales</field>
+            <field name="code">BE_454_9</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_fiscales0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '454%'), '|', ('account_id.code', '=like', '455%'), '|', ('account_id.code', '=like', '456%'), '|', ('account_id.code', '=like', '457%'), '|', ('account_id.code', '=like', '458%'), ('account_id.code', '=like', '459%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="4" />
+        </record>
+        <record id="account_financial_report_be_autres_dettes1" model="account.financial.html.report.line">
+            <field name="name">47/8 - Autres dettes</field>
+            <field name="code">BE_47_8</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes_un_an_au_plus0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '47%'), ('account_id.code', '=like', '48%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_regularisation_attente0" model="account.financial.html.report.line">
+            <field name="name">49 - Comptes de régularisation et d'attente</field>
+            <field name="code">BE_49</field>
+            <field name="parent_id" ref='account_financial_report_be_dettes0'/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = BE_492_3.balance + BE_499.balance; debit = BE_492_3.debit + BE_499.debit; credit = BE_492_3.credit + BE_499.credit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_regularisation1" model="account.financial.html.report.line">
+            <field name="name">492/3 - Comptes de régularisation</field>
+            <field name="code">BE_492_3</field>
+            <field name="parent_id" ref='account_financial_report_be_regularisation_attente0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '492%'), ('account_id.code', '=like', '493%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="3" />
+        </record>
+        <record id="account_financial_report_be_attente0" model="account.financial.html.report.line">
+            <field name="name">499 - Comptes d'attente</field>
+            <field name="code">BE_499</field>
+            <field name="parent_id" ref='account_financial_report_be_regularisation_attente0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '499%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="3" />
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_0_total" model="account.financial.html.report.line">
+            <field name="name">0 - Total</field>
+            <field name="code">BE_0_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '0%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_0_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 0</field>
+            <field name="code">BE_0_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_0_TOTAL.balance; credit = BE_0_TOTAL.credit; debit = BE_0_TOTAL.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_10_total" model="account.financial.html.report.line">
+            <field name="name">10 - Total</field>
+            <field name="code">BE_10_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '10%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_10_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 10</field>
+            <field name="code">BE_10_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_10_TOTAL.balance + BE_10.balance; credit = BE_10_TOTAL.credit - BE_10.credit; debit = BE_10_TOTAL.debit - BE_10.debit</field>
+            <field name="sequence" eval="10"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_13_total" model="account.financial.html.report.line">
+            <field name="name">13 - Total</field>
+            <field name="code">BE_13_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '13%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_13_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 13</field>
+            <field name="code">BE_13_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_13_TOTAL.balance + BE_13.balance; credit = BE_13_TOTAL.credit - BE_13.credit; debit = BE_13_TOTAL.debit - BE_13.debit</field>
+            <field name="sequence" eval="13"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_14_total" model="account.financial.html.report.line">
+            <field name="name">14 - Total</field>
+            <field name="code">BE_14_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '14%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_14_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 14</field>
+            <field name="code">BE_14_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_14_TOTAL.balance + BE_14.balance; credit = BE_14_TOTAL.credit - BE_14.credit; debit = BE_14_TOTAL.debit - BE_14.debit</field>
+            <field name="sequence" eval="14"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_16_total" model="account.financial.html.report.line">
+            <field name="name">16 - Total</field>
+            <field name="code">BE_16_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '16%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_16_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 16</field>
+            <field name="code">BE_16_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_16_TOTAL.balance + BE_16.balance; credit = BE_16_TOTAL.credit - BE_16.credit; debit = BE_16_TOTAL.debit - BE_16.debit</field>
+            <field name="sequence" eval="16"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_17_total" model="account.financial.html.report.line">
+            <field name="name">17 - Total</field>
+            <field name="code">BE_17_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '17%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_17_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 17</field>
+            <field name="code">BE_17_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_17_TOTAL.balance + BE_17.balance; credit = BE_17_TOTAL.credit - BE_17.credit; debit = BE_17_TOTAL.debit - BE_17.debit</field>
+            <field name="sequence" eval="17"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_18_total" model="account.financial.html.report.line">
+            <field name="name">18 - Total</field>
+            <field name="code">BE_18_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '18%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_18_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 18</field>
+            <field name="code">BE_18_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_18_TOTAL.balance; credit = BE_18_TOTAL.credit; debit = BE_18_TOTAL.debit</field>
+            <field name="sequence" eval="18"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_29_total" model="account.financial.html.report.line">
+            <field name="name">29 - Total</field>
+            <field name="code">BE_29_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '29%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_29_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 29</field>
+            <field name="code">BE_29_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_29_TOTAL.balance - BE_29.balance; credit = BE_29_TOTAL.credit - BE_29.credit; debit = BE_29_TOTAL.debit - BE_29.debit</field>
+            <field name="sequence" eval="29"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_3_total" model="account.financial.html.report.line">
+            <field name="name">3 - Total</field>
+            <field name="code">BE_3_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '3%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_3_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 3</field>
+            <field name="code">BE_3_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_3_TOTAL.balance - BE_3.balance; credit = BE_3_TOTAL.credit - BE_3.credit; debit = BE_3_TOTAL.debit - BE_3.debit</field>
+            <field name="sequence" eval="30"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_4_total" model="account.financial.html.report.line">
+            <field name="name">4 - Total</field>
+            <field name="code">BE_4_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '4%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_4_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 4</field>
+            <field name="code">BE_4_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_4_TOTAL.balance - BE_40_41.balance + BE_42_48.balance - BE_490_1.balance + BE_49.balance; credit = BE_4_TOTAL.credit - BE_40_41.credit - BE_42_48.credit - BE_490_1.credit - BE_49.credit; debit = BE_4_TOTAL.debit - BE_40_41.debit - BE_42_48.debit - BE_490_1.debit - BE_49.debit</field>
+            <field name="sequence" eval="40"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_5_total" model="account.financial.html.report.line">
+            <field name="name">5 - Total</field>
+            <field name="code">BE_5_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '5%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_5_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 5</field>
+            <field name="code">BE_5_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_5_TOTAL.balance - BE_50_53.balance - BE_54_58.balance; credit = BE_5_TOTAL.credit - BE_50_53.credit - BE_54_58.credit; debit = BE_5_TOTAL.debit - BE_50_53.debit - BE_54_58.debit</field>
+            <field name="sequence" eval="50"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_8_total" model="account.financial.html.report.line">
+            <field name="name">8 - Total</field>
+            <field name="code">BE_8_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '8%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_8_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 8</field>
+            <field name="code">BE_8_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_8_TOTAL.balance; credit = BE_8_TOTAL.credit; debit = BE_8_TOTAL.debit</field>
+            <field name="sequence" eval="80"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_9_total" model="account.financial.html.report.line">
+            <field name="name">9 - Total</field>
+            <field name="code">BE_9_TOTAL</field>
+            <field name="domain" eval="[('account_id.code', '=like', '9%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_9_control" model="account.financial.html.report.line">
+            <field name="name">Différence sur les comptes 9</field>
+            <field name="code">BE_9_CONTROL</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="formulas">balance = BE_9_TOTAL.balance; credit = BE_9_TOTAL.credit; debit = BE_9_TOTAL.debit</field>
+            <field name="sequence" eval="90"/>
+            <field name="level" eval="1"/>
+            <field name="hide_if_zero" eval="True" />
+        </record>
+        <record id="account_financial_report_be_off_sheet" model="account.financial.html.report.line">
+            <field name="name">COMPTES HORS BILAN</field>
+            <field name="code">BE_OS</field>
+            <field name="financial_report_id" ref="account_financial_report_be_balancesheet0"/>
+            <field name="domain" eval="[('account_id.user_type_id', '=', ref('account.data_account_off_sheet'))]"/>
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="sequence" eval="3000"/>
+            <field name="level" eval="0"/>
+            <field name="hide_if_empty" eval="1"/>
+        </record>
+
+        <!--
+            Compte des resultats
+        -->
+
+        <record id="account_financial_report_be_profitandloss0" model="account.financial.html.report">
+            <field name="name">Compte de résultats</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name='parent_id' ref='l10n_be.account_reports_be_statements_menu'/>
+        </record>
+
+        <record id="action_account_report_bepnl" model="ir.actions.client">
+            <field name="name">Compte des résultats</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'account.financial.html.report', 'id': ref('account_financial_report_be_profitandloss0')}" />
+        </record>
+        <record id="account_financial_be_current_year_earnings0" model="account.financial.html.report.line">
+            <field name="action_id" ref='action_account_report_bepnl' />
+        </record>
+
+        <record id="account_financial_report_be_produits0" model="account.financial.html.report.line">
+            <field name="name">Ventes et prestations</field>
+            <field name="code">BE_PRODUITS</field>
+            <field name="formulas">
+            balance = BE_70.balance + BE_71.balance + BE_72.balance + BE_74.balance;
+            credit = BE_70.credit + BE_71.credit + BE_72.credit + BE_74.credit;
+            debit = BE_70.debit + BE_71.debit + BE_72.debit + BE_74.debit
+            </field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1" />
+        </record>
+
+        <record id="account_financial_report_be_chiffre_daffaires0" model="account.financial.html.report.line">
+            <field name="name">70 - Chiffre d'affaires</field>
+            <field name="code">BE_70</field>
+            <field name="parent_id" ref='account_financial_report_be_produits0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '70%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_chiffre_daffaires71" model="account.financial.html.report.line">
+            <field name="name">71 - En-cours de fabrication, produits finis et commandes</field>
+            <field name="code">BE_71</field>
+            <field name="parent_id" ref='account_financial_report_be_produits0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '71%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_chiffre_daffaires72" model="account.financial.html.report.line">
+            <field name="name">72 - Production immobilisée</field>
+            <field name="code">BE_72</field>
+            <field name="parent_id" ref='account_financial_report_be_produits0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '72%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_chiffre_daffaires74" model="account.financial.html.report.line">
+            <field name="name">74 - Autres produits d'exploitation</field>
+            <field name="code">BE_74</field>
+            <field name="parent_id" ref='account_financial_report_be_produits0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '74%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_charges0" model="account.financial.html.report.line">
+            <field name="name">Coûts des ventes et prestations</field>
+            <field name="code">BE_CHARGES</field>
+            <field name="formulas">
+            balance = BE_60_61.balance + BE_62.balance + BE_630.balance + BE_631_4.balance + BE_635_7.balance + BE_640_8.balance + BE_649.balance;
+            credit = BE_60_61.credit + BE_62.credit + BE_630.credit + BE_631_4.credit + BE_635_7.credit + BE_640_8.credit + BE_649.credit;
+            debit = BE_60_61.debit + BE_62.debit + BE_630.debit + BE_631_4.debit + BE_635_7.debit + BE_640_8.debit + BE_649.debit
+            </field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_approvisionnements0" model="account.financial.html.report.line">
+            <field name="name">60/61 - Approvisionnements, marchandises, services et biens divers</field>
+            <field name="code">BE_60_61</field>
+            <field name="parent_id" ref='account_financial_report_be_charges0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '60%'), ('account_id.code', '=like', '61%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_remunerations0" model="account.financial.html.report.line">
+            <field name="name">62 - Rémunérations, charges sociales et pensions</field>
+            <field name="code">BE_62</field>
+            <field name="parent_id" ref='account_financial_report_be_charges0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '62%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_amortissements0" model="account.financial.html.report.line">
+            <field name="name">630 - Amortissements et réductions de valeur sur frais d'établissement, sur immobilisations incorporelles et corporelles</field>
+            <field name="code">BE_630</field>
+            <field name="parent_id" ref='account_financial_report_be_charges0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '630%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_reduction_de_valeur0" model="account.financial.html.report.line">
+            <field name="name">631/4 - Réductions de valeur sur stocks, sur commandes en cours d'exécution et sur créances commerciales: dotations (reprises)</field>
+            <field name="code">BE_631_4</field>
+            <field name="parent_id" ref='account_financial_report_be_charges0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '631%'), '|', ('account_id.code', '=like', '632%'), '|', ('account_id.code', '=like', '633%'), ('account_id.code', '=like', '634%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_provisions_pour_risques_et_charges0" model="account.financial.html.report.line">
+            <field name="name">635/7 - Provisions pour risques et charges: dotations (utilisations et reprises)</field>
+            <field name="code">BE_635_7</field>
+            <field name="parent_id" ref='account_financial_report_be_charges0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '635%'), '|', ('account_id.code', '=like', '636%'), ('account_id.code', '=like', '637%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_autres_charges0" model="account.financial.html.report.line">
+            <field name="name">640/8 - Autres charges d'exploitation</field>
+            <field name="code">BE_640_8</field>
+            <field name="parent_id" ref='account_financial_report_be_charges0'/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '640%'), '|', ('account_id.code', '=like', '641%'), '|', ('account_id.code', '=like', '642%'), '|', ('account_id.code', '=like', '643%'), '|', ('account_id.code', '=like', '644%'), '|', ('account_id.code', '=like', '645%'), '|', ('account_id.code', '=like', '646%'), '|', ('account_id.code', '=like', '647%'),('account_id.code', '=like', '648%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_restructuration0" model="account.financial.html.report.line">
+            <field name="name">649 - Charges d'exploitation portées à l'actif au titre de frais de restructuration</field>
+            <field name="code">BE_649</field>
+            <field name="parent_id" ref='account_financial_report_be_charges0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '649%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="2" />
+        </record>
+        <!--
+        <record id="account_financial_report_be_empty" model="account.financial.html.report.line">
+            <field name="name"></field>
+            <field name="code">BE_EMPTY</field>
+            <field name="financial_report_id" ref='account_financial_report_be_profitandloss0'/>
+            <field name="formulas"></field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        -->
+        <record id="account_financial_report_be_benefices_dexploitation0" model="account.financial.html.report.line">
+            <field name="name">9901 - Bénéfice (Perte) d'exploitation</field>
+            <field name="code">BE_9901</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="formulas">balance = BE_PRODUITS.balance - BE_CHARGES.balance; credit = BE_PRODUITS.credit - BE_CHARGES.credit; debit = BE_PRODUITS.debit - BE_CHARGES.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="1" />
+        </record>
+
+        <record id="account_financial_report_be_empty" model="account.financial.html.report.line">
+            <field name="name"></field>
+            <field name="code">BE_EMPTY</field>
+            <field name="financial_report_id" ref='account_financial_report_be_profitandloss0'/>
+            <field name="formulas"></field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record id="account_financial_report_be_produits_financiers0" model="account.financial.html.report.line">
+            <field name="name">75 - Produits financiers</field>
+            <field name="code">BE_75</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="[('account_id.code', '=like', '75%')]" />
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_750" model="account.financial.html.report.line">
+            <field name="name">750 - Produits des immobilisations financières</field>
+            <field name="code">BE_750</field>
+            <field name="parent_id" ref='account_financial_report_be_produits_financiers0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '750%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_751" model="account.financial.html.report.line">
+            <field name="name">751 - Produits des actifs circulants</field>
+            <field name="code">BE_751</field>
+            <field name="parent_id" ref='account_financial_report_be_produits_financiers0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '751%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_752_9" model="account.financial.html.report.line">
+            <field name="name">752/9 - Autres produits financiers</field>
+            <field name="code">BE_752_9</field>
+            <field name="parent_id" ref='account_financial_report_be_produits_financiers0'/>
+            <field name="domain" eval="['|', '|','|','|','|','|','|', ('account_id.code', '=like', '752%'), ('account_id.code', '=like', '753%'), ('account_id.code', '=like', '754%'), ('account_id.code', '=like', '755%'), ('account_id.code', '=like', '756%'), ('account_id.code', '=like', '757%'), ('account_id.code', '=like', '758%'), ('account_id.code', '=like', '759%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_charges_financieres0" model="account.financial.html.report.line">
+            <field name="name">65 - Charges financières</field>
+            <field name="code">BE_65</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="[('account_id.code', '=like', '65%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_650" model="account.financial.html.report.line">
+            <field name="name">650 - Charges des dettes</field>
+            <field name="code">BE_650</field>
+            <field name="parent_id" ref='account_financial_report_be_charges_financieres0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '650%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_651" model="account.financial.html.report.line">
+            <field name="name">651 - Réductions de valeur sur actifs circulants autres que stocks, commandes en cours et créances</field>
+            <field name="code">BE_651</field>
+            <field name="parent_id" ref='account_financial_report_be_charges_financieres0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '651%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_652_9" model="account.financial.html.report.line">
+            <field name="name">652/9 - Autres charges financières</field>
+            <field name="code">BE_652_9</field>
+            <field name="parent_id" ref='account_financial_report_be_charges_financieres0'/>
+            <field name="domain" eval="['|', '|','|','|','|','|','|', ('account_id.code', '=like', '652%'), ('account_id.code', '=like', '653%'), ('account_id.code', '=like', '654%'), ('account_id.code', '=like', '655%'), ('account_id.code', '=like', '656%'), ('account_id.code', '=like', '657%'), ('account_id.code', '=like', '658%'), ('account_id.code', '=like', '659%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_benefices_courant_avant_impots0" model="account.financial.html.report.line">
+            <field name="name">9902 - Bénéfice (Perte) courant(e) avant impôts</field>
+            <field name="code">BE_9902</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="formulas">balance = BE_9901.balance + BE_75.balance - BE_65.balance; credit = BE_9901.credit + BE_75.credit - BE_65.credit; debit = BE_9901.debit + BE_75.debit - BE_65.debit</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_empty2" model="account.financial.html.report.line">
+            <field name="name"></field>
+            <field name="code">BE_EMPTY2</field>
+            <field name="financial_report_id" ref='account_financial_report_be_profitandloss0'/>
+            <field name="formulas"></field>
+            <field name="sequence" eval="8"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_produits_exceptionnels0" model="account.financial.html.report.line">
+            <field name="name">76 - Produits exceptionnels</field>
+            <field name="code">BE_76</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="[('account_id.code', '=like', '76%')]" />
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="9"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_760" model="account.financial.html.report.line">
+            <field name="name">760 - Reprise d'amortissements et de réductions de valeur sur immobilisations incorporelles et corporelles</field>
+            <field name="code">BE_760</field>
+            <field name="parent_id" ref='account_financial_report_be_produits_exceptionnels0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '760%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_761" model="account.financial.html.report.line">
+            <field name="name">761 - Reprise de réducitons de valeur sur immobilisations financières</field>
+            <field name="code">BE_761</field>
+            <field name="parent_id" ref='account_financial_report_be_produits_exceptionnels0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '761%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_762" model="account.financial.html.report.line">
+            <field name="name">762 - Reprise de provisions pour risques et charges exceptionnels</field>
+            <field name="code">BE_762</field>
+            <field name="parent_id" ref='account_financial_report_be_produits_exceptionnels0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '762%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_730" model="account.financial.html.report.line">
+            <field name="name">763 - Plus-values sur réalisation d'actifs immobilisés</field>
+            <field name="code">BE_763</field>
+            <field name="parent_id" ref='account_financial_report_be_produits_exceptionnels0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '763%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_764_9" model="account.financial.html.report.line">
+            <field name="name">764/9 - Autres produits exceptionnels</field>
+            <field name="code">BE_764_9</field>
+            <field name="parent_id" ref='account_financial_report_be_produits_exceptionnels0'/>
+            <field name="domain" eval="['|', '|', '|', '|', '|',('account_id.code', '=like', '764%'), ('account_id.code', '=like', '765%'), ('account_id.code', '=like', '766%'), ('account_id.code', '=like', '767%'), ('account_id.code', '=like', '768%'), ('account_id.code', '=like', '769%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_charges_exceptionnelles0" model="account.financial.html.report.line">
+            <field name="name">66 - Charges exceptionnelles</field>
+            <field name="code">BE_66</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="[('account_id.code', '=like', '66%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="10"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_660" model="account.financial.html.report.line">
+            <field name="name">660 - Amortissements et réductions de valeur exceptionnels sur frais d'établissement, sur immobilisations incorporelles et corporelles</field>
+            <field name="code">BE_660</field>
+            <field name="parent_id" ref='account_financial_report_be_charges_exceptionnelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '660%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_661" model="account.financial.html.report.line">
+            <field name="name">661 - Réductions de valeur sur immobilisations financières</field>
+            <field name="code">BE_661</field>
+            <field name="parent_id" ref='account_financial_report_be_charges_exceptionnelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '661%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_662" model="account.financial.html.report.line">
+            <field name="name">662 - Provisions pour risques et charges exceptionnels: dotations (utilisations)</field>
+            <field name="code">BE_662</field>
+            <field name="parent_id" ref='account_financial_report_be_charges_exceptionnelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '662%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_663" model="account.financial.html.report.line">
+            <field name="name">663 - Moins-values sur réalisation d'actifs immobilisés</field>
+            <field name="code">BE_663</field>
+            <field name="parent_id" ref='account_financial_report_be_charges_exceptionnelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '663%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_664_8" model="account.financial.html.report.line">
+            <field name="name">664/8 - Autres charges exceptionnelles</field>
+            <field name="code">BE_664_8</field>
+            <field name="parent_id" ref='account_financial_report_be_charges_exceptionnelles0'/>
+            <field name="domain" eval="['|', '|', '|', '|', ('account_id.code', '=like', '664%'), ('account_id.code', '=like', '665%'), ('account_id.code', '=like', '666%'), ('account_id.code', '=like', '667%'), ('account_id.code', '=like', '668%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_669" model="account.financial.html.report.line">
+            <field name="name">669 - Charges exceptionnelles portées à l'actif au titre de frais de restructuration</field>
+            <field name="code">BE_669</field>
+            <field name="parent_id" ref='account_financial_report_be_charges_exceptionnelles0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '669%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_benefices_de_lexercice_avant_impots0" model="account.financial.html.report.line">
+            <field name="name">9903 - Bénéfice (Perte) de l'excercice avant impôts</field>
+            <field name="code">BE_9903</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="formulas">balance = BE_9902.balance + BE_76.balance - BE_66.balance; credit = BE_9902.credit + BE_76.credit - BE_66.credit; debit = BE_9902.debit + BE_76.debit - BE_66.debit</field>
+            <field name="sequence" eval="11"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_empty3" model="account.financial.html.report.line">
+            <field name="name"></field>
+            <field name="code">BE_EMPTY3</field>
+            <field name="financial_report_id" ref='account_financial_report_be_profitandloss0'/>
+            <field name="formulas"></field>
+            <field name="sequence" eval="12"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_prelevements_impots_differes0" model="account.financial.html.report.line">
+            <field name="name">780 - Prélèvements sur les impôts différés</field>
+            <field name="code">BE_780</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="[('account_id.code', '=like', '780%')]" />
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="13"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_transfert_aux_impots_differes0" model="account.financial.html.report.line">
+            <field name="name">680 - Transfert sur les impôts différés</field>
+            <field name="code">BE_680</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="[('account_id.code', '=like', '680%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="14"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_impots_sur_le_resultat0" model="account.financial.html.report.line">
+            <field name="name">67/77 - Impôts sur le résultat</field>
+            <field name="code">BE_67_77</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '67%'), ('account_id.code', '=like', '77%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="15"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_670_3" model="account.financial.html.report.line">
+            <field name="name">670/3 - Impôts</field>
+            <field name="code">BE_670_3</field>
+            <field name="parent_id" ref='account_financial_report_be_impots_sur_le_resultat0'/>
+            <field name="domain" eval="['|', '|', '|', ('account_id.code', '=like', '670%'), ('account_id.code', '=like', '671%'), ('account_id.code', '=like', '672%'), ('account_id.code', '=like', '673%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_77" model="account.financial.html.report.line">
+            <field name="name">77 - Régularisations d'impôts et reprises de provisions fiscales</field>
+            <field name="code">BE_77</field>
+            <field name="parent_id" ref='account_financial_report_be_impots_sur_le_resultat0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '77%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_benefices_de_lexercice0" model="account.financial.html.report.line">
+            <field name="name">9904 - Bénéfice (Perte) de l'exercice</field>
+            <field name="code">BE_9904</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="formulas">balance = BE_9903.balance + BE_780.balance - BE_680.balance - BE_67_77.balance; credit = BE_9903.credit + BE_780.credit - BE_680.credit - BE_67_77.credit; debit = BE_9903.debit + BE_780.debit - BE_680.debit - BE_67_77.debit</field>
+            <field name="sequence" eval="16"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_empty4" model="account.financial.html.report.line">
+            <field name="name"></field>
+            <field name="code">BE_EMPTY4</field>
+            <field name="financial_report_id" ref='account_financial_report_be_profitandloss0'/>
+            <field name="formulas"></field>
+            <field name="sequence" eval="17"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_prelevements_reserves_immunisees0" model="account.financial.html.report.line">
+            <field name="name">789 - Prélèvements sur les réserves immunisées</field>
+            <field name="code">BE_789</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="[('account_id.code', '=like', '789%')]" />
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="18"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_transferts_aux_reserves_immunisees0" model="account.financial.html.report.line">
+            <field name="name">689 - Transfert aux réserves immunisées</field>
+            <field name="code">BE_689</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="[('account_id.code', '=like', '689%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="19"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_benefices_de_lexercice_a_affecter0" model="account.financial.html.report.line">
+            <field name="name">9905 - Bénéfice (Perte) de l'exercice à affecter</field>
+            <field name="code">BE_9905</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="formulas">balance = BE_9904.balance + BE_789.balance - BE_689.balance; credit = BE_9904.credit + BE_789.credit - BE_689.credit; debit = BE_9904.debit + BE_789.debit - BE_680.debit</field>
+            <field name="sequence" eval="20"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_empty5" model="account.financial.html.report.line">
+            <field name="name"></field>
+            <field name="code">BE_EMPTY5</field>
+            <field name="financial_report_id" ref='account_financial_report_be_profitandloss0'/>
+            <field name="formulas"></field>
+            <field name="sequence" eval="21"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_empty6" model="account.financial.html.report.line">
+            <field name="name"></field>
+            <field name="code">BE_EMPTY6</field>
+            <field name="financial_report_id" ref='account_financial_report_be_profitandloss0'/>
+            <field name="formulas"></field>
+            <field name="sequence" eval="22"/>
+            <field name="level" eval="0" />
+        </record>
+        <record id="account_financial_report_be_affectation" model="account.financial.html.report.line">
+            <field name="name">Affectations et prélèvements</field>
+            <field name="code">BE_AFF</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="sequence" eval="23"/>
+            <field name="level" eval="0"/>
+        </record>
+        <record id="account_financial_report_be_benefice_perte_a_affecter0" model="account.financial.html.report.line">
+            <field name="name">9906 - Bénéfice (Perte) à affecter</field>
+            <field name="code">BE_9906</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="formulas">balance = BE_9905bis.balance + BE_14P.balance; credit = BE_9905bis.credit + BE_14P.credit; debit = BE_14P.debit + BE_9905bis.debit</field>
+            <field name="sequence" eval="24"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_9905bis" model="account.financial.html.report.line">
+            <field name="name">9905 - Bénéfice (Perte) de l'exercice à affecter</field>
+            <field name="code">BE_9905bis</field>
+            <field name="parent_id" ref='account_financial_report_be_benefice_perte_a_affecter0'/>
+            <field name="formulas">balance = BE_9905.balance; credit = BE_9905.credit; debit = BE_9905.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_14P" model="account.financial.html.report.line">
+            <field name="name">14P - Bénéfice (Perte) reporté(e) de l'exercice précédent</field>
+            <field name="code">BE_14P</field>
+            <field name="parent_id" ref='account_financial_report_be_benefice_perte_a_affecter0'/>
+            <field name="domain" eval="[('account_id.code', '=like', '14%'), ('account_id.user_type_id', '!=', ref('account.data_unaffected_earnings'))]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="special_date_changer">to_beginning_of_period</field>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_791_792" model="account.financial.html.report.line">
+            <field name="name">791/2 - Prélèvement sur les capitaux propres</field>
+            <field name="code">BE_791</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '791%'), ('account_id.code', '=like', '792%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="25"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_691_692" model="account.financial.html.report.line">
+            <field name="name">691/2 - Affectation aux capitaux propres</field>
+            <field name="code">BE_691_2</field>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '691%'), ('account_id.code', '=like', '692%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="sequence" eval="26"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_691" model="account.financial.html.report.line">
+            <field name="name">691 - au capital et aux primes d'émission</field>
+            <field name="code">BE_691</field>
+            <field name="parent_id" ref='account_financial_report_be_691_692'/>
+            <field name="domain" eval="[('account_id.code', '=like', '691%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+        </record>
+
+        <record id="account_financial_report_be_6920" model="account.financial.html.report.line">
+            <field name="name">6920 - à la réserve légale</field>
+            <field name="code">BE_6920</field>
+            <field name="parent_id" ref='account_financial_report_be_691_692'/>
+            <field name="domain" eval="[('account_id.code', '=like', '6920%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_6921" model="account.financial.html.report.line">
+            <field name="name">6921 - aux autres réserves</field>
+            <field name="code">BE_6921</field>
+            <field name="parent_id" ref='account_financial_report_be_691_692'/>
+            <field name="domain" eval="[('account_id.code', '=like', '6921%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+        </record>
+        <record id="account_financial_report_be_PL_14" model="account.financial.html.report.line">
+            <field name="name">14 - Bénéfice (Perte) à reporter</field>
+            <field name="code">BE_PL_14</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="formulas">balance = BE_9906.balance + BE_791.balance - BE_691_2.balance; credit = BE_9906.credit + BE_791.credit + BE_691.credit; debit = BE_9906.debit + BE_791.debit + BE_691.debit</field>
+            <field name="sequence" eval="27"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_794" model="account.financial.html.report.line">
+            <field name="name">794 - Intervention d'associés dans la perte</field>
+            <field name="code">BE_794</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="[('account_id.code', '=like', '794%')]" />
+            <field name="groupby">account_id</field>
+            <field name="formulas">balance = -sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="28"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_694_696" model="account.financial.html.report.line">
+            <field name="name">694/6 - Bénéfice à distribuer</field>
+            <field name="code">BE_694_6</field>
+            <field name="financial_report_id" ref="account_financial_report_be_profitandloss0"/>
+            <field name="domain" eval="['|', ('account_id.code', '=like', '694%'), ('account_id.code', '=like', '695%'), ('account_id.code', '=like', '696%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="29"/>
+            <field name="level" eval="1" />
+        </record>
+        <record id="account_financial_report_be_694" model="account.financial.html.report.line">
+            <field name="name">694 - Rémunération du capital</field>
+            <field name="code">BE_694</field>
+            <field name="parent_id" ref='account_financial_report_be_694_696'/>
+            <field name="domain" eval="[('account_id.code', '=like', '694%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2" />
+            <field name="groupby">account_id</field>
+        </record>
+        <record id="account_financial_report_be_695" model="account.financial.html.report.line">
+            <field name="name">695 - Administrateurs ou gérants</field>
+            <field name="code">BE_695</field>
+            <field name="parent_id" ref='account_financial_report_be_694_696'/>
+            <field name="domain" eval="[('account_id.code', '=like', '695%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2" />
+            <field name="groupby">account_id</field>
+        </record>
+        <record id="account_financial_report_be_696" model="account.financial.html.report.line">
+            <field name="name">696 - Autres allocataires</field>
+            <field name="code">BE_696</field>
+            <field name="parent_id" ref='account_financial_report_be_694_696'/>
+            <field name="domain" eval="[('account_id.code', '=like', '696%')]" />
+            <field name="formulas">balance = sum.balance; credit = sum.credit; debit = sum.debit</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="2" />
+            <field name="groupby">account_id</field>
+        </record>
+
+</odoo>

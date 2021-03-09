@@ -1,0 +1,373 @@
+<odoo>
+    <!-- Project gantt view -->
+    <record id="project_task_view_gantt_fsm_worksheet" model="ir.ui.view">
+        <field name="name">project.task.view.gantt.fsm.worksheet</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" eval="ref('industry_fsm.project_task_view_gantt_fsm')" />
+        <field name="arch" type="xml">
+            <xpath expr="//gantt" position="attributes">
+                <attribute name="color">worksheet_color</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_worksheet_template_view_form" model="ir.ui.view">
+        <field name="name">project.worksheet.template.view.form</field>
+        <field name="model">project.worksheet.template</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="model_id" invisible="True"/>
+                    <widget name="open_studio_button" attrs="{'invisible': [('model_id', '=', False)]}" groups="base.group_system"/>
+                    <button name="action_fsm_report" type="object" string="Analysis" />
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_worksheets" type="object" class="oe_stat_button" icon="fa-pencil">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value"><field name="worksheet_count"/></span>
+                                <span class="o_stat_text"> Worksheets</span>
+                            </div>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="active" invisible="1"/>
+                            <field name="color"/>
+                        </group>
+                        <group>
+                            <field name="model_id" invisible="True"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="project_task_view_kanban_fsm_report" model="ir.ui.view">
+        <field name="name">project.task.kanban.fsm.report</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="industry_fsm.project_task_view_kanban_fsm"/>
+        <field name="arch" type="xml">
+            <xpath expr="//kanban" position="inside">
+                <field name="worksheet_template_id" />
+            </xpath>
+            <xpath expr="//strong[hasclass('o_kanban_record_title')]" position="after">
+                <t t-if="record.worksheet_template_id.raw_value">
+                    <br />
+                    <span>
+                        <field name="worksheet_template_id"/>
+                    </span>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_worksheet_template_view_list" model="ir.ui.view">
+        <field name="name">project.worksheet.template.view.form</field>
+        <field name="model">project.worksheet.template</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Template name"/>
+                <field name="worksheet_count" string="Worksheets"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_worksheet_template_view_search" model="ir.ui.view">
+        <field name="name">project.worksheet.template.view.search</field>
+        <field name="model">project.worksheet.template</field>
+        <field name="arch" type="xml">
+            <search string="Project Worksheet Template Search">
+                <field name="name"/>
+                <separator/>
+                <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_fsm_worksheets" model="ir.actions.act_window">
+        <field name="name">Worksheet Templates</field>
+        <field name="res_model">project.worksheet.template</field>
+        <field name="view_mode">tree,form,graph,pivot</field>
+        <field name="search_view_id" ref="project_worksheet_template_view_search"/>
+    </record>
+
+    <record id="project_project_form_inherit_industry_fsm_report" model="ir.ui.view">
+        <field name="name">project.project.form.inherit.industry.fsm.report</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="industry_fsm.project_view_form_inherit"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='rating_settings']/.." position="before">
+                <div class="row mt16 o_settings_container">
+                    <div class="col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="allow_worksheets"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="allow_worksheets"/>
+                            <div class="text-muted" id="allow_billable_setting">
+                                Create and fill report on tasks
+                            </div>
+                            <field name="worksheet_template_id" attrs="{'invisible': [('allow_worksheets', '=', False)]}"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_task_view_search_fsm_report" model="ir.ui.view">
+        <field name="name">project.task.search.fsm</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" eval="ref('industry_fsm.project_task_view_search_fsm')" />
+        <field name="arch" type="xml">
+            <xpath expr="//group" position="inside">
+                <filter string="Worksheet Template" name="groupby_worksheet_template" context="{'group_by':'worksheet_template_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_project_view_form_simplified_inherit" model="ir.ui.view">
+        <field name="name">project.project.view.form.simplified.inherit</field>
+        <field name="model">project.project</field>
+        <field name="inherit_id" ref="industry_fsm.project_project_view_form_simplified_inherit"/>
+        <field name="arch" type="xml">
+            <field name="allow_material" position="after">
+                <field name="allow_worksheets"/>
+                <field name="worksheet_template_id" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Project Task form view -->
+    <record id="view_task_form2_inherit" model="ir.ui.view">
+        <field name="name">task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="industry_fsm.view_task_form2_inherit"/>
+        <field name="arch" type="xml">
+            <field name="sale_line_id" position="after">
+                <field name="allow_worksheets" invisible="1"/>
+                <field name="worksheet_template_id" attrs="{'invisible': [('allow_worksheets', '=', False)]}"/>
+            </field>
+
+            <xpath expr="//button[@name='action_fsm_create_invoice'][hasclass('btn-primary')]" position="before">
+                <field name="fsm_is_sent" invisible="1"/>
+                <field name="worksheet_signature" invisible="1"/>
+                <button name="action_preview_worksheet" type="object" string="Sign Report" class="btn-primary"
+                    attrs="{'invisible': ['|', '|', '|', '|', '|', ('allow_worksheets', '=', False), ('timesheet_timer_start', '!=', False), ('worksheet_template_id', '=', False), ('worksheet_count', '=', 0), ('worksheet_signature', '!=', False)]}"/>
+                <button name="action_send_report" type="object" string="Send Report" class="btn-primary"
+                    attrs="{'invisible': ['|', '|', '|', '|', '|', 
+                    ('allow_worksheets', '=', False), 
+                    ('timesheet_timer_start', '!=', False), 
+                    ('worksheet_template_id', '=', False), 
+                    ('worksheet_count', '=', 0), 
+                    ('fsm_is_sent', '=', True),
+                    ('worksheet_signature', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_fsm_create_invoice'][hasclass('btn-secondary')]" position="before">
+                <button name="action_preview_worksheet" type="object" string="Sign Report" class="btn-secondary"
+                    attrs="{'invisible': ['|', '|', '|', '|', '|', ('allow_worksheets', '=', False), ('timesheet_timer_start', '!=', False), ('worksheet_template_id', '=', False), ('worksheet_count', '=', 0), ('worksheet_signature', '=', False)]}"/>
+                <button name="action_send_report" type="object" string="Send Report" class="btn-secondary"
+                    attrs="{'invisible': ['|', '|', '|', '|','|', 
+                    ('allow_worksheets', '=', False), 
+                    ('timesheet_timer_start', '!=', False), 
+                    ('worksheet_template_id', '=', False), 
+                    ('worksheet_count', '=', 0),
+                    '&amp;',
+                        ('fsm_is_sent', '=', False),
+                        ('worksheet_signature', '!=', False)]}"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_fsm_view_material']" position="before">
+                <field name="worksheet_count" invisible="1"/>
+                <button
+                    string="Worksheet"
+                    class="oe_stat_button"
+                    name="action_fsm_worksheet"
+                    icon="fa-pencil" type="object"
+                    groups="project.group_project_user"
+                    attrs="{'invisible': ['|', '|', ('allow_worksheets', '=', False), ('worksheet_template_id', '=', False), ('worksheet_count', '!=', 0)]}"
+                    help="Worksheet from this task">
+                </button>
+                <button
+                    string="Worksheet"
+                    class="oe_stat_button text-success"
+                    name="action_fsm_worksheet"
+                    icon="fa-check" type="object"
+                    groups="project.group_project_user"
+                    attrs="{'invisible': ['|', '|', ('allow_worksheets', '=', False), ('worksheet_template_id', '=', False), ('worksheet_count', '=', 0)]}"
+                    help="Worksheet from this task">
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- FSM Task form view -->
+    <record id="project_task_view_form_inherit" model="ir.ui.view">
+        <field name="name">task.form.inherit</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="industry_fsm.project_task_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-primary')]" position="attributes">
+                <attribute name="attrs">{'invisible': ['&amp;', '|', '|', ('allow_material', '=', True), '|', ('allow_timesheets', '=', True), ('allow_quotations', '=', False), ('allow_worksheets', '=', True), '|', '|', '|', '|', '|', ('timesheet_timer_start', '!=', False), ('fsm_done', '=', True), '&amp;', ('allow_timesheets', '=', True), ('total_hours_spent', '=', 0), '&amp;', ('allow_material', '=', True), ('material_line_product_count', '=', 0), '&amp;', ('allow_worksheets', '=', True), ('worksheet_count', '=', 0), '&amp;', ('allow_timesheets', '=', False), '&amp;', ('allow_material', '=', False), ('allow_worksheets', '=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-secondary')]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|','|','&amp;', ('timesheet_timer_start', '!=', False), ('timesheet_timer_pause', '=', False), ('fsm_done', '=', True),'|','|','&amp;', '&amp;',    '&amp;', ('allow_timesheets', '=', True), ('total_hours_spent', '=', 0),    '&amp;', ('allow_material', '=', True), ('material_line_product_count', '=', 0),    '&amp;', ('allow_worksheets', '=', True), ('worksheet_count', '=', 0),'&amp;', '&amp;', ('total_hours_spent', '=', 0), ('material_line_product_count', '=', 0), ('worksheet_count', '=', 0),'&amp;', '&amp;',   '|', ('allow_timesheets', '=', False), ('total_hours_spent', '!=', 0),  '|', ('allow_material', '=', False), ('material_line_product_count', '!=', 0),  '|', ('allow_worksheets', '=', False), ('worksheet_count', '!=', 0)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-primary')]" position="before">
+                <field name="allow_worksheets" invisible="1"/>
+                <field name="fsm_is_sent" invisible="1"/>
+                <field name="worksheet_signature" invisible="1"/>
+                <button name="action_preview_worksheet" type="object" string="Sign Report" class="btn-primary"
+                    attrs="{'invisible': ['|', '|', '|', '|', ('allow_worksheets', '=', False), ('worksheet_signature', '!=', False), ('timesheet_timer_start', '!=', False), ('worksheet_template_id', '=', False), '&amp;', ('worksheet_count', '=', 0), '&amp;', '|', ('allow_timesheets', '=', False), ('total_hours_spent', '=', 0), '|', ('allow_material', '=', False), ('material_line_product_count', '=', 0)]}"/>
+                <button name="action_send_report" type="object" string="Send Report" class="btn-primary"
+                    attrs="{'invisible': ['|', '|', '|', '|', '|', 
+                    ('allow_worksheets', '=', False), 
+                    ('timesheet_timer_start', '!=', False), 
+                    ('worksheet_template_id', '=', False), 
+                    '&amp;','&amp;',
+                        ('worksheet_count', '=', 0),
+                        ('total_hours_spent', '=', 0),
+                        ('material_line_product_count', '=', 0), 
+                    ('fsm_is_sent', '=', True),
+                    ('worksheet_signature', '=', False)]}"/>
+            </xpath>
+            <xpath expr="//button[@name='action_fsm_validate'][hasclass('btn-secondary')]" position="before">
+                <button name="action_preview_worksheet" type="object" string="Sign Report" class="btn-secondary"
+                    attrs="{'invisible': ['|', '|', '|', '|', ('allow_worksheets', '=', False), ('worksheet_signature', '=', False), ('timesheet_timer_start', '!=', False), ('worksheet_template_id', '=', False), '&amp;', ('worksheet_count', '=', 0), '&amp;', '|', ('allow_timesheets', '=', False), ('total_hours_spent', '=', 0), '|', ('allow_material', '=', False), ('material_line_product_count', '=', 0)]}"/>
+                <button name="action_send_report" type="object" string="Send Report" class="btn-secondary"
+                    attrs="{'invisible': ['|', '|', '|', '|', '|', 
+                    ('allow_worksheets', '=', False), 
+                    ('timesheet_timer_start', '!=', False), 
+                    ('worksheet_template_id', '=', False), 
+                    '&amp;','&amp;',
+                        ('worksheet_count', '=', 0),
+                        ('total_hours_spent', '=', 0),
+                        ('material_line_product_count', '=', 0),
+                    '&amp;', 
+                        ('fsm_is_sent', '=', False),
+                        ('worksheet_signature', '!=', False)]}"/>
+            </xpath>
+
+            <xpath expr="//button[@name='action_fsm_view_material']" position="before">
+                <field name="is_fsm" invisible="1"/>
+                <field name="worksheet_count" invisible="1"/>
+                <field name="worksheet_template_id" invisible="1"/>
+                <button
+                    string="Worksheet"
+                    class="oe_stat_button"
+                    name="action_fsm_worksheet"
+                    icon="fa-pencil" type="object"
+                    groups="project.group_project_user"
+                    attrs="{'invisible': ['|', '|', '|', ('allow_worksheets', '=', False), ('is_fsm', '=', False), ('worksheet_template_id', '=', False), ('worksheet_count', '!=', 0)]}"
+                    help="Worksheet from this task">
+                </button>
+                <button
+                    string="Worksheet Completed"
+                    class="oe_stat_button text-success"
+                    name="action_fsm_worksheet"
+                    icon="fa-check" type="object"
+                    groups="project.group_project_user"
+                    attrs="{'invisible': ['|', '|', '|', ('allow_worksheets', '=', False), ('is_fsm', '=', False), ('worksheet_template_id', '=', False), ('worksheet_count', '=', 0)]}"
+                    help="Worksheet from this task">
+                </button>
+            </xpath>
+            <field name="project_id" position="after">
+                <field name="worksheet_template_id" attrs="{'invisible': [('allow_worksheets', '=', False)]}" options="{'no_open': True, 'no_create': True, 'no_edit': True}" groups="industry_fsm.group_fsm_manager"/>
+            </field>
+            <xpath expr="//field[@name='project_id']" position="attributes">
+                <attribute name="context">{
+                    'default_is_fsm': True,
+                    }
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="fsm_worksheets_action_settings" model="ir.actions.act_window" >
+        <field name="name">Worksheets Templates</field>
+        <field name="res_model">project.worksheet.template</field>
+        <field name="view_mode">tree,graph,pivot,form</field>
+    </record>
+
+    <record id="industry_fsm.project_project_action_only_fsm" model="ir.actions.act_window">
+        <field name="context">
+            {
+            'fsm_mode': True,
+            'default_is_fsm': True,
+            'default_allow_timesheets': True,
+            'default_allow_timesheet_timer': True,
+            'default_allow_material': True,
+            'default_allow_billable': True,
+            'default_allow_worksheets': True
+            }
+        </field>
+    </record>
+
+    <!-- action planning by worksheet -->
+
+    <record id="project_task_action_fsm_planning_groupby_worksheet" model="ir.actions.act_window">
+        <field name="name">Planning by Worksheet</field>
+        <field name="res_model">project.task</field>
+        <field name="view_mode">kanban,tree,calendar,pivot,graph,activity</field>
+        <field name="search_view_id" ref="industry_fsm.project_task_view_search_fsm"/>
+        <field name="domain">[('is_fsm', '=', True)]</field>
+        <field name="context" eval="{'search_default_groupby_worksheet_template': 1, 'search_default_groupby_user': 2, 'fsm_mode': 1, 'task_nameget_with_hours': 1}"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_gantt" model="ir.actions.act_window.view">
+        <field name="sequence" eval="5"/>
+        <field name="view_mode">gantt</field>
+        <field name="view_id" ref="project_enterprise.project_task_view_gantt"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="10"/>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="industry_fsm.project_task_view_kanban_fsm"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="20"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="industry_fsm.project_task_view_list_fsm"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm_view_calendar" model="ir.actions.act_window.view">
+        <field name="sequence" eval="25"/>
+        <field name="view_mode">calendar</field>
+        <field name="view_id" ref="industry_fsm.project_task_view_calendar_fsm"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
+    </record>
+
+    <record id="project_task_action_planning_groupby_worksheet_fsm_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="35"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="industry_fsm.project_task_view_form"/>
+        <field name="act_window_id" ref="project_task_action_fsm_planning_groupby_worksheet"/>
+    </record>
+
+    <!-- planning by worksheet menu -->
+    <menuitem id="project_task_menu_planning_by_project_fsm"
+        name="By Worksheet"
+        sequence="20"
+        action="project_task_action_fsm_planning_groupby_worksheet"
+        parent="industry_fsm.fsm_menu_planning"
+        groups="industry_fsm.group_fsm_manager"/>
+
+    <!-- settings menu -->
+    <menuitem id="fsm_settings_worksheets"
+        name="Worksheet Templates"
+        sequence="40"
+        action="fsm_worksheets_action_settings"
+        parent="industry_fsm.fsm_menu_settings"
+        groups="industry_fsm.group_fsm_manager"/>
+
+</odoo>

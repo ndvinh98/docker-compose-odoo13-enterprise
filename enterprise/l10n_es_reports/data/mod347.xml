@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="mod_347" model="account.financial.html.report">
+            <field name="name">Tax Report (Mod 347)</field>
+            <field name="l10n_es_reports_modelo_number">347</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="analytic" eval="False"/>
+            <field name="date_range" eval="True"/>
+            <field name="comparison" eval="True"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="False"/>
+            <field name="parent_id" ref="spanish_reports_menu"/>
+        </record>
+
+        <record id="mod_347_summary_title" model="account.financial.html.report.line">
+            <field name="name">Resumen</field>
+            <field name="code">aeat_mod_347_summary_title</field>
+            <field name="financial_report_id" ref="mod_347"/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="1"/>
+        </record>
+
+        <record id="mod_347_statistics_operations_count" model="account.financial.html.report.line">
+            <field name="name">Número total de personas y entitades</field>
+            <field name="code">aeat_mod_347_statistics_operations_count</field>
+            <field name="parent_id" ref="mod_347_summary_title"/>
+            <field name="domain" eval="[('move_id.l10n_es_reports_mod347_invoice_type', '!=', None)]"/>
+            <field name="formulas">balance = count_rows</field>
+            <field name="groupby">partner_id</field>
+            <field name="l10n_es_mod347_threshold">3005.06</field>
+            <field name="figure_type">no_unit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="2"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_347_operations_title" model="account.financial.html.report.line">
+            <field name="name">Relación de declarados</field>
+            <field name="code">aeat_mod_347_operations_title</field>
+            <field name="formulas">balance = aeat_mod_347_operations_insurance_bought.balance + aeat_mod_347_operations_regular_sold.balance + aeat_mod_347_operations_regular_bought.balance</field>
+            <field name="financial_report_id" ref="mod_347"/>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="1"/>
+        </record>
+
+        <!--Gap in line sequences to leave room for the lines added by l10n_es_real_estates-->
+
+        <record id="mod_347_operations_insurance_title" model="account.financial.html.report.line">
+            <field name="name">Operaciones de Seguros</field>
+            <field name="code">aeat_mod_347_operations_insurance_title</field>
+            <field name="parent_id" ref="mod_347_operations_title"/>
+            <field name="sequence" eval="9"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_347_operations_insurance_bought" model="account.financial.html.report.line">
+            <field name="name">B - Entregas de bienes y prestaciones de servicios superiores a 3.005,06 €</field>
+            <field name="code">aeat_mod_347_operations_insurance_bought</field>
+            <field name="parent_id" ref="mod_347_operations_insurance_title"/>
+            <field name="domain" eval="[
+                ('move_id.l10n_es_reports_mod347_invoice_type','=','insurance'),
+                ('move_id.type','in',['in_invoice','in_refund']),
+                ('account_id.user_type_id','in',[ref('account.data_account_type_payable'), ref('account.data_account_type_receivable')]),
+            ]"/>
+            <field name="show_domain">always</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="groupby">partner_id</field>
+            <field name="special_date_changer">strict_range</field>
+            <field name="l10n_es_mod347_threshold">3005.06</field>
+            <field name="sequence" eval="10"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_347_operations_regular_title" model="account.financial.html.report.line">
+            <field name="name">Otras operaciones</field>
+            <field name="code">aeat_mod_347_operations_regular_title</field>
+            <field name="parent_id" ref="mod_347_operations_title"/>
+            <field name="sequence" eval="11"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_347_operations_regular_bought" model="account.financial.html.report.line">
+            <field name="name">A - Adquisiciones de bienes y servicios superiores a 3.005,06 €</field>
+            <field name="code">aeat_mod_347_operations_regular_bought</field>
+            <field name="parent_id" ref="mod_347_operations_regular_title"/>
+            <field name="domain" eval="[
+                ('move_id.l10n_es_reports_mod347_invoice_type','=','regular'),
+                ('move_id.type','in',['in_invoice','in_refund']),
+                ('account_id.user_type_id','in',[ref('account.data_account_type_payable'), ref('account.data_account_type_receivable')]),
+            ]"/>
+            <field name="show_domain">always</field>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="groupby">partner_id</field>
+            <field name="special_date_changer">strict_range</field>
+            <field name="l10n_es_mod347_threshold">3005.06</field>
+            <field name="sequence" eval="12"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_347_operations_regular_sold" model="account.financial.html.report.line">
+            <field name="name">B - Entregas de bienes y prestaciones de servicios superiores a 3.005,06 €</field>
+            <field name="code">aeat_mod_347_operations_regular_sold</field>
+            <field name="parent_id" ref="mod_347_operations_regular_title"/>
+            <field name="domain" eval="[
+                ('move_id.l10n_es_reports_mod347_invoice_type','=','regular'),
+                ('move_id.type','in',['out_invoice','out_refund']),
+                ('account_id.user_type_id','in',[ref('account.data_account_type_payable'), ref('account.data_account_type_receivable')]),
+            ]"/>
+            <field name="show_domain">always</field>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="groupby">partner_id</field>
+            <field name="special_date_changer">strict_range</field>
+            <field name="l10n_es_mod347_threshold">3005.06</field>
+            <field name="sequence" eval="13"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+    </data>
+</odoo>

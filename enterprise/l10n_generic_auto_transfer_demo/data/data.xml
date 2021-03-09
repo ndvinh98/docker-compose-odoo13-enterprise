@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="auto_transfer_journal" model="account.journal">
+        <field name="company_id" ref="base.main_company"/>
+        <field name="name">IFRS Automatic Transfers</field>
+        <field name="code">IFRS</field>
+        <field name="type">general</field>
+        <field name="show_on_dashboard" eval="False"/>
+    </record>
+
+    <record id="monthly_model" model="account.transfer.model">
+        <field name="name">Monthly IFRS rent expense transfer</field>
+        <field name="date_start" eval="time.strftime('%Y-01-01')"/>
+        <field name="frequency">month</field>
+        <field name="journal_id" ref="auto_transfer_journal"/>
+        <field name="account_ids" model="account.account" eval="[ref('l10n_generic_coa.1_expense_rent')]"/>
+    </record>
+    <record id="monthly_model_line_1" model="account.transfer.model.line">
+        <field name="transfer_model_id" ref="monthly_model"/>
+        <field name="account_id" ref="l10n_generic_coa.1_expense_rd"/>
+        <field name="percent" eval="35.0"/>
+    </record>
+    <record id="monthly_model_line_2" model="account.transfer.model.line">
+        <field name="transfer_model_id" ref="monthly_model"/>
+        <field name="account_id" ref="l10n_generic_coa.1_expense_sales"/>
+        <field name="percent" eval="65.0"/>
+    </record>
+
+    <record id="yearly_model" model="account.transfer.model">
+        <field name="name">Yearly liabilites auto transfers</field>
+        <field name="date_start" eval="time.strftime('%Y-01-01')"/>
+        <field name="frequency">year</field>
+        <field name="journal_id" ref="auto_transfer_journal"/>
+        <field name="account_ids" model="account.account" eval="[ref('l10n_generic_coa.1_current_liabilities'),ref('l10n_generic_coa.1_payable')]"/>
+    </record>
+    <record id="yearly_model_line_1" model="account.transfer.model.line">
+        <field name="transfer_model_id" ref="yearly_model"/>
+        <field name="account_id" ref="l10n_generic_coa.1_payable"/>
+        <field name="percent" eval="77.5"/>
+    </record>
+    <record id="yearly_model_line_2" model="account.transfer.model.line">
+        <field name="transfer_model_id" ref="yearly_model"/>
+        <field name="account_id" ref="l10n_generic_coa.1_non_current_liabilities"/>
+        <field name="percent" eval="22.5"/>
+    </record>
+</odoo>

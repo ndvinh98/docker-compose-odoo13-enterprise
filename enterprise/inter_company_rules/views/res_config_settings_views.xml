@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.inter.company.rules</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@id='inter_companies_rules']" position='replace'>
+                     <div class="mt16">
+                        <div name="module_inter_company_rules_company_id" attrs="{'invisible': [('module_inter_company_rules', '=', False)]}">
+                            <field name="rule_type" class="oe_inline o_light_label" widget="radio"/>
+                        </div>
+                        <div class="content-group" name="module_inter_company_rules_set_so_po"
+                            attrs="{'invisible':[('module_inter_company_rules', '=', False)]}">
+                            <div class="row ml16" attrs="{'invisible':[('rule_type', '!=', 'so_and_po')]}">
+                                <label for="applicable_on" class="col-4 col-lg-4 o_light_label"/>
+                                <field name="applicable_on" attrs="{'required':[('rule_type', '=', 'so_and_po')]}"/>
+                            </div>
+                            <div class="row ml16" attrs="{'invisible':['|', ('rule_type', '!=', 'so_and_po'), ('applicable_on', '=', 'sale')]}">
+                                <label for="warehouse_id" string="Use Warehouse" class="col-4 col-lg-4 o_light_label"/>
+                                <field name="warehouse_id" options="{'no_create_edit': True}"/>
+                            </div>
+                            <div class="row ml16" attrs="{'invisible':[('rule_type', '=', 'not_synchronize')]}">
+                                <label for="intercompany_user_id" class="col-4 col-lg-4 o_light_label"/>
+                                <field name="intercompany_user_id" options="{'no_create_edit': True}" require="1"/>
+                            </div>
+                            <div class="row ml32" attrs="{'invisible':[('rule_type', '!=', 'so_and_po')]}">
+                                <field name="auto_validation" class="col-1 col-lg-1"/>
+                                <label for="auto_validation" class="o_light_label"/>
+                            </div>
+                        </div>
+                        <div class="alert alert-info" role="alert" attrs="{'invisible':['|', ('rule_type', '=', 'not_synchronize'), ('module_inter_company_rules', '=', False)]}">
+                                <field name="intercompany_transaction_message" readonly='1' class="oe_inline"/>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="xaf_audit_file">
+        <auditfile xmlns="http://www.auditfiles.nl/XAF/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <header>
+                <fiscalYear t-esc="fiscal_year"/>
+                <startDate t-esc="date_from"/>
+                <endDate t-esc="date_to"/>
+                <curCode t-esc="company_id.currency_id.name"/>
+                <dateCreated t-esc="date_created"/>
+                <softwareDesc>Odoo</softwareDesc>
+                <softwareVersion t-esc="software_version"/>
+            </header>
+            <company>
+                <companyIdent t-esc="company_id.company_registry"/>
+                <companyName t-esc="company_id.name"/>
+                <taxRegistrationCountry t-esc="company_id.country_id.code"/>
+                <taxRegIdent t-esc="company_id.vat"/>
+                <streetAddress>
+                    <streetname t-if="company_id.street" t-esc="company_id.street"/>
+                    <number t-if="company_id.street_number" t-esc="company_id.street_number"/>
+                    <city t-if="company_id.city" t-esc="company_id.city"/>
+                    <postalCode t-if="company_id.zip" t-esc="company_id.zip"/>
+                    <region t-if="company_id.state_id" t-esc="company_id.state_id.name"/>
+                    <country t-if="company_id.country_id" t-esc="company_id.country_id.code"/>
+                </streetAddress>
+                <customersSuppliers>
+                    <customerSupplier t-foreach="partner_ids" t-as="p">
+                        <custSupID t-esc="p.id"/>
+                        <!-- XAF XSD has maximum 50 characters for customer/supplier name -->
+                        <custSupName t-esc="(p.name or p.commercial_company_name or p.commercial_partner_id.name or ('id: ' + str(p.id)))[:50]"/>
+                        <contact t-if="p.is_company and p.child_ids and p.child_ids[0].name" t-esc="p.child_ids[0].name[:50]"/>
+                        <telephone t-esc="p.phone"/>
+                        <eMail t-esc="p.email"/>
+                        <website t-esc="p.website"/>
+                        <taxRegistrationCountry t-if="p.country_id" t-esc="p.country_id.code"/>
+                        <taxRegIdent t-esc="p.vat"/>
+                        <custSupTp t-esc="cust_sup_tp(p)"/>
+
+                        <custCreditLimit t-if="p.credit_limit" t-esc="p.credit_limit"/>
+                        <supplierLimit t-if="p.credit_limit" t-esc="p.credit_limit"/>
+                        <streetAddress>
+                            <streetname t-if="p.street_name" t-esc="p.street_name"/>
+                            <number t-if="p.street_number" t-est="p.street_number"/>
+                            <numberExtension t-if="p.street_number2" t-est="p.street_number2"/>
+                            <city t-if="p.city" t-esc="p.city"/>
+                            <postalCode t-if="p.zip" t-esc="p.zip"/>
+                            <region t-if="p.state_id" t-esc="p.state_id.name"/>
+                            <country t-if="p.country_id" t-esc="p.country_id.code"/>
+                        </streetAddress>
+                        <bankAccount t-foreach="p.bank_ids" t-as="b">
+                            <bankAccNr t-esc="b.acc_number"/>
+                            <bankIdCd t-esc="b.bank_bic or b.bank_id.bic"/>
+                        </bankAccount>
+                        <changeInfo t-if="p.write_uid">
+                            <userID t-esc="p.write_uid.l10n_nl_report_xaf_userid"/>
+                            <changeDateTime t-esc="change_date_time(p)"/>
+                            <changeDescription>Last write</changeDescription>
+                        </changeInfo>
+                    </customerSupplier>
+                </customersSuppliers>
+                <generalLedger>
+                    <ledgerAccount t-foreach="account_ids" t-as="a">
+                        <accID t-esc="a.code"/>
+                        <accDesc t-esc="a.name"/>
+                        <accTp t-esc="acc_tp(a)"/>
+                        <changeInfo t-if="a.write_uid">
+                            <userID t-esc="a.write_uid.l10n_nl_report_xaf_userid"/>
+                            <changeDateTime t-esc="change_date_time(a)"/>
+                            <changeDescription>Last write</changeDescription>
+                        </changeInfo>
+                    </ledgerAccount>
+                </generalLedger>
+                <vatCodes>
+                    <vatCode t-foreach="tax_ids" t-as="t">
+                        <vatID t-esc="t.id"/>
+                        <vatDesc t-esc="t.name"/>
+                        <vatToPayAccID t-esc="t.refund_repartition_line_ids[:1].account_id.code"/>
+                        <vatToClaimAccID t-esc="t.invoice_repartition_line_ids[:1].account_id.code"/>
+                    </vatCode>
+                </vatCodes>
+                <periods>
+                    <period t-foreach="periods" t-as="p">
+                        <periodNumber t-esc="p.number"/>
+                        <periodDesc t-esc="p.name"/>
+                        <startDatePeriod t-esc="p.date_from"/>
+                        <endDatePeriod t-esc="p.date_to"/>
+                    </period>
+                </periods>
+                <!-- The XAF XSD only supports 2 decimal places -->
+                <openingBalance>
+                    <opBalDate><t t-esc="date_from" /></opBalDate>
+                    <linesCount><t t-esc="opening_lines_count" /></linesCount>
+                    <totalDebit><t t-esc="round(opening_debit, 2)" /></totalDebit>
+                    <totalCredit><t t-esc="round(opening_credit, 2)" /></totalCredit>
+                    <obLine t-foreach="opening_lines" t-as="line">
+                        <nr><t t-esc="line['id']" /></nr>
+                        <accID><t t-esc="line['account_code']" /></accID>
+                        <amnt><t t-esc="round(abs(line['balance']), 2)" /></amnt>
+                        <amntTp><t t-esc="'C' if line['balance'] &lt; 0 else 'D'" /></amntTp>
+                    </obLine>
+                </openingBalance>
+                <transactions>
+                    <linesCount t-esc="moves_count"/>
+                    <totalDebit t-esc="round(moves_debit, 2)"/>
+                    <totalCredit t-esc="round(moves_credit, 2)"/>
+                    <journal t-foreach="journal_ids" t-as="j">
+                        <jrnID t-esc="j.code"/>
+                        <desc t-esc="j.name"/>
+                        <jrnTp t-esc="jrn_tp(j)"/>
+                        <transaction t-foreach="journal_x_moves.get(j, [])" t-as="m">
+                            <nr t-esc="m.id"/>
+                            <desc t-esc="m.name"/>
+                            <periodNumber t-esc="compute_period_number(m.date)"/>
+                            <trDt t-esc="m.date"/>
+                            <amnt t-esc="round(m.amount_total, 2)"/>
+                            <trLine t-foreach="m.line_ids" t-as="l" t-if="not l.display_type">
+                                <nr t-esc="l.id"/>
+                                <accID t-esc="l.account_id.code"/>
+                                <docRef t-esc="l.ref or '/'"/>
+                                <effDate t-esc="l.date"/>
+                                <desc t-esc="l.name"/>
+                                <amnt t-esc="round(l.credit or l.debit, 2)"/>
+                                <amntTp t-esc="amnt_tp(l)"/>
+                                <recRef t-if="l.full_reconcile_id" t-esc="l.full_reconcile_id.name"/>
+                                <custSupID t-if="l.partner_id" t-esc="l.partner_id.id"/>
+                                <invRef t-if="l.move_id.is_invoice(include_receipts=True)" t-esc="l.move_name"/>
+                                <currency t-if="l.currency_id and round(l.amount_currency, 2)">
+                                    <curCode t-esc="l.currency_id.name"/>
+                                    <curAmnt t-esc="round(l.amount_currency, 2)"/>
+                                </currency>
+                            </trLine>
+                        </transaction>
+                    </journal>
+                </transactions>
+            </company>
+        </auditfile>
+    </template>
+</odoo>

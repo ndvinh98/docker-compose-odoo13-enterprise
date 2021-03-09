@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Consolidated Gantt view for Slot/Forecast -->
+    <record id="project_forecast_view_gantt" model="ir.ui.view">
+        <field name="name">planning.slot.gantt.consolidate</field>
+        <field name="model">planning.slot</field>
+        <field name="inherit_id" ref="planning.planning_view_gantt"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="/gantt" position="attributes">
+                <attribute name="consolidation">allocated_percentage</attribute>
+                <attribute name="consolidation_max">{"employee_id": 100}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_forecast_view_pivot" model="ir.ui.view">
+        <field name="name">planning.slot.pivot</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <pivot string="Planning Analysis">
+                <field name="allocated_percentage" type="measure"/>
+                <field name="start_datetime" interval="week" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="project_forecast_view_graph" model="ir.ui.view">
+        <field name="name">planning.slot.graph</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <graph string="Planning Analysis" type="bar">
+                <field name="project_id" type="row"/>
+                <field name="employee_id" type="col"/>
+                <field name="allocated_percentage" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+    <!--
+        Actions
+    -->
+
+    <record id="project_forecast_action_by_user" model="ir.actions.act_window">
+        <field name="name">Planning by Employee</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">gantt,tree,form</field>
+        <field name="context">{
+            'group_by': ['employee_id'],
+        }</field>
+    </record>
+
+    <record id="project_forecast_action_view_by_user_gantt" model="ir.actions.act_window.view">
+        <field name="view_mode">gantt</field>
+        <field name="sequence" eval="1"/>
+        <field name="view_id" ref="project_forecast_view_gantt"/>
+        <field name="act_window_id" ref="project_forecast_action_by_user"/>
+    </record>
+
+    <record id="project_forecast_action_by_project" model="ir.actions.act_window">
+        <field name="name">Planning by project</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">gantt,tree,form</field>
+        <field name="context">{
+            'group_by': ['project_id',],
+        }</field>
+    </record>
+
+    <record id="project_forecast_action_view_by_project_gantt" model="ir.actions.act_window.view">
+        <field name="view_mode">gantt</field>
+        <field name="sequence" eval="1"/>
+        <field name="view_id" ref="project_forecast_view_gantt"/>
+        <field name="act_window_id" ref="project_forecast_action_by_project"/>
+    </record>
+
+    <record id="project_forecast_action_analysis" model="ir.actions.act_window">
+        <field name="name">Planning Analysis</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">pivot,graph,gantt,tree,form</field>
+        <field name="context">{'group_by': ['employee_id'],}</field>
+    </record>
+
+    <record id="project_forecast_action_analysis_pivot" model="ir.actions.act_window.view">
+        <field name="view_mode">pivot</field>
+        <field name="sequence" eval="5"/>
+        <field name="view_id" ref="project_forecast_view_pivot"/>
+        <field name="act_window_id" ref="project_forecast_action_analysis"/>
+    </record>
+
+    <record id="project_forecast_action_analysis_graph" model="ir.actions.act_window.view">
+        <field name="view_mode">graph</field>
+        <field name="sequence" eval="10"/>
+        <field name="view_id" ref="project_forecast_view_graph"/>
+        <field name="act_window_id" ref="project_forecast_action_analysis"/>
+    </record>
+
+    <record id="project_forecast_action_analysis_gantt" model="ir.actions.act_window.view">
+        <field name="view_mode">gantt</field>
+        <field name="sequence" eval="15"/>
+        <field name="view_id" ref="project_forecast_view_gantt"/>
+        <field name="act_window_id" ref="project_forecast_action_analysis"/>
+    </record>
+
+    <!-- Actions from project kanban -->
+    <record id="project_forecast_action_from_project" model="ir.actions.act_window">
+        <field name="name">Planning</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">gantt,tree,form,pivot</field>
+        <field name="context">{
+            'group_by': ['user_id'],
+            'default_project_id': active_id,
+            'search_default_project_id': [active_id],
+            'search_default_group_by_user_id': 1,
+            'project_task_display_forecast': 1,
+        }</field>
+    </record>
+
+    <!--
+        Menus
+    -->
+    <menuitem id="project_forecast_menu"
+        name="Planning"
+        parent="project.menu_main_pm"
+        groups="planning.group_planning_user"
+        sequence="2"/>
+
+        <menuitem id="project_forecast_group_by_user"
+            name="By Employee"
+            parent="project_forecast.project_forecast_menu"
+            sequence="10"
+            action="project_forecast_action_by_user"/>
+
+        <menuitem id="project_forecast_group_by_project"
+            name="By Project"
+            parent="project_forecast.project_forecast_menu"
+            sequence="20"
+            action="project_forecast_action_by_project"/>
+
+    <menuitem id="project_forecast_report_activities"
+        name="Planning Analysis"
+        parent="project.menu_project_report"
+        groups="planning.group_planning_user"
+        action="project_forecast_action_analysis"/>
+
+</odoo>

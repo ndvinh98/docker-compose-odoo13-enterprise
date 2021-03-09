@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_sale_coupon" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.sale.coupon</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="before">
+                <field name="use_coupons" invisible="1"/>
+                <button type="action" name="%(helpdesk_sale_coupon_generate_action)d" string="Coupon"
+                    groups="sales_team.group_sale_manager" attrs="{'invisible': [('use_coupons', '=', False)]}"
+                    context="{'default_ticket_id': id, 'default_company_id': company_id}"/>
+            </field>
+            <div class="oe_button_box" position="inside">
+                <button class="oe_stat_button" name="open_coupons" icon="fa-ticket"
+                    type="object" attrs="{'invisible': [('coupons_count', '=', 0)]}">
+                    <field name="coupons_count" string="Coupons" widget="statinfo" />
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="helpdesk_team_view_form_inherit_helpdesk_account" model="ir.ui.view">
+        <field name='name'>helpdesk.team.form.inherit.helpdesk.account</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="arch" type="xml">
+            <div id="use_coupons" position="replace"/>
+        </field>
+    </record>
+</odoo>

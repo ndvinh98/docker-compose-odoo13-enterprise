@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="check_register" model="ir.actions.client">
+            <field name="name">Check Register</field>
+            <field name="tag">account_report</field>
+            <field name="context" eval="{'model': 'l10n_us_reports.check.register'}"/>
+        </record>
+
+        <menuitem id="check_register_menu"
+                  name="Check Register"
+                  parent="account.account_reports_legal_statements_menu"
+                  sequence="100"
+                  groups="account.group_account_user"
+                  action="l10n_us_reports.check_register"/>
+
+        <record model="ir.ui.menu" id="account.account_reports_legal_statements_menu">
+            <field name="name">US GAAP</field>
+        </record>
+    </data>
+</odoo>

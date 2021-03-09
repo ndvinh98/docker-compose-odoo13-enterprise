@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+    <!-- P&L from https://dejure.org/gesetze/HGB/275.html and http://www.unternehmerlexikon.de/wp-content/uploads/2014/03/Gewinn-und-Verlustrechnung-Schema-nach-HGB.jpg -->
+
+    <record id="p_and_l_l10n_de" model="account.financial.html.report">
+        <field name="name">Profit and Loss</field>
+        <field name="debit_credit" eval="False"/>
+        <field name="analytic" eval="True"/>
+        <field name="unfold_all_filter" eval="True"/>
+        <field name="show_journal_filter" eval="True"/>
+        <field name='parent_id' ref='l10n_de.account_reports_de_statements_menu'/>
+    </record>
+
+    <!-- Total -->
+    <record id="skr_pl_line_total" model="account.financial.html.report.line">
+        <field name="name">Jahresüberschuss (Gewinn oder Verlust)</field>
+        <field name="code">SKR_PL_TOTAL</field>
+        <field name="financial_report_id" ref="p_and_l_l10n_de"/>
+        <field name="formulas">balance = SKR_BUSINESS.balance - SKR_TAXES.balance</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="0" />
+    </record>
+
+    <!-- Income -->
+    <record id="skr_pl_line_income" model="account.financial.html.report.line">
+        <field name="name">Betriebliche Erlöse</field>
+        <field name="code">SKR_INCOME</field>
+        <field name="formulas">balance = SKR_1.balance + SKR_2.balance + SKR_3.balance + SKR_4.balance</field>
+        <field name="parent_id" ref='skr_pl_line_total'/>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="1" />
+    </record>
+    <record id="skr_pl_line_income_1" model="account.financial.html.report.line">
+        <field name="name">1. Umsatzerlöse</field>
+        <field name="code">SKR_1</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_income'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_01')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_income_2" model="account.financial.html.report.line">
+        <field name="name">2. Erhöhung oder Verminderung des Bestands an fertigen und unfertigen Erzeugnissen</field>
+        <field name="code">SKR_2</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_income'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_02')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_income_3" model="account.financial.html.report.line">
+        <field name="name">3. Andere aktivierte Eigenleistungen</field>
+        <field name="code">SKR_3</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_income'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_03')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_income_4" model="account.financial.html.report.line">
+        <field name="name">4. Sonstige betriebliche Erträge</field>
+        <field name="code">SKR_4</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_income'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_04')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="2" />
+    </record>
+
+    <!-- Expense -->
+    <record id="skr_pl_line_expense_mat" model="account.financial.html.report.line">
+        <field name="name">Rohergebnis</field>
+        <field name="code">SKR_EXPENSE_MAT</field>
+        <field name="formulas">balance = SKR_INCOME.balance - SKR_5.balance</field>
+        <field name="parent_id" ref='skr_pl_line_total'/>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="1" />
+    </record>
+    <record id="skr_pl_line_expense_1" model="account.financial.html.report.line">
+        <field name="name">5. Materialaufwand</field>
+        <field name="code">SKR_5</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense_mat'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_05')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_expense" model="account.financial.html.report.line">
+        <field name="name">Betriebsergebnis</field>
+        <field name="code">SKR_EXPENSE</field>
+        <field name="formulas">balance = SKR_EXPENSE_MAT.balance - SKR_6.balance - SKR_7.balance - SKR_8.balance</field>
+        <field name="parent_id" ref='skr_pl_line_total'/>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="1" />
+    </record>
+    <record id="skr_pl_line_expense_2" model="account.financial.html.report.line">
+        <field name="name">6. Personalaufwand</field>
+        <field name="code">SKR_6</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_06')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_expense_3" model="account.financial.html.report.line">
+        <field name="name">7. Abschreibungen</field>
+        <field name="code">SKR_7</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_07')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_expense_4" model="account.financial.html.report.line">
+        <field name="name">8. Sonstige betriebliche Aufwendungen</field>
+        <field name="code">SKR_8</field>
+        <field name="formulas">balance = SKR_8_1.balance + SKR_8_2.balance + SKR_8_3.balance + SKR_8_4.balance + SKR_8_5.balance + SKR_8_6.balance + SKR_8_7.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense'/>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_expense_4_1" model="account.financial.html.report.line">
+        <field name="name">Raumkosten</field>
+        <field name="code">SKR_8_1</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense_4'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_1')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="3" />
+    </record>
+        <record id="skr_pl_line_expense_4_2" model="account.financial.html.report.line">
+        <field name="name">Versicherungen, Beiträge und Abgaben</field>
+        <field name="code">SKR_8_2</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense_4'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_2')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="3" />
+    </record>
+        <record id="skr_pl_line_expense_4_3" model="account.financial.html.report.line">
+        <field name="name">Reparaturen und Instandhaltungen</field>
+        <field name="code">SKR_8_3</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense_4'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_3')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="3" />
+    </record>
+        <record id="skr_pl_line_expense_4_4" model="account.financial.html.report.line">
+        <field name="name">Fahrzeugkosten</field>
+        <field name="code">SKR_8_4</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense_4'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_4')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="3" />
+    </record>
+        <record id="skr_pl_line_expense_4_5" model="account.financial.html.report.line">
+        <field name="name">Werbe- und Reisekosten</field>
+        <field name="code">SKR_8_5</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense_4'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_5')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="3" />
+    </record>
+        <record id="skr_pl_line_expense_4_6" model="account.financial.html.report.line">
+        <field name="name">Kosten der Warenabgabe</field>
+        <field name="code">SKR_8_6</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense_4'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_6')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="6"/>
+        <field name="level" eval="3" />
+    </record>
+        <record id="skr_pl_line_expense_4_7" model="account.financial.html.report.line">
+        <field name="name">verschiedene betriebliche Kosten</field>
+        <field name="code">SKR_8_7</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_expense_4'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_08_7')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="7"/>
+        <field name="level" eval="3" />
+    </record>
+
+    <!-- Business operation -->
+    <record id="skr_pl_line_finance_operation" model="account.financial.html.report.line">
+        <field name="name">Finanzergebnis</field>
+        <field name="code">SKR_FINANCE</field>
+        <field name="formulas">balance = SKR_9.balance + SKR_10.balance + SKR_11.balance - SKR_12.balance - SKR_13.balance</field>
+        <field name="parent_id" ref='skr_pl_line_total'/>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="1" />
+    </record>
+    <record id="skr_pl_line_business_operation_1" model="account.financial.html.report.line">
+        <field name="name">9. Erträge aus Beteiligungen</field>
+        <field name="code">SKR_9</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_finance_operation'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_09')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_business_operation_2" model="account.financial.html.report.line">
+        <field name="name">10. Erträge aus anderen Wertpapieren und Ausleihungen des Finanzanlagevermögens</field>
+        <field name="code">SKR_10</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_finance_operation'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_10')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="2"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_business_operation_3" model="account.financial.html.report.line">
+        <field name="name">11. Sonstige Zinsen und ähnliche Erträge</field>
+        <field name="code">SKR_11</field>
+        <field name="formulas">balance = -sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_finance_operation'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_11')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="3"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_business_operation_4" model="account.financial.html.report.line">
+        <field name="name">12. Abschreibungen auf Finanzanlagen und auf Wertpapiere des Umlaufvermögens</field>
+        <field name="code">SKR_12</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_finance_operation'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_12')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="4"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_business_operation_5" model="account.financial.html.report.line">
+        <field name="name">13. Zinsen und ähnliche Aufwendungen</field>
+        <field name="code">SKR_13</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_finance_operation'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_13')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_business_operation" model="account.financial.html.report.line">
+        <field name="name">Ergebnis der gewöhnlichen Geschäftstätigkeit</field>
+        <field name="code">SKR_BUSINESS</field>
+        <field name="formulas">balance = SKR_EXPENSE.balance + SKR_FINANCE.balance</field>
+        <field name="parent_id" ref='skr_pl_line_total'/>
+        <field name="sequence" eval="5"/>
+        <field name="level" eval="1" />
+    </record>
+
+    <!-- Taxes -->
+    <record id="skr_pl_line_taxes" model="account.financial.html.report.line">
+        <field name="name">Ergebnis nach Steuern</field>
+        <field name="code">SKR_TAXES</field>
+        <field name="formulas">balance = SKR_BUSINESS.balance - SKR_14.balance</field>
+        <field name="parent_id" ref='skr_pl_line_total'/>
+        <field name="sequence" eval="6"/>
+        <field name="level" eval="1" />
+    </record>
+    <record id="skr_pl_line_taxes_1" model="account.financial.html.report.line">
+        <field name="name">14. Steuern vom Einkommen und Ertrag</field>
+        <field name="code">SKR_14</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_taxes'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_14')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="1"/>
+        <field name="level" eval="2" />
+    </record>
+    <record id="skr_pl_line_taxes_2" model="account.financial.html.report.line">
+        <field name="name">15. Sonstige Steuern</field>
+        <field name="code">SKR_15</field>
+        <field name="formulas">balance = sum.balance</field>
+        <field name="parent_id" ref='skr_pl_line_total'/>
+        <field name="domain" eval="[('account_id.tag_ids', 'in', [ref('l10n_de.tag_de_pl_15')])]"/>
+        <field name="groupby">account_id</field>
+        <field name="sequence" eval="7"/>
+        <field name="level" eval="1" />
+    </record>
+    </data>
+</odoo>

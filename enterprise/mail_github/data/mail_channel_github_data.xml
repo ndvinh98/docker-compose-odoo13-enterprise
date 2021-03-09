@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<data>
+
+		<record id="res_partner_githbub_bot" model="res.partner">
+			<field name="name">GitHubBot</field>
+			<field name="active">False</field>
+			<field name="employee">False</field>
+			<field name="image_1920" type="base64" file="mail_github/static/img/octocat.png"/>
+		</record>
+
+		<!-- Template for mail.message -->
+		<template id="message_github_notification">
+			<div>
+				<div>
+					<t t-if="payload['action'] == 'push'">
+						<a t-att-href="sender['url']" target="_blank"><t t-esc="sender['login']"/></a> push <t t-esc="len(payload.get('commits', []))"/> commit(s) on <t t-esc="payload['ref']"/> on repository <a t-att-href="repository['url']"><t t-esc="repository_id.name"/></a>.
+						<ul t-foreach="payload.get('commits', [])" t-as="commit">
+							<li>
+								<a t-att-href="commit['url']" target="_blank"><t t-esc="commit['id'][:8]"/></a> : <t t-esc="commit['message']"/>, by <t t-esc="commit['author']"/>
+								<t t-if="commit['author'] != commit['committer']">
+									(with <t t-esc="commit['committer']"/>)
+								</t>
+							</li>
+						</ul>
+					</t>
+
+					<t t-if="payload['action'] == 'edit_wiki'">
+						<a t-att-href="sender['url']" target="_blank"><t t-esc="sender['login']"/></a> modifies wiki pages on repository <a t-att-href="repository['url']"><t t-esc="repository_id.name"/></a>.
+						<ul t-foreach="payload.get('pages', [])" t-as="page">
+							<li>
+								<a t-att-href="page['url']" target="_blank"><t t-esc="page['title']"/></a>
+							</li>
+						</ul>
+					</t>
+
+					<t t-if="payload['action'] == 'comment'">
+						<a t-att-href="sender['url']" target="_blank"><t t-esc="sender['login']"/></a> commented <t t-esc="payload['object_label']"/> (<a t-att-href="payload['object'].get('url', '#')"><t t-esc="payload['object'].get('name')"/></a>) on repository <a t-att-href="repository['url']"><t t-esc="repository_id.name"/></a>.
+						<div style="margin-left: 20px;">
+							<i><t t-esc="payload['message']"/></i>
+						</div>
+					</t>
+
+					<t t-if="payload['action'] in ['create', 'delete', 'update']">
+						<t t-if="payload['action'] == 'create'">
+							<a t-att-href="sender['url']" target="_blank"><t t-esc="sender['login']"/> </a> created a new <t t-esc="payload['object_label']"/> on repository <a t-att-href="repository['url']"><t t-esc="repository_id.name"/></a>.
+						</t>
+						<t t-if="payload['action'] == 'delete'">
+							<a t-att-href="sender['url']" target="_blank"><t t-esc="sender['login']"/></a> remove the following <t t-esc="payload['object_label']"/> on repository <a t-att-href="repository['url']"><t t-esc="repository_id.name"/></a> :
+						</t>
+						<t t-if="payload['action'] == 'update'">
+							<a t-att-href="sender['url']" target="_blank"><t t-esc="sender['login']"/> </a> modified the following <t t-esc="payload['object_label']"/> on repository <a t-att-href="repository['url']"><t t-esc="repository_id.name"/></a> :
+						</t>
+
+						<t t-if="payload.get('object_type') == 'commit'">
+							<a t-att-href="payload['object'].get('url', '#')" target="_blank">
+								Commit <t t-esc="payload['object'].get('commit_hash', 'unkown')"/>
+							</a>
+						</t>
+						<t t-if="payload.get('object_type') == 'pull_request'">
+							<ul>
+								<li>
+									<a t-att-href="payload['object'].get('url', '#')" target="_blank">
+										PR <t t-esc="payload['object'].get('number', '0')"/>
+									</a>
+								</li>
+								<li>
+									<b>Title :</b> <t t-esc="payload['object']['name']"/>
+								</li>
+							</ul>
+						</t>
+						<t t-if="payload.get('object_type') == 'issue'">
+							<ul>
+								<li>
+									<a t-att-href="payload['object'].get('url', '#')" target="_blank">
+										Issue <t t-esc="payload['object'].get('number', '0')"/>
+									</a>
+								</li>
+								<li>
+									<b>Title :</b> <t t-esc="payload['object']['name']"/>
+								</li>
+								<li>
+									<b>State :</b> <t t-esc="payload['object']['state']"/>
+								</li>
+							</ul>
+						</t>
+
+					</t>
+				</div>
+			</div>
+		</template>
+
+	</data>
+</odoo>

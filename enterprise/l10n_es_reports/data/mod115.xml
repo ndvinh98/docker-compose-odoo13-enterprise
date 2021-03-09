@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="mod_115" model="account.financial.html.report">
+            <field name="name">Tax Report(Mod 115)</field>
+            <field name="l10n_es_reports_modelo_number">115</field>
+            <field name="debit_credit" eval="False"/>
+            <field name="analytic" eval="False"/>
+            <field name="date_range" eval="True"/>
+            <field name="comparison" eval="False"/>
+            <field name="unfold_all_filter" eval="True"/>
+            <field name="show_journal_filter" eval="True"/>
+            <field name="generated_menu_id" ref="menu_mod_115_report"/>
+        </record>
+
+        <record id="mod_115_title_1" model="account.financial.html.report.line">
+            <field name="name">Retenciones e ingresos a cuenta</field>
+            <field name="code">aeat_mod_115_title_1</field>
+            <field name="financial_report_id" ref="mod_115"/>
+            <field name="sequence" eval="1"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_115_casilla_01" model="account.financial.html.report.line">
+            <field name="name">[01] Nº de perceptores</field>
+            <field name="code">aeat_mod_115_01</field>
+            <field name="parent_id" ref='mod_115_title_1'/>
+            <field name="domain" eval="[('tag_ids', 'in', [ref('l10n_es.mod_115_02'), ref('l10n_es.mod_115_03')])]"/>
+            <field name="formulas">balance = count_rows</field>
+            <field name="groupby">partner_id</field>
+            <field name="figure_type">no_unit</field>
+            <field name="sequence" eval="2"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_115_casilla_02" model="account.financial.html.report.line">
+            <field name="name">[02] Base retenciones</field>
+            <field name="code">aeat_mod_115_02</field>
+            <field name="parent_id" ref='mod_115_title_1'/>
+            <field name="domain" eval="[('tag_ids', '=', ref('l10n_es.mod_115_02'))]"/>
+            <field name="formulas">balance = sum.balance</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="3"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_115_casilla_03" model="account.financial.html.report.line">
+            <field name="name">[03] Retenciones</field>
+            <field name="code">aeat_mod_115_03</field>
+            <field name="parent_id" ref='mod_115_title_1'/>
+            <field name="domain" eval="[('tag_ids', '=', ref('l10n_es.mod_115_03'))]"/>
+            <field name="formulas">balance = -sum.balance</field>
+            <field name="groupby">account_id</field>
+            <field name="sequence" eval="4"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_115_title_2" model="account.financial.html.report.line">
+            <field name="name">Total liquidación</field>
+            <field name="code">aeat_mod_115_title_2</field>
+            <field name="financial_report_id" ref="mod_115"/>
+            <field name="sequence" eval="5"/>
+            <field name="level" eval="2"/>
+        </record>
+
+        <record id="mod_115_casilla_04" model="account.financial.html.report.line">
+            <field name="name">[04] Resultados a ingresar anteriores</field>
+            <field name="code">aeat_mod_115_04</field>
+            <field name="parent_id" ref='mod_115_title_2'/>
+            <field name="formulas">balance = from_context</field>
+            <field name="sequence" eval="6"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+        <record id="mod_115_casilla_05" model="account.financial.html.report.line">
+            <field name="name">[05] Resultado a ingresar</field>
+            <field name="code">aeat_mod_115_05</field>
+            <field name="parent_id" ref='mod_115_title_2'/>
+            <field name="formulas">balance = aeat_mod_115_03.balance - aeat_mod_115_04.balance</field>
+            <field name="sequence" eval="7"/>
+            <field name="level" eval="3"/>
+            <field name="special_date_changer">strict_range</field>
+        </record>
+
+    </data>
+</odoo>

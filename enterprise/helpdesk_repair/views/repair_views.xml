@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+    <record id="view_repair_order_form_inherit_helpdesk_repair" model="ir.ui.view">
+        <field name="name">repair.form.inherit.heldpesk.repair</field>
+        <field name="model">repair.order</field>
+        <field name="inherit_id" ref="repair.view_repair_order_form"/>
+        <field name="arch" type="xml">
+            <field name="address_id" position="after">
+                <field name="ticket_id" readonly="1" attrs="{'invisible': [('ticket_id', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+    </data>
+</odoo>

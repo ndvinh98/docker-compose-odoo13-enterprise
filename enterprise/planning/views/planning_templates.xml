@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="period_report_template">
+        <t t-call="web.frontend_layout">
+            <t t-set="head">
+                <t t-call="planning.planning_shift_notification" />
+                <t t-call-assets="planning.assets_common_planning" t-js="false"/>
+                <t t-call-assets="planning.assets_common_planning" t-css="false"/>
+                <t t-call-assets="web.assets_frontend" t-js="false"/>
+                <t t-call-assets="web.assets_frontend" t-css="false"/>
+                <script>
+                    // Initialization of fullcalendar
+                    $(document).ready(function() {
+                        var employee_slots_fc_data = <t t-raw="json.dumps(employee_slots_fullcalendar_data)" />;
+                        var employee_token = "<t t-esc="employee.employee_token" />";
+                        var planning_token = "<t t-esc="planning_planning_id.access_token" />";
+
+                        // Hide the unassign footer by default
+                        document.getElementById("dismiss_shift").style.display = "none";
+
+                        var eventFunction = function(calEvent) {
+                            $(".modal-title").text(calEvent.title);
+                            $(".modal-header").css("background-color", calEvent.color);
+                            $("#start").text(moment(calEvent.start).format("YYYY-MM-DD hh:mm A"));
+                            $("#stop").text(moment(calEvent.end).format("YYYY-MM-DD hh:mm A"));
+                            $("#alloc_hours").text(calEvent.alloc_hours);
+                            $("#allow_self_unassign").text(calEvent.allow_self_unassign);
+                            if (calEvent.note) {
+                                $("#note").text(calEvent.note);
+                            }
+                            else {
+                                $("#note").text("");
+                            }
+                            if (calEvent.allow_self_unassign) {
+                                document.getElementById("dismiss_shift").style.display = "block";
+                            }
+                            else {
+                                document.getElementById("dismiss_shift").style.display = "none";
+                            }
+                            $("#modal_action_dismiss_shift").attr("action", "/planning/" + planning_token + "/" + employee_token + "/unassign/" + calEvent.slot_id);
+                            $("#fc-slot-onclick-modal").modal("show");
+                        }
+
+                        $("#calendar_employee").fullCalendar({
+                            // Settings
+                            defaultView: 'month',
+                            defaultDate: moment.min(employee_slots_fc_data.map(item => moment(item.start))),
+                            titleFormat: 'MMMM YYYY',
+                            timeFormat: 'hh:mm A',
+                            displayEventEnd: true,
+                            height: 'auto',
+                            eventTextColor: 'white',
+                            eventOverlap: true,
+                            header: {
+                                left:   'title',
+                                center: false,
+                                right:  'today prev,next'
+                            },
+                            eventRender: function (event, element, view) {
+                                $(element).css('font-weight', 'bold');
+                            },
+
+                            // Data
+                            events: employee_slots_fc_data,
+
+                            // Event Functions
+                            eventClick: eventFunction
+                        });
+                    });
+                </script>
+            </t>
+            <body>
+                <!-- fullcalendar object's container -->
+                <div class="container o_planning_calendar_container">
+                    <h1 align="center" class="m-3">Planning: <t t-esc="employee.name"/></h1>
+                    <div id="calendar_employee" class="o_calendar_container">
+                        <div class="o_calendar_view" >
+                            <div class="o_calendar_widget" />
+                        </div>
+                    </div>
+                </div>
+                <div class="container o_planning_calendar_open_shifts d-print-none mt2">
+                    <!-- open shift's container -->
+                    <t t-if="open_slots_ids">
+                        <div class="container">
+                            <h1 align="center" class="m-3">Open shifts available</h1>
+                            <div>
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">From</th>
+                                            <th class="text-left">To</th>
+                                            <th class="text-left">Role</th>
+                                            <th class="text-left">Note</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <t t-foreach="open_slots_ids" t-as="shift">
+                                            <tr>
+                                                <td class="align-middle"><t t-esc="format_datetime(shift.start_datetime, 'medium')"/></td>
+                                                <td class="align-middle"><t t-esc="format_datetime(shift.end_datetime, 'medium')"/></td>
+                                                <td class="align-middle"><t t-esc="shift.role_id.name"/></td>
+                                                <td class="align-middle"><t t-esc="shift.name"/></td>
+                                                <td>
+                                                    <t t-if="not shift.employee_id">
+                                                        <div class="text-center float-right">
+                                                            <form t-attf-action="/planning/#{planning_planning_id.access_token}/#{employee.employee_token}/assign/#{shift.id}" method="post">
+                                                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                                                <button type="submit" class="btn btn-primary">ASSIGN ME THIS SHIFT</button>
+                                                            </form>
+                                                        </div>
+                                                    </t>
+                                                </td>
+                                            </tr>
+                                        </t>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </t>
+
+                    <!-- fullcalendar event onclick Modal -->
+                    <div class="modal fade" id="fc-slot-onclick-modal" role="dialog">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content border-0">
+                                <div class="modal-header modal-header-primary py-3 border-0 rounded-top text-light">
+                                    <h5 class="modal-title"/>
+                                    <button type="button" class="close text-light shadow-none" data-dismiss="modal">
+                                        <span aria-label="Close">&amp;times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <dl class="row mt-0 mb-0">
+                                        <dt class="col-sm-4">Start Date:</dt>
+                                        <dd class="col-sm-8" id="start"/>
+                                        <dt class="col-sm-4">Stop Date:</dt>
+                                        <dd class="col-sm-8" id="stop"/>
+                                        <dt class="col-sm-4">Allocated Hours:</dt>
+                                        <dd class="col-sm-8" id="alloc_hours"/>
+                                        <dt class="col-sm-4">Note:</dt>
+                                        <dd class="col-sm-8" id="note"/>
+                                        <div class="d-none" t-esc="shift_id" id="shift_uid"/>
+                                    </dl>
+                                </div>
+
+                                <div id="dismiss_shift" class="modal-footer">
+                                    <form id="modal_action_dismiss_shift" t-attf-action="/planning" method="post">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                        <button type="submit" class="btn btn-outline-danger">I am unavailable</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </t>
+    </template>
+
+    <!-- notification sub template -->
+    <template id="planning_shift_notification" name="Shift notification">
+        <t t-if="notification_text">
+            <div class="alert alert-success" role="alert">
+                <t t-if="message_slug == 'assign'">
+                    This shift is now assigned to you.
+                </t>
+                <t t-if="message_slug == 'unassign'">
+                    This shift is not assigned to you anymore.
+                </t>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    &amp;times;
+                </button>
+            </div>
+        </t>
+    </template>
+
+</odoo>

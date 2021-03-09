@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record id="helpdesk_team_view_form_inherit_helpdesk_timesheet" model="ir.ui.view">
+        <field name="name">helpdesk.team.form.inherit.timesheet</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='helpdesk_timesheet']" position='replace'>
+                <div attrs="{'invisible': [('use_helpdesk_timesheet', '=', False)]}" class="pt-4">
+                    <label for="project_id"/>
+                    <field name="project_id" class="oe_inline" context="{'default_allow_timesheets': 1}"/>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_timesheet" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.timesheet</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="after">
+                <field name="is_closed" invisible="1"/>
+                <field name="is_task_active" invisible="1"/>
+                <div class="alert alert-warning" role="alert" style="margin-bottom:0px;" attrs="{'invisible': ['|', ('task_id', '=', False), '&amp;', ('is_closed', '=', False), ('is_task_active', '=', True)]}">
+                    Customer's task is closed. <button class="oe_link" type="object" name="action_view_ticket_task" string="View task." style="padding: 0;"/>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='email_cc']" position="after">
+                <field name="use_helpdesk_timesheet" invisible="1"/>
+                <field name="project_id" invisible="1"/>
+                <field name="task_id" context="{'default_project_id': project_id, 'default_partner_id': partner_id}" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='description']" position="replace">
+                <notebook>
+                    <page string="Description">
+                        <field name="description" placeholder="Description of the ticket..."/>
+                    </page>
+                    <page string="Timesheets" attrs="{'invisible': ['|', ('project_id', '=', False), ('use_helpdesk_timesheet', '=', False)]}" groups="hr_timesheet.group_hr_timesheet_user">
+                        <field name='timesheet_ids' mode="tree,kanban" attrs="{'readonly': [('task_id', '!=', False), '|', ('is_closed', '=', True), ('is_task_active', '=', False)]}" context="{'default_project_id': project_id, 'default_task_id': task_id}" groups="hr_timesheet.group_hr_timesheet_user">
+                            <tree editable="bottom" string="Timesheet Activities" default_order="date">
+                                <field name="date"/>
+                                <field name="user_id" invisible="1"/>
+                                <field name="employee_id" required="1"/>
+                                <field name="name"/>
+                                <field name="unit_amount" sum="Total hours" widget="timesheet_uom"/>
+                                <field name="project_id" invisible="1"/>
+                                <field name="task_id" invisible="1"/>
+                                <field name="company_id" invisible="1"/>
+                            </tree>
+                            <kanban class="o_kanban_mobile">
+                                <field name="date"/>
+                                <field name="user_id"/>
+                                <field name="employee_id"/>
+                                <field name="name"/>
+                                <field name="unit_amount"/>
+                                <field name="project_id"/>
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <strong><span><t t-esc="record.employee_id.value"/></span></strong>
+                                                </div>
+                                                <div class="col-6 pull-right text-right">
+                                                    <strong><t t-esc="record.date.value"/></strong>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-6 text-muted">
+                                                    <span><t t-esc="record.name.value"/></span>
+                                                </div>
+                                                <div class="col-6">
+                                                    <span class="pull-right text-right">
+                                                        <field name="unit_amount" widget="float_time"/>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </t>
+                                </templates>
+                            </kanban>
+                            <form  string="Timesheet Activities">
+                                <sheet>
+                                    <group>
+                                        <field name="date"/>
+                                        <field name="user_id" invisible="1"/>
+                                        <field name="employee_id" required="1"/>
+                                        <field name="name"/>
+                                        <field name="unit_amount" string="Duration" widget="float_time"/>
+                                        <field name="project_id" invisible="1"/>
+                                        <field name="company_id" invisible="1"/>
+                                    </group>
+                                </sheet>
+                            </form>
+                        </field>
+                    </page>
+                </notebook>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_search_inherit_helpdesk_timesheet" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.search.inherit.timesheet</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="project_id"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

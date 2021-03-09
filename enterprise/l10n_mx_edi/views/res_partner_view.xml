@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_partner_form_inherit_l10n_mx_edi" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook[last()]" position="inside">
+                    <page string="Addenda" attrs="{'invisible': [('is_company', '=', False)]}">
+                        <group>
+                            <field name="l10n_mx_edi_addenda"/>
+                            <field name="l10n_mx_edi_addenda_doc" attrs="{'invisible': [('l10n_mx_edi_addenda', '=', False)]}"/>
+                        </group>
+                    </page>
+                </xpath>
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="l10n_mx_edi_curp"/>
+                </xpath>
+                <xpath expr="//page[@name='sales_purchases']//field[@name='user_id']" position="after">
+                    <field name="l10n_mx_edi_external_trade"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

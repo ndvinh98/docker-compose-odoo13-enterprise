@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="mrp_bom_view_form_inherit_plm" model="ir.ui.view">
+        <field name="name">mrp.bom.view.form.inherit.plm</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="groups_id" eval="[(4, ref('mrp_plm.group_plm_user'))]"/>
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button class="oe_stat_button" name= "button_mrp_eco" type="object" icon="fa-cogs">
+                    <field string="ECO(s)" name="eco_count" widget="statinfo" />
+                </button>
+            </div>
+            <field name="ready_to_produce" position="after">
+                <field name="version" string="Version"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="mrp_bom_view_kanban" model="ir.ui.view">
+        <field name="name">mrp.bom.view.kanban</field>
+        <field name="model">mrp.bom</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id"/>
+                <field name="display_name"/>
+                <field name="type"/>
+                <field name="eco_inprogress_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img t-att-src="kanban_image('product.template', 'image_128', record.id.raw_value)" alt="Product" class="o_image_64_contain"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <strong>
+                                    <field name="display_name"/>
+                                </strong>
+                                <div>
+                                    <span class="float-left badge badge-secondary" t-if="record.type.raw_value == 'phantom'">Kit</span>
+                                    <span class="float-left" t-if="record.type.raw_value == 'phantom' and record.eco_inprogress_count.value>0">&amp;nbsp;</span>
+                                    <span class="float-left badge badge-secondary" t-if="record.eco_inprogress_count.value>0">Eco</span>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="mrp_bom_tree_view_tree" model="ir.ui.view">
+        <field name="name">mrp.bom.tree.inherit.mrp.plm</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='routing_id']" position="after">
+                <field name="version" optional="show"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="mrp_bom_action_kanban">
+        <field name="name">Bill of Materials</field>
+        <field name="res_model">mrp.bom</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+              Create a bill of materials
+            </p><p>
+              Bills of materials allow you to define the list of required components
+              used to make a finished product; through a manufacturing
+              order or a pack of products.
+            </p>
+        </field>
+    </record>
+
+</odoo>

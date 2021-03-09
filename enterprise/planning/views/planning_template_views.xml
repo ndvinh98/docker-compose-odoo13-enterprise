@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="planning_slot_template_view_form" model="ir.ui.view">
+            <field name="name">planning.slot.template.form</field>
+            <field name="model">planning.slot.template</field>
+            <field name="arch" type="xml">
+                <form string="Shift Template Form">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="role_id"/>
+                            </group>
+                            <group>
+                                <field name="start_time" widget="float_time"/>
+                                <field name="duration" widget="float_time"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="planning_slot_template_view_tree" model="ir.ui.view">
+            <field name="name">planning.slot.template.tree</field>
+            <field name="model">planning.slot.template</field>
+            <field name="arch" type="xml">
+                <tree string="Shift Template List" editable="top">
+                    <field name="role_id"/>
+                    <field name="start_time" widget="float_time"/>
+                    <field name="duration" widget="float_time"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>

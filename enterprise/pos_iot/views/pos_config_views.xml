@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/pos_iot/static/src/js/barcode_reader.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/chrome.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/customer_display.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/devices.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/gui.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/iot.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/models.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/payment.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/popups.js"></script>
+            <script type="text/javascript" src="/pos_iot/static/src/js/scale.js"></script>
+            <link rel="stylesheet" href="/pos_iot/static/src/css/pos.css"/>
+        </xpath>
+    </template>
+
+    <record id="pos_iot_config_view_form" model="ir.ui.view">
+        <field name="name">pos.iot.config.form.view</field>
+        <field name="model">pos.config</field>
+        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('pos_iot_config')]" position="replace">
+                <div class="content-group pos_iot_config" attrs="{'invisible' : [('is_posbox', '=', False)]}">
+                    <div class="row">
+                        <label string="Receipt Printer" for="iface_printer_id" class="col-lg-4 o_light_label"/>
+                        <field name="iface_printer_id"/>
+                        <field name="iface_print_via_proxy" invisible="1"/>
+                    </div>
+                    <div class="row" attrs="{'invisible': [('iface_printer_id', '=', False)]}">
+                        <label string="Cashdrawer" for="iface_cashdrawer" class="col-lg-4 o_light_label"/>
+                        <field name="iface_cashdrawer"/>
+                    </div>
+                    <div class="row">
+                        <label string="Customer Display" for="iface_display_id" class="col-lg-4 o_light_label"/>
+                        <field name="iface_display_id"/>
+                    </div>
+                    <div class="row iot_barcode_scanner">
+                        <label string="Barcode Scanners" for="iface_scanner_ids" class="col-lg-4 o_light_label"/>
+                        <field name="iface_scanner_ids" widget="many2many_tags"/>
+                    </div>
+                    <div class="row" name="row_scale">
+                        <label string="Electronic Scale" for="iface_scale_id" class="col-lg-4 o_light_label"/>
+                        <field name="iface_scale_id"/>
+                    </div>
+                    <div>
+                        <button name="%(iot.iot_device_action)d" icon="fa-arrow-right" type="action" string="IoT Devices" class="btn-link mt8"/>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

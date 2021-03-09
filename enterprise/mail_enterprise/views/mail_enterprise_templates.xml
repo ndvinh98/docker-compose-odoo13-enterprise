@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend" name="Mail Enterprise Assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/mail_enterprise/static/src/scss/mail_enterprise.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/mail_enterprise/static/src/scss/mail_enterprise_mobile.scss"/>
+            <script type="text/javascript" src="/mail_enterprise/static/src/js/chatter.js" />
+            <script type="text/javascript" src="/mail_enterprise/static/src/js/form_renderer.js" />
+            <script type="text/javascript" src="/mail_enterprise/static/src/js/attachment_viewer.js" />
+            <script type="text/javascript" src="/mail_enterprise/static/src/js/discuss.js"></script>
+            <script type="text/javascript" src="/mail_enterprise/static/src/js/thread_field.js" />
+            <script type="text/javascript" src="/mail_enterprise/static/src/js/thread_window_mobile.js" />
+            <script type="text/javascript" src="/mail_enterprise/static/src/js/thread_widget_mobile.js" />
+            <script type="text/javascript" src="/mail_enterprise/static/src/js/systray_messaging_menu_mobile.js" />
+        </xpath>
+    </template>
+
+    <template id="qunit_suite" name="mail_tests" inherit_id="web.qunit_suite">
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <script type="text/javascript" src="/mail_enterprise/static/tests/attachment_preview_tests.js"></script>
+        </xpath>
+    </template>
+
+    <template id="qunit_mobile_suite" name="mail_mobile_tests" inherit_id="web.qunit_mobile_suite">
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <script type="text/javascript" src="/mail_enterprise/static/tests/discuss_mobile_tests.js"></script>
+            <script type="text/javascript" src="/mail_enterprise/static/tests/thread_window_mobile_tests.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

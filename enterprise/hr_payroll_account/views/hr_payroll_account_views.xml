@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Modify Payslip Form -->
+
+        <record model="ir.ui.view" id="hr_payslip_view_form">
+            <field name="name">hr.payslip.inherit.form</field>
+            <field name="model">hr.payslip</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_payslip_done']" position="replace">
+                    <button string="Create Draft Entry" name="action_payslip_done" type="object" attrs="{'invisible': [('state', 'not in', 'verify')]}" class="oe_highlight" context="{'payslip_generate_pdf': True}"/>
+                </xpath>
+                <field name="paid" position="after">
+                    <field name="date"/>
+                    <field name="journal_id" required="1"/>
+                    <field name="move_id" readonly="1"/>
+                </field>
+            </field>
+        </record>
+
+    <!-- Modify Payslip Run Form -->
+
+        <record id="hr_payslip_run_view_form" model="ir.ui.view">
+            <field name="name">hr.payslip.run.inherit.form</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="hr_payroll.hr_payslip_run_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_validate']" position="replace">
+                    <button name="action_validate" type="object" string="Create Draft Entry" states="verify" class="oe_highlight" context="{'payslip_generate_pdf': True}"/>
+                </xpath>
+                <xpath expr="//button[@name='action_draft']" position="replace">
+                    <button name="action_draft" type="object" string="Set to Draft" states="verify" class="oe_highlight" invisible="1"/>
+                </xpath>
+            </field>
+        </record>
+
+    <!-- Modify Action for Payslips -->
+
+        <record model="ir.actions.server" id="hr_payroll.action_hr_payroll_confirm_payroll">
+            <field name="name">Create Draft Entry</field>
+        </record>
+
+    <!-- Adding Account fields to the Salary Rules -->
+
+        <record id="hr_salary_rule_view_form" model="ir.ui.view">
+            <field name="name">hr.salary.rule.form.inherit</field>
+            <field name="model">hr.salary.rule</field>
+            <field name="inherit_id" ref="hr_payroll.hr_salary_rule_form"/>
+            <field name="arch" type="xml">
+              <xpath expr="//page[@name='description']" position="after">
+                    <page string="Accounting">
+                        <group colspan="4">
+                            <field name="account_debit" />
+                            <field name="account_credit"/>
+                            <field name="analytic_account_id" groups="analytic.group_analytic_accounting"/>
+                            <field name="not_computed_in_net"/>
+                        </group>
+                    </page>
+                </xpath>
+            </field>
+        </record>
+
+    <!-- Contract View -->
+
+        <record id="hr_contract_view_form" model="ir.ui.view">
+            <field name="name">hr.contract.view.form.inherit</field>
+            <field name="model">hr.contract</field>
+            <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//group[@name='duration_group']" position="after">
+                   <group string="Accounting" groups="analytic.group_analytic_accounting">
+                        <field name="analytic_account_id" domain="['|', ('company_id', '=', company_id), ('company_id', '=', False)]" groups="analytic.group_analytic_accounting"/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+
+    <!-- Structure View -->
+
+        <record id="hr_payroll_structure_view_form" model="ir.ui.view">
+            <field name="name">hr.payrolL.structure.form.inherit</field>
+            <field name="model">hr.payroll.structure</field>
+            <field name="inherit_id" ref="hr_payroll.view_hr_employee_grade_form"/>
+            <field name="arch" type="xml">
+                <field name="schedule_pay" position="after">
+                    <field name="journal_id"/>
+                </field>
+            </field>
+        </record>
+
+</odoo>

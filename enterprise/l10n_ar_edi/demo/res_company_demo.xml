@@ -1,0 +1,32 @@
+<odoo>
+
+    <record id="l10n_ar.company_ri" model="res.company">
+        <field name='l10n_ar_afip_ws_environment'>testing</field>
+        <field name="l10n_ar_afip_ws_key" type="base64" file="l10n_ar_edi/demo/private_key.pem"/>
+    </record>
+
+    <record id="l10n_ar.company_mono" model="res.company">
+        <field name='l10n_ar_afip_ws_environment'>testing</field>
+        <field name="l10n_ar_afip_ws_key" type="base64" file="l10n_ar_edi/demo/private_key.pem"/>
+    </record>
+
+    <record id="l10n_ar.company_exento" model="res.company">
+        <field name='l10n_ar_afip_ws_environment'>testing</field>
+        <field name="l10n_ar_afip_ws_key" type="base64" file="l10n_ar_edi/demo/private_key.pem"/>
+    </record>
+
+    <data noupdate="1">
+
+        <record id="bank_account_mono" model="res.partner.bank">
+            <field name="acc_number">2097538411100037551563</field>
+            <field name="partner_id" ref="l10n_ar.partner_mono"/>
+            <field name="company_id" ref="l10n_ar.company_mono"/>
+        </record>
+
+        <function name="set_demo_random_cert" model="res.company">
+            <value eval="[ref('l10n_ar.company_ri'), ref('l10n_ar.company_mono'), ref('l10n_ar.company_exento')]"/>
+        </function>
+
+    </data>
+
+</odoo>

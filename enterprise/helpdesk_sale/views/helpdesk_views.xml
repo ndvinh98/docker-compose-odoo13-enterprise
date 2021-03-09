@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_invoicing" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.invoicing</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name='email_cc' position="after">
+                <field name="commercial_partner_id" invisible="1"/>
+                <field name="sale_order_id" options='{"no_open": True}' readonly="1"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form_inherit_sale_user" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.invoicing</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk_ticket_view_form_inherit_helpdesk_invoicing"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='sale_order_id']" position="attributes">
+                <attribute name="options">{"no_create": True}</attribute>
+                <attribute name="readonly">0</attribute>
+            </xpath>
+        </field>
+        <field name="groups_id" eval="[(4, ref('sales_team.group_sale_salesman'))]"/>
+    </record>
+
+</odoo>

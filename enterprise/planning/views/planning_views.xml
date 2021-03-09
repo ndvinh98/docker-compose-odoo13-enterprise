@@ -1,0 +1,431 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- planning.slot views -->
+    <record id="planning_view_tree" model="ir.ui.view">
+        <field name="name">planning.slot.tree</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <tree string="Shift List">
+                <field name="employee_id"/>
+                <field name="role_id"/>
+                <field name="start_datetime"/>
+                <field name="end_datetime"/>
+                <field name="allocated_hours" widget="float_time"/>
+                <field name="allocated_percentage" groups="planning.group_planning_show_percentage"/>
+                <field name="company_id" groups="base.group_multi_company" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="planning_view_form" model="ir.ui.view">
+        <field name="name">planning.slot.form</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <form>
+
+                <div role="alert" class="alert-warning p-3 text-center" attrs="{'invisible': [('overlap_slot_count', '=', 0)]}">
+                    <button name="action_see_overlaping_slots" type="object" class="btn-link">
+                        <field name="overlap_slot_count"/> other shift(s)
+                    </button>
+                    <span class="align-middle">for this employee at the same time.</span>
+                </div>
+
+                <sheet string="Shift">
+                    <field name="is_assigned_to_me" invisible="1"/>
+                    <field name="allow_self_unassign" invisible="1"/>
+                    <group attrs="{'invisible': ['|', ('template_autocomplete_ids', '=', []), ('template_creation', '=', True)]}" groups="planning.group_planning_manager">
+                        <field name="template_id" class="text-break flex-wrap"
+                            domain="[['id', 'in', template_autocomplete_ids]]"
+                            widget="radio" options="{'horizontal': true}"
+                        />
+                    </group>
+                    <field name="template_autocomplete_ids" invisible="1"/>
+                    <field name="recurrency_id" invisible='1'/>
+                    <group>
+                        <group>
+                            <field name="employee_id"/>
+                            <field name="role_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="start_datetime" string="Start date"/>
+                            <field name="end_datetime" string="End date"/>
+                            <field name="allocated_hours" widget="float_time"/>
+                            <field name="allocated_percentage" groups="planning.group_planning_show_percentage"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="repeat" groups="planning.group_planning_manager"/>
+                        <label for="repeat_interval" string="Repeat Every" attrs="{'invisible': [('repeat', '=', False)]}"/>
+                        <div class="o_row" attrs="{'invisible': [('repeat', '=', False)]}">
+                            <field name="repeat_interval" class="oe_inline" nolabel="1"/>
+                            <span>week(s)</span>
+                            <field name="repeat_type" class="oe_inline" nolabel="1" attrs="{'required': [('repeat', '=', True)]}"/>
+                            <field name="repeat_until" class="oe_inline" attrs="{'invisible': [('repeat_type', '!=', 'until')], 'required': [('repeat_type', '=', 'until')]}" nolabel="1"/>
+                        </div>
+                    </group>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <label for="template_creation" class="float-sm-right mr-5" groups="planning.group_planning_manager"/>
+                    <field name="template_creation" class="float-sm-right" groups="planning.group_planning_manager"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="planning_view_form_in_gantt" model="ir.ui.view">
+        <field name="name">planning.slot.form.gantt</field>
+        <field name="model">planning.slot</field>
+        <field name="inherit_id" ref="planning_view_form"/>
+        <field name="mode">primary</field>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="after">
+                <footer>
+                    <field name="publication_warning" invisible="1"/>
+                    <button string="Save" special="save" class="btn btn-primary" close="1" groups="planning.group_planning_manager"/>
+                    <button string="Publish &amp; Send" type="object" name="action_send" class="btn btn-primary" close="1" attrs="{'invisible': [('employee_id', '=', False)]}" groups="planning.group_planning_manager"/>
+                    <button string="Publish" type="object" name="action_publish" class="btn btn-primary" close="1" groups="planning.group_planning_manager"/>
+                    <button name="unlink" string="Delete" type="object" class="btn-secondary" close="1" attrs="{'invisible': [('id', '=', False)]}" confirm="Are you sure you want to do delete this shift?" groups="planning.group_planning_manager"/>
+                    <button string="Discard" special="cancel" class="btn-secondary" close="1" fullscreen="True" groups="planning.group_planning_manager"/>
+
+                    <button name="action_self_assign" class="btn btn-primary float-right" type="object" string="I take it" attrs="{'invisible': [('employee_id', '!=', False)]}" close="1"/>
+                    <button name="action_self_unassign" class="btn btn-secondary float-right" type="object" string="I am unavailable" attrs="{'invisible': ['|', ('is_assigned_to_me', '=', False), ('allow_self_unassign', '=', False)]}" close="1"/>
+                </footer>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="planning_view_form_quickcreate" model="ir.ui.view">
+        <field name="name">planning.slot.form.quickcreate</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="role_id"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                        <field name="name"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="planning_view_search" model="ir.ui.view">
+        <field name="name">planning.slot.search</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="role_id"/>
+                <field name="employee_id"/>
+                <filter name="open_shifts" string="Open Shifts" domain="[('employee_id', '=', False)]"/>
+                <filter name="my_shifts" string="My Shifts" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter name="future" string="Future" domain="[('start_datetime', '>=', time.strftime('%%Y-%%m-%%d 00:00:00'))]" />
+                <filter name="past" string="Past" domain="[('start_datetime', '&lt;=', time.strftime('%%Y-%%m-%%d 23:59:59'))]" />
+                <group string="Group By">
+                    <filter name="group_by_employee" string="Employee" context="{'group_by': 'employee_id'}"/>
+                    <filter name="group_by_role" string="Role" context="{'group_by': 'role_id'}"/>
+                    <filter name="group_by_start_datetime" string="Start Date" context="{'group_by':'start_datetime:day'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="planning_view_calendar" model="ir.ui.view">
+        <field name="name">planning.slot.calendar</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <calendar string="Planning" date_start="start_datetime" date_stop="end_datetime" color="role_id" form_view_id="%(planning_view_form_quickcreate)d" event_open_popup="true" quick_add="False">
+                <field name="name"/>
+                <field name="employee_id" avatar_field="image_128"/>
+                <field name="role_id"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="planning_view_gantt" model="ir.ui.view">
+        <field name="name">planning.slot.gantt</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <gantt
+                js_class="planning_gantt"
+                form_view_id="%(planning_view_form_in_gantt)d"
+                date_start="start_datetime"
+                date_stop="end_datetime"
+                default_group_by="employee_id"
+                default_scale="week"
+                color="color"
+                plan="false"
+                scales="day,week,month,year"
+                precision="{'day': 'hour:full', 'week': 'day:full', 'month': 'day:full', 'year': 'day:full'}"
+                decoration-info="not is_published"
+                decoration-warning="publication_warning and is_published"
+                decoration-danger="overlap_slot_count > 0"
+                display_unavailability="1"
+                thumbnails="{'employee_id': 'image_128'}">
+
+                <field name="allocated_hours"/>
+                <field name="recurrency_id" />
+                <field name="is_published"/>
+                <field name="publication_warning"/>
+                <field name="employee_id"/>
+                <field name="overlap_slot_count"/>
+                <field name="allocated_percentage"/>
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row no-gutters">
+                            <div class="col">
+                                <ul class="pl-1 mb-0">
+                                    <li><strong>Start Date: </strong> <t t-esc="userTimezoneStartDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
+                                    <li><strong>Stop Date: </strong> <t t-esc="userTimezoneStopDate.format('YYYY-MM-DD hh:mm:ss A')"/></li>
+                                    <li id="allocated_hours"><strong>Allocated Hours: </strong> <t t-esc="'' + Math.floor(allocated_hours) + ':' + ((allocated_hours % 1) * 60 >= 10 ? Math.round((allocated_hours % 1) * 60) : '0'+Math.round((allocated_hours % 1) * 60))"/></li>
+                                </ul>
+                                <p t-if="is_published and publication_warning and !overlap_slot_count" class="text-warning mt-2 mb-0">
+                                    Some changes were made since this shift was published.
+                                </p>
+                                <p t-if="overlap_slot_count" class="text-danger mt-2 mb-0">
+                                    <t t-esc="overlap_slot_count"/> other shift(s) in conflict.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+            </gantt>
+        </field>
+    </record>
+
+    <record id="planning_view_gantt_inherit" model="ir.ui.view">
+        <field name="name">planning.slot.gantt.inherit</field>
+        <field name="model">planning.slot</field>
+        <field name="inherit_id" ref="planning.planning_view_gantt"/>
+        <field name="groups_id" eval="[(4,ref('planning.group_planning_show_percentage'))]"/>
+        <field name="arch" type="xml">
+            <xpath expr="//li[@id='allocated_hours']" position="after">
+                <t t-if="allocated_percentage != 100">
+                    <li><strong>Allocated Time (%): </strong> <t t-esc="Math.round(allocated_percentage)"/></li>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="planning_view_pivot" model="ir.ui.view">
+        <field name="name">planning.slot.pivot</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <pivot string="Planning Analysis">
+                <field name="start_datetime" interval="week" type="col"/>
+                <field name="allocated_hours" type="measure"/>
+                <field name="allocated_percentage" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="planning_view_graph" model="ir.ui.view">
+        <field name="name">planning.slot.graph</field>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <graph string="Planning Analysis" type="bar">
+                <field name="role_id" type="row"/>
+                <field name="employee_id" type="col"/>
+                <field name="allocated_hours" type="measure"/>
+                <field name="allocated_percentage" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+    <!-- planning.role views -->
+    <record id="planning_role_view_tree" model="ir.ui.view">
+        <field name="name">planning.role.tree</field>
+        <field name="model">planning.role</field>
+        <field name="arch" type="xml">
+            <tree string="Planning Role List" editable="top">
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="planning_role_view_form" model="ir.ui.view">
+        <field name="name">planning.role.form</field>
+        <field name="model">planning.role</field>
+        <field name="arch" type="xml">
+            <form string="Planning Role">
+                <field name="name"/>
+                <field name="color" widget="color_picker"/>
+            </form>
+        </field>
+    </record>
+
+
+
+    <!--
+        Actions
+    -->
+    <record id="planning_action_my_calendar" model="ir.actions.act_window">
+        <field name="name">My Planning</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">calendar,gantt,tree,form</field>
+        <field name="context">{'search_default_my_shifts': 1, 'search_default_open_shifts': 1}</field>
+    </record>
+
+    <record id="planning_action_my_gantt" model="ir.actions.act_window">
+        <field name="name">My Planning</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">gantt,calendar,tree,form</field>
+        <field name="context">{'search_default_my_shifts': 1}</field>
+    </record>
+
+    <record id="planning_action_open_shift" model="ir.actions.act_window">
+        <field name="name">Open Shifts</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">gantt,calendar,tree,form</field>
+        <field name="context">{'search_default_open_shifts': 1, 'search_default_my_shifts': 1, 'default_employee_id': False}</field>
+    </record>
+
+        <record id="planning_action_open_shift_view_gantt" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">gantt</field>
+            <field name="view_id" ref="planning_view_gantt"/>
+            <field name="act_window_id" ref="planning_action_open_shift"/>
+        </record>
+
+    <record id="planning_action_schedule_by_employee" model="ir.actions.act_window">
+        <field name="name">Planning Schedule</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">gantt,calendar,tree,form</field>
+        <field name="context">{'search_default_group_by_employee': 1}</field>
+    </record>
+
+        <record id="planning_action_schedule_by_employee_view_gantt" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">gantt</field>
+            <field name="view_id" ref="planning_view_gantt"/>
+            <field name="act_window_id" ref="planning_action_schedule_by_employee"/>
+        </record>
+
+    <record id="planning_action_schedule_by_role" model="ir.actions.act_window">
+        <field name="name">Planning Schedule</field>
+        <field name="res_model">planning.slot</field>
+        <field name="view_mode">gantt,calendar,tree,form</field>
+        <field name="context">{'search_default_group_by_role': 1, 'search_default_group_by_employee': 2}</field>
+    </record>
+
+        <record id="planning_action_schedule_by_role_view_gantt" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">gantt</field>
+            <field name="view_id" ref="planning_view_gantt"/>
+            <field name="act_window_id" ref="planning_action_schedule_by_role"/>
+        </record>
+
+    <record id="planning_action_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'planning'}</field>
+    </record>
+
+    <record id="planning_action_roles" model="ir.actions.act_window">
+        <field name="name">Planning Roles</field>
+        <field name="res_model">planning.role</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="planning_action_shift_template" model="ir.actions.act_window">
+        <field name="name">Shift Templates</field>
+        <field name="res_model">planning.slot.template</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <!--
+        Menus
+    -->
+    <menuitem
+        id="planning_menu_root"
+        name="Planning"
+        sequence="25"
+        groups="planning.group_planning_user"
+        web_icon="planning,static/description/icon.png"/>
+
+    <menuitem
+        id="planning_menu_my_planning"
+        name="My Planning"
+        sequence="10"
+        parent="planning_menu_root"/>
+
+        <menuitem
+            id="planning_menu_calendar"
+            name="Calendar"
+            sequence="10"
+            parent="planning_menu_my_planning"
+            action="planning_action_my_calendar"/>
+
+    <menuitem
+        id="planning_menu_schedule"
+        name="Schedule"
+        sequence="30"
+        parent="planning_menu_root"
+        groups="planning.group_planning_manager,planning.group_planning_user"/>
+
+        <menuitem
+            id="planning_menu_schedule_by_employee"
+            name="By Employee"
+            sequence="10"
+            parent="planning_menu_schedule"
+            action="planning_action_schedule_by_employee"/>
+
+        <menuitem
+            id="planning_menu_schedule_by_role"
+            name="By Role"
+            sequence="20"
+            parent="planning_menu_schedule"
+            action="planning_action_schedule_by_role"/>
+
+    <menuitem
+        id="planning_menu_reporting"
+        name="Reporting"
+        parent="planning_menu_root"
+        sequence="40"
+        groups="planning.group_planning_manager"/>
+
+         <menuitem
+            id="planning_menu_planning_analysis"
+            name="Planning Analysis"
+            action="planning_action_analysis"
+            sequence="10" parent="planning_menu_reporting"
+            groups="planning.group_planning_manager"/>
+
+    <menuitem
+        id="planning_menu_settings"
+        name="Configuration"
+        parent="planning_menu_root"
+        sequence="50"
+        groups="base.group_system"/>
+
+        <menuitem
+            id="planning_menu_settings_config"
+            name="Settings"
+            parent="planning_menu_settings"
+            sequence="10"
+            action="planning_action_settings"
+            groups="base.group_system"/>
+
+        <menuitem
+            id="planning_menu_settings_role"
+            name="Roles"
+            parent="planning_menu_settings"
+            sequence="20"
+            action="planning_action_roles"
+            groups="base.group_system"/>
+
+        <menuitem
+            id="planning_menu_settings_shift_template"
+            name="Shift Templates"
+            parent="planning_menu_settings"
+            sequence="30"
+            action="planning_action_shift_template"
+            groups="base.group_system"/>
+</odoo>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="portal_my_worksheet" name="My Worksheets" inherit_id="portal.portal_sidebar" primary="True">
+
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="attributes">
+            <attribute name="id">o_fsm_worksheet_portal</attribute>
+        </xpath>
+
+        <xpath expr="//div[hasclass('o_portal_sidebar')]" position="inside">
+            <t t-set="o_portal_fullwidth_alert" groups="project.group_project_user">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="source_action_id" t-value="task.env.ref('industry_fsm.project_task_action_fsm').id if source == 'fsm' else task.env.ref('project.action_view_task').id"/>
+                    <t t-set="backend_url" t-value="'/web#model=project.task&amp;id=%s&amp;action=%s&amp;view_type=form' % (task.id, source_action_id)"/>
+                </t>
+            </t>
+
+            <div class="row">
+
+                <!-- sidebar -->
+                <t t-call="portal.portal_record_sidebar">
+                    <t t-set="classes" t-value="'col-lg-auto d-print-none'"/>
+
+                    <t t-set="entries">
+                        <ul class="list-group list-group-flush flex-wrap flex-row flex-lg-column">
+                            <li class="list-group-item flex-grow-1">
+                                <a t-if="task.has_to_be_signed()" role="button" class="btn btn-primary btn-block mb8" data-toggle="modal" data-target="#modalaccept" href="#">
+                                    <i class="fa fa-check mr-1"/>Sign
+                                </a>
+                                <div class="o_download_pdf btn-toolbar flex-sm-nowrap">
+                                    <div class="btn-group flex-grow-1 mr-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_download_btn" t-att-href="task.get_portal_url(suffix='/worksheet', report_type='pdf', download=True)" title="Download"><i class="fa fa-download"/> Download</a>
+                                    </div>
+                                    <div class="btn-group flex-grow-1 mb-1">
+                                        <a class="btn btn-secondary btn-block o_print_btn o_portal_invoice_print" t-att-href="task.get_portal_url(suffix='/worksheet', report_type='pdf')" title="Print" target="_blank"><i class="fa fa-print"/> Print</a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li t-if="task.user_id" class="list-group-item flex-grow-1">
+                                <div class="small mb-1"><strong class="text-muted">Contact person</strong></div>
+                                <div class="row flex-nowrap">
+                                    <div class="col pl-0" style="min-width: 150px">
+                                        <img t-att-src="'/web/image?model=res.users&amp;id='+str(task.user_id.id)+'&amp;field=image_128'" alt="contact avatar" class="rounded-circle mr-2 float-left o_portal_contact_img" />
+                                        <span t-field="task.user_id" t-options='{"widget": "contact", "fields": ["name", "phone"], "no_marker": True}'/>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </t>
+                </t>
+
+                <div class="col-12 col-lg justify-content-end">
+
+                    <!-- modal relative to the sign action -->
+                    <div role="dialog" class="modal fade" id="modalaccept">
+                        <div class="modal-dialog" t-if="task.has_to_be_signed()">
+                            <form id="accept" method="POST" t-att-data-task-id="task.id" t-att-data-token="task.access_token" class="js_accept_json modal-content js_website_submit_form">
+                                <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                                <header class="modal-header">
+                                    <h4 class="modal-title">Sign Task</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">&amp;times;</button>
+                                </header>
+                                <main class="modal-body" id="sign-dialog">
+                                    <p>
+                                        <span>By signing this proposal, I agree to the following terms:</span>
+                                        <ul>
+                                            <li><span>Accepted on the behalf of:</span> <b t-field="task.partner_id.commercial_partner_id"/></li>
+                                        </ul>
+                                    </p>
+                                    <t t-call="portal.signature_form">
+                                        <t t-set="call_url" t-value="task.get_portal_url(suffix='/worksheet/sign/%s' % source)"/>
+                                        <t t-set="default_name" t-value="task.partner_id.name"/>
+                                        <t t-set="send_label" t-value="'Sign'"/>
+                                    </t>
+                                </main>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- status message -->
+                    <div t-if="message == 'sign_ok'" class="alert alert-success alert-dismissable d-print-none text-center mt-2" role="status">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">&amp;times;</button>
+                        <strong>Thank You!</strong><br/>
+                        Your Worksheet Report is now signed.
+                    </div>
+
+                    <!-- worksheet content -->
+                    <div t-attf-class="card p-3" name="Content" id="worksheet_content">
+                        <h1>Worksheet Report</h1>
+                        <hr/>
+                        <t t-set="doc" t-value="task"/>
+                        <div t-call="industry_fsm_report.worksheet_custom_page"/>
+                    </div>
+
+                    <!-- bottom actions -->
+                    <div class="row justify-content-center text-center d-print-none pt-1 pb-4">
+                        <a t-if="task.has_to_be_signed()" role="button" class="btn btn-primary m-3" data-toggle="modal" data-target="#modalaccept" href="#">
+                            <i class="fa fa-check mr-2"/>Sign
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </xpath>
+    </template>
+
+
+    <template id="portal_my_task" inherit_id="project.portal_my_task">
+        <xpath expr="//t[@t-set='backend_url']" position="after">
+            <t t-if="task.is_fsm" t-set="backend_url" t-value="'/web#model=project.task&amp;id=%s&amp;action=%s&amp;view_type=form' % (task.id, task.env.ref('industry_fsm.project_task_action_fsm').id)"/>
+        </xpath>
+        <xpath expr="//t[@t-call='portal.portal_record_layout']" position="after">
+            <div t-if="task.allow_worksheets and task.worksheet_count" class="row justify-content-center text-center d-print-none pt-1 pb-4">
+                <a role="button" class="btn btn-primary m-3" t-attf-href="#{task.get_portal_url(suffix='/worksheet')}">View Worksheet</a>
+            </div>
+        </xpath>
+    </template>
+
+</odoo>

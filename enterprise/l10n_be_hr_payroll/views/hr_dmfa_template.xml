@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- https://www.socialsecurity.be/portail/glossaires/dmfa.nsf/ConsultFrImprPDF/149524602BB4229CC125835B00491C32/$FILE/VersComplDMFA191_F.pdf -->
+<odoo>
+<data>
+    <template id="dmfa_xml_report">
+        <DmfAOriginal>
+            <Form>
+                <Identification>DMFA</Identification>
+                <FormCreationDate t-esc="datetime.date.today()"/>
+                <FormCreationHour t-esc="time.strftime('%H:%M:%S.000')"/>
+                <AttestationStatus>0</AttestationStatus> <!-- 0 = Orignal -->
+                <TypeForm>SU</TypeForm> <!-- SU = SUBMISSION -->
+                <Reference>
+                    <ReferenceType>1</ReferenceType> <!-- 1 = references this report -->
+                    <ReferenceOrigin>1</ReferenceOrigin> <!-- 1 = reference given by an employer -->
+                    <ReferenceNbr t-esc="data.reference"/>
+                </Reference>
+                <EmployerDeclaration>
+                    <Quarter t-esc="quarter_repr"/>
+                    <NOSSRegistrationNbr t-esc="onss_registration_number"/>
+                    <Trusteeship>0</Trusteeship>
+                    <CompanyID t-esc="onss_company_id"/>
+                    <NetOwedAmount t-esc="global_contribution"/>
+                    <t t-foreach="natural_persons" t-as="person">
+                        <t t-call="l10n_be_hr_payroll.NaturalPerson"/>
+                    </t>
+                </EmployerDeclaration>
+            </Form>
+        </DmfAOriginal>
+    </template>
+
+    <template id="NaturalPerson">
+        <NaturalPerson>
+            <NaturalPersonSequenceNbr t-esc="person.sequence"/>
+            <INSS t-esc="person.identification_id"/>
+            <NaturalPersonUserReference t-esc="person.employee.id"/>
+            <t t-foreach="person.worker_records" t-as="worker">
+                <t t-call="l10n_be_hr_payroll.WorkerRecord"/>
+            </t>
+        </NaturalPerson>
+    </template>
+
+    <template id="WorkerRecord">
+        <!-- WorkerRecord: One per status in the quarter (employee/worker/apprentice) -->
+        <!-- Only employee currently supported -->
+        <WorkerRecord>
+            <EmployerClass t-esc="employer_class"/>
+            <WorkerCode t-esc="worker.worker_code"/>
+            <NOSSQuarterStartingDate t-esc="quarter_start"/>
+            <NOSSQuarterEndingDate t-esc="quarter_end"/>
+            <Border t-esc="worker.frontier_worker"/>
+            <t t-foreach="worker.occupations" t-as="occupation">
+                <t t-call="l10n_be_hr_payroll.Occupation"/>
+            </t>
+            <t t-foreach="worker.contributions" t-as="contribution">
+                <t t-call="l10n_be_hr_payroll.WorkerContribution"/>
+            </t>
+            <t t-foreach="worker.deductions" t-as="deduction">
+                <t t-call="l10n_be_hr_payroll.WorkerDeduction"/>
+            </t>
+        </WorkerRecord>
+    </template>
+
+    <template id="WorkerDeduction">
+        <WorkerDeduction>
+            <DeductionCode t-esc="deduction.code"/>
+            <DeductionAmount t-esc="deduction.amount"/>
+        </WorkerDeduction>
+    </template>
+
+    <template id="WorkerContribution">
+        <WorkerContribution>
+            <ContributionWorkerCode t-esc="contribution.worker_code"/>
+            <ContributionType t-esc="contribution.contribution_type"/>
+            <ContributionAmount t-esc="contribution.amount"/>
+        </WorkerContribution>
+    </template>
+
+    <template id="Occupation">
+        <!-- Occupation ~= contract -->
+        <Occupation>
+            <OccupationSequenceNbr t-esc="occupation.sequence"/>
+            <OccupationStartingDate t-esc="occupation.date_start"/>
+            <JointCommissionNbr t-esc="occupation.commission"/>
+            <WorkingDaysSystem t-esc="occupation.days_per_week"/>
+            <ContractType t-esc="occupation.is_parttime"/>
+            <RefMeanWorkingHours t-esc="occupation.mean_working_hours"/>  <!-- TODO check difference -->
+            <MeanWorkingHours t-esc="occupation.mean_working_hours"/>
+            <Retired>0</Retired>
+            <OccupationUserReference t-esc="occupation.contract.id"/>
+            <LocalUnitID t-esc="occupation.work_place"/>
+            <t t-foreach="occupation.services" t-as="service">
+                <t t-call="l10n_be_hr_payroll.Service"/>
+            </t>
+            <t t-foreach="occupation.remunerations" t-as="remuneration">
+                <t t-call="l10n_be_hr_payroll.Remun"/>
+            </t>
+        </Occupation>
+    </template>
+
+    <template id="Service">
+        <!-- Service ~= Worked days -->
+        <Service>
+            <ServiceSequenceNbr t-esc="service.sequence"/>
+            <ServiceCode t-esc="service.code"/>
+            <ServiceNbrDays t-esc="service.nbr_days"/>
+        </Service>
+    </template>
+
+    <template id="Remun">
+        <!-- Remun ~= salary line -->
+        <Remun>
+            <RemunSequenceNbr t-esc="remuneration.sequence"/>
+            <RemunCode t-esc="remuneration.code"/>
+            <BonusPaymentFrequency t-esc="remuneration.frequency"/>
+            <RemunAmount t-esc="remuneration.amount"/>
+        </Remun>
+    </template>
+</data>
+</odoo>

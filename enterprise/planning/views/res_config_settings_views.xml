@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.planning</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="55"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Planning" string="Planning" data-key="planning" groups="planning.group_planning_manager">
+                    <h2>Planning</h2>
+                    <div class="row mt16 o_settings_container" name="planning">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_left_pane">
+                                <field name="planning_allow_self_unassign"/>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="planning_allow_self_unassign"/>
+                                <div class="text-muted">
+                                    Let employees unassign themselves from shifts
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box" groups="base.group_no_one">
+                            <div class="o_setting_right_pane">
+                                <div class="text-muted" name="project_forecast_msg">
+                                    Schedule your employee shifts
+                                </div>
+                                 <div class="content-group">
+                                    <div class="row mt16">
+                                        <label for="planning_generation_interval" class="col-4 col-lg-4 o_light_label" string="Rate of shift generation"/>
+                                        <field name="planning_generation_interval" class="oe_inline col-4 col-lg-2 mr-1"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

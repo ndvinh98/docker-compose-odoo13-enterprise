@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_move_reversal" model="ir.ui.view">
+        <field name="name">account.move.reversal.form</field>
+        <field name="model">account.move.reversal</field>
+        <field name="inherit_id" ref="l10n_latam_invoice_document.view_account_move_reversal"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form" position="inside">
+                <group>
+                    <group>
+                        <field name="l10n_cl_is_text_correction" attrs="{'invisible': [['refund_method', '!=', 'refund']]}"/>
+                        <field name="l10n_cl_edi_reference_doc_code" readonly="1" force_save="1"/>
+                    </group>
+                    <group attrs="{'invisible': [['l10n_cl_edi_reference_doc_code', '!=', '2']]}">
+                        <field name="l10n_cl_original_text"/>
+                        <field name="l10n_cl_corrected_text"/>
+                    </group>
+                </group>
+            </xpath>
+             <xpath expr="//field[@name='l10n_latam_document_type_id']" position="attributes">
+                <attribute name="attrs">{'invisible': True}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='reason']" position="attributes">
+                <attribute name="attrs">{'required': True}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

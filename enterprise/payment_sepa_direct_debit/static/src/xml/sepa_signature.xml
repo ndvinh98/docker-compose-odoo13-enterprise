@@ -1,0 +1,13 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="payment_sepa_direct_debit.signature_form">
+        <div>
+            <div class="o_web_sign_name_and_signature"/>
+            <div class="o_portal_sign_controls my-3">
+            </div>
+        </div>
+    </t>
+
+    <t t-name="payment_sepa_direct_debit.sign_name_and_signature" t-extend="web.sign_name_and_signature">
+        <t t-jquery="label" t-operation="replace" />
+    </t>
+</templates>

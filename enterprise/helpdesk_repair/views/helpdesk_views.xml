@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="action_repair_order_form" model="ir.actions.act_window">
+        <field name="name">Create a Repair Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">repair.order</field>
+        <field name="view_mode">form</field>
+        <field name="target">current</field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form_inherit_helpdesk_repair" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.helpdesk.repair</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <div class="oe_button_box" position="inside">
+                <button class="oe_stat_button" name="action_view_repairs" icon="fa-wrench" type="object" attrs="{'invisible': [('repairs_count', '=', 0)]}">
+                    <field name="repairs_count" string="Repairs" widget="statinfo"/>
+                </button>
+            </div>
+        </field>
+    </record>
+
+    <record id="helpdesk_ticket_view_form_inherit_stock_user" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.form.inherit.repair.stock.user</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="before">
+                <field name="use_product_repairs" invisible="1"/>
+                <button name="%(action_repair_order_form)d" type="action"
+                    groups="stock.group_stock_user"
+                    string="Repair" attrs="{'invisible': [('use_product_repairs', '=', False)]}"
+                    context="{'default_product_id': product_id, 'default_lot_id': lot_id, 'default_partner_id': partner_id, 'default_ticket_id': id, 'default_company_id': company_id}"/>
+            </field>
+        </field>
+        <field name="groups_id" eval="[(4, ref('stock.group_stock_user'))]"/>
+    </record>
+
+    <record id="helpdesk_team_view_form_inherit_helpdesk_repair" model="ir.ui.view">
+        <field name='name'>helpdesk.team.form.inherit.helpdesk.repair</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="arch" type="xml">
+            <div id="use_product_repairs" position="replace"/>
+        </field>
+    </record>
+</odoo>

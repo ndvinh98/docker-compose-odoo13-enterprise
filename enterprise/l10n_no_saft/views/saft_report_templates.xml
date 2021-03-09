@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="NOMasterFilesTemplate" inherit_id="account_saft.MasterFilesTemplate">
+        <xpath expr="//StandardAccountID" position="after">
+            <t t-if="country_code == 'NO'">
+                <AccountType>GL</AccountType>
+            </t>
+        </xpath>
+        <xpath expr="//TaxCodeDetails" position="before">
+            <t t-if="country_code == 'NO'">
+                <TaxType>MVA</TaxType>
+                <Description>Merverdiavgift</Description>
+            </t>
+        </xpath>
+        <xpath expr="//TaxCodeDetails" position="inside">
+            <t t-if="country_code == 'NO'">
+                <!-- TODO: master has taxes whose name starts with two digit codes, V13 doesn't have such taxes, so giving fix code -->
+                <StandardTaxCode t-if="tax.get('name')">02</StandardTaxCode>
+                <!-- <StandardTaxCode t-if="tax.get('name')"><t t-esc="int(tax['name'][:2])"/></StandardTaxCode> -->
+                <BaseRate>100</BaseRate> <!-- TODO: 100 depicts the whole amount is tax deductible, need to check if there can be any other value -->
+            </t>
+        </xpath>
+    </template>
+
+    <template id="NOTaxInformationStructure" inherit_id="account_saft.TaxInformationStructure">
+        <xpath expr="//TaxCode" position="before">
+            <t t-if="country_code == 'NO'">
+                <TaxType>MVA</TaxType>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>
