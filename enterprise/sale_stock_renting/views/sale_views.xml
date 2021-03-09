@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="rental_order_form_view_inherit_stock" model="ir.ui.view">
+      <field name="name">rental.order.form.inherit.stock</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale_renting.rental_order_primary_form_view"/>
+      <field name="arch" type="xml">
+        <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='return_date']" position='after'>
+          <field name="reserved_lot_ids" invisible="1" widget="many2many_tags"/>
+        </xpath>
+        <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='is_product_rentable']" position='after'>
+            <field name="tracking" invisible="1"/>
+        </xpath>
+        <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='qty_delivered']" position='attributes'>
+          <attribute name="attrs">{
+              'column_invisible': [('parent.state', 'not in', ['sale', 'done'])],
+              'readonly': ['|', ('qty_delivered_method', '!=', 'manual'),
+                  '&amp;', ('is_rental', '=', True), ('tracking', '!=', 'none')
+              ]
+            }
+          </attribute>
+        </xpath>
+        <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='qty_returned']" position='attributes'>
+          <attribute name="attrs">{
+              'column_invisible': ['|', ('parent.state', 'not in', ['sale', 'done']), ('parent.is_rental_order', '=', False)],
+              'invisible': ['|', ('is_rental', '=', False), ('is_product_rentable', '=', False)],
+              'readonly': ['|', ('is_rental', '=', False), ('tracking', '!=', 'none')]
+          }
+          </attribute>
+        </xpath>
+      </field>
+  </record>
+
+  <record id="sale_renting.rental_product_template_action" model="ir.actions.act_window">
+    <field name="context">{
+      'default_sale_ok': False,
+      'default_rent_ok': True,
+      'default_type': 'product',
+      'default_purchase_ok': False,
+      'search_default_filter_to_rent': True,
+      }
+    </field>
+  </record>
+
+</odoo>

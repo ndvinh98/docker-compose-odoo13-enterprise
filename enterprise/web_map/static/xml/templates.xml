@@ -1,0 +1,75 @@
+<?xml version ="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="map-popup">
+        <table class="o_map_popup_table">
+            <thead>
+                <tr>
+                    <th colspan="2"></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr t-foreach="records.records" t-as="record">
+                    <td class="contentName">
+                        <t t-esc ="record.string"/>
+                    </td>
+                    <td class ="space"></td>
+                    <td class="contentString">
+                        <t t-esc="record.field"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <br/>
+        <div class="center">
+            <button class ="btn btn-primary edit">edit</button>
+            <div class="divider"/>
+            <a class="btn btn-primary" style="color:white" t-att-href="records.url" target="_blank">navigate to</a>
+        </div>
+    </t>
+    <t t-name="MapView.buttons">
+        <div>
+            <a class ="btn btn-primary" style="color:white" t-att-href="widget" target="_blank">View in Google Maps</a>
+        </div>
+    </t>
+    <t t-name="MapView.pinlist">
+        <div class="o_pin_list_container d-none d-lg-block col-2">
+            <div class="o_pin_list_header">
+                <header>
+                    <i class="fa fa-list"></i>
+                    <span t-esc="widget.panelTitle"></span>
+                </header>
+            </div>
+            <t t-if="widget.numbering">
+                <ol class="o_pin_list_details">
+                    <t t-call="MapView.pinListItem"></t>
+                </ol>
+            </t>
+            <t t-else="">
+                <ul class="o_pin_list_details">
+                    <t t-call="MapView.pinListItem"></t>
+                </ul>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="MapView.pinListItem">
+        <t t-foreach="widget.state.records" t-as="record">
+            <li
+                t-att-class="record.partner and record.partner.partner_latitude and record.partner.partner_longitude ? 'o_pin_located' : undefined"
+                t-att-title="record.partner and record.partner.partner_latitude and record.partner.partner_longitude ? undefined : 'Could not locate'"
+            >
+                <a href=""
+                    t-if="record.partner and record.partner.partner_latitude and record.partner.partner_longitude"
+                    t-att-data-lat="record.partner.partner_latitude"
+                    t-att-data-lng="record.partner.partner_longitude">
+                    <t t-esc="record.display_name"></t>
+                </a>
+                <span t-else="" class="text-muted">
+                    <t t-esc="record.display_name"></t>
+                </span>
+            </li>
+        </t>
+    </t>
+</templates>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="res_config_settings_inherit_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.rental</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale_renting.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <div name="rental_delay_costs" position="before">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Default Padding Time</span>
+                        <div class="text-muted">
+                            Minimum amount of time between two rentals
+                        </div>
+                        <div class="content-group">
+                            <div class="row mt16 o_light_label">
+                                <label for="padding_time" class="col-lg-3"/>
+                                <field name="padding_time" class="col-lg-2 p-0" widget="float_time"/>
+                                <label for="padding_time" string="hours" class="col-lg-2"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>

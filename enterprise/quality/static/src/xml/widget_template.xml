@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="FieldBinaryTabletImage">
+        <div class="o_field_image">
+            <t t-if="widget.mode !== 'readonly'">
+                <div>
+                    <div class="o_form_image_controls">
+                        <button class="fa fa-trash-o fa-lg o_clear_file_button" title="Clear" aria-label="Clear"/>
+
+                        <span class="o_form_binary_progress">Uploading...</span>
+                        <t t-call="HiddenInputFile">
+                            <t t-set="image_only" t-value="true"/>
+                            <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                        </t>
+                    </div>
+                    <div id="picture_button">
+                        <button class="btn btn-primary o_select_file_button" barcode_trigger="measure">Take a Picture</button>
+                    </div>
+                </div>
+            </t>
+        </div>
+    </t>
+
+    <t t-name="FieldBinaryTabletImage.Preview">
+        <div class="modal fade o_modal_fullscreen o_form_image_preview" role="dialog" tabindex="-1">
+            <div class="o_viewer_content">
+                <div class="o_viewer-header">
+                    <a aria-label="Close" class="o_close_btn float-right" href="#" role="button" title="Close">×</a>
+                </div>
+                <div class="o_viewer_img_wrapper">
+                    <div class="o_viewer_zoomer">
+                        <img alt="Viewer" class="o_viewer_img" t-att-src="url"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </t>
+</templates>

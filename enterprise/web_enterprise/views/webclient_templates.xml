@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="_assets_primary_variables" inherit_id="web._assets_primary_variables" priority="15">
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/primary_variables.scss"/>
+        </xpath>
+    </template>
+
+    <template id="_assets_secondary_variables" inherit_id="web._assets_secondary_variables" priority="15">
+        <xpath expr="//link" position="before">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/secondary_variables.scss"/>
+        </xpath>
+    </template>
+
+    <template id="_assets_backend_helpers" inherit_id="web._assets_backend_helpers" priority="15">
+        <xpath expr="//link[@href='/web/static/src/scss/bootstrap_overridden.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/bootstrap_overridden.scss"/>
+        </xpath>
+    </template>
+
+    <template id="assets_common" name="web_enterprise assets common" inherit_id="web.assets_common">
+        <xpath expr="//link[@href='/web/static/src/scss/ui_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/ui.scss"/>
+        </xpath>
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/fonts.scss"/>
+        </xpath>
+    </template>
+
+    <template id="assets_backend" name="web_enterprise assets backend" inherit_id="web.assets_backend">
+        <xpath expr="//link[@href='/web/static/src/scss/webclient_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/webclient.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/webclient_layout.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/webclient_layout.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/fields_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/fields.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/form_view_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/form_view.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/list_view_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/list_view.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/search_view_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/search_view.scss"/>
+        </xpath>
+        <xpath expr="//link[@href='/web/static/src/scss/dropdown_extra.scss']" position="replace">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/dropdown.scss"/>
+        </xpath>
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/home_menu.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/home_menu_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/search_panel_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/menu_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/menu_search.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/control_panel_layout.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/datepicker.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/kanban_view.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/touch_device.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/snackbar.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/swipe_item_mixin.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/form_view_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/kanban_view_mobile.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/web_enterprise/static/src/scss/modal_mobile.scss"/>
+
+            <link rel="stylesheet" type="text/scss" href="/web/static/src/scss/navbar_mobile.scss"/>
+        </xpath>
+
+        <xpath expr="//script[@src='/web/static/src/js/chrome/web_client.js']" position="replace">
+            <script type="text/javascript" src="/web_enterprise/static/src/js/web_client.js"/>
+        </xpath>
+        <xpath expr="//script[@src='/web/static/src/js/chrome/menu.js']" position="replace">
+            <script type="text/javascript" src="/web_enterprise/static/src/js/menu.js"/>
+        </xpath>
+        <xpath expr="//script[@src='/web/static/src/js/fields/upgrade_fields.js']" position="replace"/>
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/web_enterprise/static/src/js/apps.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/control_panel_renderer.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/home_menu.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/menu_mobile.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/search_panel_mobile.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/swipe_item_mixin.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/core/dialog.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/views/calendar/calendar_renderer.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/views/form_renderer.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/views/relational_fields.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/views/upgrade_fields.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/views/view_dialogs.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/widgets/debug_manager.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/widgets/user_menu.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/widgets/snackbar.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/src/js/widgets/switch_company_menu.js"></script>
+        </xpath>
+    </template>
+
+    <template id="qunit_suite" name="enterprise_tests" inherit_id="web.qunit_suite">
+        <xpath expr="//script[@src='/web/static/tests/fields/upgrade_fields_tests.js']" position="replace"/>
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <script type="text/javascript" src="/web_enterprise/static/tests/test_utils.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/home_menu_tests.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/menu_tests.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/upgrade_fields_tests.js"></script>
+        </xpath>
+    </template>
+
+    <template id="qunit_mobile_suite" name="enterprise_mobile_tests" inherit_id="web.qunit_mobile_suite">
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <script type="text/javascript" src="/web_enterprise/static/tests/test_utils.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/control_panel_mobile_tests.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/mobile_company_switcher_tests.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/form_tests.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/mobile_menu_tests.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/relational_fields_mobile_tests.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/views/calendar_mobile_tests.js"></script>
+            <script type="text/javascript" src="/web_enterprise/static/tests/views/kanban_mobile_tests.js"></script>
+        </xpath>
+    </template>
+
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+
+        <xpath expr="//t[@t-set='head']" position="after">
+            <t t-set="head_web_enterprise">
+                <!-- Chrome, Firefox OS and Opera -->
+                <meta name="theme-color" content="#875A7B"/>
+                <link rel="icon" sizes="192x192" href="/web_enterprise/static/src/img/mobile-icons/android-192x192.png"/>
+
+                <!-- iOS Safari -->
+                <meta name="apple-mobile-web-app-capable" content="yes"/>
+                <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
+                <link rel="apple-touch-icon" href="/web_enterprise/static/src/img/mobile-icons/apple-152x152.png"/>
+
+                <!-- Windows Phone -->
+                <meta name="msapplication-navbutton-color" content="#875A7B"/>
+                <meta name="msapplication-TileColor" content="#875A7B"/>
+                <meta name="msapplication-TileImage" content="/web_enterprise/static/src/img/mobile-icons/windows-144x144.png"/>
+            </t>
+            <t t-set="head" t-value="head_web_enterprise + (head or '')"/>
+        </xpath>
+    </template>
+
+    <template id="webclient_login" inherit_id="web.login_layout">
+        <xpath expr="//t[@t-call='web.frontend_layout']/t[last()]" position="after">
+            <t t-set="body_classname" t-value="'o_home_menu_background'"/>
+            <t t-set="login_card_classes" t-value="'rounded-0 shadow-sm bg-white'"/>
+        </xpath>
+    </template>
+</odoo>

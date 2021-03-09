@@ -1,0 +1,562 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * timesheet_grid
+# 
+# Translators:
+# Martin Trigaux <mat@odoo.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-10-24 09:24+0000\n"
+"PO-Revision-Date: 2017-10-24 09:24+0000\n"
+"Last-Translator: Martin Trigaux <mat@odoo.com>, 2017\n"
+"Language-Team: English (United Kingdom) (https://www.transifex.com/odoo/teams/41243/en_GB/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: en_GB\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: timesheet_grid
+#: model:mail.template,body_html:timesheet_grid.mail_template_timesheet_reminder_manager
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<data><div style=\"padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:600px;border-collapse:collapse;background:inherit;color:inherit\">\n"
+"    <tbody><tr>\n"
+"        <td valign=\"center\" width=\"200\" style=\"padding:10px 10px 10px 5px;font-size: 12px\">\n"
+"            <img src=\"/logo.png\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\"/>\n"
+"        </td>\n"
+"    </tr></tbody>\n"
+"</table>\n"
+"</div>\n"
+"<div style=\"padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:600px ;text-align:justify; margin:0 auto; border-collapse:collapse; background:inherit; color:inherit\">\n"
+"    <tbody><tr>\n"
+"        <td style=\"padding:0px 10px 5px 5px;font-size: 14px;\">\n"
+"            <p>Dear ${object.name},</p>\n"
+"            <p>This is a friendly reminder to approved your team's hours for the period : ${ctx.get('date_start')} - ${ctx.get('date_stop')}.</p>\n"
+"            % if ctx.get('action_url'):\n"
+"                <center>\n"
+"                    <a href=\"${ctx.get('action_url')}\" style=\"background-color: #1abc9c; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 14px;\" class=\"o_default_snippet_text\">Validate your timesheet</a>\n"
+"                </center>\n"
+"            % endif\n"
+"            <p>Best regards,</p>\n"
+"        </td>\n"
+"    </tr><tr>\n"
+"        <td style=\"padding:0px 10px 5px 5px;font-size: 14px;\">\n"
+"            % if user.signature\n"
+"            <p style=\"font-size: 14px;\">${user.signature | safe}\n"
+"            </p>\n"
+"            % endif\n"
+"            <p style=\"font-size: 11px;\"><strong>Sent by\n"
+"            <a href=\"${object.user_id.company_id.website}\" style=\"text-decoration:none; color: #875A7B;\">\n"
+"                <strong>${user.company_id.name}</strong>\n"
+"            </a> using <a href=\"www.odoo.com\" style=\"text-decoration:none; color: #875A7B;\"><strong>Odoo</strong></a>\n"
+"            </strong></p>\n"
+"        </td>\n"
+"    </tr></tbody>\n"
+"</table>\n"
+"</div>\n"
+"            </data>"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:mail.template,body_html:timesheet_grid.mail_template_timesheet_reminder_user
+msgid ""
+"<div style=\"padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:600px;border-collapse:collapse;background:inherit;color:inherit\">\n"
+"    <tbody><tr>\n"
+"        <td valign=\"center\" width=\"200\" style=\"padding:10px 10px 10px 5px;font-size: 12px\">\n"
+"            <img src=\"/logo.png\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${user.company_id.name}\"/>\n"
+"        </td>\n"
+"    </tr></tbody>\n"
+"</table>\n"
+"</div>\n"
+"<div style=\"padding:0px;width:600px;margin:auto;background: #FFFFFF repeat top /100%;color:#777777\">\n"
+"<table cellspacing=\"0\" cellpadding=\"0\" style=\"width:600px ;text-align:justify; margin:0 auto; border-collapse:collapse; background:inherit; color:inherit\">\n"
+"    <tbody><tr>\n"
+"        <td style=\"padding:0px 10px 5px 5px;font-size: 14px;\">\n"
+"            <p>Dear ${object.name},</p>\n"
+"            <p>This is a friendly reminder to log your hours for the period : ${ctx.get('date_start')} - ${ctx.get('date_stop')}.\n"
+"                For the time being, you only logged ${ctx.get('timesheet_hours')} hours on the ${ctx.get('working_hours')} requested.\n"
+"            </p>\n"
+"            % if ctx.get('action_url'):\n"
+"                <center>\n"
+"                    <a href=\"${ctx.get('action_url')}\" style=\"background-color: #1abc9c; padding: 10px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 14px;\" class=\"o_default_snippet_text\">Fill your timesheet</a>\n"
+"                </center>\n"
+"            % endif\n"
+"            <p>Best regards,</p>\n"
+"        </td>\n"
+"    </tr><tr>\n"
+"        <td style=\"padding:0px 10px 5px 5px;font-size: 14px;\">\n"
+"            % if user.signature\n"
+"            <p style=\"font-size: 14px;\">${user.signature | safe}\n"
+"            </p>\n"
+"            % endif\n"
+"            <p style=\"font-size: 11px;\"><strong>Sent by\n"
+"            <a href=\"${object.user_id.company_id.website}\" style=\"text-decoration:none; color: #875A7B;\">\n"
+"                <strong>${user.company_id.name}</strong>\n"
+"            </a> using <a href=\"www.odoo.com\" style=\"text-decoration:none; color: #875A7B;\"><strong>Odoo</strong></a>\n"
+"            </strong></p>\n"
+"        </td>\n"
+"    </tr></tbody>\n"
+"</table>\n"
+"</div>\n"
+"            "
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
+msgid "Activate a periodical email reminder for timesheet managers"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
+msgid "Activate a periodical email reminder for timesheet users"
+msgstr ""
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/models.py:79
+#, python-format
+msgid "All selected timesheets are already validated"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_account_analytic_line
+msgid "Analytic Line"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+msgid "Android App"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+msgid "Apple App"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_validation_view_form
+msgid "Cancel"
+msgstr "Cancel"
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tour.js:22
+#, python-format
+msgid "Choose a <b>project name</b>. (e.g. name of a customer, or product)"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+msgid "Chrome Plugin"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+msgid "Click to add projects and tasks"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_res_company
+msgid "Companies"
+msgstr "Companies"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_create_uid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line_create_uid
+msgid "Created by"
+msgstr "Created by"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_create_date
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line_create_date
+msgid "Created on"
+msgstr "Created on"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_hr_employee_timesheet_validated
+msgid "Date until which the employee's timesheets have been validated"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_form
+msgid "Describe your activity"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_display_name
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line_display_name
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tour.js:43
+#, python-format
+msgid "Easily switch to the monthly or daily view to control your time"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_hr_employee
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line_employee_id
+msgid "Employee"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company_timesheet_mail_employee_allow
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings_reminder_user_allow
+msgid "Employee Reminder"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company_timesheet_mail_employee_interval
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company_timesheet_mail_manager_interval
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings_reminder_manager_interval
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings_reminder_user_interval
+msgid "Frequency"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+msgid "Get Android app"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+msgid "Get Chrome plugin"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+msgid "Get iOS app"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_id
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line_id
+msgid "ID"
+msgstr "ID"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_res_config_settings_reminder_manager_allow
+msgid "If checked, send an email to all manager"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_res_company_timesheet_mail_manager_allow
+msgid ""
+"If checked, send an email to all managers who have not validated their "
+"timesheet"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_res_company_timesheet_mail_employee_allow
+#: model:ir.model.fields,help:timesheet_grid.field_res_config_settings_reminder_user_allow
+msgid ""
+"If checked, send an email to all users who have not recorded their timesheet"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation___last_update
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line___last_update
+msgid "Last Modified on"
+msgstr "Last Modified on"
+
+#. module: timesheet_grid
+#: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_month
+msgid "Last Month"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line_write_uid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_write_uid
+msgid "Last Updated by"
+msgstr "Last Updated by"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line_write_date
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_write_date
+msgid "Last Updated on"
+msgstr "Last Updated on"
+
+#. module: timesheet_grid
+#: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_week
+msgid "Last Week"
+msgstr ""
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tour.js:17
+#, python-format
+msgid "Let's create your first timesheet entry."
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company_timesheet_mail_manager_allow
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings_reminder_manager_allow
+msgid "Manager Reminder"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_task_readonly
+msgid "Month"
+msgstr ""
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/models.py:133
+#, python-format
+msgid ""
+"Multiple timesheet entries match the modified value. Please change the "
+"search options or modify the entries individually."
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
+msgid "My Team"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company_timesheet_mail_employee_nextdate
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company_timesheet_mail_manager_nextdate
+msgid "Next scheduled date for manager reminder"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
+msgid "Non Validated"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company_timesheet_mail_employee_delay
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company_timesheet_mail_manager_delay
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings_reminder_manager_delay
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings_reminder_user_delay
+msgid "Number of days"
+msgstr ""
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/models.py:101
+#, python-format
+msgid ""
+"Only a Timesheets Officer is allowed to create an entry older than the "
+"validation limit."
+msgstr ""
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/models.py:116
+#, python-format
+msgid "Only a Timesheets Officer is allowed to delete a validated entry."
+msgstr ""
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/models.py:110
+#, python-format
+msgid "Only a Timesheets Officer is allowed to modify a validated entry."
+msgstr ""
+
+#. module: timesheet_grid
+#: model:mail.template,subject:timesheet_grid.mail_template_timesheet_reminder_manager
+msgid "Reminder: please approve your team's timesheets"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:mail.template,subject:timesheet_grid.mail_template_timesheet_reminder_user
+msgid "Reminder: please log your hours"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line_is_timesheet
+msgid "Set if this analytic line represents a line of timesheet."
+msgstr ""
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tour.js:36
+#, python-format
+msgid ""
+"Set the number of hours done on this project, for every day of the week. "
+"(e.g. 1.5 or 1:30)"
+msgstr ""
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/models.py:74
+#, python-format
+msgid "There aren't any timesheet to validate"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_form
+msgid "Time Spent"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
+msgid "Timesheet Control"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line_is_timesheet
+msgid "Timesheet Line"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee_timesheet_manager_id
+msgid "Timesheet Responsible"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_user_ir_actions_server
+#: model:ir.cron,cron_name:timesheet_grid.timesheet_reminder_user
+#: model:ir.cron,name:timesheet_grid.timesheet_reminder_user
+msgid "Timesheet: Employees Email Reminder"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_manager_ir_actions_server
+#: model:ir.cron,cron_name:timesheet_grid.timesheet_reminder_manager
+#: model:ir.cron,name:timesheet_grid.timesheet_reminder_manager
+msgid "Timesheet: Managers Email Reminder"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_task_readonly
+msgid "Timesheets"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee_timesheet_validated
+msgid "Timesheets Validation Date"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate
+msgid "To Validate"
+msgstr ""
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tour.js:13
+#, python-format
+msgid ""
+"Track your timesheets to invoice easily, or control costs. <i>It starts "
+"here.</i>"
+msgstr ""
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tour.js:29
+#, python-format
+msgid ""
+"Use tasks to track the different type of activities. (e.g. Graphic Design, "
+"Programming, Project Management)"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_hr_employee_timesheet_manager_id
+msgid "User responsible of timesheet validation. Should be Timesheet Manager."
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line_validate
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_validation_view_form
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee_validation
+msgid "Validate"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_validation_view_form
+msgid "Validate Timesheets"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_validation_view_form
+msgid "Validate the timesheets of the selected employees up to"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_timesheet_validation_line_validate
+msgid "Validate this employee's timesheet up to the chosen date"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_validation_date
+msgid "Validate up to"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
+msgid "Validated"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.actions.act_window,name:timesheet_grid.action_timesheet_previous_month
+#: model:ir.actions.act_window,name:timesheet_grid.action_timesheet_previous_week
+msgid "Validated Timesheets"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line_validated
+msgid "Validated line"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line_validation_id
+msgid "Validation"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_validation_line_ids
+msgid "Validation Line"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_task_readonly
+msgid "Week"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+msgid "You will be able to register your working hours on the given task."
+msgstr ""
+
+#. module: timesheet_grid
+#: selection:res.company,timesheet_mail_employee_interval:0
+#: selection:res.company,timesheet_mail_manager_interval:0
+msgid "after end of month"
+msgstr ""
+
+#. module: timesheet_grid
+#: selection:res.company,timesheet_mail_employee_interval:0
+#: selection:res.company,timesheet_mail_manager_interval:0
+msgid "after end of week"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
+msgid "days"
+msgstr "days"
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_res_config_settings
+msgid "res.config.settings"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_timesheet_validation
+msgid "timesheet.validation"
+msgstr ""
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_timesheet_validation_line
+msgid "timesheet.validation.line"
+msgstr ""

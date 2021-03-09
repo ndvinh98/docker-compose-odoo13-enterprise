@@ -1,0 +1,127 @@
+$map-table-row-padding: 25px;
+$map-table-line-padding: 20px;
+$map-number-color: white;
+$map-number-font-size: 19px;
+.o_map_view {
+    height: 100%;
+
+    .o_map_container {
+        height: 100%;
+
+        .o_map_popup_table {
+            vertical-align: top;
+
+            .contentName {
+                font-weight: bold;
+                white-space: nowrap;
+                line-height: $map-table-row-padding;
+                vertical-align: baseline;
+            }
+
+            .space {
+                padding-left: $map-table-line-padding;
+            }
+
+            .contentString {
+                vertical-align: baseline;
+            }
+        }
+
+        div {
+            .center {
+                display: flex;
+                justify-content: left;
+                align-items: flex-end;
+            }
+
+            .divider {
+                width: 5px;
+                height: auto;
+                display: inline-block;
+            }
+        }
+    }
+
+    .o_pin_list_container {
+        padding: 8px 8px 8px 22px;
+        background-color: white;
+        border-left: 1px solid #dee2e6;
+        height: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
+        cursor: default;
+
+        .o_pin_list_header {
+            padding: 8px 0;
+            text-transform: uppercase;
+            color: #666666;
+
+            i {
+                color: $o-enterprise-color;
+                margin-right: 0.25rem;
+            }
+
+            span {
+                font-weight: bold;
+            }
+        }
+
+
+        .o_pin_list_details {
+            padding-left: 0px;
+            padding-bottom: 0px;
+            a {
+                color: $gray-900;
+            }
+            > li {
+                list-style-position: inside;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                &.o_pin_located:hover {
+                    text-decoration: none;
+                    background-color: $o-gray-100;
+                }
+                &:not(.o_pin_located) {
+                    cursor: not-allowed;
+                }
+            }
+        }
+
+        ul.o_pin_list_details {
+            list-style: none;
+            cursor: default;
+            padding-bottom: 2px;
+        }
+    }
+
+    //the height and width correspond to the height and width of the custom icon png file
+
+    .o_numbered_marker {
+        height: 45px !important;
+        width: 28px !important;
+        margin-top: -45px !important;
+        margin-left: -14px !important;
+        background-image: url("../../lib/leaflet/images/marker-icon-numbered.png");
+    }
+
+    .o_number_icon {
+        color: $map-number-color;
+        font-size: $map-number-font-size;
+        text-align: center;
+        margin-top: 10%;
+    }
+
+    //used to disabled opening animation for the popups.
+    .leaflet-fade-anim .leaflet-popup {
+        transition: none;
+    }
+}
+
+/* Fix opw-2124233, preventing rtlcss to reverse the map position */
+.leaflet-pane, .leaflet-tile, .leaflet-marker-icon, .leaflet-marker-shadow,
+.leaflet-tile-container, .leaflet-pane > svg, .leaflet-pane > canvas,
+.leaflet-zoom-box, .leaflet-image-layer, .leaflet-layer {
+    left: 0 #{"/*rtl:ignore*/"};
+    right: auto #{"/*rtl:ignore*/"};
+}

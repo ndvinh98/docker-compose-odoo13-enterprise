@@ -1,0 +1,14 @@
+<odoo noupdate="1">
+    <record forcecreate="True" id="property_extra_hourly" model="ir.property">
+        <field name="name">property_extra_hourly</field>
+        <field name="fields_id" search="[('model','=','product.template'),('name','=','extra_hourly')]"/>
+        <field name="value" model="product.template" eval="obj().env.company.extra_hour"/>
+        <field name="type">float</field>
+    </record>
+    <record forcecreate="True" id="property_extra_daily" model="ir.property">
+        <field name="name">property_extra_daily</field>
+        <field name="fields_id" search="[('model','=','product.template'),('name','=','extra_daily')]"/>
+        <field name="value" model="product.template" eval="obj().env.company.extra_day"/>
+        <field name="type">float</field>
+    </record>
+</odoo>

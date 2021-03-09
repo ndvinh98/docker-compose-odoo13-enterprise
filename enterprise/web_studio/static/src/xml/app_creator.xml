@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+<t t-name="web_studio.AppCreator">
+    <div class="o_web_studio_app_creator">
+        <div class="o_web_studio_app_creator_box">
+            <div class="o_web_studio_app_creator_left">
+                <div class="o_web_studio_app_creator_left_content"/>
+                <div class="o_web_studio_app_creator_buttons">
+                    <button type="button" class="btn fa fa-chevron-left o_web_studio_app_creator_back" aria-label="Previous" title="Previous"/>
+                    <button type="button" class="btn o_web_studio_app_creator_next" aria-label="Next" title="Next">
+                        <span/><i class="fa fa-chevron-right"/>
+                    </button>
+                </div>
+            </div>
+            <div class="o_web_studio_app_creator_right">
+                <div class="o_web_studio_app_creator_right_content"/>
+            </div>
+        </div>
+    </div>
+</t>
+
+<t t-name="web_studio.AppCreator.Welcome">
+    <h2 class="mb0">Welcome to</h2>
+    <h1 class="mt8">Odoo Studio</h1>
+    <h5 class="text-muted">The fastest way to create a web application.</h5>
+</t>
+
+<div t-name="web_studio.AppCreator.App">
+    <h3 class="mb32">Create your App</h3>
+    <div class="o_web_studio_app_creator_name">
+        <label for="app_name">Choose an app name</label>
+        <input class="o_input" id="app_name" name="app_name" placeholder="e.g. Real Estate" type="text" t-att-value="widget.app_name"/>
+    </div>
+</div>
+
+<div t-name="web_studio.AppCreator.Menu">
+    <h3 class="mb32">Create your first Menu</h3>
+    <div class="o_web_studio_app_creator_menu">
+        <label for="menu_name">Choose your first object name</label>
+        <input class="o_input" id="menu_name" name="menu_name" placeholder="e.g. Properties" type="text"/>
+    </div>
+    <t t-if="widget.debug">
+        <div class="o_web_studio_app_creator_model_choice">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="model_choice" name="model_choice" class="custom-control-input"/>
+                <label for="model_choice" class="custom-control-label">Use an existing Model</label>
+            </div>
+        </div>
+        <div class="o_web_studio_app_creator_model mt8">
+            <label for="name">Model</label>
+            <div class="js_model"/>
+        </div>
+    </t>
+</div>
+
+<t t-name="web_studio.AppCreator.NewApp">
+    <a class="o_app o_web_studio_new_app" href="#">
+        <img class="o_app_icon" src="/web_studio/static/src/img/default_icon_app.png" alt="App Icon"/>
+        <div class="o_caption">New App</div>
+    </a>
+</t>
+
+</templates>

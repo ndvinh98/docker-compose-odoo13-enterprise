@@ -1,0 +1,65 @@
+
+.o_sign_document {
+    height: 100%;
+
+    > header {
+        flex: 0 0 auto;
+        height: $nav-link-height;
+        background-color: $o-brand-lightsecondary;
+        @include media-breakpoint-down(sm) {
+            height: initial;
+            min-height: $nav-link-height;
+        }
+        > div {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            @include media-breakpoint-down(sm) {
+                flex-direction: column;
+            }
+            a {
+                flex: 0 0 auto;
+                > img {
+                    height: $nav-link-height;
+                }
+            }
+
+            .o_sign_header_instruction {
+                font-size: 1.2em;
+                text-align: center;
+            }
+            .o_logo {
+                text-align: left;
+            }
+            .o_odoo {
+                text-align: right;
+            }
+        }
+    }
+    @include media-breakpoint-down(sm) {
+        .o_sign_page_info .col-lg-4 {
+            padding: 4px;
+        }
+    }
+}
+
+@include media-breakpoint-down(sm) {
+    .modal.o_sign_signature_dialog {
+        h1 {
+            font-size: $h1-font-size * 3 / 4;
+        }
+
+        h2, h3, h4, h5, h6 {
+            font-size: $o-font-size-base-touch;
+        }
+
+        .card.o_web_sign_signature_group {
+            padding: 0;
+
+            .row {
+                flex-wrap: nowrap;
+            }
+        }
+    }
+}
+

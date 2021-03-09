@@ -1,0 +1,48 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!-- TODO set to noupdate="1" -->
+    <data noupdate="0">
+        <record id="sms_template_data_default_alert" model="sms.template">
+            <field name="name">Subscription: Default SMS Alert</field>
+            <field name="model_id" ref="sale_subscription.model_sale_subscription"/>
+            <field name="body">${object.company_id.name}: Your subscription ${object.name} needs your attention. If you have some concerns about it, please contact ${object.user_id.name}, your contact person.</field>
+        </record>
+
+        <record id="sms_template_data_payment_failure" model="sms.template">
+            <field name="name">Subscription: Payment failure</field>
+            <field name="model_id" ref="sale_subscription.model_sale_subscription"/>
+            <field name="body">${object.company_id.name}: Our final attempt to process a payment for your subscription failed. As your payment should have been made on ${object.recurring_next_date}, your subscription has been terminated.</field>
+        </record>
+
+        <record id="sms_template_data_payment_reminder" model="sms.template">
+            <field name="name">Subscription: Payment reminder</field>
+            <field name="model_id" ref="sale_subscription.model_sale_subscription"/>
+            <field name="body">${object.company_id.name}: We were unable to process a payment for your subscription. Your subscription ${object.name} is still valid but will be suspended on ${object.recurring_next_date} unless the payment succeeds in the meantime.</field>
+        </record>
+
+        <act_window id="sale_subscription_act_window_sms_composer_single"
+            name="Send an SMS Text Message"
+            binding_model="sale.subscription"
+            res_model="sms.composer"
+            binding_views="list"
+            view_mode="form"
+            target="new"
+            context="{
+                'default_composition_mode': 'mass',
+                'default_mass_keep_log': True,
+            }"
+        />
+        <act_window id="sale_subscription_act_window_sms_composer_multi"
+            name="Send an SMS Text Message"
+            binding_model="sale.subscription"
+            res_model="sms.composer"
+            binding_views="form"
+            view_mode="form"
+            target="new"
+            context="{
+                'default_composition_mode': 'comment',
+                'default_res_id': active_id,
+            }"
+        />
+    </data>
+</odoo>

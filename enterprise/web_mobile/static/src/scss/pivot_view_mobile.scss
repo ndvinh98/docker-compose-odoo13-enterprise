@@ -1,0 +1,29 @@
+@include media-breakpoint-down(sm) {
+    .o_pivot {
+        .o_pivot_field_menu {
+            width: 100%;
+            left: 0 !important;
+
+            .dropdown-item {
+                padding-top: 15px;
+                padding-bottom: 15px;
+                &.o_pivot_field_selection::after{
+                    top:21px;
+                }
+            }
+
+            // css for open child sub menu
+            &.show > .o_inline_dropdown > .dropdown-menu {
+                top: initial !important;
+                left: 5% !important;
+                width: 95%;
+            }
+        }
+        .o_pivot_field_selection::after {
+            @include o-caret-down;
+        }
+        .o_pivot_field_selection.o_dropdown_open::after {
+            @include o-caret-up;
+        }
+    }
+}

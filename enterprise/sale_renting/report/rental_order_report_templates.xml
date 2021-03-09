@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_rental_order_document">
+        <t t-call="web.external_layout">
+            <t t-set="doc" t-value="doc.with_context(lang=doc.partner_id.lang)" />
+            <t t-set="address">
+                <div t-field="doc.partner_id"
+                    t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}' />
+            </t>
+            <t t-if="doc.partner_shipping_id == doc.partner_invoice_id
+                                 and doc.partner_invoice_id != doc.partner_id
+                                 or doc.partner_shipping_id != doc.partner_invoice_id">
+                <t t-set="information_block">
+                    <strong t-if="doc.partner_shipping_id == doc.partner_invoice_id">Invoicing and Shipping Address:</strong>
+                    <strong t-if="doc.partner_shipping_id != doc.partner_invoice_id">Invoicing Address:</strong>
+                    <div t-field="doc.partner_invoice_id"
+                    t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                    <t t-if="doc.partner_shipping_id != doc.partner_invoice_id">
+                        <strong>Shipping Address:</strong>
+                        <div t-field="doc.partner_shipping_id"
+                            t-options='{"widget": "contact", "fields": ["address", "name", "phone"], "no_marker": True, "phone_icons": True}'/>
+                    </t>
+                </t>
+            </t>
+            <div class="page">
+                <div class="oe_structure"/>
+                <h2 class="mt16">
+                    <t t-if="not (env.context.get('proforma', False) or is_pro_forma)">
+                        <span t-if="doc.state not in ['draft','sent']">Pickup Receipt # </span>
+                    </t>
+                    <span t-field="doc.name"/>
+                </h2>
+                <div class="row mt32 mb32" id="informations">
+                    <div t-if="doc.user_id.name" class="col-auto mw-100 mb-2">
+                        <strong>Salesperson:</strong>
+                        <p class="m-0" t-field="doc.user_id"/>
+                    </div>
+                </div>
+
+                <table class="table table-sm o_main_table">
+                    <thead>
+                        <tr>
+                            <th class="text-left">Description</th>
+                            <th class="text-left">Pickup Date</th>
+                            <th class="text-left">Expected Return</th>
+                            <th class="text-right">Pickedup</th>
+                            <th class="text-right">Returned</th>
+                        </tr>
+                    </thead>
+                    <tbody class="sale_tbody" t-if="doc.is_rental_order">
+                        <t t-foreach="doc.order_line" t-as="line">
+                            <tr t-if="line.qty_delivered > 0">
+                                <td><span t-field="line.product_id.name"/></td>
+                                <td class="text-left"><span t-field="line.pickup_date"/></td>
+                                <td class="text-left"><span t-field="line.return_date"/></td>
+                                <td class="text-right"><span t-field="line.qty_delivered"/></td>
+                                <td class="text-right"><span t-field="line.qty_returned"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+
+    <template id="report_rental_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="sale_renting.report_rental_order_document" t-lang="doc.partner_id.lang"/>
+            </t>
+        </t>
+    </template>
+</odoo>

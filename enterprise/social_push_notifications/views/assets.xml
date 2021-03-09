@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend" name="Push Notifications Assets">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/social_push_notifications/static/src/js/firebase-app-6.3.4.js"/>
+            <script type="text/javascript" src="/social_push_notifications/static/src/js/firebase-messaging-6.3.4.js"/>
+            <script type="text/javascript" src="/social_push_notifications/static/src/js/push_notification_request_popup.js"/>
+            <script type="text/javascript" src="/social_push_notifications/static/src/js/push_notification_widget.js"/>
+        </xpath>
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/social_push_notifications/static/src/scss/social_push_notifications_frontend.scss"/>
+        </xpath>
+    </template>
+
+    <template id="assets_backend" name="social_push_notifications_backend_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/social_push_notifications/static/src/scss/social_push_notifications.scss"/>
+            <script type="text/javascript" src="/social_push_notifications/static/src/js/push_preview.js"/>
+        </xpath>
+    </template>
+</odoo>

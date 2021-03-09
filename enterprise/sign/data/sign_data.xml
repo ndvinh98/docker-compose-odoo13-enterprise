@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sign_template_mail_request">
+<table border="0" cellpadding="0" style="background-color: white; padding: 0px; border-collapse:separate;">
+    <tr><td valign="top">
+        <t t-esc="record.create_uid.name"/>
+        (<a t-att-href="'mailto:%s?subject=%s' % (record.create_uid.email, 'Re: %s' % subject)"
+            style="color:#428BCA; text-decoration:none;"
+            target="_blank"><t t-esc="record.create_uid.email"/></a>)
+        has requested your signature on the document <t t-esc="record.sign_request_id.reference"/>.
+    </td></tr>
+    <tr t-if="body"><td valign="top">
+        <div style="margin: 16px 0px 16px 0px; padding: 8px 16px 8px 16px; background-color: #F1F1F1;">
+            <span>
+                <t t-raw="body"/>
+            </span>
+        </div>
+    </td></tr>
+    <tr><td valign="top">
+        <div style="margin:16px auto; text-align:center;">
+            <a t-att-href="link"
+                style="padding: 8px 16px 8px 16px; border-radius: 3px; background-color:#875A7B; text-align:center; text-decoration:none; color: #FFFFFF;">
+                Sign document
+            </a>
+        </div>
+    </td></tr>
+    <tr><td valign="top">
+        <div style="opacity: 0.7;">
+            <strong>Warning</strong> do not forward this email to other people!<br/>
+            They will be able to access this document and sign it as yourself.<br/>
+            <span>Your IP address and localization are associated to your signature to ensure traceability.</span>
+        </div>
+    </td></tr>
+</table>
+    </template>
+
+    <template id="sign_template_mail_follower">
+<table border="0" cellpadding="0" style="background-color: white; padding: 0px; border-collapse:separate;">
+    <tr><td valign="top">
+        <t t-esc="record.create_uid.name"/>
+        (<a t-att-href="'mailto:%s?subject=%s' % (record.create_uid.email, 'Re: %s' % subject)"
+            style="color:#428BCA; text-decoration:none;"
+            target="_blank"><t t-esc="record.create_uid.email"/>
+        </a>) has added you as a follower of the document <t t-esc="record.reference"/>.
+    </td></tr>
+    <tr t-if="body"><td valign="top">
+        <div style="margin: 16px 0px 16px 0px;">
+            <span style="padding: 16px 8px 16px 8px; border-radius: 3px;">
+                <t t-raw="body"/>
+            </span>
+        </div>
+    </td></tr>
+    <tr><td valign="top">
+        <div style="margin:16px 0px 16px 0px;">
+            <a t-att-href="link"
+                style="padding: 8px 16px 8px 16px; border-radius: 3px; background-color:#875A7B; text-align:center; text-decoration:none; color: #FFFFFF;">
+                View signature request
+            </a>
+        </div>
+    </td></tr>
+    <tr><td valign="top">
+        <div style="opacity: 0.7;">
+            You will be notified once the document has been signed by everyone involved.
+        </div>
+    </td></tr>
+</table>
+    </template>
+
+    <template id="sign_template_mail_completed">
+<table border="0" cellpadding="0" style="background-color: white; padding: 0px; border-collapse:separate;">
+    <tr><td valign="top">
+        The document <t t-esc="record.reference"/> has been completed and signed by everyone.
+    </td></tr>
+    <tr t-if="body"><td valign="top">
+        <div style="margin: 16px 0px 16px 0px;">
+            <span style="padding: 16px 8px 16px 8px; border-radius: 3px;">
+                <t t-raw="body"/>
+            </span>
+        </div>
+    </td></tr>
+    <tr><td valign="top">
+        <div style="margin:16px auto; text-align:center">
+            <a t-att-href="link"
+                style="padding: 8px 16px 8px 16px; border-radius: 3px; background-color:#875A7B; text-align:center; text-decoration:none; color: #FFFFFF;">
+                View document
+            </a>
+        </div>
+    </td></tr>
+    <tr><td valign="top">
+        <div style="opacity: 0.7;">
+            <strong>Warning</strong> do not forward this email to other people!<br/>
+            They will be able to access this document and sign it as yourself.<br/>
+            <span>Your IP address and localization are associated to your signature to ensure traceability.</span>
+        </div>
+    </td></tr>
+</table>
+    </template>
+
+    <!-- Item types -->
+    <record model="sign.item.type" id="sign_item_type_signature">
+        <field name="name">Signature</field>
+        <field name="item_type">signature</field>
+        <field name="tip">sign it</field>
+        <field name="placeholder">Signature</field>
+        <field name="default_width" type="float">0.200</field>
+        <field name="default_height" type="float">0.050</field>
+    </record>
+
+    <record model="sign.item.type" id="sign_item_type_initial">
+        <field name="name">Initials</field>
+        <field name="item_type">initial</field>
+        <field name="tip">mark it</field>
+        <field name="placeholder">Initials</field>
+        <field name="default_width" type="float">0.085</field>
+        <field name="default_height" type="float">0.030</field>
+    </record>
+
+      <record model="sign.item.type" id="sign_item_type_name">
+        <field name="name">Name</field>
+        <field name="placeholder">Name</field>
+        <field name="auto_field">name</field>
+    </record>
+
+    <record model="sign.item.type" id="sign_item_type_email">
+        <field name="name">Email</field>
+        <field name="placeholder">Email</field>
+        <field name="auto_field">email</field>
+    </record>
+
+    <record model="sign.item.type" id="sign_item_type_phone">
+        <field name="name">Phone</field>
+        <field name="placeholder">Phone</field>
+        <field name="auto_field">phone</field>
+    </record>
+
+    <record model="sign.item.type" id="sign_item_type_company">
+        <field name="name">Company</field>
+        <field name="placeholder">Company</field>
+        <field name="auto_field">company_id.name</field>
+    </record>
+
+    <record model="sign.item.type" id="sign_item_type_text">
+        <field name="name">Text</field> <!-- default: type 'text', tip 'fill in', empty placeholder, default_width and default_height, no auto_field -->
+        <field name="placeholder">Text</field>
+    </record>
+
+    <record model="sign.item.type" id="sign_item_type_multiline_text">
+        <field name="name">Multiline Text</field>
+        <field name="placeholder">Multiline Text</field>
+        <field name="item_type">textarea</field>
+        <field name="default_width" type="float">0.300</field>
+        <field name="default_height" type="float">0.0500</field>
+    </record>
+
+    <record model="sign.item.type" id="sign_item_type_checkbox">
+        <field name="name">Checkbox</field>
+        <field name="placeholder">&#9745;</field>
+        <field name="item_type">checkbox</field>
+        <field name="default_width" type="float">0.028</field>
+        <field name="default_height" type="float">0.025</field>
+    </record>
+
+    <record model="sign.item.type" id="sign_item_type_selection">
+        <field name="name">Selection</field>
+        <field name="item_type">selection</field>
+        <field name="placeholder">Selection</field>
+        <field name="tip">Select an option</field>
+        <field name="default_width" type="float">0.300</field>
+        <field name="default_height" type="float">0.030</field>
+    </record>
+
+    <record model="sign.item.type" id="sign_item_type_date">
+        <field name="name">Date</field>
+        <field name="placeholder">Date</field>
+    </record>
+
+    <!-- Item responsibles -->
+    <record model="sign.item.role" id="sign_item_role_customer">
+        <field name="name">Customer</field>
+    </record>
+
+    <record model="sign.item.role" id="sign_item_role_company">
+        <field name="name">Company</field>
+    </record>
+
+    <record model="sign.item.role" id="sign_item_role_employee">
+        <field name="name">Employee</field>
+    </record>
+
+    <!-- Two documents as data -->
+    <record id="attachment_sign_1" model="ir.attachment">
+        <field name="name">Employment Contract.pdf</field>
+        <field name="datas" type="base64" file="sign/static/demo/employment.pdf"/>
+        <field name="mimetype">application/pdf;base64</field>
+    </record>
+
+    <record id="template_sign_1" model="sign.template">
+        <field name="attachment_id" ref="attachment_sign_1"/>
+        <field name="share_link">demo-template-1</field>
+    </record>
+
+    <record id="attachment_sign_3" model="ir.attachment">
+        <field name="name">Odoo_Individual_Contributor_License_Agreement.pdf</field>
+        <field name="datas" type="base64" file="sign/static/demo/cla.pdf"/>
+        <field name="mimetype">application/pdf;base64</field>
+    </record>
+
+    <record id="template_sign_3" model="sign.template">
+        <field name="attachment_id" ref="attachment_sign_3"/>
+        <field name="share_link">demo-template-3</field>
+    </record>
+
+    <record model="sign.item" id="sign_item_1">
+        <field name="template_id" ref="template_sign_1"/>
+        <field name="type_id" ref="sign_item_type_name"/>
+        <field name="responsible_id" ref="sign_item_role_employee"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.265</field>
+        <field name="posY" type="float">0.160</field>
+        <field name="width" type="float">0.375</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+    <record model="sign.item" id="sign_item_2">
+        <field name="template_id" ref="template_sign_1"/>
+        <field name="type_id" ref="sign_item_type_date"/>
+        <field name="responsible_id" ref="sign_item_role_employee"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.700</field>
+        <field name="posY" type="float">0.160</field>
+        <field name="width" type="float">0.170</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+    <record model="sign.item" id="sign_item_3">
+        <field name="template_id" ref="template_sign_1"/>
+        <field name="type_id" ref="sign_item_type_text"/>
+        <field name="responsible_id" ref="sign_item_role_employee"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.190</field>
+        <field name="posY" type="float">0.185</field>
+        <field name="width" type="float">0.680</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+    <record model="sign.item" id="sign_item_4">
+        <field name="template_id" ref="template_sign_1"/>
+        <field name="type_id" ref="sign_item_type_initial"/>
+        <field name="responsible_id" ref="sign_item_role_employee"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.915</field>
+        <field name="posY" type="float">0.970</field>
+        <field name="width" type="float">0.085</field>
+        <field name="height" type="float">0.030</field>
+    </record>
+    <record model="sign.item" id="sign_item_5">
+        <field name="template_id" ref="template_sign_1"/>
+        <field name="type_id" ref="sign_item_type_initial"/>
+        <field name="responsible_id" ref="sign_item_role_employee"/>
+        <field name="page" type="int">2</field>
+        <field name="posX" type="float">0.915</field>
+        <field name="posY" type="float">0.970</field>
+        <field name="width" type="float">0.085</field>
+        <field name="height" type="float">0.030</field>
+    </record>
+    <record model="sign.item" id="sign_item_8">
+        <field name="template_id" ref="template_sign_1"/>
+        <field name="type_id" ref="sign_item_type_signature"/>
+        <field name="responsible_id" ref="sign_item_role_employee"/>
+        <field name="page" type="int">3</field>
+        <field name="posX" type="float">0.325</field>
+        <field name="posY" type="float">0.670</field>
+        <field name="width" type="float">0.200</field>
+        <field name="height" type="float">0.050</field>
+    </record>
+    <record model="sign.item" id="sign_item_9">
+        <field name="template_id" ref="template_sign_1"/>
+        <field name="type_id" ref="sign_item_type_date"/>
+        <field name="responsible_id" ref="sign_item_role_employee"/>
+        <field name="page" type="int">3</field>
+        <field name="posX" type="float">0.655</field>
+        <field name="posY" type="float">0.695</field>
+        <field name="width" type="float">0.205</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+
+    <record model="sign.item" id="sign_item_20">
+        <field name="template_id" ref="template_sign_3"/>
+        <field name="type_id" ref="sign_item_type_initial"/>
+        <field name="responsible_id" ref="sign_item_role_customer"/>
+        <field name="page" type="int">1</field>
+        <field name="posX" type="float">0.915</field>
+        <field name="posY" type="float">0.970</field>
+        <field name="width" type="float">0.085</field>
+        <field name="height" type="float">0.030</field>
+    </record>
+    <record model="sign.item" id="sign_item_21">
+        <field name="template_id" ref="template_sign_3"/>
+        <field name="type_id" ref="sign_item_type_name"/>
+        <field name="responsible_id" ref="sign_item_role_customer"/>
+        <field name="page" type="int">2</field>
+        <field name="posX" type="float">0.290</field>
+        <field name="posY" type="float">0.600</field>
+        <field name="width" type="float">0.300</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+    <record model="sign.item" id="sign_item_22">
+        <field name="template_id" ref="template_sign_3"/>
+        <field name="type_id" ref="sign_item_type_email"/>
+        <field name="responsible_id" ref="sign_item_role_customer"/>
+        <field name="page" type="int">2</field>
+        <field name="posX" type="float">0.290</field>
+        <field name="posY" type="float">0.631</field>
+        <field name="width" type="float">0.300</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+    <record model="sign.item" id="sign_item_23">
+        <field name="template_id" ref="template_sign_3"/>
+        <field name="type_id" ref="sign_item_type_text"/>
+        <field name="responsible_id" ref="sign_item_role_customer"/>
+        <field name="page" type="int">2</field>
+        <field name="posX" type="float">0.290</field>
+        <field name="posY" type="float">0.662</field>
+        <field name="width" type="float">0.300</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+    <record model="sign.item" id="sign_item_24">
+        <field name="template_id" ref="template_sign_3"/>
+        <field name="type_id" ref="sign_item_type_date"/>
+        <field name="responsible_id" ref="sign_item_role_customer"/>
+        <field name="page" type="int">2</field>
+        <field name="posX" type="float">0.290</field>
+        <field name="posY" type="float">0.693</field>
+        <field name="width" type="float">0.300</field>
+        <field name="height" type="float">0.015</field>
+    </record>
+    <record model="sign.item" id="sign_item_25">
+        <field name="template_id" ref="template_sign_3"/>
+        <field name="type_id" ref="sign_item_type_signature"/>
+        <field name="responsible_id" ref="sign_item_role_customer"/>
+        <field name="page" type="int">2</field>
+        <field name="posX" type="float">0.290</field>
+        <field name="posY" type="float">0.725</field>
+        <field name="width" type="float">0.200</field>
+        <field name="height" type="float">0.050</field>
+    </record>
+</odoo>

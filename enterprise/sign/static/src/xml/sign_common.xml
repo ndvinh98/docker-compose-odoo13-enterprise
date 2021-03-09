@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="sign.sign_item" name="Signature Item">
+        <t t-if="readonly">
+            <!-- TEMPLATE EDITION or REQUEST DISPLAY -->
+            <div t-if="type == 'signature' || type == 'initial'" class="o_sign_sign_item text-center" style="text-align: center;" t-att-data-signature="value"><span class="o_sign_helper"/> <img t-if="value" t-att-src="value" alt="Signature"/> <t t-if="!value"><span class="o_placeholder"><t t-esc="placeholder"/></span></t> <t t-if="editMode" t-call="sign.sign_item_configuration"/></div>
+            <div t-if="type == 'text'" class="o_sign_sign_item"><t t-if="!value"><span class="o_placeholder"><t t-esc="placeholder"/></span></t><t t-esc="value"/><t t-if="editMode" t-call="sign.sign_item_configuration"/></div>
+            <div t-if="type == 'textarea'" class="o_sign_sign_item o_sign_sign_textarea"><t t-if="!value"><span class="o_placeholder"><t t-esc="placeholder"/></span></t><t t-esc="value"/><t t-if="editMode" t-call="sign.sign_item_configuration"/></div>
+            <div t-if="type == 'checkbox'" class="o_sign_sign_item" style="margin: 2px; padding:2px"><t t-if="value == 'on'">&#9745;</t><t t-if="value == 'off'">&#9744;</t><t t-if="!value"><span class="o_placeholder">&#9745;</span></t><t t-if="editMode" t-call="sign.sign_item_configuration"/></div>
+            <div t-if="type == 'selection'" class="o_sign_sign_item" style="white-space: normal;text-align: center;"><t t-if="!value"><span class="o_placeholder"><t t-esc="placeholder"/></span></t><div class="o_sign_select_options_display"/><t t-if="editMode" t-call="sign.sign_item_configuration"/></div>
+        </t>
+
+        <t t-if="!readonly">
+            <!-- SIGN SESSION : filling the signature values  -->
+            <button t-if="type == 'signature' || type == 'initial'" class="o_sign_sign_item text-center" style="color:#757575;"><span class="o_sign_helper"/><span class="o_placeholder"><t t-esc="placeholder"/></span></button>
+            <input t-if="type == 'text'" type="text" class="o_sign_sign_item" t-att-placeholder="placeholder"/>
+            <input t-if="type == 'checkbox'" type="checkbox" class="o_sign_sign_item"/>
+            <textarea t-if="type == 'textarea'" class="o_sign_sign_item" t-att-placeholder="placeholder"/>
+            <div t-if="type == 'selection'" class="o_sign_sign_item" style="white-space: normal;color: #757575;"><div class="o_sign_select_options_display"/></div>
+        </t>
+    </t>
+
+    <div t-name="sign.sign_item_configuration" class="o_sign_config_area">
+         <span class="fa fa-arrows" role="img" aria-label="Signature configuration" title="Signature configuration"/>
+        <div class="o_sign_item_display">
+<!--            Don't display role for checkbox. We don't have place-->
+            <t t-if="type != 'checkbox'"><span class="o_sign_responsible_display"/></t>
+        </div>
+    </div>
+
+    <!-- Signing part -->
+    <div t-name="sign.signature_dialog">
+        <div class="o_web_sign_name_and_signature"/>
+        <div class="mt16 small">By clicking Adopt and Sign, I agree that the chosen signature/initials will be a valid electronic representation of my hand-written signature/initials for all purposes when it is used on documents, including legally binding contracts.</div>
+    </div>
+
+    <div t-name="sign.public_signer_dialog">
+        <div class="form-group row">
+            <label for="o_sign_public_signer_name_input" class="col-lg-3 col-form-label">Your name</label>
+            <div class="col-lg-9">
+                <input type="text" id="o_sign_public_signer_name_input" placeholder="Your name" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="o_sign_public_signer_mail_input" class="col-lg-3 col-form-label">Your email</label>
+            <div class="col-lg-9">
+                <input type="email" id="o_sign_public_signer_mail_input" placeholder="Your email" class="form-control"/>
+            </div>
+        </div>
+    </div>
+
+    <div t-name="sign.public_sms_signer">
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="phone">Phone Number</label>
+            <div class="col-sm">
+                <div class="input-group">
+                    <input type="text" name="phone" id="o_sign_phone_number_input" placeholder="e.g. +1 415 555 0100" class="form-control" t-att-value="widget.signerPhone"/>
+                    <button class='input-group-append btn btn-sm btn-primary o_sign_resend_sms'>Send SMS</button>
+                </div>
+                <span class="text-muted form-text">A SMS will be sent to the following phone number. Please update it if it's not relevant.</span>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3 col-form-label" for="validation_code">Validation Code</label>
+            <div class="col-sm">
+                <input type="text" name="validation_code" id="o_sign_public_signer_sms_input" placeholder="e.g. 314159" class="form-control"/>
+                <span class="text-muted form-text">Enter the code received through SMS to complete your signature</span>
+            </div>
+        </div>
+    </div>
+
+    <div t-name="sign.public_password">
+        <div class="form-group">
+            <span>Your file is encrypted, PDF's password is required to generate final document. The final document will be encrypted with the same password.</span>
+            <div>
+                <input type="password" id="o_sign_public_signer_password_input" class="form-control"/>
+            </div>
+        </div>
+    </div>
+
+    <div t-name="sign.thank_you_dialog">
+        <div class="o_thankyou_message">We will let you know by email once everyone has signed.</div>
+    </div>
+
+    <div t-name="sign.no_pub_thank_you_dialog" t-extend="sign.thank_you_dialog">
+        <t t-jquery=".o_promote_esign" t-operation="replace"/>
+    </div>
+
+    <div t-name="sign.next_direct_sign_dialog">
+        <div class="o_nextdirectsign_message">We will send you this document by email once everyone has signed.<br/>
+        </div>
+    </div>
+</templates>

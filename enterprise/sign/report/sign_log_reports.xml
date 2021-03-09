@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="sign_request_logs_user">
+        <t t-call="web.html_container">
+            <t t-set="print_date" t-value="datetime.datetime.utcnow().strftime('%Y-%m-%d - %H:%M:%S')"/>
+            <t t-foreach="docs" t-as="o">
+                <!-- we want UTC for the reports-->
+                <t t-set="o" t-value="o.with_context(tz='UTC')"/>
+                <t t-set="view_logs" t-value="o.sudo().sign_log_ids.filtered(lambda l: l.action == 'open')"/>
+                <t t-set="change_logs" t-value="o.sudo().sign_log_ids - view_logs"/>
+                <t t-set="creation_log" t-value="o.sudo().sign_log_ids.filtered(lambda l: l.action == 'create')"/>
+                <t t-call="web.external_layout"><br/>
+                    <h2 class="mt16">
+                        Completion History<br/>
+                        <strong t-field="o.reference"/>
+                    </h2>
+                    <div class="text-muted small">Printed on <t t-esc="print_date"/> UTC</div>
+                    <h5 class="mt16">Document Details</h5>
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div><b>Created by:</b> <span t-field="o.create_uid.partner_id"/></div>
+                            <div><b>Created on:</b> <span t-field="o.create_date"/> (UTC)</div>
+                            <div><b>Creation IP Address:</b> <span t-esc="creation_log and creation_log[0].ip"/></div>
+                            <div><b>Signers:</b> <span t-esc="len(o.request_item_ids)"/></div>
+                        </div>
+                        <div class="col-6">
+                            <div><b>Document ID:</b> <t t-esc="o.id"/></div>
+                            <div><b>Signature:</b> <small t-esc="creation_log and creation_log[0].log_hash"/></div>
+                        </div>
+                    </div>
+                    <br/>
+                    <h5>Signing Events</h5>
+                    <table class="table table-sm o_main_table small">
+                        <t t-set="has_sms_validation" t-value="o.request_item_ids.filtered(lambda i: i.sms_token)"/>
+                        <thead>
+                            <tr>
+                                <th class="text-left">Action</th>
+                                <th class="text-left">By</th>
+                                <th class="text-left">Date (UTC)</th>
+                                <th class="text-left">Email Validation</th>
+                                <th class="text-left" t-if="has_sms_validation">SMS Validation</th>
+                                <th class="text-left" groups="sign.group_sign_manager">Geolocation</th>
+                                <th class="text-left" groups="sign.group_sign_manager">IP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="change_logs" t-as="log">
+                                <tr>
+                                    <td>
+                                        <span t-field="log.action"/>
+                                        <img t-if="log.sign_request_item_id.signature" class="text-left" t-att-src="image_data_uri(log.sign_request_item_id.signature)" style="max-height: 40px"/>
+                                    </td>
+                                    <td> <span t-field="log.partner_id"/>
+                                    <t t-if="log.partner_id.email">
+                                        <br/><span t-field="log.partner_id.email"/>
+                                    </t>
+                                    </td>
+                                    <td> <span t-field="log.log_date"/> </td>
+                                    <td>
+                                        <t t-if="log.sign_request_item_id.access_via_link">
+                                            <span t-esc="log.sign_request_item_id.signer_email"/>
+                                        </t>
+                                        <t t-elif="log.action == 'sign'">
+                                            <span class="text-muted"><i class="fa fa-times"/> No email Validation</span>
+                                        </t>
+                                    </td>
+                                    <td t-if="has_sms_validation">
+                                        <t t-if="log.sign_request_item_id.sms_token">
+                                            <t t-set="number" t-value="''.join(['******', log.sign_request_item_id.sms_number[-4:]])"/>
+                                            <span t-esc="number"/>
+                                        </t>
+                                        <t t-elif="log.action == 'sign'">
+                                            <span class="text-muted"><i class="fa fa-times"/> No SMS Validation</span>
+                                        </t>
+                                    </td>
+                                    <td groups="sign.group_sign_manager">
+                                        <t t-if="log.latitude and log.longitude">
+                                            <span t-field="log.latitude"/>,
+                                            <span t-field="log.longitude"/>
+                                            <div>
+                                                <a t-attf-href="https://www.google.com/maps/place/{{log.latitude}},{{log.longitude}}">
+                                                    <i class="fa fa-globe"/> View
+                                                </a>
+                                            </div>
+                                        </t>
+                                        <t t-else="">
+                                            <span class="text-muted">Not available</span>
+                                        </t>
+                                    </td>
+                                    <td groups="sign.group_sign_manager"> <span t-field="log.ip"/> </td>
+                                </tr>
+                                <tr t-if="log.log_hash">
+                                    <td colspan="7" class="text-right text-muted small" style="border-right-style:hidden;border-left-style:hidden;">
+                                         Signature: <pre style="display:inline" t-field="log.log_hash"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                    <div t-if="o.integrity" class="small text-right text-success">
+                        <p><i class="fa fa-check"/> The document's integrity is valid.</p>
+                    </div>
+                    <div t-else="" class="small text-right text-muted">
+                        <p><i class="fa fa-exclamation-circle"/> The document's integrity could not be verified.</p>
+                    </div>
+                    <div class="small" t-if="o.state == 'signed'">
+                        <p>The final document and this completion history have been sent by email on&amp;nbsp; <span t-field="o.completion_date"/> to: <t t-esc="', '.join(o._get_final_recipients())"/>.</p>
+                    </div>
+                    <h5>Access Logs</h5>
+                    <table class="table table-sm o_main_table small">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Viewed/downloaded by</th>
+                                <th class="text-left">Date (UTC)</th>
+                                <th class="text-left">State</th>
+                                <th class="text-left" groups="sign.group_sign_manager">Geolocation</th>
+                                <th class="text-left" groups="sign.group_sign_manager">ip</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr t-foreach="view_logs" t-as="log">
+                                <td> <span t-field="log.partner_id"/> <span t-field="log.partner_id.email"/></td>
+                                <td> <span t-field="log.log_date"/> </td>
+                                <td> <span t-field="log.request_state"/> </td>
+                                <td groups="sign.group_sign_manager">
+                                    <t t-if="log.latitude and log.longitude">
+                                        <span t-field="log.latitude"/>,
+                                        <span t-field="log.longitude"/>
+                                        <a t-attf-href="https://maps.google.com/map/place/{{log.latitude}},{{log.longitude}}">
+                                            <i class="fa fa-globe"/> View
+                                        </a>
+                                    </t>
+                                    <t t-else="">
+                                        <span class="text-muted">Not available</span>
+                                    </t>
+                                </td>
+                                <td groups="sign.group_sign_manager"> <span t-field="log.ip"/> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report id="action_sign_request_print_logs"
+        string="Activity Logs"
+        model="sign.request"
+        name="sign.sign_request_logs_user"
+        file="sign.sign_request_logs_user"
+        report_type="qweb-pdf"/>
+
+</odoo>

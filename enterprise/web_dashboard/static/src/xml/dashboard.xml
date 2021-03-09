@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<t t-name="web_dashboard.StatisticTooltip">
+    <div t-if="node.attrs.help || debug" class="oe_tooltip_string">
+        <t t-esc="node.attrs.string || node.attrs.name"/>
+    </div>
+    <p t-if="node.attrs.help" class="oe_tooltip_help">
+        <t t-esc="node.attrs.help"/>
+    </p>
+    <ul t-if="debug" class="oe_tooltip_technical">
+        <li t-if="node.tag === 'aggregate'" data-item="aggregate">
+            <span class="oe_tooltip_technical_title">Name:</span>
+            <t t-esc="node.attrs.name"/>
+        </li>
+        <li t-if="node.tag === 'formula' &amp;&amp; node.attrs.name"
+            data-item="formula">
+            <span class="oe_tooltip_technical_title">Name:</span>
+            <t t-esc="node.attrs.name"/>
+        </li>
+        <li data-item="string">
+            <span class="oe_tooltip_technical_title">String:</span>
+            <t t-esc="node.attrs.string"/>
+        </li>
+        <li t-if="node.tag === 'aggregate'" data-item="field">
+            <span class="oe_tooltip_technical_title">Field:</span>
+            <t t-esc="node.attrs.field"/>
+        </li>
+        <li t-if="node.tag === 'formula'" data-item="value" >
+            <span class="oe_tooltip_technical_title">Value:</span>
+            <t t-esc="node.attrs.value"/>
+        </li>
+        <li t-if="node.tag === 'aggregate' &amp;&amp; node.attrs.domain"
+            data-item="domain">
+            <span class="oe_tooltip_technical_title">Domain:</span>
+            <t t-esc="node.attrs.domain"/>
+        </li>
+        <li t-if="node.tag === 'aggregate'  &amp;&amp; node.attrs.domain_label"
+            data-item="domain_label">
+            <span class="oe_tooltip_technical_title">Domain Label:</span>
+            <t t-esc="node.attrs.domain_label"/>
+        </li>
+        <li t-if="node.tag === 'aggregate'  &amp;&amp; node.attrs.group_operator"
+            data-item="group_operator">
+            <span class="oe_tooltip_technical_title">Group Operator:</span>
+            <t t-esc="node.attrs.group_operator"/>
+        </li>
+        <li data-item="widget" t-if="node.attrs.widget" >
+            <span class="oe_tooltip_technical_title">Widget:</span>
+            <t t-esc="node.attrs.widget"/>
+        </li>
+        <li data-item="modifiers" t-if="node.attrs.modifiers" >
+            <span class="oe_tooltip_technical_title">Modifiers:</span>
+            <t t-esc="JSON.stringify(node.attrs.modifiers)"/>
+        </li>
+        <li data-item="value_label" t-if="node.attrs.value_label">
+            <span class="oe_tooltip_technical_title">Value Label:</span>
+            <t t-esc="node.attrs.value_label"/>
+        </li>
+        <li data-item="help" t-if="node.attrs.help" >
+            <span class="oe_tooltip_technical_title">Help:</span>
+            <t t-esc="node.attrs.help"/>
+        </li>
+        <li data-item="col" t-if="node.attrs.col" >
+            <span class="oe_tooltip_technical_title">Column:</span>
+            <t t-esc="node.attrs.col"/>
+        </li>
+    </ul>
+</t>
+
+</templates>

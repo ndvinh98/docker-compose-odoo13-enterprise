@@ -1,0 +1,454 @@
+
+#viewerContainer { /* PDFJS Viewer */
+    visibility: hidden;
+    opacity: 0.01;
+}
+
+#viewer { /* PDFJS Viewer */
+    padding-top: 21px; /* Allow space for the types toolbar */
+}
+
+.page { /* PDFJS Viewer */
+    position: relative;
+}
+
+.o_sign_sign_item {
+    position: absolute;
+
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    border: 1px dashed #875A7B;
+    vertical-align: middle;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0px 0px 3px 1px #875A7B;
+    resize: none;
+
+    background-color: rgba(255, 255, 255, 0.9);
+
+    font-family: Helvetica;
+    line-height: 1.25;
+
+    z-index: 100;
+
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.o_sign_sign_item .o_placeholder {
+    font-size: 12pt !important;
+    vertical-align: middle;
+}
+
+textarea.o_sign_sign_item {
+    font-size: 12pt !important;
+}
+
+.o_sign_sign_item_required {
+    background-color: rgba(255, 235, 235, 0.9);
+    font-size: 10pt;
+}
+
+.o_sign_item_custom_popover .form-group {
+    margin-bottom: 8px;
+}
+
+.o_sign_item_custom_popover label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1em;
+}
+
+.o_sign_item_custom_popover .o_input {
+    padding: 5px;
+}
+
+.o_sign_item_custom_popover .o_sign_responsible_select {
+    display: block;
+    position: relative;
+}
+
+.o_sign_sign_item + .popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1060;
+    display: none;
+    max-width: 276px;
+    padding: 1px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.42857143;
+    text-align: left;
+    text-align: start;
+    text-decoration: none;
+    text-shadow: none;
+    text-transform: none;
+    letter-spacing: normal;
+    word-break: normal;
+    word-spacing: normal;
+    word-wrap: normal;
+    white-space: normal;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+    line-break: auto;
+}
+
+.o_sign_sign_item + .popover.top {
+    margin-top: -10px;
+}
+
+.o_sign_sign_item + .popover.right {
+     margin-left: 10px;
+}
+
+.o_sign_sign_item + .popover.bottom {
+    margin-top: 10px;
+}
+
+.o_sign_sign_item + .popover.left {
+    margin-left: -10px;
+}
+
+.o_sign_sign_item + .popover > .popover-header {
+    padding: 8px 14px;
+    margin: 0;
+    font-size: 14px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0;
+}
+
+.o_sign_sign_item + .popover > .popover-body {
+    padding: 9px 14px;
+}
+
+.o_sign_sign_item + .popover > .arrow,
+.o_sign_sign_item + .popover > .arrow:after {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.o_sign_sign_item + .popover > .arrow {
+    border-width: 11px;
+}
+
+.o_sign_sign_item + .popover > .arrow:after {
+    content: "";
+    border-width: 10px;
+}
+
+.o_sign_sign_item + .popover.top > .arrow {
+    bottom: -11px;
+    left: 50%;
+    margin-left: -11px;
+    border-top-color: #999;
+    border-top-color: rgba(0, 0, 0, .25);
+    border-bottom-width: 0;
+}
+
+.o_sign_sign_item + .popover.top > .arrow:after {
+    bottom: 1px;
+    margin-left: -10px;
+    content: " ";
+    border-top-color: #fff;
+    border-bottom-width: 0;
+}
+
+.o_sign_sign_item + .popover.right > .arrow {
+    top: 50%;
+    left: -11px;
+    margin-top: -11px;
+    border-right-color: #999;
+    border-right-color: rgba(0, 0, 0, .25);
+    border-left-width: 0;
+}
+
+.o_sign_sign_item + .popover.right > .arrow:after {
+    bottom: -10px;
+    left: 1px;
+    content: " ";
+    border-right-color: #fff;
+    border-left-width: 0;
+}
+
+.o_sign_sign_item + .popover.bottom > .arrow {
+    top: -11px;
+    left: 50%;
+    margin-left: -11px;
+    border-top-width: 0;
+    border-bottom-color: #999;
+    border-bottom-color: rgba(0, 0, 0, .25);
+}
+
+.o_sign_sign_item + .popover.bottom > .arrow:after {
+    top: 1px;
+    margin-left: -10px;
+    content: " ";
+    border-top-width: 0;
+    border-bottom-color: #fff;
+}
+
+.o_sign_sign_item + .popover.left > .arrow {
+    top: 50%;
+    right: -11px;
+    margin-top: -11px;
+    border-right-width: 0;
+    border-left-color: #999;
+    border-left-color: rgba(0, 0, 0, .25);
+}
+
+.o_sign_sign_item + .popover.left > .arrow:after {
+    right: 1px;
+    bottom: -10px;
+    content: " ";
+    border-right-width: 0;
+    border-left-color: #fff;
+} 
+
+.popover .o_sign_delete_field_button {
+    float: right;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.popover .o_sign_delete_field_button.fa-trash {
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity ease 250ms;
+    margin-top: 8px;
+}
+
+.popover .o_sign_delete_field_button.fa-trash:hover {
+    opacity: 1.0; 
+}
+
+.o_sign_sign_item + .popover .o_sign_validate_field_button {
+    font-size: 13px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.o_sign_sign_textarea {
+    white-space: pre-wrap !important;
+    font-size: 12pt !important;
+}
+
+.o_sign_sign_item_pdfview {
+    border: 1px dashed silver;
+    box-shadow: 0px 0px 0px 0px white;
+    overflow: visible;
+    background: transparent;
+    color: black;
+    cursor: auto;
+    white-space: pre;
+    text-align: left;
+    display: flex;
+}
+
+.o_sign_sign_item .o_sign_helper {
+    vertical-align: middle;
+    height: 100%;
+    color: #757575;
+    display: inline-block;
+}
+
+.o_sign_sign_item img {
+    width: 100%;
+    height: 100%;
+
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.o_sign_sign_item .o_sign_config_area {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    font-size: 10pt;
+    text-align: right;
+    padding: 2px;
+    margin: 2px;
+
+}
+
+.o_sign_sign_item .o_sign_config_area .fa-arrows {
+    display: block;
+    float: left;
+    margin-right: 5px;
+}
+
+.o_sign_sign_item .o_sign_config_area .o_sign_item_display {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.o_sign_select_options_display {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    margin-top: -22px;
+    align-items: center;
+    justify-content: left;
+}
+
+.o_sign_item_option {
+    padding: 5px;
+    /* font-size: 12pt; */
+}
+
+.o_sign_option_separator {
+    padding: 5px;
+    /* font-size: 12pt; */
+}
+
+.o_sign_selected_option {
+    text-decoration-line: none;
+}
+
+.o_sign_not_selected_option  {
+    text-decoration-line: line-through;
+}
+
+.ui-selected, .ui-selecting { /* jQuery UI */
+    box-shadow: 0px 0px 5px 1px orange;
+}
+.ui-resizable {
+    text-align: center;
+}
+
+.ui-draggable .ui-draggable-handle, .o_sign_field_type_button.ui-draggable { /* jQuery UI */
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+}
+
+.ui-draggable-dragging .ui-draggable-handle, .o_sign_sign_item_to_add.ui-draggable-dragging { /* jQuery UI */
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.o_sign_sign_item_navigator {
+    position: fixed;
+    top: 15%;
+    left: 0;
+    background-color: transparent;
+    background-image: url(../../img/navigator.png);
+    background-size: 100% 100%;
+
+    line-height: 50px;
+    height: 50px;
+    font-size: 1.4em;
+    text-transform: uppercase;
+
+    z-index: 90;
+
+    padding: 0 20px 0 10px;
+    color: white;
+
+    cursor: pointer;
+}
+
+@media (max-width: 767px) { /* @screen-xs-max */
+    .o_sign_sign_item_navigator {
+        width: 100%;
+        top: 32px !important;
+        z-index: 9999;
+        line-height: 25px;
+        height: 35px;
+        padding: 5px 0 0;
+        font-size: 0.8em;
+        background-image: none;
+        background-color: #875A7B;
+        text-align: center;
+    }
+    .o_sign_sign_item_navline {
+        display: none !important;
+    }
+}
+
+.o_sign_sign_item_navline {
+    position: fixed;
+    top: 15%;
+    left: 1%;
+
+    pointer-events: none;
+    z-index: 80;
+
+    width: 99%;
+    height: 25px;
+    border-bottom: 1px dashed silver;
+    opacity: 0.5;
+}
+
+@media (max-width: 767px) { /* @screen-xs-max */
+    .o_sign_sign_item_navline {
+        line-height: 12.5px;
+        height: 12.5px;
+    }
+}
+
+.o_sign_field_type_toolbar {
+    width: 100%;
+    position: fixed;
+    z-index: 105;
+
+    background-color: #F8F8F8;
+    border-bottom: 1px solid #E7E7E7;
+    text-align: center;
+
+    opacity: 0.0;
+    transition: opacity ease 500ms;
+}
+
+#viewerContainer:hover .o_sign_field_type_toolbar { /* PDFJS Viewer */
+    opacity: 1.0;
+}
+
+.o_sign_field_type_button {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+    border: none;
+    border-right: 1px solid #E7E7E7;
+
+    background-color: #875A7B;
+    color: white;
+
+    height: 30px;
+    padding: 0px 20px 0px 20px;
+}
+
+.o_sign_close_button {
+    padding: 0;
+    background-color: transparent;
+    border: 0;
+    float: right;
+    line-height: 1;
+    text-shadow: 0 1px 0 #FFFFFF;
+    opacity: .5;
+  }

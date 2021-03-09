@@ -1,0 +1,856 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* timesheet_grid
+# 
+# Translators:
+# Ediz Duman <neps1192@gmail.com>, 2019
+# Ayhan KIZILTAN <akiziltan76@hotmail.com>, 2019
+# Martin Trigaux, 2019
+# Levent Karakaş <levent@mektup.at>, 2019
+# Murat Kaplan <muratk@projetgrup.com>, 2019
+# Güven YILMAZ <guvenyilmaz@outlook.com.tr>, 2019
+# Gökhan Erdoğdu <gokhan.erdogdu@mechsoft.com.tr>, 2019
+# Umur Akın <umura@projetgrup.com>, 2019
+# Buket Şeker <buket_skr@hotmail.com>, 2019
+# abc Def <hdogan1974@gmail.com>, 2020
+# Tugay Hatıl <tugayh@projetgrup.com>, 2020
+# Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server saas~12.5+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-23 11:39+0000\n"
+"PO-Revision-Date: 2019-08-26 09:38+0000\n"
+"Last-Translator: Ertuğrul Güreş <ertugrulg@projetgrup.com>, 2020\n"
+"Language-Team: Turkish (https://www.transifex.com/odoo/teams/41243/tr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. module: timesheet_grid
+#: model:mail.template,body_html:timesheet_grid.mail_template_timesheet_reminder_manager
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    <span style=\"font-size: 10px;\">Your Timesheets</span><br/>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\">\n"
+"                        ${object.name}\n"
+"                    </span>\n"
+"                </td><td valign=\"middle\" align=\"right\">\n"
+"                    <img src=\"/logo.png?company=${object.company_id.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${object.company_id.name}\"/>\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    <div>\n"
+"                        Hello ${object.name},<br/><br/>\n"
+"                        This is a friendly reminder to approved your team's hours for the period : ${ctx.get('date_start')} - ${ctx.get('date_stop')}.<br/>\n"
+"                        % if ctx.get('action_url'):\n"
+"                        <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                            <a href=\"${ctx.get('action_url')}\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 13px;\">Fill your timesheet</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                        <br/>Thank you,<br/>\n"
+"                        % if user.signature\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </div>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    ${object.company_id.name}\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    ${object.company_id.phone}\n"
+"                    % if object.company_id.email\n"
+"                        | <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none; color: #454748;\">${object.company_id.email}</a>\n"
+"                    % endif\n"
+"                    % if object.company_id.website\n"
+"                        | <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none; color: #454748;\">\n"
+"                        ${object.company_id.website}\n"
+"                    </a>\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
+msgstr ""
+"<?xml version=\"1.0\"?>\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- ÜSTBİLGİ -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    <span style=\"font-size: 10px;\">Zaman Çizelgeleriniz</span><br/>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\">\n"
+"                        ${object.name}\n"
+"                    </span>\n"
+"                </td><td valign=\"middle\" align=\"right\">\n"
+"                    <img src=\"/logo.png?company=${object.company_id.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${object.company_id.name}\"/>\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- İÇERİK -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    <div>\n"
+"                        Merhaba ${object.name},<br/><br/>\n"
+"                        Bu, ekibinizin dönem için çalışma saatlerini onaylaması için kolay bir hatırlatmadır : ${ctx.get('date_start')} - ${ctx.get('date_stop')}.<br/>\n"
+"                        % if ctx.get('action_url'):\n"
+"                        <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                            <a href=\"${ctx.get('action_url')}\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 13px;\">Zaman çizelgenizi doldurun</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                        <br/>Teşekkürler,<br/>\n"
+"                        % if user.signature\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </div>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- ALTBİLGİ -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    ${object.company_id.name}\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    ${object.company_id.phone}\n"
+"                    % if object.company_id.email\n"
+"                        | <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none; color: #454748;\">${object.company_id.email}</a>\n"
+"                    % endif\n"
+"                    % if object.company_id.website\n"
+"                        | <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none; color: #454748;\">\n"
+"                        ${object.company_id.website}\n"
+"                    </a>\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- TARAFINDAN DESTEKLENMEKTEDİR -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Tarafından desteklenmektedir <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
+
+#. module: timesheet_grid
+#: model:mail.template,body_html:timesheet_grid.mail_template_timesheet_reminder_user
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    <span style=\"font-size: 10px;\">Your Timesheets</span><br/>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\">\n"
+"                        ${object.name}\n"
+"                    </span>\n"
+"                </td><td valign=\"middle\" align=\"right\">\n"
+"                    <img src=\"/logo.png?company=${object.company_id.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${object.company_id.name}\"/>\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                  <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    <div>\n"
+"                        Hello ${object.name},<br/><br/>\n"
+"                        This is a friendly reminder to log your hours for the period : ${ctx.get('date_start')} - ${ctx.get('date_stop')}.\n"
+"                        For the time being, you only logged ${ctx.get('timesheet_hours')} hours on the ${ctx.get('working_hours')} requested.<br/>\n"
+"                        % if ctx.get('action_url'):\n"
+"                        <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                            <a href=\"${ctx.get('action_url')}\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 13px;\">Fill your timesheet</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                        <br/>Thank you,<br/>\n"
+"                        % if user.signature\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </div>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    ${object.company_id.name}\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    ${object.company_id.phone}\n"
+"                    % if object.company_id.email\n"
+"                        | <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none; color: #454748;\">${object.company_id.email}</a>\n"
+"                    % endif\n"
+"                    % if object.company_id.website\n"
+"                        | <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none; color: #454748;\">\n"
+"                            ${object.company_id.website}\n"
+"                        </a>\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
+msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- ÜSTBİLGİ -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    <span style=\"font-size: 10px;\">Zaman Çizelgeleriniz</span><br/>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\">\n"
+"                        ${object.name}\n"
+"                    </span>\n"
+"                </td><td valign=\"middle\" align=\"right\">\n"
+"                    <img src=\"/logo.png?company=${object.company_id.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${object.company_id.name}\"/>\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                  <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- İÇERİK -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    <div>\n"
+"                        Merhaba ${object.name},<br/><br/>\n"
+"                        Bu, dönem için saatlerinizi kaydetmeniz için kolay bir hatırlatmadır : ${ctx.get('date_start')} - ${ctx.get('date_stop')}.\n"
+"                        Şimdilik, yalnızca ${ctx.get ('working_hours')} tarihinde ${ctx.get ('timesheet_hours')} saat giriş yaptınız.<br/>\n"
+"                        % if ctx.get('action_url'):\n"
+"                        <div style=\"margin: 16px 0px 16px 0px;\">\n"
+"                            <a href=\"${ctx.get('action_url')}\" style=\"background-color: #875A7B; padding: 8px 16px 8px 16px; text-decoration: none; color: #fff; border-radius: 5px; font-size: 13px;\">Zaman çizelgenizi doldurun</a>\n"
+"                        </div>\n"
+"                        % endif\n"
+"                        <br/>Teşekkürler,<br/>\n"
+"                        % if user.signature\n"
+"                            ${user.signature | safe}\n"
+"                        % endif\n"
+"                    </div>\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- ALTBİLGİ -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    ${object.company_id.name}\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    ${object.company_id.phone}\n"
+"                    % if object.company_id.email\n"
+"                        | <a href=\"'mailto:%s' % ${object.company_id.email}\" style=\"text-decoration:none; color: #454748;\">${object.company_id.email}</a>\n"
+"                    % endif\n"
+"                    % if object.company_id.website\n"
+"                        | <a href=\"'%s' % ${object.company_id.website}\" style=\"text-decoration:none; color: #454748;\">\n"
+"                            ${object.company_id.website}\n"
+"                        </a>\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- TARAFINDAN DESTEKLENMEKTEDİR -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Tarafından desteklenmektedir <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"            "
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
+msgid "Activate a periodical email reminder for timesheet managers"
+msgstr ""
+"Zaman çizelgesi yöneticileri için dönemsel bir email hatırlatıcı "
+"etkinleştirin."
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
+msgid "Activate a periodical email reminder for timesheet users"
+msgstr ""
+"Zaman çizelgesi kullanıcıları için dönemsel bir email hatırlatıcı "
+"etkinleştirin."
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_form
+msgid "Add a Task"
+msgstr "Görev Ekle"
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid ""
+"All selected timesheets for which you are indicated as responsible are "
+"already validated."
+msgstr ""
+"Sorumlu olarak belirttiğiniz seçili tüm zaman çizelgeleri zaten "
+"doğrulanmıştır."
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__amount
+msgid "Amount"
+msgstr "Tutar"
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_account_analytic_line
+msgid "Analytic Line"
+msgstr "Analitik Satırı"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_validation_view_form
+msgid "Cancel"
+msgstr "İptal"
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
+#, python-format
+msgid "Choose a <b>project name</b>. (e.g. name of a customer, or product)"
+msgstr "Bir proje <b>adı seçiniz. (örn. bir müşteri yada ürün adı )"
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_res_company
+msgid "Companies"
+msgstr "Şirketler"
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfigürasyon Ayarları"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation__create_uid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line__create_uid
+msgid "Created by"
+msgstr "Oluşturan"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation__create_date
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line__create_date
+msgid "Created on"
+msgstr "Oluşturulma"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_hr_employee__timesheet_validated
+msgid "Date until which the employee's timesheets have been validated"
+msgstr "Personelin zaman çizelgelerinin doğrulanma tarihi"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_manager_delay
+msgid "Days to Remind Manager"
+msgstr "Hatırlatma Günleri Yöneticisi"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_user_delay
+msgid "Days to Remind User"
+msgstr "Hatırlatma Günleri"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation__display_name
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line__display_name
+msgid "Display Name"
+msgstr "Görünüm Adı"
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_hr_employee
+#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__employee_id
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line__employee_id
+msgid "Employee"
+msgstr "Personel"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_interval
+msgid "Employee Frequency"
+msgstr "Çalışan Sıklığı"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_allow
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_user_allow
+msgid "Employee Reminder"
+msgstr "Personel Hatırlatıcı"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_delay
+msgid "Employee Reminder Days"
+msgstr "Çalışan Hatırlatma Günleri"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
+msgid "Frequency"
+msgstr "Sıklık"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation__id
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_res_config_settings__reminder_manager_allow
+msgid "If checked, send an email to all manager"
+msgstr "İşaretliyse, tüm yöneticilere bir mail gönder"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_res_company__timesheet_mail_manager_allow
+msgid ""
+"If checked, send an email to all managers who have not validated their "
+"timesheet"
+msgstr ""
+"İşaretliyse, zaman çizelgesini doğrulamayan tüm yöneticilere bir e-posta "
+"gönderin"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_res_company__timesheet_mail_employee_allow
+#: model:ir.model.fields,help:timesheet_grid.field_res_config_settings__reminder_user_allow
+msgid ""
+"If checked, send an email to all users who have not recorded their timesheet"
+msgstr ""
+"İşaretliyse, zaman çizelgelerini kaydetmemiş olan tüm kullanıcılara bir "
+"e-posta gönderin"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation____last_update
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line____last_update
+msgid "Last Modified on"
+msgstr "Son Düzenleme"
+
+#. module: timesheet_grid
+#: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_month
+msgid "Last Month"
+msgstr "Geçen Ay"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation__write_uid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line__write_uid
+msgid "Last Updated by"
+msgstr "Son Güncelleyen"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation__write_date
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line__write_date
+msgid "Last Updated on"
+msgstr "Son Güncelleme"
+
+#. module: timesheet_grid
+#: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate_previous_week
+msgid "Last Week"
+msgstr "Son Hafta"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_manager_allow
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_manager_allow
+msgid "Manager Reminder"
+msgstr "Yönetici Hatırlatıcı"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_manager_delay
+msgid "Manager Reminder Days"
+msgstr "Yönetici Hatırlatma Günleri"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_manager_interval
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_manager_interval
+msgid "Manager Reminder Frequency"
+msgstr "Yönetici Hatırlatma Sıklığı"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_task_readonly
+msgid "Month"
+msgstr "Ay"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
+msgid "My Team"
+msgstr "Ekibim"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_employee_nextdate
+msgid "Next scheduled date for employee reminder"
+msgstr "Çalışan hatırlatıcısı için bir sonraki planlanan tarih"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_company__timesheet_mail_manager_nextdate
+msgid "Next scheduled date for manager reminder"
+msgstr "Yönetici hatırlatıcısı için sonraki planlanan tarih"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
+msgid "Non Validated"
+msgstr "Doğrulanmamış"
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid ""
+"Only a Timesheets Approver or Manager is allowed to create an entry older "
+"than the validation limit."
+msgstr ""
+"Yalnızca bir Zaman Çizelgesi Onaylayıcı veya Yöneticisinin doğrulama "
+"sınırından daha eski bir giriş oluşturmasına izin verilir."
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid ""
+"Only a Timesheets Approver or Manager is allowed to delete a validated "
+"entry."
+msgstr ""
+"Doğrulanmış bir girişi yalnızca bir Zaman Çizelgesi Onaylayıcı veya "
+"Yöneticisi silebilir."
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid ""
+"Only a Timesheets Approver or Manager is allowed to modify a validated "
+"entry."
+msgstr ""
+"Doğrulanmış bir girişi yalnızca Zaman Çizelgesi Onaylayıcı veya "
+"Yöneticisinin değiştirmesine izin verilir."
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_hr_employee_public
+msgid "Public Employee"
+msgstr "Kamu Çalışanı"
+
+#. module: timesheet_grid
+#: model:mail.template,subject:timesheet_grid.mail_template_timesheet_reminder_user
+msgid "Reminder to log your timesheets"
+msgstr "Zaman çizelgelerinizi kaydetmek için hatırlatma"
+
+#. module: timesheet_grid
+#: model:mail.template,subject:timesheet_grid.mail_template_timesheet_reminder_manager
+msgid "Reminder to validate your team timesheets"
+msgstr "Takımınızın zaman çizelgelerini doğrulamanız için hatırlatma"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_account_analytic_line__is_timesheet
+msgid "Set if this analytic line represents a line of timesheet."
+msgstr ""
+"Bu analitik satırın bir zaman çizelgesi satırını karşılayıp karşılamadığını "
+"ayarlayın."
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
+#, python-format
+msgid ""
+"Set the number of hours done on this task, for every day of the week. (e.g. "
+"1.5 or 1:30)"
+msgstr ""
+"Haftanın her günü için bu görev üzerinde harcanan saatleri ayarlayın. "
+"(örneğin, 1.5 veya 1:30)"
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid "There aren't any timesheet to validate"
+msgstr "Doğrulanacak zaman çizelgesi yok"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_form
+msgid "Time Spent"
+msgstr "Harcanan Zaman"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee__timesheet_manager_id
+#: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee_public__timesheet_manager_id
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_users__timesheet_manager_id
+msgid "Timesheet"
+msgstr "Zaman Çizelgesi"
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/analytic.py:0
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid "Timesheet Adjustment"
+msgstr "Zaman Çizelgesi Ayarı"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
+msgid "Timesheet Control"
+msgstr "Zaman Çizelgesi Kontrolü"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__is_timesheet
+msgid "Timesheet Line"
+msgstr "Zaman Çizelgesi Satırı"
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_timesheet_validation
+msgid "Timesheet Validation"
+msgstr "Zaman Çizelgesi Doğrulama"
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_timesheet_validation_line
+msgid "Timesheet Validation Line"
+msgstr "Zaman Çizelgesi Doğrulama Satırları"
+
+#. module: timesheet_grid
+#: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_user_ir_actions_server
+#: model:ir.cron,cron_name:timesheet_grid.timesheet_reminder_user
+#: model:ir.cron,name:timesheet_grid.timesheet_reminder_user
+msgid "Timesheet: Employees Email Reminder"
+msgstr "Zaman Çizelgesi: Personel E-mail Hatırlatıcı"
+
+#. module: timesheet_grid
+#: model:ir.actions.server,name:timesheet_grid.timesheet_reminder_manager_ir_actions_server
+#: model:ir.cron,cron_name:timesheet_grid.timesheet_reminder_manager
+#: model:ir.cron,name:timesheet_grid.timesheet_reminder_manager
+msgid "Timesheet: Managers Email Reminder"
+msgstr "Zaman Çizelgesi: Yönetici E-mail Hatırlatıcı"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_task_readonly
+msgid "Timesheets"
+msgstr "Zaman Çizelgeleri"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_hr_employee__timesheet_validated
+msgid "Timesheets Validation Date"
+msgstr "Zaman Çizelgesi Doğrulama Tarihi"
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
+#, python-format
+msgid "Timesheets are done on tasks, click here to create your first one."
+msgstr ""
+"Zaman çizelgeleri görevlerde yapılır, ilkini oluşturmak için buraya "
+"tıklayın."
+
+#. module: timesheet_grid
+#: model:ir.ui.menu,name:timesheet_grid.menu_timesheet_grid_validate
+msgid "To Validate"
+msgstr "Onaylanacak"
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
+#, python-format
+msgid "Track the time spent on your projects. <i>It starts here.</i>"
+msgstr "Projeleriniz için harcanan zamanı izleyin. <i>Burada başlıyor.</i>"
+
+#. module: timesheet_grid
+#. openerp-web
+#: code:addons/timesheet_grid/static/src/js/tours/timesheet_grid.js:0
+#, python-format
+msgid ""
+"Use tasks to track the different type of activities. (e.g. Graphic Design, "
+"Programming, Project Management)"
+msgstr ""
+"Farklı türdeki etkinlikleri takip etmek için görevleri kullanın. (örn, "
+"Grafik Dizayn, Programlama, Proje Yönetimi)"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_res_config_settings__reminder_user_interval
+msgid "User Reminder Frequency"
+msgstr "Kullanıcı Hatırlatma Sıklığı"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_hr_employee__timesheet_manager_id
+#: model:ir.model.fields,help:timesheet_grid.field_hr_employee_public__timesheet_manager_id
+#: model:ir.model.fields,help:timesheet_grid.field_res_users__timesheet_manager_id
+msgid "User responsible of timesheet validation. Should be Timesheet Manager."
+msgstr ""
+"Zaman çizelgesi doğrulamasından sorumlu kullanıcı. Zaman Çizelgesi "
+"Yöneticisi olmalı."
+
+#. module: timesheet_grid
+#: model:ir.model,name:timesheet_grid.model_res_users
+msgid "Users"
+msgstr "Kullanıcılar"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line__validate
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_validation_view_form
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee_validation
+msgid "Validate"
+msgstr "Doğrula"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_validation_view_form
+msgid "Validate Timesheets"
+msgstr "Zaman Çizelgelerini Doğrula"
+
+#. module: timesheet_grid
+#: code:addons/timesheet_grid/models/analytic.py:0
+#, python-format
+msgid "Validate the timesheets"
+msgstr "Zaman çizelgelerini doğrulayın"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_validation_view_form
+msgid "Validate the timesheets of the selected employees up to"
+msgstr "Seçilen personellerin zaman çizelgelerini tarihine kadar doğrula"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,help:timesheet_grid.field_timesheet_validation_line__validate
+msgid "Validate this employee's timesheet up to the chosen date"
+msgstr "Bu personelin zaman çizelgesini seçilen tarihe kadar doğrulayın"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation__validation_date
+msgid "Validate up to"
+msgstr "Tarihine kadar doğrula"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_search
+msgid "Validated"
+msgstr "Doğrulanmış"
+
+#. module: timesheet_grid
+#: model:ir.actions.act_window,name:timesheet_grid.action_timesheet_previous_month
+#: model:ir.actions.act_window,name:timesheet_grid.action_timesheet_previous_week
+msgid "Validated Timesheets"
+msgstr "Doğrulanmış Zaman Çizelgeleri"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_account_analytic_line__validated
+msgid "Validated line"
+msgstr "Doğrulanmış satırlar"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation_line__validation_id
+msgid "Validation"
+msgstr "Doğrulama"
+
+#. module: timesheet_grid
+#: model:ir.model.fields,field_description:timesheet_grid.field_timesheet_validation__validation_line_ids
+msgid "Validation Line"
+msgstr "Doğrulama Satırı"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_employee
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_project
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.timesheet_view_grid_by_task_readonly
+msgid "Week"
+msgstr "Hafta"
+
+#. module: timesheet_grid
+#: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_employee_interval__months
+#: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_manager_interval__months
+msgid "after the end of the month"
+msgstr "ayın bitiminden sonra"
+
+#. module: timesheet_grid
+#: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_employee_interval__weeks
+#: model:ir.model.fields.selection,name:timesheet_grid.selection__res_company__timesheet_mail_manager_interval__weeks
+msgid "after the end of the week"
+msgstr "haftanın bitiminden sonra"
+
+#. module: timesheet_grid
+#: model_terms:ir.ui.view,arch_db:timesheet_grid.res_config_settings_view_form
+msgid "days"
+msgstr "gün"

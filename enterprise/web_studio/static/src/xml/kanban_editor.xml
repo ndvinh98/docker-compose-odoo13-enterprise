@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+<div t-name="web_studio.NewKanbanHelperDialog" class="o_web_studio_kanban_helper">
+    <label for="field">Field</label>
+    <select id="field" name="field" class="o_input">
+        <option t-if="widget.show_new" class="o_new" value=''>New Field</option>
+        <option t-foreach="widget.orderered_fields" t-as="field" t-att-value="field.name">
+            <t t-esc="field.string"/> <span t-if="widget.debug">(<t t-esc="field.name"/>)</span>
+        </option>
+    </select>
+</div>
+
+</templates>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="amazon_offer_view_tree" model="ir.ui.view">
+        <field name="name">amazon.offer.tree</field>
+        <field name="model">amazon.offer</field>
+        <field name="arch" type="xml">
+            <tree string="Amazon Offers" editable="top">
+                <field name="account_id" invisible="1"/>
+                <field name="domain" invisible="1"/>
+                <field name="active_marketplace_ids" invisible="1"/>
+                <field name="marketplace_id" options="{'no_create_edit': True, 'no_open': True}"/>
+                <field name="product_id"/>
+                <field name="sku"/>
+                <button name="action_view_online"
+                        type="object"
+                        string="View on Seller Central"
+                        icon="fa-external-link"
+                        attrs="{'invisible': ['|', ('domain', 'not in', ['Amazon.com', 'Amazon.ca', 'Amazon.com.mx']),
+                        ('id', '=', False)]}"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="amazon_offer_view_search" model="ir.ui.view">
+        <field name="name">amazon.offer.search</field>
+        <field name="model">amazon.offer</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="marketplace_id"
+                       filter_domain="['|', '|', ('marketplace_id.name', 'ilike', self),
+                       ('marketplace_id.code', 'ilike', self), ('marketplace_id.domain', 'ilike', self)]"/>
+                <field name="product_id"/>
+            </search>
+        </field>
+    </record>
+
+</odoo>

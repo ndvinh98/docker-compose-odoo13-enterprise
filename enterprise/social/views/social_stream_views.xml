@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="action_social_stream" model="ir.actions.act_window">
+        <field name="name">Social Streams</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">social.stream</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Add a stream
+          </p>
+          <p>
+            Add stream to your dashboard to monitor your social media.
+          </p>
+        </field>
+    </record>
+
+    <record id="menu_social_stream" model="ir.ui.menu">
+        <field name="action" ref="action_social_stream" />
+    </record>
+
+    <record id="social_stream_view_tree" model="ir.ui.view">
+        <field name="name">social.stream.view.tree</field>
+        <field name="model">social.stream</field>
+        <field name="arch" type="xml">
+            <tree create="0">
+                <field name="media_id" />
+                <field name="name" />
+                <field name="stream_type_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="social_stream_view_form" model="ir.ui.view">
+        <field name="name">social.stream.view.form</field>
+        <field name="model">social.stream</field>
+        <field name="arch" type="xml">
+            <form string="Social Stream">
+                <sheet>
+                    <group>
+                        <group name="social_stream_global">
+                            <field name="media_id" invisible="1" />
+                            <field name="account_id" widget="radio"
+                                readonly="1"
+                                domain="[('media_id', '=', media_id)]"
+                                options="{'no_create': True, 'no_open': True}" />
+                            <field name="stream_type_type" invisible="1" />
+                            <field name="stream_type_id"
+                                widget="radio"
+                                required="1"
+                                domain="[('media_id', '=', media_id)]"
+                                options="{'no_create': True, 'no_open': True}"
+                                attrs="{'readonly': [('id', '!=', False)]}" />
+                            <field name="name" attrs="{'invisible': [('id', '=', False)]}" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</data>
+</odoo>

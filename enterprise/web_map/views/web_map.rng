@@ -1,0 +1,60 @@
+<grammar xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+    xmlns:rng="http://relaxng.org/ns/structure/1.0">
+    <define name="map">
+        <element name="map">
+            <choice>
+                <attribute name="res_partner"/>
+                <empty/>
+            </choice>
+            <optional>
+                <attribute name="default_order"/>
+            </optional>
+            <optional>
+                <attribute name="routing"/>
+            </optional>
+            <optional>
+                <attribute name="panel_title" />
+            </optional>
+            <zeroOrMore>
+                <optional>
+                    <ref name="popup"/>
+                </optional>
+            </zeroOrMore>
+
+        </element>
+    </define>
+
+    <define name="popup">
+        <element name='marker-popup'>
+            <zeroOrMore>
+                <ref name="field"/>
+            </zeroOrMore>
+        </element>
+    </define>
+
+    <define name="field">
+        <element name="field">
+            <attribute name="name"/>
+            <attribute name="string"/>
+            <optional>
+                <attribute name="on_change"/>
+            </optional>
+            <optional>
+                <attribute name="modifiers"/>
+            </optional>
+            <optional>
+                <attribute name="can_create"/>
+            </optional>
+            <optional>
+                <attribute name="can_write"/>
+            </optional>
+            <optional>
+                <attribute name="widget"/>
+            </optional>
+        </element>
+    </define>
+
+    <start>
+        <ref name="map"/>
+    </start>
+</grammar>

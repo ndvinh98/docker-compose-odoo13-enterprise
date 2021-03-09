@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+<li
+    t-name="voip.switch_panel_top_button">
+    <a
+        href="#"
+        title="Display Dialing Panel">
+        <i
+            aria-label="Display Dialing Panel"
+            class="
+                fa
+                fa-fw
+                fa-phone"
+            role="img"/>
+    </a>
+</li>
+
+<!--
+    @param {voip.dialingPanel} widget
+-->
+<div
+    class="
+        o_dial
+        o_in_home_menu"
+    t-name="voip.DialingPanel">
+    <div
+        class="o_dial_fold">
+        <div
+            class="o_dial_window_title">
+            <t t-call="voip.DialingPanel.HeaderContent">
+                <a t-set="title" t-value="widget.title"/>
+            </t>
+        </div>
+    </div>
+    <div class="
+        o_dial_panel
+        o_form_view">
+        <div
+            class="o_dial_searchbar">
+            <input
+                class="o_dial_search_input"
+                placeholder="Search Phone Calls..."/>
+            <span
+                aria-label="Refresh the Panel"
+                class="fa fa-search"
+                role="img"
+                title="Refresh the Panel"/>
+        </div>
+        <div
+            class="o_notebook">
+            <div class="o_notebook_headers">
+                <!-- Nav tabs -->
+                <ul
+                    class="
+                        nav
+                        nav-tabs
+                        o_dial_tabs"
+                    role="tablist">
+                    <li
+                        class="
+                            col-lg-3
+                            nav-item
+                            o_dial_recent_tab
+                            text-center">
+                    <a
+                        aria-controls="recent"
+                        class="
+                            nav-link
+                            o_dial_tab"
+                        data-toggle="tab"
+                        href="#recent"
+                        role="tab">RECENT</a>
+                    </li>
+                    <li
+                        class="
+                            col-lg-5
+                            nav-item
+                            o_dial_activities_tab
+                            text-center">
+                        <a
+                            aria-controls="nextActivities"
+                            class="
+                                active
+                                nav-link
+                                o_dial_tab"
+                            data-toggle="tab"
+                            href="#nextActivities"
+                            role="tab">NEXT ACTIVITIES</a>
+                    </li>
+                    <li
+                        class="
+                            col-lg-4
+                            nav-item
+                            text-center">
+                        <a
+                            aria-controls="contacts"
+                            class="
+                                nav-link
+                                o_dial_tab"
+                            data-toggle="tab"
+                            href="#contacts"
+                            role="tab">CONTACTS</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- Tab panes -->
+        <div
+            class="tab-content">
+            <div
+                class="
+                    o_dial_recent
+                    tab-pane"
+                role="tabpanel"
+                id="recent"/>
+                <div
+                    class="
+                        active
+                        o_dial_next_activities
+                        tab-pane"
+                    id="nextActivities"
+                    role="tabpanel"/>
+                <div
+                    class="
+                        o_dial_contacts
+                        tab-pane"
+                    id="contacts"
+                    role="tabpanel"/>
+        </div>
+    </div>
+    <div
+        class="o_dial_keypad">
+        <div
+            class="o_dial_keypad_input_div">
+            <input
+                class="o_dial_keypad_input"
+                placeholder="Enter the number..."/>
+            <div
+                aria-label="Backspace"
+                class="
+                    fa
+                    fa-long-arrow-left
+                    o_dial_keypad_backspace"
+                role="img"
+                title="Backspace"/>
+        </div>
+        <div
+            class="
+                clearfix
+                mt16
+                mb16
+                o_dial_keypad_buttons">
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">1</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">2</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">3</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">4</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">5</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">6</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">7</button>
+            <button
+                class="
+                    o_dial_number
+                    o_dial_keypad_button
+                    text-primary">8</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">9</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">*</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">0</button>
+            <button
+                class="
+                    o_dial_keypad_button
+                    o_dial_number
+                    text-primary">#</button>
+        </div>
+    </div>
+    <div
+        class="
+            o_dial_buttons
+            o_dial_main_buttons">
+        <button
+            aria-label="Keypad"
+            class="
+                col-4
+                o_dial_keypad_button
+                o_dial_keypad_icon
+                text-gray-light"
+            title="Keypad"><i
+                class="
+                    fa
+                    fa-keyboard-o"/></button>
+        <button
+            aria-label="Hang up but keep call in queue"
+            class="
+                col-4
+                o_dial_postpone_button"
+            title="Hang up but keep call in queue"><i
+                class="
+                    fa
+                    fa-user-times"/>></button>
+        <button
+            aria-label="Call"
+            class="
+                col-4
+                o_dial_call_button"
+            title="Call"><i
+                class="
+                    fa
+                    fa-phone"/></button>
+    </div>
+    <div
+        class="o_dial_incoming_buttons">
+        <button
+            aria-label="Take call"
+            class="
+                col-6
+                o_dial_accept_button"
+            title="Accept"><i
+                class="
+                    fa
+                    fa-phone"/></button>
+        <button
+            aria-label="Reject call"
+            class="
+                col-6
+                o_dial_reject_button"
+            title="Reject"><i
+                class="
+                    fa
+                    fa-phone"/></button>
+    </div>
+</div>
+
+<!--
+  header of the voip_widget
+  takes a value title as parameter that is a String and will be the title of the header.
+
+  @param {string} title
+-->
+<t t-name="voip.DialingPanel.HeaderContent">
+    <i
+        class="
+            fa
+            fa-fw
+            fa-phone"
+        role="img"/>
+    <div
+        class="o_dial_text">
+            <t t-esc="title"/>
+    </div>
+    <a
+        aria-label="Close"
+        class="
+            fa
+            fa-close
+            o_dial_window_close"
+        href="#"
+        title="Close"/>
+    <i
+        aria-label="Unfold"
+        class="
+            fa
+            fa-2x
+            fa-angle-up
+            o_dial_unfold fa_mt"
+        role="img"
+        title="Unfold"/>
+</t>
+
+</templates>

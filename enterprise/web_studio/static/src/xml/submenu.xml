@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+<ul t-name="web_studio.HomeStudioMenu" class="o_web_studio_home_studio_menu">
+    <li>
+        <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false" href="#">
+            Customizations
+        </a>
+        <div class="dropdown-menu" role="menu">
+            <a href="#" class="dropdown-item o_web_studio_change_background" role="menuitem">Change Background</a>
+            <span class="d-none">
+                <t t-call="HiddenInputFile">
+                    <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                    <t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
+                    <input type="hidden" name="model" value="res.company"/>
+                    <input type="hidden" name="id" t-att-value="widget.company_id"/>
+                </t>
+            </span>
+            <a href="#" class="o_web_studio_reset_default_background dropdown-item" role="menuitem" t-if="widget.menu_data.background_image">Reset Default Background</a>
+            <a href="#" class="o_web_studio_import dropdown-item" role="menuitem">Import</a>
+            <a href="#" class="o_web_studio_export dropdown-item" role="menuitem">Export</a>
+        </div>
+    </li>
+</ul>
+
+<div t-name="web_studio.Menu" class="o_web_studio_menu">
+    <div
+        class="
+            o_web_studio_breadcrumb
+            o_web_studio_menu_item"/>
+    <div
+        class="
+            o_web_studio_menu_item
+            o_web_studio_menu_undo_redo">
+        <div class="o_web_studio_menu_before_undo_redo"/>
+        <div class="o_web_studio_undo">
+            <button class="btn o_web_studio_undo_redo_button"><i class="fa fa-undo"/><span>Undo</span></button>
+        </div>
+        <div class="o_web_studio_undo_redo_separator">
+            <div class="o_web_studio_undo_redo_separator_line"/>
+        </div>
+        <div class="o_web_studio_redo">
+            <button class="btn o_web_studio_undo_redo_button"><i class="fa fa-repeat"/><span>Redo</span></button>
+        </div>
+    </div>
+    <div
+        class="
+            o_web_studio_menu_before_snackbar
+            o_web_studio_menu_item"/>
+    <div
+        class="
+            o_web_studio_menu_item
+            o_web_studio_snackbar">
+        <i class="o_web_studio_snackbar_icon"/>
+        <span class="o_web_studio_snackbar_text"/>
+    </div>
+    <div
+        class="
+            o_web_studio_menu_after_snackbar
+            o_web_studio_menu_item"/>
+    <div
+        class="
+            o_web_studio_menu_item
+            o_web_studio_menu_before_sections"/>
+    <ul class="o_menu_sections">
+        <li
+            class="o_web_studio_menu_item"
+            data-name="views"
+            role="button">
+            <a href="#">Views</a></li>
+        <li
+            class="o_web_studio_menu_item"
+            data-name="reports">
+            <a href="#">Reports</a></li>
+        <li
+            class="o_web_studio_menu_item"
+            data-name="translations"
+            t-if="widget.multi_lang">
+            <a href="#">Translations</a>
+        </li>
+        <li
+            class="o_web_studio_menu_item"
+            data-name="automations">
+            <a href="#">Automations</a>
+        </li>
+        <li
+            class="o_web_studio_menu_item"
+            data-name="acl">
+            <a href="#">Access Controls</a>
+        </li>
+        <li
+            class="o_web_studio_menu_item"
+            data-name="filters">
+            <a href="#">Filter Rules</a>
+        </li>
+        <div class="
+            o_web_studio_views_icons_before_separator
+            o_web_studio_menu_item"/>
+        <div class="o_web_studio_views_icons_separator"/>
+        <div class="
+            o_web_studio_views_icons_after_separator
+            o_web_studio_menu_item"/>
+        <li class="
+            o_web_studio_menu_item
+            o_web_studio_submenu_icons">
+            <div class="o_web_studio_views_icons">
+                <a
+                    aria-label="Form View"
+                    data-name="form"
+                    href="#"
+                    title="Form View"
+                    t-if="_.contains(widget.active_view_types, 'form')"><i class="fa fa-address-card"/></a>
+                <a
+                    aria-label="List View"
+                    data-name="list"
+                    href="#"
+                    title="List View"
+                    t-if="_.contains(widget.active_view_types, 'list')"><i class="fa fa-list-ul"/></a>
+                <a
+                    aria-label="Kanban View"
+                    data-name="kanban"
+                    href="#"
+                    title="Kanban View"
+                    t-if="_.contains(widget.active_view_types, 'kanban')"><i class="fa fa-th-large"/></a>
+                <a
+                    aria-label="Calendar View"
+                    data-name="calendar"
+                    href="#"
+                    title="Calendar View"
+                    t-if="_.contains(widget.active_view_types, 'calendar')"><i class="fa fa-calendar-o"/></a>
+                <a
+                    aria-label="Graph View"
+                    data-name="graph"
+                    href="#"
+                    title="Graph View"
+                    t-if="_.contains(widget.active_view_types, 'graph')"><i class="fa fa-bar-chart"/></a>
+                <a
+                    aria-label="Pivot View"
+                    data-name="pivot"
+                    href="#"
+                    title="Pivot View"
+                    t-if="_.contains(widget.active_view_types, 'pivot')"><i class="fa fa-table"/></a>
+                <a
+                    aria-label="Gantt View"
+                    data-name="gantt"
+                    href="#"
+                    title="Gantt View"
+                    t-if="_.contains(widget.active_view_types, 'gantt')"><i class="fa fa-tasks"/></a>
+                <a
+                    data-name="dashboard"
+                    href="#"
+                    t-if="_.contains(widget.active_view_types, 'dashboard')"><i class="fa fa-tachometer"/></a>
+                <a
+                    aria-label="Cohort View"
+                    data-name="cohort"
+                    href="#"
+                    title="Cohort View"
+                    t-if="_.contains(widget.active_view_types, 'cohort')"><i class="fa fa-signal"/></a>
+                <a
+                    aria-label="Activity View"
+                    data-name="activity"
+                    href="#"
+                    title="Activity View"
+                    t-if="_.contains(widget.active_view_types, 'activity')"><i class="fa fa-th"/></a>
+            </div>
+        </li>
+    </ul>
+
+</div>
+
+</templates>

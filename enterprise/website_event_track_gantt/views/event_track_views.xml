@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="view_event_track_gantt" model="ir.ui.view">
+        <field name="name">event.track.gantt</field>
+        <field name="model">event.track</field>
+        <field eval="2" name="priority"/>
+        <field name="arch" type="xml">
+            <gantt
+                date_start="date"
+                date_stop="date_end"
+                string="Tracks"
+                color="color"
+                default_group_by="location_id"
+                default_scale="day">
+                <templates>
+                    <div t-name="gantt-popover" class="container-fluid">
+                        <div class="row no-gutters">
+                            <div class="col">
+                                <ul>
+                                    <li><strong>Start Date: </strong> <t t-esc="date.format('YYYY-MM-DD HH:mm:ss')"/></li>
+                                    <li t-if="partner_name"><strong>Proposed By: </strong> <t t-esc="partner_name"/></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </templates>
+                <field name="partner_name"/>
+            </gantt>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="website_event_track.action_event_track">
+        <field name="view_mode">kanban,tree,form,calendar,graph,activity,gantt</field>
+    </record>
+    <record model="ir.actions.act_window" id="website_event_track.action_event_track_from_event">
+        <field name="view_mode">kanban,tree,form,calendar,graph,activity,gantt</field>
+    </record>
+</odoo>

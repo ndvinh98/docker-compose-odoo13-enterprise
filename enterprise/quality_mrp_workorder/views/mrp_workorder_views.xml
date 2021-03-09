@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- MRP.WORKORDER TABLET VIEW -->
+    <record id="mrp_workorder_view_form_tablet_inherit_quality" model="ir.ui.view">
+        <field name="name">mrp.workorder.view.form.inherit.quality.tablet</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_form_tablet"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='worksheet_page']" position="after">
+                <field name="measure_success" invisible="1"/>
+            </xpath>
+            <xpath expr="//button[@name='record_production']" position="before">
+                <button name="do_fail" type="object" class="btn-danger" attrs="{'invisible': [('test_type', '!=', 'passfail')]}" barcode_trigger="fail" string="Fail"/>
+                <button name="do_pass" type="object" class="btn-success" attrs="{'invisible': [('test_type', '!=', 'passfail')]}" barcode_trigger="pass" string="Pass"/>
+                <button name="do_measure" type="object" class="btn-primary" string="Validate" attrs="{'invisible': [('test_type', '!=', 'measure')]}" barcode_trigger="next"/>
+            </xpath>
+            <xpath expr="//field[@name='note']" position="after">
+               <div attrs="{'invisible': [('test_type', '!=', 'measure')]}" class="o_row mb8">
+                   <label for="measure" string="Measure:" />
+                   <field name="measure" attrs="{'required': [('test_type', '=', 'measure')]}" class="oe_inline"/>
+                   <field name="norm_unit" readonly="1" />
+               </div>
+           </xpath>
+        </field>
+    </record>
+
+    <record id="mrp_workorder_tablet_view_form_inherit_maintenance" model="ir.ui.view">
+        <field name="name">mrp.workorder.view.form.inherit.maintenance1</field>
+        <field name="model">mrp.workorder</field>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_form_tablet_menu"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='workorder_quality_button']" position="inside">
+                <button name="button_quality_alert" type="object" class="btn btn-primary btn-block" string="Quality alert"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

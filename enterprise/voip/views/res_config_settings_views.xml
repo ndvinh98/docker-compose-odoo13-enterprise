@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.voip</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='integration']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane">
+                        <field name="module_voip" widget="upgrade_boolean"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="module_voip"/>
+                        <div class="text-muted">
+                            Schedule &amp; make calls from CRM app
+                        </div>
+                        <div class="content-group" attrs="{'invisible': [('module_voip','=',False)]}">
+                            <div class="row mt16">
+                                <label for="pbx_ip" class="col-lg-4 o_light_label"/>
+                                <field name="pbx_ip" class="col-lg-8 oe_inline"/>
+                            </div>
+                            <div class="row">
+                                <label for="wsServer" class="col-lg-4 o_light_label"/>
+                                <field name="wsServer" class="col-lg-8 oe_inline"/>
+                            </div>
+                            <div class="row">
+                                <label for="mode" class="col-lg-4 o_light_label"/>
+                                <field name="mode" class="col-lg-8 oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </xpath>
+        </field>
+    </record>
+
+</odoo>

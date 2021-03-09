@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Supported Amazon marketplaces -->
+    <record id="marketplace_CA" model="amazon.marketplace">
+        <field name="name">Canada</field>
+        <field name="code">CA</field>
+        <field name="domain">Amazon.ca</field>
+        <field name="api_ref">A2EUQ1WTGCTBG2</field>
+    </record>
+    <record id="marketplace_MX" model="amazon.marketplace">
+        <field name="name">Mexico</field>
+        <field name="code">MX</field>
+        <field name="domain">Amazon.com.mx</field>
+        <field name="api_ref">A1AM78C64UM0Y8</field>
+    </record>
+    <record id="marketplace_US" model="amazon.marketplace">
+        <field name="name">United States of America</field>
+        <field name="code">US</field>
+        <field name="domain">Amazon.com</field>
+        <field name="api_ref">ATVPDKIKX0DER</field>
+    </record>
+    <record id="marketplace_DE" model="amazon.marketplace">
+        <field name="name">Germany</field>
+        <field name="code">DE</field>
+        <field name="domain">Amazon.de</field>
+        <field name="api_ref">A1PA6795UKMFR9</field>
+    </record>
+    <record id="marketplace_ES" model="amazon.marketplace">
+        <field name="name">Spain</field>
+        <field name="code">ES</field>
+        <field name="domain">Amazon.es</field>
+        <field name="api_ref">A1RKKUPIHCS9HS</field>
+    </record>
+    <record id="marketplace_FR" model="amazon.marketplace">
+        <field name="name">France</field>
+        <field name="code">FR</field>
+        <field name="domain">Amazon.fr</field>
+        <field name="api_ref">A13V1IB3VIYZZH</field>
+    </record>
+    <record id="marketplace_IT" model="amazon.marketplace">
+        <field name="name">Italy</field>
+        <field name="code">IT</field>
+        <field name="domain">Amazon.it</field>
+        <field name="api_ref">APJ6JRA9NG5V4</field>
+    </record>
+    <record id="marketplace_UK" model="amazon.marketplace">
+        <field name="name">United Kingdom</field>
+        <field name="code">UK</field>
+        <field name="domain">Amazon.co.uk</field>
+        <field name="api_ref">A1F83G8C2ARO7P</field>
+    </record>
+
+    <!-- Default products -->
+    <record id="default_product" model="product.product">
+        <field name="name">Amazon Sale</field>
+        <field name="type">consu</field>
+        <field name="list_price">0.0</field>
+        <field name="sale_ok">False</field>
+        <field name="purchase_ok">False</field>
+    </record>
+    <record id="shipping_product" model="product.product">
+        <field name="name">Amazon Shipping</field>
+        <field name="type">service</field>
+        <field name="list_price">0.0</field>
+        <field name="sale_ok">False</field>
+        <field name="purchase_ok">False</field>
+    </record>
+    <function model="product.product" name="_configure_for_amazon">
+        <value eval="[ref('sale_amazon.default_product'), ref('sale_amazon.shipping_product')]"/>
+    </function>
+
+    <!-- Mail templates -->
+    <record id="order_sync_failure" model="mail.template">
+        <field name="name">Amazon: Order Synchronization Failure</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="subject">Synchronization of Amazon order ${ctx.get('amazon_order_ref')} has failed</field>
+        <field name="email_from">${(object.company_id.email or object.user_id.email_formatted or user.email_formatted) | safe}</field>
+        <field name="email_to">${ctx.get('email_to') | safe}</field>
+        <field name="lang">${object.lang}</field>
+        <field name="body_html" type="html">
+            <p>The synchronization of the Amazon order with reference ${ctx['amazon_order_ref']} encountered an error and was not completed.</p>
+            <p>Unless the order is canceled in SellerCentral, no other synchronization will be attempted.</p>
+            <p>To schedule a new synchronization attempt, proceed as follows:
+                <ol>
+                    <li>Enter the Developer Tools.</li>
+                    <li>Open the form of the Amazon Account on which the order was placed.</li>
+                    <li>Navigate to the Order Follow-up tab.</li>
+                    <li>Set a date for <em>Last Orders Sync</em> that is anterior to the last status update of the order.</li>
+                    <li>Save the changes and click on the <em>SYNC ORDERS</em> button.</li>
+                </ol>
+            </p>
+            <p>If the problem persists, contact <a href="https://www.odoo.com/help/">Odoo support</a>.</p>
+        </field>
+    </record>
+</odoo>

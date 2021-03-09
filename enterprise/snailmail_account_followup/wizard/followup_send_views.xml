@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="followup_send_wizard_form">
+            <field name="name">followup.send.form</field>
+            <field name="model">followup.send</field>
+            <field name="groups_id" eval="[(4,ref('base.group_user'))]"/>
+            <field name="arch" type="xml">
+                <form string="Send Follow-Ups">
+                    <!-- truly invisible fields for control and options -->
+                    <field name="partner_ids" invisible="1"/>
+                    <field name="letters_qty" invisible="1"/>
+                    <field name="invalid_addresses" invisible="1"/>
+                    <!-- visible fields -->
+                    <div class="text-left d-inline-block" name='cost'>
+                        <span attrs="{'invisible': [('letters_qty', '>', 1)]}"> Sending this document will cost </span>
+                        <span attrs="{'invisible': [('letters_qty', '=', 1)]}"> Sending these <field name="letters_qty" nolabel="1"/> documents will cost </span>
+                        <b>
+                            <span>
+                                <field name="snailmail_cost" options="{'digits':[0,0]}" class="mr4"/>
+                                <label for="snailmail_cost" class="mr4"/>
+                            </span>
+                        </b>
+                        <i class="fa fa-info-circle" role="img" aria-label="Warning" title="
+                        The letter will be sent using the IAP service from Odoo.&#10;Make sure you have enough credits on your account or proceed to a recharge.
+                        "/>
+                        <br/>
+                        <span attrs="{'invisible': [('invalid_addresses', '=', 0)]}">
+                            <span class="text-danger" attrs="{'invisible': [('letters_qty', '>', 1)]}">
+                                The recipient's address is incomplete.
+                            </span>
+                            <span attrs="{'invisible': [('letters_qty', '=', 1)]}">
+                                <span class="text-danger">
+                                    Some customer addresses are not complete.
+                                </span>
+                                <button type="object" name="invalid_addresses_action" class="btn btn-link" role="button"><field name="invalid_addresses" readonly="1" options="{'digits':[0,0]}"/> customers</button>
+                            </span>
+                        </span>
+                    </div>
+
+                    <footer>
+                        <button string="Send by Post"
+                            name="snailmail_send_action" type="object" class="btn-primary o_mail_send"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+       <act_window
+            name="Send by post"
+            id="followup_send"
+            res_model="followup.send"
+            binding_model="res.partner"
+            binding_views="list"
+            view_mode="form"
+            target="new"
+            groups="account.group_account_invoice"
+            />
+
+    </data>
+
+</odoo>

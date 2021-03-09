@@ -1,0 +1,277 @@
+/**
+ * This is CSS used inside the report iframe, which is included in another
+ * bundle (web_studio.report_assets).
+ */
+
+:root {
+    font-size: 14px;
+}
+
+div.page {
+    position: relative;
+}
+
+// TODO: to be removed when the crap done in web_editor.common.scss will be
+// removed ; these rules are here to reverse them
+#wrapwrap table.table.table-bordered {
+    table-layout: auto;
+    td {
+        min-width: auto;
+    }
+}
+
+// ignore bootstrap media query in iframe since it is not applied when printing
+@media (min-width: 576px) {
+    .container {
+        max-width: none;
+    }
+}
+
+.o_no_content_helper {
+    border: 2px dashed gray('400');
+    margin-top: 10px;
+    padding: 112px 0px;
+    text-align: center;
+    color: gray('400');
+    font-size: 20px;
+}
+
+.o_web_studio_report_selected {
+    outline: 2px dashed $o-brand-primary;
+    outline-offset: -2px;
+    // make selection visible on dark/green backgrounds
+    box-shadow: inset 0 0 0 2px white;
+    background-color: rgba($o-brand-primary, 0.1);
+}
+
+.o_web_studio_report_highlight {
+    position: absolute;
+    z-index: 1;
+    display: none;
+
+    &:before {
+        content: '\27A4';
+        color: #ff0000;
+        font-size: 30px;
+        text-shadow: 0 0 10px white;
+        @include o-position-absolute(-19px, $left: -19px);
+        transform: rotate(30deg);
+    }
+    &.o_web_studio_report_highlight_left:before {
+        left: 0;
+        top: -30px;
+        transform: rotate(130deg);
+    }
+    &.o_web_studio_report_highlight_top:before {
+        top: 30px;
+        transform: rotate(-30deg);
+    }
+    &.o_web_studio_report_highlight_left.o_web_studio_report_highlight_top:before {
+        left: 15px;
+        transform: rotate(-130deg);
+    }
+}
+
+tr {
+    td, th {
+        &.o_web_studio_hook_table_column {
+            display: table-cell;
+            position: absolute;
+            box-sizing: content-box;
+            border-left: $o-we-dropzone-border;
+            background-color: rgba(135, 90, 123, 0.05);
+            &:last-of-type {
+                margin-left: -12px;
+                border-right:  $o-we-dropzone-border;
+                border-left: none;
+            }
+            &.o_web_studio_nearest_hook {
+                position: relative;
+            }
+        }
+    }
+}
+
+thead .o_web_studio_hook.o_web_studio_nearest_hook.o_web_studio_hook_table_column {
+    background-image: url(/web_studio/static/src/img/report_hook_field_thead.png);
+    position: relative;
+    background-repeat: no-repeat;
+    width: 100px;
+}
+tbody .o_web_studio_hook.o_web_studio_nearest_hook.o_web_studio_hook_table_column {
+    background-image: url(/web_studio/static/src/img/report_hook_field_tbody.png);
+    background-repeat: no-repeat;
+    position: relative;
+    width: 100px;
+}
+
+.o_web_studio_hook {
+    &:not(.o_web_studio_hook_table_column) {
+        z-index: 999;
+        border:  $o-we-dropzone-border;
+        border-top: none;
+        border-bottom: none;
+        width: 100%;
+        margin: -20px 0;
+        background-color: rgba(135, 90, 123, 0.05);
+        animation: dropZoneInsert 1s linear 0s infinite alternate;
+        position: absolute;
+        &:after {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 50%;
+            border-bottom: $o-we-dropzone-border;
+            box-sizing: content-box;
+        }
+        &:not(.o_web_studio_nearest_hook) {
+            height: 1rem;
+            opacity: 0.7;
+            padding: 0;
+            margin: 0;
+            margin-top: -0.5rem;
+
+            background: none !important;
+
+            &.col-3 {
+                width: 0;
+                padding-left: 0;
+                padding-right: 0;
+            }
+        }
+
+        &.o_web_studio_hook_inline {
+            border: 2px dashed $o-brand-odoo;
+            border-left: none;
+            border-right: none;
+
+            width: $o-we-dropzone-size;
+            margin-top:0;
+            margin-left:-0.5rem;
+            width: 1rem;
+            height: 22px;
+
+            &:after {
+                width: 50%;
+                height: 100%;
+                border-bottom: none;
+                border-right: $o-we-dropzone-border;
+            }
+        }
+        &.o_web_studio_nearest_hook {
+            @extend .o_web_studio_report_selected;
+            display: block;
+            position: relative;
+            margin: auto;
+            background-repeat: no-repeat;
+            background-position: left;
+
+            &.o_web_studio_field_char {
+                height: 2rem;
+            }
+            &.o_web_studio_field_picture {
+                height: 2rem;
+            }
+            &.o_web_studio_hook_inline {
+                padding: 5px;
+                display: inline-block;
+                vertical-align: middle;
+                min-height: 1em;
+                line-height: 1em;
+                min-width: 20px;
+            }
+            &.o_web_studio_hook_field {
+                min-height: 1em;
+                line-height: 1em;
+                min-width: 80px;
+                padding: 0;
+                background-image: url(/web_studio/static/src/img/report_hook_field_tbody.png);
+            }
+            &.o_web_studio_hook_address {
+                height: 100px;
+                padding: 5px;
+                background-image: url(/web_studio/static/src/img/report_hook_address.png);
+                &:after {
+                    border: none;
+                }
+            }
+            &.o_web_studio_hook_total {
+                min-height: 100px;
+                background-image: url(/web_studio/static/src/img/report_hook_total.png);
+                &:after {
+                    border: none;
+                }
+            }
+            &.o_web_studio_hook_information {
+                height: 3rem;
+                background-image: url(/web_studio/static/src/img/report_hook_information.png);
+                background-position: top left;
+                height: 100%;
+                margin-top: -0.5rem;
+                &:after {
+                    border: none;
+                }
+            }
+            &.o_web_studio_hook_picture {
+                height: 2rem;
+            }
+            &.o_web_studio_block_char {
+                height: 1rem;
+            }
+            &.o_web_studio_hook_title {
+                height: $h2-font-size;
+                background-image: url(/web_studio/static/src/img/report_hook_title.png);
+                &:after {
+                    border: none;
+                }
+            }
+            &.o_web_studio_hook_table {
+                height: 100px;
+                background-image: url(/web_studio/static/src/img/report_hook_table.png);
+                &:after {
+                    border: none;
+                }
+            }
+        }
+    }
+}
+div.row.o_web_studio_structure_hook {
+    &:not(.o_web_studio_nearest) {
+        position: absolute;
+        width: 100%;
+    }
+    &.o_web_studio_nearest {
+        position: relative;
+        margin-left: 0;
+        width: 100%;
+        .col-3 {
+            height: 3rem;
+            margin:0;
+            padding:0;
+        }
+        .o_web_studio_hook.o_web_studio_hook_information {
+            height: 3rem;
+        }
+    }
+}
+
+div.row:not(.o_web_studio_structure_hook) {
+    .o_web_studio_hook:not(.o_web_studio_nearest_hook) {
+        &.o_web_studio_hook_information, &.o_web_studio_hook_address {
+            position: relative;
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+
+
+span.o_web_studio_nearest_hook.o_web_studio_hook_field {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+div.row > div > .o_web_studio_nearest_hook.o_web_studio_hook_field:only-child {
+    height: 50px;
+    background-image: url(/web_studio/static/src/img/report_hook_information.png);
+}

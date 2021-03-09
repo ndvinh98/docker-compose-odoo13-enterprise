@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- wizard diplaying the transfer's option -->
+    <record id="wizard_transfer_call_form_view" model="ir.ui.view">
+      <field name="name">Transfer the Call</field>
+      <field name="model">voip.phonecall.transfer.wizard</field>
+      <field name="arch" type="xml">
+        <form string="transfer Option">
+          <sheet>
+            <group string="transfer Option">
+              <field name="transfer_choice" widget="selection"/>
+              <field name="transfer_number"
+                  attrs="{
+                    'invisible': ['|',('transfer_choice', '=', 'physical'), ('transfer_choice','=',False)],
+                    'required': [('transfer_choice', '=', 'extern')]}"/>
+            </group>
+            <footer>
+              <button name="save" type="object"
+                      string="transfer the Call" class="oe_highlight"/>
+              <button class="btn btn-secondary oe_button oe_form_button" special="cancel" string="Cancel"/>
+            </footer>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_report_view_grid" model="ir.ui.view">
+        <field name="name">stock_report_view_grid</field>
+        <field name="model">report.stock.quantity</field>
+        <field name="arch" type="xml">
+            <grid js_class="stock_enterprise_report_grid"
+                string="Quantity"
+                adjustment="object"
+                adjust_name="adjust_grid"
+                class="o_report_stock_quantity">
+                <field name="product_id" type="row"/>
+                <field name="state" type="row"/>
+                <field name="date" type="col">
+                    <range name="week" string="Week" span="week" step="day"/>
+                    <range name="month" string="Month" span="month" step="day"/>
+                </field>
+                <field name="product_qty" type="measure"/>
+            </grid>
+        </field>
+    </record>
+
+    <record id="stock.report_stock_quantity_action_product" model="ir.actions.act_window">
+        <field name="res_model">report.stock.quantity</field>
+        <field name="view_mode">graph,grid</field>
+        <field name="context">{
+            'search_default_filter_forecast': 1,
+            'grid_anchor': (datetime.date.today()).strftime('%Y-%m-%d'),
+            'graph_groupbys': ['date:day', 'state'],
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Forecasted Stock
+            </p><p>
+                This analysis gives you an overview of the forecasted stock level of your products.
+                <br/>
+                Plan transfers in order to see their impacts on the forecasted stock level.
+            </p>
+        </field>
+    </record>
+
+    <record id="stock.report_stock_quantity_action" model="ir.actions.act_window">
+        <field name="res_model">report.stock.quantity</field>
+        <field name="view_mode">grid,graph</field>
+        <field name="context">{
+            'search_default_filter_forecast': 1,
+            'grid_anchor': (datetime.date.today()).strftime('%Y-%m-%d'),
+            'graph_groupbys': ['date:day', 'state', 'product_id'],
+        }</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No Forecasted Stock
+            </p><p>
+                This analysis gives you an overview of the forecasted stock level of your products.
+                <br/>
+                Plan transfers in order to see their impacts on the forecasted stock level.
+            </p>
+        </field>
+    </record>
+</odoo>
+

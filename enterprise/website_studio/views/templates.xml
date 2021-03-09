@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <template id="default_form_page">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+              <form action="/website_form/" method="post" class="s_website_form container-fluid mt32" enctype="multipart/form-data" data-model_name="" data-success_page="">
+                <div class="container">
+                  <div class="form-group row">
+                    <div class="offset-lg-3 offset-md-4 col-md-8 col-lg-7">
+                      <button class="btn btn-primary btn-lg o_website_form_send o_default_snippet_text">Send</button>
+                      <span id="o_website_form_result" class="text-danger ml8"/>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="default_form_field_name">
+        <t t-call="website.layout">
+            <div id="wrap" class="oe_structure oe_empty">
+              <form action="/website_form/" method="post" class="s_website_form container-fluid mt32" enctype="multipart/form-data" data-model_name="" data-success_page="">
+                <div class="container">
+                  <div class="form-group row form-field o_website_form_required">
+                    <div class="col-lg-3 col-md-4">
+                      <label class="col-form-label" for="name">
+                          Name
+                      </label>
+                    </div>
+                    <div class="col-lg-7 col-md-8">
+                      <input type="text" class="form-control o_website_form_input" name="name" required="1"/>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <div class="offset-lg-3 offset-md-4 col-md-8 col-lg-7">
+                      <button class="btn btn-primary btn-lg o_website_form_send o_default_snippet_text">Send</button>
+                      <span id="o_website_form_result" class="text-danger ml8"/>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+        </t>
+    </template>
+</data>
+</odoo>

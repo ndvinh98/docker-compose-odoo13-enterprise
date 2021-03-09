@@ -1,0 +1,539 @@
+$gantt-border-color: $gray-400;
+$gantt-pill-height: 31px;
+$gantt-highlight-today-border: #dca665;
+$gantt-highlight-today-bg: #fffaeb;
+$gantt-highlight-hover-row: rgba($primary, .1);
+$gantt-row-open-bg: $gray-100;
+$gantt-pill-consolidated-height: 24px;
+$gantt-unavailability-bg: $gray-200;
+
+
+// Define the necessary conditions to provide visual feedback on hover,
+// focus, drag, clone and resize.
+@mixin o-gantt-hover() {
+    &:hover, &:focus, &.ui-draggable-dragging, &.ui-resizable-resize {
+        // Avoid visual feedback if 'o_gantt_view' has class 'o_grabbing' or 'o_copying'.
+        @at-root #{selector-replace(&, ".o_gantt_view", ".o_gantt_view:not(.o_grabbing):not(.o_copying):not(.o_no_dragging)")} {
+            @content;
+        }
+    }
+}
+
+// Generate background and text for each color.
+@mixin o-gantt-hoverable-colors($color) {
+    $color-subdle: mix($color, white, 60%);
+    color: color-yiq($color-subdle);
+    background-color: $color-subdle;
+    cursor: pointer;
+
+    @include o-gantt-hover() {
+        background-color: $color;
+        color: color-yiq($color);
+    }
+}
+
+// Generate stripes decorations for each color.
+@mixin gantt-gradient-decorations($color) {
+    $color-subdle: mix($color, white, 60%);
+    background-image: repeating-linear-gradient(-45deg, $color-subdle 0 10px, lighten($color-subdle, 6%) 10px 20px);
+
+    @include o-gantt-hover() {
+        background-image: repeating-linear-gradient(-45deg, $color 0 10px, lighten($color, 6%) 10px 20px);
+    }
+}
+
+@mixin gantt-ribbon-decoration($color) {
+    content: '';
+    @include size(20px, 16px);
+    @include o-position-absolute(-11px, $left: -13px);
+    box-shadow: 1px 1px 0 white;
+    background: $color;
+    transform: rotate(45deg);
+}
+
+@mixin gant-today-cell() {
+    &.o_gantt_today {
+        border-color: mix($gantt-highlight-today-border, $gantt-border-color, 25%);
+        border-left-color: $gantt-highlight-today-border;
+        background-color: $gantt-highlight-today-bg;
+
+        + .o_gantt_header_cell, + .o_gantt_cell {
+            border-left-color: $gantt-highlight-today-border;
+        }
+
+        &.o_gantt_unavailability {
+            background: mix($gantt-highlight-today-bg, $gantt-unavailability-bg);
+        }
+    }
+}
+
+.o_gantt_view {
+    box-shadow: 0 5px 20px -15px rgba(black, .3);
+    user-select: none;
+
+    #o_gantt_containment {
+        @include o-position-absolute(0, 0, 1px, percentage(2 / $grid-columns));
+    }
+
+    // ===============  Cursors while dragging  ==============
+    // =======================================================
+    &.o_grabbing, &.o_grabbing .o_gantt_pill {
+        cursor: grab!important;
+    }
+
+    &.o_copying, &.o_copying .o_gantt_pill {
+        cursor: copy!important;
+    }
+
+    &.o_no_dragging {
+        .o_gantt_cell_buttons, .ui-resizable-handle {
+            visibility: hidden;
+        }
+
+        &, .o_gantt_pill {
+            cursor: not-allowed!important;
+        }
+    }
+
+    &.o_grabbing, &.o_copying {
+        .o_gantt_cell_buttons,
+        .ui-draggable-dragging:before,
+        .ui-draggable-dragging .ui-resizable-handle {
+            visibility: hidden;
+        }
+    }
+
+    .o_dragged_pill {
+        outline: 1px solid theme-color('primary');
+    }
+
+    .ui-draggable-dragging {
+        opacity: .8;
+    }
+
+    // ===============  Header  ==============
+    // =======================================
+    .o_gantt_header_container {
+        top: 0;
+        z-index: 10;  // header should overlap the pills
+
+        .o_gantt_row_sidebar {
+            box-shadow: inset 0 -1px 0 $gantt-border-color;
+            line-height: 4.8rem;
+        }
+        .o_gantt_header_slots {
+            box-shadow: inset 1px 0 0 $gantt-border-color;
+        }
+
+        .o_gantt_header_scale {
+            border-top: 1px solid $gantt-border-color;
+            border-bottom: 1px solid $gantt-border-color;
+        }
+
+        .o_gantt_header_cell {
+            @include gant-today-cell();
+            border-left: 1px solid transparent;
+            color: $headings-color;
+        }
+    }
+
+    // === All sidebar headers (Regular, Groups and Total) ====
+    // ========================================================
+    .o_gantt_row_sidebar {
+        color: $headings-color;
+        font-weight: bold;
+
+        .o_gantt_row_title {
+            line-height: $gantt-pill-height;
+        }
+    }
+
+    // All rows (Regular, Group Header and Total)
+    // ==========================================
+    .o_gantt_row, .o_gantt_total_row_container {
+        .o_gantt_pill {
+            z-index: 1;  // pill should overlap the grid
+            height: $gantt-pill-height;
+        }
+    }
+
+    // ===== "Regular" & "Group Header" rows =====
+    // ===========================================
+    .o_gantt_row_container {
+        .o_gantt_row {
+            border-bottom: 1px solid $gantt-border-color;
+            background: #FFFFFF;
+
+            &:first-child {
+                > .o_gantt_slots_container, > .o_gantt_row_sidebar {
+                    box-shadow: inset 0 4px 5px -3px rgba(black, .1);
+                }
+            }
+        }
+
+        .o_gantt_row_thumbnail_wrapper {
+            .o_gantt_row_thumbnail {
+                width: auto;
+                max-height: $gantt-pill-height - 10px;
+            }
+        }
+
+        .o_gantt_cell {
+            @include gant-today-cell();
+            border-left: 1px solid $gantt-border-color;
+        }
+    }
+
+    // ============= "Regular" rows ==============
+    // ===========================================
+    .o_gantt_row_nogroup {
+        .o_gantt_cell {
+            min-height: $gantt-pill-height;
+        }
+
+        .o_gantt_pill {
+            @include o-gantt-hoverable-colors(nth($o-colors-complete, 1));
+            overflow: hidden;
+            user-select: none;
+
+            &.ui-resizable-resizing, &.ui-draggable-dragging {
+                z-index: 2;  // other pills show not hide these ones
+            }
+
+            &.o_gantt_progress {
+                @include o-gantt-hoverable-colors(nth($o-colors-complete, 1));
+                background-repeat: no-repeat;
+
+                &.decoration-info {
+                    @include gantt-gradient-decorations(nth($o-colors-complete, 1));
+                }
+            }
+
+            &:hover {
+                .ui-resizable-e, .ui-resizable-w {
+                    background-color: rgba(black, .2);
+
+                    &:hover {
+                        background-color: rgba(black, .5);
+                    }
+                }
+            }
+
+            &.ui-resizable-resizing {
+                .ui-resizable-e, .ui-resizable-w {
+                    background-color: rgba(black, .5);
+                }
+            }
+
+            // used for `color` attribute on <gantt>
+            @for $index from 2 through length($o-colors-complete) - 1 {
+            // @for $index from 3 through length($o-colors) {
+                &.o_gantt_color_#{$index - 1} {
+                    $gantt-color: nth($o-colors-complete, $index);
+
+                    @include o-gantt-hoverable-colors($gantt-color);
+
+                    &.o_gantt_progress {
+                        @include o-gantt-hoverable-colors($gantt-color);
+                    }
+
+                    &.decoration-info {
+                        @include gantt-gradient-decorations($gantt-color);
+                    }
+                }
+            }
+            @each $color, $value in $theme-colors {
+                &.decoration-#{$color}:before {
+                    @include gantt-ribbon-decoration($value);
+                }
+            }
+        }
+
+        .o_gantt_cell.o_gantt_unavailability {
+            background: linear-gradient(
+                $gantt-unavailability-bg,
+                $gantt-unavailability-bg
+            ) no-repeat;
+
+            &.o_gantt_unavailable_first_half {
+                background-size: 50%;
+            }
+
+            &.o_gantt_unavailable_second_half {
+                background-position: right;
+                background-size: 50%;
+            }
+        }
+
+        .o_gantt_cell.o_gantt_unavailable_second_half.o_gantt_today {
+            background: linear-gradient(
+                to right,
+                $gantt-highlight-today-bg 50%,
+                $gantt-unavailability-bg 50%
+            );
+            background-size: 100%;
+        }
+
+        .o_gantt_cell_buttons {
+            @include o-position-absolute(0, 0, $left: 0);
+            display: none;
+            z-index: 4;
+            color: $body-color;
+
+            .o_gantt_cell_add {
+                cursor: cell;
+            }
+
+            .o_gantt_cell_plan {
+                cursor: zoom-in;
+            }
+
+            .o_gantt_cell_add, .o_gantt_cell_plan {
+                background: $gray-100;
+                width: 30px;
+                line-height: 16px;
+                box-shadow: 0 1px 2px rgba(black, .2);
+                cursor: pointer;
+
+                &:first-child {
+                    border-bottom-left-radius: 4px;
+                }
+
+                &:last-child {
+                    border-bottom-right-radius: 4px;
+                }
+            }
+        }
+
+        .o_gantt_pill_wrapper {
+            line-height: $gantt-pill-height;
+
+            &.o_gantt_pill_wrapper_continuous_left {
+                padding-left: 0;
+            }
+
+            &.o_gantt_pill_wrapper_continuous_right {
+                padding-right: 0;
+            }
+
+            .o_gantt_pill_resize_badge {
+                @include o-position-absolute($bottom: -18px);
+                box-shadow: 0 1px 2px 0 rgba(black, .28);
+                background-color: #FFFFFF;
+            }
+
+            &.o_gantt_consolidated_wrapper {
+                .o_gantt_consolidated_pill {
+                    @include o-position-absolute(0, 0, 0, 0);
+                    height: auto;
+                }
+
+                .o_gantt_consolidated_pill_title {
+                    z-index: 2;
+                    color: white;
+                }
+            }
+        }
+
+        // ====  "Regular" row - When it's an opened group's children
+        &.open .o_gantt_row_sidebar {
+            font-weight: normal;
+        }
+
+        // ====  "Regular" row - "Hover" State
+        .o_gantt_cell.o_gantt_hoverable.o_hovered {
+            .o_gantt_cell_buttons {
+                display: flex;
+            }
+
+            &.o_gantt_unavailability {
+                &.o_gantt_unavailable_first_half {
+                    background: linear-gradient(
+                        to right,
+                        rgba($gantt-unavailability-bg, .7) 50%,
+                        $gantt-highlight-hover-row 50%
+                    );
+                    background-size: 100%;
+                }
+
+                &.o_gantt_unavailable_second_half {
+                    background: linear-gradient(
+                        to right,
+                        $gantt-highlight-hover-row 50%,
+                        rgba($gantt-unavailability-bg, .7) 50%
+                    );
+                    background-size: 100%;
+                }
+
+                &.o_gantt_unavailable_full {
+                    background: linear-gradient(
+                        to right,
+                        rgba($gantt-unavailability-bg, .7) 50%,
+                        rgba($gantt-unavailability-bg, .7) 50%
+                    );
+                    background-size: 100%;
+                }
+            }
+        }
+    }
+
+    // ==== "Group Header" rows (closed) =====
+    // =======================================
+    .o_gantt_row_group {
+        cursor: pointer;
+
+        &, &.open:hover {
+            .o_gantt_row_sidebar, .o_gantt_slots_container {
+                background-image: linear-gradient(darken($gantt-row-open-bg, 5%), $gantt-row-open-bg);
+            }
+        }
+
+        &:hover, &.open {
+            .o_gantt_row_sidebar, .o_gantt_slots_container {
+                background-image: linear-gradient($gantt-row-open-bg, darken($gantt-row-open-bg, 5%));
+            }
+        }
+
+        .o_gantt_row_sidebar, .o_gantt_row_title, .o_gantt_cell {
+            min-height: $gantt-pill-consolidated-height;
+            line-height: $gantt-pill-consolidated-height;
+        }
+
+        .o_gantt_row_thumbnail_wrapper .o_gantt_row_thumbnail {
+            max-width: 17px;
+        }
+
+        .o_gantt_cell {
+            border-color: mix($gantt-row-open-bg, $gantt-border-color, 30%);
+
+            &.o_gantt_today {
+                background-color: mix($gantt-row-open-bg, $gantt-highlight-today-bg);
+            }
+        }
+
+        .o_gantt_pill {
+            border-color: $primary;
+        }
+
+        .o_gantt_pill_wrapper.o_gantt_consolidated_wrapper {
+            margin-top: 0;
+            line-height: $gantt-pill-consolidated-height;
+
+            .o_gantt_consolidated_pill {
+                @include o-position-absolute($gantt-pill-consolidated-height * .5 - 1px, 0, auto, 0);
+                background-color: $primary;
+                height: 2px;
+
+                &:before, &:after {
+                    border-top: 4px solid transparent;
+                    border-bottom: 5px solid transparent;
+                    content: '';
+                }
+
+                &:before {
+                    @include o-position-absolute($top: -3px, $left: 0);
+                    border-left: 5px solid;
+                    border-left-color: inherit;
+                }
+
+                &:after {
+                    @include o-position-absolute($top: -3px, $right: 0);
+                    border-right: 5px solid;
+                    border-right-color: inherit;
+                }
+            }
+        }
+
+        // === "Group Header" rows (open) ======
+        // =======================================
+        &.open .o_gantt_cell {
+            &, &.o_gantt_today, &.o_gantt_today + .o_gantt_cell {
+                border-color: transparent;
+                background-color: transparent;
+            }
+
+            .o_gantt_pill_wrapper.o_gantt_consolidated_wrapper .o_gantt_consolidated_pill {
+                &:before, &:after {
+                    top: 2px;
+                    border: 2px solid transparent;
+                    border-top-color: inherit;
+                }
+
+                &:before {
+                    border-left-color: inherit;
+                }
+
+                &:after {
+                    border-right-color: inherit;
+                }
+            }
+        }
+    }
+
+    // === "Group Header" &  "TOTAL" rows ========
+    // ===========================================
+    .o_gantt_row_group, .o_gantt_total {
+        .o_gantt_consolidated_pill_title {
+            z-index: 2;
+            background-color: white;
+            color: $body-color;
+        }
+    }
+
+    // ============= "TOTAL" row =================
+    // ===========================================
+    .o_gantt_total {
+        z-index: 2;
+    }
+
+    .o_gantt_total_row_container .o_gantt_row {
+        border-bottom: 1px solid $gantt-border-color;
+
+        .o_gantt_cell {
+            @include gant-today-cell();
+            border-left: 1px solid rgba($gantt-border-color, .25);
+
+            &:first-child {
+                border-left: 1px solid rgba($gantt-border-color, 1);
+            }
+        }
+
+        .o_gantt_cell, .o_gantt_row_title, .o_gantt_pill_wrapper {
+            min-height: $gantt-pill-height * 1.6;
+            line-height: $gantt-pill-height * 1.6;
+        }
+
+        .o_gantt_consolidated_pill_title {
+            bottom: 2px;
+            line-height: 1.5;
+        }
+
+        .o_gantt_pill {
+            @include o-position-absolute(auto, 0, 0, 0);
+            background-color: rgba($o-brand-odoo, .5);
+        }
+
+        .o_gantt_pill_wrapper:hover {
+            overflow: visible;
+
+            .o_gantt_pill {
+                background-color: rgba($o-brand-odoo, .8);
+            }
+
+            &:before {
+                @include o-position-absolute(auto, -1px, 0, -1px);
+                border: 1px solid $o-brand-odoo;
+                border-width: 0 1px;
+                background: rgba($o-brand-odoo, .1);
+                height: 100vh;
+                content: '';
+                pointer-events: none;
+            }
+        }
+    }
+
+    // Suggest the browsers to print background graphics (IE users will still
+    // need to go to their settings in order to print them)
+    -webkit-print-color-adjust: exact;  /* Chrome, Safari */
+    color-adjust: exact;                /*Firefox*/
+}

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_online_sales_graph" model="ir.ui.view">
+             <field name="name">sale.report.graph</field>
+             <field name="model">sale.report</field>
+             <field name="arch" type="xml">
+                 <graph string="Sales Analysis" type="line">
+                     <field name="date" interval="day" type="row"/>
+                     <field name="price_subtotal" type="measure"/>
+                 </graph>
+             </field>
+        </record>
+
+    <record id="view_online_sales_pivot" model="ir.ui.view">
+         <field name="name">sale.report.pivot</field>
+         <field name="model">sale.report</field>
+         <field name="arch" type="xml">
+             <pivot string="Sales Analysis" disable_linking="True" display_quantity="true">
+                 <field name="categ_id" type="row"/>
+                 <field name="order_id" type="measure"/>
+                 <field name="price_subtotal" type="measure"/>
+                 <field name="price_total" type="measure"/>
+             </pivot>
+         </field>
+    </record>
+
+        <record model="ir.ui.view" id="sale_dashboard_view">
+            <field name="name">Website Sale: Dashboard View</field>
+            <field name="model">sale.report</field>
+            <field name="mode">primary</field>
+            <field name="arch" type="xml">
+                <dashboard js_class="website_sale_dashboard" banner_route="/website_sale_dashboard/website_sale_dashboard_onboarding">
+                    <view type="graph" ref="website_sale_dashboard.view_online_sales_graph"/>
+                    <group>
+                        <group>
+                            <aggregate name="price_subtotal_confirmed_orders" string="Total Sales" field="price_total" help="Total, Tax Included" widget="monetary"/>
+                            <aggregate name="price_subtotal_all_orders" string="Untaxed Total" field="price_subtotal" widget="monetary"/>
+                            <aggregate name="order_id_confirmed_orders" field="order_id" string="Orders"/>
+                            <formula name="total" string="Average Order" value="record.price_subtotal_confirmed_orders / record.order_id_confirmed_orders" widget="monetary"/>
+                             <aggregate name="customers" string="# Customers" field="partner_id"/>
+                             <aggregate name="lines" string="# Lines" field="nbr"/>
+                        </group>
+                        <group col="1">
+                            <widget name="pie_chart" title="Conversion Rate" attrs="{'groupby': 'is_abandoned_cart', 'labels': 'Sold,Abandonned'}"/>
+                        </group>
+                    </group>
+                    <view type="pivot" ref="website_sale_dashboard.view_online_sales_pivot"/>
+                </dashboard>
+            </field>
+        </record>
+
+        <record id="sale_report_view_search_website_inherit" model="ir.ui.view">
+            <field name="name">sale.report.view.search.inherit</field>
+            <field name="model">sale.report</field>
+            <field name="inherit_id" ref="website_sale.sale_report_view_search_website"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='product_id']" position="before">
+                    <field name="order_id"/>
+                </xpath>
+
+                <xpath expr="//filter[@name='confirmed']" position="after">
+                    <filter string="Unpaid Orders" name="unpaid" domain="['&amp;', ('state', '=', 'sent'), ('invoice_status', '=', 'to invoice')]"/>
+                    <filter string="Abandoned Carts" name="abandoned" domain="[('is_abandoned_cart', '=', True)]"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="sale_dashboard" model="ir.actions.act_window">
+            <field name="name">eCommerce Dashboard</field>
+            <field name="res_model">sale.report</field>
+            <field name="view_mode">dashboard</field>
+            <field name="view_id" ref="sale_dashboard_view"/>
+            <field name="domain">[('team_id.website_ids', '!=', False)]</field>
+            <field name="search_view_id" ref="website_sale.sale_report_view_search_website"/>
+            <field name="context">{'search_default_confirmed': 1, 'time_ranges': {'field':'date', 'range':'last_7_days'}}</field>
+        </record>
+
+        <record id="website.menu_website_dashboard" model="ir.ui.menu">
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- ONBOARDING -->
+        <template id="website_sale_dashboard_onboarding_panel" name="website.sale.dashboard.onboarding.panel">
+            <t t-call="base.onboarding_container">
+                <t t-set="classes">o_onboarding_orange</t>
+                <t t-set="bg_image">/website_sale_dashboard/static/src/img/website_sale_dashboard_onboarding_bg.jpg</t>
+                <t t-set="close_method">action_close_website_sale_dashboard_onboarding</t>
+                <t t-set="close_model">res.company</t>
+                <t t-set="text_completed">The configuration is done. Happy selling!</t>
+                <t t-call="base.onboarding_company_step" name="company_step" />
+                <t t-call="payment.onboarding_payment_acquirer_step" name="payment_acquirer_step" />
+                <t t-call="account.onboarding_sale_tax_step" name="sale_tax_step" />
+            </t>
+        </template>
+    </data>
+</odoo>

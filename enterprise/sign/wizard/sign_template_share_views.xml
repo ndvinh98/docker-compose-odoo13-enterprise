@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="sign_template_share_view_form" model="ir.ui.view">
+        <field name="name">sign.template.share.view.form</field>
+        <field name="model">sign.template.share</field>
+        <field name="arch" type="xml">
+            <form string="Multiple Signature Requests">
+                <span class="text-muted" attrs="{'invisible': [('url', '=', False)]}">Share this link and Odoo will create a new document per person who clicks on the link. The link is private, only those that receive the link will be able to sign it.</span>
+                <group attrs="{'invisible': [('url', '=', False)]}">
+                    <field name="url" widget="CopyClipboardChar" readonly="1"/>
+                </group>
+                <span attrs="{'invisible': [('url', '!=', False)]}">To be able to share, there should be only one responsible for all the fields.</span>
+                <footer>
+                    <button string="Close" class="btn-primary" special="cancel"/>
+                    <button string="Sign Now" name="open" type="object" attrs="{'invisible': [('url', '=', False)]}"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sign_template_share" model="ir.actions.act_window">
+        <field name="name">Share Document by Link</field>
+        <field name="res_model">sign.template.share</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+    </record>
+</odoo>

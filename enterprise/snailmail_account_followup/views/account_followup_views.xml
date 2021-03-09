@@ -1,0 +1,33 @@
+<odoo>
+    <data>
+
+        <record id="view_account_followup_followup_line_tree_inherit_snailmail" model="ir.ui.view">
+            <field name="name">account_followup.followup.line.tree.inherit.snailmail</field>
+            <field name="model">account_followup.followup.line</field>
+            <field name="inherit_id" ref="account_followup.view_account_followup_followup_line_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='print_letter']" position='after'>
+                    <field name="send_letter"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_account_followup_followup_line_form_inherit_snailmail" model="ir.ui.view">
+            <field name="name">ccount_followup.followup.line.form.inherit.snailmail</field>
+            <field name="model">account_followup.followup.line</field>
+            <field name="inherit_id" ref="account_followup.view_account_followup_followup_line_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='print_letter']" position='after'>
+                    <field name="send_letter"/>
+                </xpath>
+                <field name="join_invoices" position="attributes">
+                    <attribute name="attrs">{'invisible': [('send_email', '=', False), ('print_letter', '=', False), ('send_letter', '=', False)]}</attribute>
+                </field>
+                <xpath expr="//page[@id='letter_format']" position='attributes'>
+                    <attribute name="attrs">{'invisible': [('send_email', '=', False), ('print_letter', '=', False), ('send_letter', '=', False)]}</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>

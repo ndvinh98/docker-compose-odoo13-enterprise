@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="voip assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/voip/static/lib/sip.js"></script>
+
+            <script type="text/javascript" src="/voip/static/src/js/activity.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/call_center_field.js"/>
+            <script type="text/javascript" src="/voip/static/src/js/dialing_panel.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/phone_call.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/phone_call_activities_tab.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/phone_call_contacts_tab.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/phone_call_details.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/phone_call_recent_tab.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/phone_call_tab.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/phone_field.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/systray_voip_menu.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/transfer_call_action.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/user_agent.js"></script>
+            <script type="text/javascript" src="/voip/static/src/js/web_client.js"></script>
+
+            <link rel="stylesheet" type="text/scss" href="/voip/static/src/scss/call_center_field.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/voip/static/src/scss/voip.scss"/>
+        </xpath>
+    </template>
+
+    <template id="voip_tests" name="voip tests" inherit_id="web.qunit_suite">
+        <xpath expr="//script[last()]" position="after">
+            <script type="text/javascript" src="/voip/static/tests/phone_widget_tests.js"></script>
+            <script type="text/javascript" src="/voip/static/tests/dialing_panel_tests.js"></script>
+        </xpath>
+    </template>
+</odoo>

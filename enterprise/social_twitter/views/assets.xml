@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="social_twitter_backend_assets" inherit_id="web.assets_backend">
+        <xpath expr="//script[contains(@src, '/social/static/src/js/social_stream_post_formatter_mixin.js')]" position="after">
+            <script type="text/javascript" src="/social_twitter/static/src/js/social_stream_post_formatter_mixin.js"/>
+        </xpath>
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/social_twitter/static/src/scss/social_twitter.scss"/>
+            <script type="text/javascript" src="/social_twitter/static/src/js/twitter_users_autocomplete.js"/>
+            <script type="text/javascript" src="/social_twitter/static/src/js/stream_post_twitter_comments.js"/>
+            <script type="text/javascript" src="/social_twitter/static/src/js/stream_post_kanban_controller.js"/>
+        </xpath>
+    </template>
+</odoo>

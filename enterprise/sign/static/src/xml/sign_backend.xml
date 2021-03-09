@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="sign.sign_item_custom_popover">
+        <div class="o_sign_item_custom_popover">
+            <div class="form-group clearfix o_popover_placeholder" t-if="widget.debug">
+                <label for="o_sign_name">Placeholder</label>
+                <div>
+                    <input type="text" id="o_sign_name" class="o_input"/>
+                </div>
+            </div>
+            <div class="form-group o_sign_options_group">
+                <label for="o_sign_select_options_input">Options</label>
+                <div class="o_sign_options_select">
+                    <input id="o_sign_options_select_input" type="hidden"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="o_sign_responsible_select_input">Filled by</label>
+                <div class="o_sign_responsible_select">
+                    <select id="o_sign_responsible_select_input"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <div>
+                    <div class="checkbox">
+                        <label for="o_sign_required_field">
+                            <input type="checkbox" id="o_sign_required_field"/> Mandatory field
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn o_sign_validate_field_button btn-primary">Validate</button>
+                <span class="fa fa-trash fa-lg o_sign_delete_field_button"></span>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="sign.initial_all_pages_dialog">
+        <div class="form-group">
+            <label for="responsible_select_initials_input" class="col-md-2">Responsible</label>
+            <div class="o_sign_responsible_select_initials col-md-10">
+                <select id="responsible_select_initials_input"/>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="sign.template">
+        <div t-if="widget.has_sign_requests &amp;&amp; widget.isPDF" class="alert alert-info">
+            <span class="fa fa-exclamation-triangle"/> Used by a signature request.
+            <button type="button" class="o_sign_duplicate_sign_template btn btn-link">Duplicate</button> to modify it.
+        </div>
+
+        <div t-att-class="!(widget.has_sign_requests &amp;&amp; widget.isPDF) ? 'text-center' : 'd-none text-center'">
+            <div class="o_sign_template_saved_info alert alert-success float-right" role="status"><span class="fa fa-check"/>Saved</div>
+            <span t-if="!widget.has_sign_requests" class="fa fa-pencil" title="Edit template name" role="img" aria-label="Edit template name"/>
+            <input type="text" class="o_sign_template_name_input o_input" t-att-value="widget.sign_template.display_name"/>
+        </div>
+
+        <div t-if="!widget.isPDF" class="o_sign_image_document">
+            <t t-set="webimage" t-value="new RegExp('image.*(gif|jpe|jpg|png)').test(widget.sign_template.attachment_id.mimetype)"/>
+            <img t-if="webimage" class="img img-fluid" t-attf-src="/web/image/{{widget.sign_template.attachment_id.id}}" alt="Signature"/>
+            <div t-if="!webimage" class="o_image" t-att-data-mimetype="widget.sign_template.attachment_id.mimetype"/>
+        </div>
+
+        <iframe t-if="widget.isPDF" class="o_sign_pdf_iframe"/>
+    </t>
+
+    <t t-name="sign.type_buttons">
+        <t t-foreach="sign_item_types" t-as="item_type">
+            <button type="button" class="o_sign_field_type_button" t-att-data-item-type-id="item_type.id" title="Drag &amp; Drop a field in the PDF"><t t-esc="item_type.name"/></button>
+        </t>
+    </t>
+</templates>

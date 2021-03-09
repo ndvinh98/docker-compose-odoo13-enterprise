@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="sign.items_view" name="Digital Signatures - Items View">
+        <iframe class="o_sign_pdf_iframe" t-att-readonly="'readonly' if readonly else None"/>
+
+        <input id="o_sign_input_attachment_location" type="hidden" t-attf-value="/sign/download/{{sign_request.id}}/{{sign_request.access_token}}/origin"/>
+        <input id="o_sign_input_current_role" type="hidden" t-att-value="role"/>
+
+        <t t-call="sign.items_input_info"/>
+        <t t-call="sign.item_types_input_info"/>
+        <t t-call="sign.item_select_options_input_info"/>
+    </template>
+
+    <template id="sign.items_input_info" name="Items input info">
+        <t t-if="sign_items">
+            <t t-foreach="sign_items" t-as="item">
+                <input type="hidden" class="o_sign_item_input_info"
+                    t-att-data-id="item.id"
+                    t-att-data-type="item.type_id.id"
+                    t-att-data-required="item.required"
+                    t-att-data-name="item.name"
+                    t-att-data-responsible="item.responsible_id.id"
+                    t-att-data-page="item.page"
+                    t-att-data-option_ids="item.option_ids.ids"
+                    t-att-data-template_id="item.template_id.ids"
+                    t-att-data-pos-x="str(item.posX)"
+                    t-att-data-pos-y="str(item.posY)"
+                    t-att-data-width="item.width"
+                    t-att-data-height="item.height"
+                    t-att-data-value="item_values[item.id] if item_values and item.id in item_values else None"/>
+            </t>
+        </t>
+    </template>
+
+    <template id="sign.item_types_input_info" name="Item types input info">
+        <t t-foreach="sign_item_types" t-as="item_type">
+            <input type="hidden" class="o_sign_field_type_input_info" 
+                t-att-data-id="item_type['id']"
+                t-att-data-name="item_type['name']"
+                t-att-data-item_type="item_type['item_type']"
+                t-att-data-tip="item_type['tip']"
+                t-att-data-placeholder="item_type['placeholder']"
+                t-att-data-auto_field="item_type['auto_field']"/>
+        </t>
+    </template>
+
+    <template id="sign.item_select_options_input_info" name="Item select options input info">
+        <t t-foreach="sign_item_select_options" t-as="item_select_option">
+            <input type="hidden" class="o_sign_select_options_input_info"
+                t-att-data-id="item_select_option['id']"
+                t-att-data-value="item_select_option['value']"/>
+        </t>
+    </template>
+</odoo>

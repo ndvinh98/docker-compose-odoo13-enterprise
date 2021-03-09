@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <li t-name="social_twitter.users_autocomplete_element">
+        <div role="menuitem" href="#"
+            t-attf-class="dropdown-item o_social_twitter_users_autocomplete_suggestion clearfix#{suggestion_index == 0 and ' active' or ''}">
+            <img t-att-src="suggestion['profile_image_url_https']" alt="Twitter Profile Image"/>
+            <div class="o_twitter_users_autocomplete_info">
+                <strong><span class="o_twitter_users_autocomplete_info_name">
+                    <t t-esc="suggestion['name']" /> - @<t t-esc="suggestion['screen_name']" />
+                </span></strong>
+                <br/>
+                <span><small t-esc="suggestion['description']" /></span>
+            </div>
+        </div>
+    </li>
+    <t t-name="social.StreamPostCommentsOriginalPost" t-extend="social.StreamPostCommentsOriginalPost">
+        <t t-jquery="span.o_social_original_post_author_image" t-operation="append">
+            <img t-if="originalPost.twitterProfileImageUrl" t-att-src="originalPost.twitterProfileImageUrl" alt="Author Image"/>
+        </t>
+        <t t-jquery="div.o_social_comments_modal_original_post_content" t-operation="append">
+            <div class="o_social_original_post_twitter_stats d-flex justify-content-around"
+                t-if="originalPost.mediaType === 'twitter'">
+                <div t-attf-class="o_social_twitter_likes pl-2 pr-3 #{originalPost.twitterUserLikes ? 'o_social_twitter_user_likes' : ''}"
+                    t-att-data-user-likes="originalPost.twitterUserLikes"
+                    t-att-data-post-id="originalPost.postId">
+                    <i class="fa fa-heart" title="Likes"/>
+                    <b class="o_social_likes_count" t-esc="originalPost.twitterLikesCount !== 0 ? originalPost.twitterLikesCount : ''"/>
+                </div>
+                <div class="flex-grow-1 d-flex text-muted justify-content-end">
+                    <div>
+                        <t t-esc="originalPost.twitterRetweetCount"/>
+                        Retweets
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+</odoo>

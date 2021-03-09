@@ -1,0 +1,203 @@
+// This file duplicates some less rules of the form view (mainly for groups),
+// and slightly tweaks them. Those rules should be extracted from form_view.less
+// and parameterized so that they can be shared between the form view and the
+// dashboard view
+
+.o_dashboard_view {
+    // Scoped dashboard's variables
+    $border-separate-width: 2px;
+    $padding: $o-horizontal-padding;
+    $padding-small: $o-horizontal-padding*0.5;
+
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    width: 100%;
+    height: auto;
+    padding: $o-sheet-vpadding 0;
+    background-color: white;
+
+    %o-dashboard-label-design {
+        color: $headings-color;
+        margin-bottom: 0;
+    }
+
+    > .o_group, .o_subview {
+        // By default dashboard entries are full-width...
+        flex: 1 1 100%;
+        max-width: 100%;
+        margin: 0 $padding ($spacer * 2);
+
+        .o_graph_renderer {
+            display: flex;
+            > .o_graph_canvas_container {
+                flex: 1 1 auto;
+                height: 250px;
+                > label {
+                    position: absolute;
+                    @extend %o-dashboard-label-design;
+                }
+            }
+        }
+    }
+
+    .o_group {
+        > .o_aggregate_col, .o_formula {
+            display: inline-block;
+            width: 200px;
+            margin-bottom: ($spacer * 1.5);
+        }
+
+        .o_group.o_group_col_12 {
+            width: 100%;
+        }
+
+        .o_aggregate, .o_formula {
+            padding: 0 ($padding + $padding-small) 0 $padding-small;
+            border-left: $border-separate-width solid $border-color;
+
+            > label {
+                @extend %o-dashboard-label-design;
+
+                &:empty {
+                    display: none;
+
+                    + .o_value {
+                        font-size: 2.5em;
+                    }
+                }
+            }
+
+            .o_value {
+                font-size: 1.6em;
+            }
+
+            .o_comparison {
+                font-size: 1em
+            }
+
+            .o_variation {
+                margin-top: ($spacer * .25);
+                font-size: 1.6em;
+                line-height: 1;
+
+                + .o_comparison {
+                    margin-top: ($spacer * .5);
+                    font-weight: bold;
+                    > span {
+                        font-weight: normal;
+                    }
+                }
+            }
+
+            &.border-danger, &.border-success {
+                border-left-width: $border-separate-width;
+            }
+
+            @include text-emphasis-variant(".o_variation.o_positive", $success);
+            @include text-emphasis-variant(".o_variation.o_negative", $danger);
+        }
+
+        .o_horizontal_separator {
+            width: 100%;
+            padding-bottom: $headings-margin-bottom;
+            font-size: 1.3em;
+            color: $headings-color;
+        }
+
+        //.o_pie_chart {
+        //    width: 100%;
+        //}
+
+
+        .o_aggregate.o_clickable {
+            .o_value, .o_variation {
+                cursor: pointer;
+
+                &:after {
+                    font: $font-size-base/1 "FontAwesome";
+                    content: '\f002';
+                    vertical-align: middle;
+                    margin-left: $padding-small;
+                    opacity: 0;
+                }
+
+                &:hover:after {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    // Expand first's group columns to fit the card size.
+    > .o_group {
+        justify-content: stretch;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-start;
+
+        > .o_group.o_group_col_2 {
+            width: auto;
+            flex: 1 1 50%;
+
+            // Groups with at least one widget (commonly graphs)
+            &.o_has_widget {
+                flex: 1;
+                display: flex;
+
+                .o_graph_renderer {
+                    display: flex;
+                    justify-content: space-between;
+                    flex-flow: column wrap;
+
+                    .o_graph_canvas_container {
+                        min-width: 200px;
+
+                        @include media-breakpoint-up(sm) {
+                            min-width: 300px;
+                            max-width: 400px;
+                        }
+                    }
+                    label {
+                        @extend %o-dashboard-label-design;
+                    }
+                }
+            }
+        }
+    }
+
+    .o_pivot > table {
+        width: 100%;
+    }
+
+    .o_dashboard_subview_buttons  {
+        // Icons toolbar
+        > .btn-group[role=toolbar] {
+            margin-left: 8px;
+        }
+
+        .o_dropdown {
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .o_subview {
+        .o_view_nocontent {
+            position: relative;
+            flex: 1 1 auto;
+            top: inherit;
+        }
+
+        .o_view_controller {
+            padding-top: $padding-small;
+        }
+
+        &[type=graph] {
+            .o_view_controller {
+                width: 100%;
+            }
+        }
+    }
+}

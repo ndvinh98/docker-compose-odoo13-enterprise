@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Scheduler for Lead Scoring and Assignation -->
+        <record forcecreate="True" id="ir_cron_lead_assign" model="ir.cron">
+            <field name="name">Crm Score: lead assignation</field>
+            <field name="model_id" ref="crm.model_crm_team"/>
+            <field name="state">code</field>
+            <field name="code">model.direct_assign_leads()</field>
+            <field eval="False" name="active"/>
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+        </record>
+
+        <!-- Scheduler for Lead Scoring -->
+        <record forcecreate="True" id="ir_cron_lead_scoring" model="ir.cron">
+            <field name="name">Crm Score: lead scoring </field>
+            <field name="model_id" ref="model_website_crm_score"/>
+            <field name="state">code</field>
+            <field name="code">model.assign_scores_to_leads()</field>
+            <field eval="False" name="active" />
+            <field name="user_id" ref="base.user_root" />
+            <field name="interval_number">1</field>
+            <field name="interval_type">hours</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+    </data>
+    <data>
+
+        <record id="action_score_now" model="ir.actions.server">
+            <field name="name">Crm Score: Apply marked scores</field>
+            <field name="model_id" ref="model_website_crm_score"/>
+            <field name="binding_model_id" ref="model_website_crm_score"/>
+            <field name="state">code</field>
+            <field name="code">records.assign_scores_to_leads()</field>
+        </record>
+
+        <!-- Score Menu Item -->
+        <menuitem id="crm.crm_menu_leads" name="Leads" parent="crm.crm_menu_root" groups="sales_team.group_sale_manager" sequence="5"/>
+
+        <menuitem id="menu_crm_leads" name="Leads" parent="crm.crm_menu_leads" sequence="1" action="crm.crm_lead_all_leads" groups="crm.group_use_lead"/>
+
+        <!-- Action to display the leads that have a particular score -->
+        <record model="ir.actions.act_window" id="score_leads">
+            <field name="name">Leads</field>
+            <field name="res_model">crm.lead</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('score_ids', 'in', active_id)]</field>
+        </record>
+
+        <!-- Score Form View -->
+        <record model="ir.ui.view" id="view_crm_score_form">
+            <field name="name">Website Crm Score Form</field>
+            <field name="model">website.crm.score</field>
+            <field name="arch" type="xml">
+                <form string="Scores">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button class="oe_stat_button" type="action"
+                                name="%(score_leads)d" icon="fa-tags"
+                                >
+                                <field string="Leads" name="leads_count" widget="statinfo"/>
+                            </button>
+                        </div>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger" attrs="{'invisible': [('active', '=', True)]}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Name"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="rule_type"/>
+                            <field name="active" invisible="1"/>
+                            <field name="value" attrs="{'invisible':[('rule_type','!=','score')]}"/>
+                            <field name="domain" widget="domain" options="{'model': 'crm.lead'}"/>
+                            <field name="event_based"/>
+                            <field name="last_run" groups="base.group_no_one" />
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- Score Kanban View -->
+        <record id="website_crm_score_view_kanban" model="ir.ui.view">
+            <field name="name">website.crm.score.kanban</field>
+            <field name="model">website.crm.score</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="leads_count"/>
+                    <field name="rule_type"/>
+                    <field name="domain"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="row mb4">
+                                    <div class="col-5">
+                                        <strong><span><field name="name"/></span></strong>
+                                    </div>
+                                    <div class="col-3">
+                                        <strong><span><field name="value"/></span></strong>
+                                    </div>
+                                    <div class="col-4 text-right">
+                                        <strong><i class="fa fa-fw fa-tags" aria-label="Number of leads" title="Number of leads" role="img"></i><field name="leads_count"/> leads</strong>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8 text-muted">
+                                        <field name="domain"/>
+                                    </div>
+                                    <div class="col-4">
+                                        <span class="float-right text-right">
+                                            <field name="rule_type" widget="label_selection" options="{'classes': {'score': 'info', 'active': 'default',
+                                            'unlink': 'warning'}}"/>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- Score Tree View -->
+        <record model="ir.ui.view" id="view_crm_score_tree">
+            <field name="name">Website Crm Score Tree</field>
+            <field name="model">website.crm.score</field>
+            <field name="arch" type="xml">
+                <tree string="Scores">
+                    <field name="name"/>
+                    <field name="rule_type"/>
+                    <field name="value"/>
+                    <field name="leads_count"/>
+                    <field name="domain" readonly="1"/>
+                    <field name="active"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="website_crm_score_view_search" model="ir.ui.view">
+            <field name="name">website.crm.score.view.search</field>
+            <field name="model">website.crm.score</field>
+            <field name="arch" type="xml">
+                <search string="Search CRM Score">
+                    <field name="name"/>
+                    <separator/>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+        <!-- Score Action - tree - form -->
+        <record model="ir.actions.act_window" id="score_action">
+            <field name="name">Scores</field>
+            <field name="res_model">website.crm.score</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="search_view_id" ref="website_crm_score_view_search"/>
+        </record>
+
+        <!-- Score Menu Item -->
+        <menuitem id="scores_menu" name="Scoring Rules" parent="crm.crm_menu_leads" action="score_action" sequence="2" groups="sales_team.group_sale_manager"/>
+
+        <!--
+        TEAM USER
+         -->
+        <!-- Team User Form View -->
+        <record model="ir.ui.view" id="view_crm_team_user_form">
+            <field name="name">Team User Form</field>
+            <field name="model">team.user</field>
+            <field name="arch" type="xml">
+                <form string="Sales Men">
+                    <sheet>
+                        <h1>
+                            <field name="user_id"/>
+                            <field name="leads_count" invisible="1"/>
+                        </h1>
+                        <group>
+                            <field name="team_id" kanban_view_ref="%(sales_team.crm_team_view_kanban)s" readonly="context.get('ro_team', False)"/>
+                            <label for="maximum_user_leads" string="Maximum Leads / 30 days" />
+                            <div>
+                                <field name="maximum_user_leads" class="oe_inline"/>
+                            </div>
+                            <field name="team_user_domain" widget="domain" options="{'model': 'crm.lead'}"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+        <!-- team User Tree View -->
+        <record model="ir.ui.view" id="view_crm_team_user_tree">
+            <field name="name">Team User Tree</field>
+            <field name="model">team.user</field>
+            <field name="arch" type="xml">
+                <tree string="Sales Men">
+                    <field name="team_id"/>
+                    <field name="user_id"/>
+                    <field name="maximum_user_leads"/>
+                    <field name="leads_count"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Team User Kanban View -->
+        <record model="ir.ui.view" id="team_user_kanban">
+            <field name="name">team.user.kanban</field>
+            <field name="model">team.user</field>
+            <field name="arch" type="xml">
+                <kanban quick_create="false" create="true">
+                    <field name="user_id"/>
+                    <field name="active"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <t t-set="active" t-value="record.active.raw_value"/>
+                            <t t-set="button_state">
+                                <t t-if="active">o_assignation_button_active</t>
+                                <t t-if="!active">o_assignation_button_inactive</t>
+                            </t>
+
+                            <div class="o_assignation_kanban_record oe_kanban_global_click pb-0">
+                                <div class="o_kanban_record_top mb-0">
+                                    <ul class="nav">
+                                        <li class="nav-item">
+                                            <a type="open" class="nav-link">
+                                                <img t-att-src="kanban_image('res.users', 'image_128', record.user_id.raw_value)" class="o_kanban_image o_image_64_cover" alt="Avatar"/>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul class="nav o_assignation_body">
+                                        <li class="nav-item"><a type="open" class="nav-link"><b><field name="name"/></b></a></li>
+                                        <li class="nav-item w-100"><a type="open" class="nav-link"><field name="team_id"/></a></li>
+                                        <li t-attf-class="nav-item #{button_state}">
+                                            <a type="object" name="toggle_active" t-attf-class="nav-link fa fa-check-square"/>
+                                        </li>
+                                    </ul>
+                                    <div class="o_assignation_leads_count">
+                                        <field name="maximum_user_leads" invisible="1"/>
+                                        <field name="leads_count" widget="gauge"
+                                               options="{'max_field': 'maximum_user_leads'}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="team_user_view_search" model="ir.ui.view">
+            <field name="name">team.user.view.search</field>
+            <field name="model">team.user</field>
+            <field name="arch" type="xml">
+                <search string="Sales Person">
+                    <field name="name"/>
+                    <field name="team_id"/>
+                    <separator/>
+                    <filter name="archived" string="Archived" domain="[('active', '=', False)]"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Sales Team" name="groupby_team_id" context="{'group_by': 'team_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- Team User Action - form - tree -->
+        <record model="ir.actions.act_window" id="team_user_action">
+            <field name="name">Salespersons</field>
+            <field name="res_model">team.user</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Create a new salesman
+                </p><p>
+                    Link users to salesteam, set a per 30 days lead capacity for each of them and set filters to auto assign your leads.
+                </p>
+            </field>
+        </record>
+
+        <!-- Team User Menu Item -->
+        <menuitem id="team_user" name="Leads Assignation" parent="crm.crm_menu_leads" action="team_user_action" sequence="4" groups="sales_team.group_sale_manager"/>
+
+        <!-- TEAM -->
+        <!-- Team Action - form - tree - kanban -->
+        <record model="ir.actions.act_window" id="team_action">
+            <field name="name">Teams Assignation</field>
+            <field name="res_model">crm.team</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="view_ids" eval="[(5, 0, 0),
+            (0, 0, {'view_mode': 'tree', 'view_id': ref('sales_team.crm_team_view_tree')}),
+            (0, 0, {'view_mode': 'kanban', 'view_id': ref('sales_team.crm_team_view_kanban')}),
+            (0, 0, {'view_mode': 'form', 'view_id': ref('sales_team.crm_team_view_form')})]"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Define a new sales team
+                </p><p>
+                    Use sales teams to organize your sales departments.
+                    Each team will work with a separate pipeline.
+                </p>
+            </field>
+        </record>
+
+        <!-- Team User Menu Item -->
+        <menuitem id="team" name="Teams Assignation" parent="crm.crm_menu_leads" action="team_action" sequence="3" groups="sales_team.group_sale_manager"/>
+
+    </data>
+</odoo>

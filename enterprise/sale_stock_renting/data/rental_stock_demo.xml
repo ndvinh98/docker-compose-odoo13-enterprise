@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo noupdate="1">
+
+  <record id="sale_renting.rental_product_1" model="product.product">
+      <field name="preparation_time" eval="0.05"/>
+      <!-- Projector : 3 minutes -->
+  </record>
+  <record id="sale_renting.rental_product_2" model="product.product">
+      <field name="preparation_time" eval="0.5"/>
+      <!-- Meeting Room : 30 minutes -->
+  </record>
+  <record id="rental_stock_product_1" model="product.product">
+    <field name="name">Printer</field>
+    <field name="categ_id" ref="sale_renting.cat_renting"/>
+    <field name="type">product</field>
+    <field name="uom_id" ref="uom.product_uom_unit"/>
+    <field name="uom_po_id" ref="uom.product_uom_unit"/>
+    <field name="default_code">RENT003</field>
+    <field name="image_1920" type="base64" file="sale_stock_renting/static/img/printer.png"/>
+    <field name="rent_ok" eval="True"/>
+    <field name="extra_hourly" eval="7.50"/>
+    <field name="extra_daily" eval="75.00"/>
+    <field name="preparation_time" eval="0.05"/>
+    <field name="tracking">serial</field>
+  </record>
+
+  <record id="rental_stock_pricing_1" model="rental.pricing">
+      <field name="duration" eval="1"/>
+      <field name="price" eval="5.0"/>
+      <field name="unit">hour</field>
+  </record>
+  <record id="rental_stock_pricing_2" model="rental.pricing">
+      <field name="duration" eval="1"/>
+      <field name="price" eval="20.0"/>
+      <field name="unit">day</field>
+  </record>
+  <record id="rental_stock_pricing_3" model="rental.pricing">
+      <field name="duration" eval="7"/>
+      <field name="price" eval="100.0"/>
+      <field name="unit">day</field>
+  </record>
+
+  <record id="rental_stock_product_1" model="product.product"> <!-- House -->
+    <field name="rental_pricing_ids" eval="[(6,0,[ref('rental_stock_pricing_1'), ref('rental_stock_pricing_2'), ref('rental_stock_pricing_3')])]"/>
+  </record>
+
+  <record id="rental_stock_lot_1" model="stock.production.lot">
+    <field name="name">PRINT001</field>
+    <field name="product_id" ref="rental_stock_product_1"/>
+    <field name="company_id" ref="base.main_company"/>
+  </record>
+
+  <record id="rental_stock_lot_2" model="stock.production.lot">
+    <field name="name">PRINT002</field>
+    <field name="product_id" ref="rental_stock_product_1"/>
+    <field name="company_id" ref="base.main_company"/>
+  </record>
+
+  <record id="rental_stock_lot_3" model="stock.production.lot">
+    <field name="name">PRINT003</field>
+    <field name="product_id" ref="rental_stock_product_1"/>
+    <field name="company_id" ref="base.main_company"/>
+  </record>
+
+  <record id="rental_stock_lot_4" model="stock.production.lot">
+    <field name="name">PRINT004</field>
+    <field name="product_id" ref="rental_stock_product_1"/>
+    <field name="company_id" ref="base.main_company"/>
+  </record>
+
+  <!-- Set available meeting room serial numbers -->
+  <record id="rental_stock_inventory_0" model="stock.inventory">
+      <field name="name">Starting Rental Inventory</field>
+  </record>
+
+  <record id="rental_stock_inventory_line_1" model="stock.inventory.line">
+      <field name="product_id" ref="rental_stock_product_1"/>
+      <field name="product_uom_id" ref="uom.product_uom_unit"/>
+      <field name="prod_lot_id" ref="rental_stock_lot_1"/>
+      <field name="inventory_id" ref="rental_stock_inventory_0"/>
+      <field name="product_qty">1.00</field>
+      <field name="location_id" ref="stock.stock_location_14"/>
+  </record>
+  <record id="rental_stock_inventory_line_2" model="stock.inventory.line">
+      <field name="product_id" ref="rental_stock_product_1"/>
+      <field name="product_uom_id" ref="uom.product_uom_unit"/>
+      <field name="prod_lot_id" ref="rental_stock_lot_2"/>
+      <field name="inventory_id" ref="rental_stock_inventory_0"/>
+      <field name="product_qty">1.00</field>
+      <field name="location_id" ref="stock.stock_location_14"/>
+  </record>
+  <record id="rental_stock_inventory_line_3" model="stock.inventory.line">
+      <field name="product_id" ref="rental_stock_product_1"/>
+      <field name="product_uom_id" ref="uom.product_uom_unit"/>
+      <field name="prod_lot_id" ref="rental_stock_lot_3"/>
+      <field name="inventory_id" ref="rental_stock_inventory_0"/>
+      <field name="product_qty">1.00</field>
+      <field name="location_id" ref="stock.stock_location_14"/>
+  </record>
+
+  <!-- VALIDATE inventory -->
+  <function model="stock.inventory" name="_action_start" eval="[[ref('rental_stock_inventory_0')]]"/>
+  <function model="stock.inventory" name="action_validate" eval="[[ref('rental_stock_inventory_0')]]"/>
+
+  <record id="rental_stock_order_1" model="sale.order">
+      <field name="partner_id" ref="base.res_partner_2"/>
+      <field name="partner_invoice_id" ref="base.res_partner_2"/>
+      <field name="partner_shipping_id" ref="base.res_partner_2"/>
+      <field name="user_id" ref="base.user_admin"/>
+      <field name="pricelist_id" ref="product.list0"/>
+      <field name="team_id" ref="sales_team.team_sales_department"/>
+      <field name="date_order" eval="DateTime.today() - relativedelta(months=3)"/>
+      <field name="is_rental_order" eval="True"/>
+  </record>
+
+  <record id="rental_stock_order_line_1" model="sale.order.line">
+      <field name="order_id" ref="rental_stock_order_1"/>
+      <field name="product_id" ref="rental_stock_product_1"/>
+      <field name="product_uom_qty">3</field>
+      <field name="product_uom" ref="uom.product_uom_unit"/>
+      <field name="name" eval="'[RENT003] Printer'"/>
+      <field name="is_rental" eval="True"/>
+      <field name="pickup_date" eval="DateTime.today() + relativedelta(days=1)"/>
+      <field name="return_date" eval="DateTime.today() + relativedelta(days=5)"/>
+      <field name="price_unit" eval="100.0"/>
+  </record>
+
+  <record id="rental_stock_order_line_2" model="sale.order.line">
+      <field name="order_id" ref="rental_stock_order_1"/>
+      <field name="product_id" ref="rental_stock_product_1"/>
+      <field name="product_uom_qty">2</field>
+      <field name="product_uom" ref="uom.product_uom_unit"/>
+      <field name="name" eval="'[RENT003] Printer'"/>
+      <field name="is_rental" eval="True"/>
+      <field name="pickup_date" eval="DateTime.today() + relativedelta(days=4)"/>
+      <field name="return_date" eval="DateTime.today() + relativedelta(days=10)"/>
+      <field name="price_unit" eval="150.0"/>
+      <field name="reserved_lot_ids" eval="[(6,0,[ref('rental_stock_lot_1'), ref('rental_stock_lot_2')])]"/>
+  </record>
+
+  <!-- Trigger so_line name recomputation -->
+  <function model="sale.order.line" name="product_id_change" eval="[[ref('rental_stock_order_line_1')]]"/>
+  <function model="sale.order.line" name="product_id_change" eval="[[ref('rental_stock_order_line_2')]]"/>
+
+  <!-- CONFIRM Rental Sale Order -->
+  <function model="sale.order" name="action_confirm" eval="[[ref('rental_stock_order_1')]]"/>
+
+</odoo>

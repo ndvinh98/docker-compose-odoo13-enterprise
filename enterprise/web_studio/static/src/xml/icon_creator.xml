@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+<div t-name="web_studio.IconCreator" class="o_web_studio_icon_creator">
+    <t t-if="widget.uploaded">
+        <div class="o_web_studio_uploaded_image"
+            t-attf-style="background-image: url('#{widget.uploaded_image}');"/>
+        <div class="o_web_studio_upload">
+            <a href="#" class="js_discard_upload">Design your Icon</a> <span class="text-muted">or</span> <a href="#" class="js_upload">upload one</a>
+            <span class="d-none">
+                <t t-call="HiddenInputFile">
+                    <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                    <t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
+                    <input type="hidden" name="model" value="res.users"/>
+                    <input type="hidden" name="id" t-att-value="widget.user_id"/>
+                </t>
+            </span>
+        </div>
+
+    </t>
+    <t t-else="">
+        <t t-if="widget.mode === 'edit'">
+            <h6>Design your Icon</h6>
+        </t>
+        <div class="o_web_studio_icon">
+            <div class="o_app_icon"><i/></div>
+        </div>
+        <t t-if="widget.mode === 'edit'">
+            <div class="o_web_studio_selectors">
+                <div class="o_web_studio_selector" data-type="background_color"><span class="o_web_studio_selector_pointer"/></div>
+                <div class="o_web_studio_selector" data-type="color"><span class="o_web_studio_selector_pointer"/></div>
+                <div class="o_web_studio_selector" data-type="icon"><i/><span class="o_web_studio_selector_pointer"/></div>
+            </div>
+            <div class="clearfix"/>
+            <div class="o_web_studio_upload">
+                <span class="text-muted">or</span> <a href="#" class="js_upload">upload it</a>
+                <span class="d-none">
+                    <t t-call="HiddenInputFile">
+                        <t t-set="fileupload_id" t-value="widget.fileupload_id"/>
+                        <t t-set="fileupload_action" t-translation="off">/web/binary/upload_attachment</t>
+                        <input type="hidden" name="model" value="res.users"/>
+                        <input type="hidden" name="id" t-att-value="widget.user_id"/>
+                    </t>
+                </span>
+            </div>
+        </t>
+    </t>
+</div>
+
+<!-- Palettes -->
+<div t-name="web_studio.IconCreator.IconColorPalette" class="o_web_studio_palette">
+    <t t-foreach="widget.COLORS" t-as="color">
+        <div class="o_web_studio_selector" t-att-style="'background-color: ' + color" t-att-data-color="color"/>
+    </t>
+</div>
+
+<div t-name="web_studio.IconCreator.BgPalette" class="o_web_studio_palette">
+    <t t-foreach="widget.BG_COLORS" t-as="color">
+        <div class="o_web_studio_selector" t-att-style="'background-color: ' + color" t-att-data-color="color"/>
+    </t>
+</div>
+
+<div t-name="web_studio.IconCreator.IconPalette" class="o_web_studio_icons_library">
+    <t t-foreach="widget.ICONS" t-as="icon">
+        <div class="o_web_studio_selector"><i t-att-class="icon"/></div>
+    </t>
+</div>
+
+</templates>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_common" inherit_id="web.assets_common" name="UPS bill my account common assets">
+        <xpath expr='.' position="inside">
+            <script src="/website_delivery_ups/static/src/js/delivery_ups.js"></script>
+        </xpath>
+    </template>
+
+    <template id="ups_bill_my_account_dialog" name="UPS Bill My Account Dialog">
+        <div role="dialog" class="modal fade" id="ups_bill_my_account_service">
+            <div class="modal-dialog">
+                <form id="set_ups_carrier_account" action="/shop/ups_carrier_account/set" method="post">
+                    <div class="modal-content">
+                        <header class="modal-header">
+                            <h4 class="modal-titled">UPS Bill My Account</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                        </header>
+                        <main class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="alert alert-warning d-none" id='ups_service_error' role="alert"></div>
+                                    <div id="service_type">
+                                        <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()" />
+                                        <input type="hidden" name="sale_order_id" t-att-value="order.id"/>
+                                        <label class="mt4">Select Freight Collect Method</label>
+                                        <div>
+                                            <select class="form-control" name="ups_service_type">
+                                                <!-- get dynamic key and value of selection field -->
+                                                <t t-foreach="order._get_ups_service_types()" t-as="ups_service_type_value">
+                                                    <option t-att-value="ups_service_type_value[0]" t-att-selected="ups_service_type_value[0] == order.ups_service_type"><t t-esc="ups_service_type_value[1]"/></option>
+                                                </t>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div id="account_info">
+                                        <label class="mt8">Enter your Carrier Account #</label>
+                                        <div>
+                                            <input type="text" class="form-control mr4" id="ups_carrier_account" name="ups_carrier_account" required="required" t-att-value="order.ups_carrier_account"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
+                        <footer class="modal-footer">
+                            <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+                            <button type="submit" class="btn btn-primary o_apply_ups_bill_my_account">Apply</button>
+                        </footer>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <template id="payment_delivery_inherit_website_sale_delivery" name="Delivery Costs" inherit_id="website_sale_delivery.payment_delivery">
+        <xpath expr="//div[@id='delivery_method']" position="before">
+            <t t-call="website_delivery_ups.ups_bill_my_account_dialog"/>
+        </xpath>
+    </template>
+
+    <template id="payment_delivery_methods_inherit_website_sale_delivery" inherit_id="website_sale_delivery.payment_delivery_methods">
+        <xpath expr="//label[@t-field='delivery.name']" position="after">
+            <t t-if="delivery.delivery_type == 'ups' and delivery.ups_bill_my_account">
+                <span id="ups_bill_my_account" class="ml4">
+                    <t t-if="not order.ups_carrier_account">
+                        <a href="#" data-toggle="modal" data-target="#ups_bill_my_account_service">
+                            (Bill My Account)
+                        </a>
+                    </t>
+                    <t t-if="order.ups_carrier_account">
+                        <a href="/shop/ups_carrier_account/unset">
+                            Using Account <strong><t t-esc="order.ups_carrier_account"/></strong>
+                            <i class="fa fa-trash-o" role="img" aria-label="Delete" title="Delete"/>
+                        </a>
+                    </t>
+                </span>
+            </t>
+        </xpath>
+    </template>
+</odoo>

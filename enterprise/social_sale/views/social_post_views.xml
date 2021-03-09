@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="social_post_view_form" model="ir.ui.view">
+        <field name="name">social.post.view.form.inherit.social.sale</field>
+        <field name="model">social.post</field>
+        <field name="inherit_id" ref="social.social_post_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//button[@name='action_redirect_to_clicks']" position="before">
+                <button class="oe_stat_button order-1" name="action_redirect_to_invoiced"  type="object" icon="fa-usd">
+                    <field name="sale_invoiced_amount" string="Revenues" widget="statinfo"/>
+                </button>
+                <button class="oe_stat_button order-2" name="action_redirect_to_quotations"  type="object" icon="fa-money">
+                    <field name="sale_quotation_count" string="Quotations" widget="statinfo"/>
+                </button>
+            </xpath>
+        </field>
+    </record>
+    <record id="social_post_view_kanban" model="ir.ui.view">
+        <field name="name">social.post.view.kanban.inherit.social.sale</field>
+        <field name="model">social.post</field>
+        <field name="inherit_id" ref="social.social_post_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='click_count']" position="after">
+                <field name="sale_invoiced_amount"/>
+                <field name="sale_quotation_count"/>
+            </xpath>
+            <xpath expr="//div[@id='post-stats']" position="attributes">
+                <attribute name="class" add="justify-content-between" separator=" "/>
+            </xpath>
+            <xpath expr="//div[@id='post-stats']" position="inside">
+                <div class="px-2 text-center">
+                    <small>Quotations:</small>
+                    <small class="font-weight-bold"><t t-esc="record.sale_quotation_count.raw_value"/></small>
+                </div>
+                <div class="px-2 text-center">
+                    <small>Revenues:</small>
+                    <small class="font-weight-bold"><t t-esc="record.sale_invoiced_amount.raw_value"/></small>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</data>
+</odoo>

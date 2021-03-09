@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="project_forecast_view_form_inherit_project_timesheet_forecast" model="ir.ui.view">
+        <field name="name">planning.slot.form.inherit.timesheet</field>
+        <field name="inherit_id" ref="planning.planning_view_form"/>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='allocated_percentage']" position="after">
+                <field name="allocation_type" invisible="1"/>
+                <field name="effective_hours" widget="float_time" attrs="{'invisible': ['|', ('project_id', '=', False), ('allocation_type', '!=', 'forecast')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="project_forecast_view_pivot_inherit_project_timesheet_forecast" model="ir.ui.view">
+        <field name="name">planning.slot.pivot.inherit.timesheet</field>
+        <field name="inherit_id" ref="project_forecast.project_forecast_view_pivot"/>
+        <field name="model">planning.slot</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='allocated_percentage']" position="after">
+                <field name="effective_hours" type="measure"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

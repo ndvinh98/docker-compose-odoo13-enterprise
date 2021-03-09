@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_frontend" inherit_id="website.assets_frontend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/website_enterprise/static/src/scss/website_enterprise.scss"/>
+            <script type="text/javascript" src="/website_enterprise/static/src/js/website_enterprise.js"></script>
+        </xpath>
+    </template>
+
+    <template id="user_navbar" inherit_id="website.user_navbar">
+        <xpath expr="//ul['id=oe_applications']" position="replace">
+            <a href="#" class="fa fa-th o_menu_toggle" title="Applications" aria-label="Applications"/>
+        </xpath>
+        <xpath expr="//ul[hasclass('o_menu_sections')]" position="before">
+            <div class="o_menu_brand">Website</div>
+        </xpath>
+    </template>
+
+    <template id="user_navbar_inherit_website_enterprise" inherit_id="website.user_navbar">
+        <xpath expr="//div[@id='o_new_content_menu_choices']//div[@name='module_website_livechat']" position="after">
+            <div groups="base.group_system" name="module_website_calendar" t-att-data-module-id="env.ref('base.module_website_calendar').id" t-att-data-module-shortdesc="env.ref('base.module_website_calendar').shortdesc" class="col-md-4 mb8 o_new_content_element">
+                <a href="#" data-action="new_appointment">
+                    <i class="fa fa-calendar"/>
+                    <p>New Appointment Type</p>
+                </a>
+            </div>
+        </xpath>
+    </template>
+</odoo>

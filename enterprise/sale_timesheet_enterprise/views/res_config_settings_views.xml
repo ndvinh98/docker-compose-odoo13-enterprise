@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale.timesheet.enterprise</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="hr_timesheet.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='timesheet_billing']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_left_pane"/>
+                    <div class="o_setting_right_pane">
+                        <span class="o_form_label">Invoicing Policy</span>
+                        <div class="text-muted">
+                            Record time spent and invoice it based on:
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field name="invoiced_timesheet" class="o_light_label" widget="radio"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+            <xpath expr="//div[@id='timesheets']/div" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <strong>Round timesheets</strong>
+                        <div class="o_row w-30">
+                            <span class="o_light_label"><label for="timesheet_min_duration"/><field name="timesheet_min_duration" class="col-lg-2"/> minutes</span>
+                        </div>
+                        <div class="o_row">
+                            <span class="o_light_label"><label for="timesheet_rounding"/><field name="timesheet_rounding" class="col-lg-2"/> minutes</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-12 col-lg-6 o_setting_box">
+
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

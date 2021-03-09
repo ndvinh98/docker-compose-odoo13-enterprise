@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="click_to_dial_field" model="ir.ui.view">
+        <field name="name">res.partner.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field eval="20" name="priority"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='phone']" position="after">
+                <field name="sanitized_phone" invisible="1"/>
+                <field name="sanitized_mobile" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="action_add_to_call_queue" model="ir.actions.server">
+      <field name="name">Add to call queue</field>
+      <field name="type">ir.actions.server</field>
+      <field name="state">code</field>
+      <field name="model_id" ref="model_res_partner" />
+      <field name="binding_model_id" ref="model_res_partner"/>
+      <field name="code">
+        records.create_call_in_queue()
+      </field>
+    </record>
+</odoo>

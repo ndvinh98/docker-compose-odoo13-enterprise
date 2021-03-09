@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <template id="linkedin_preview" t-name="LinkedIn Preview">
+        <div class="o_social_preview o_social_linkedin_preview bg-200 px-4 py-5 border rounded">
+            <div class="shadow-sm bg-white px-3 py-4 overflow-hidden border rounded">
+                <div class="o_social_preview_header d-flex align-content-between my-3">
+                    <span class="o_social_preview_icon_wrapper overflow-hidden mr-2">
+                        <i class="fa fa-linkedin text-white fa-2x"/>
+                    </span>
+                    <div class="o_social_preview_author">
+                        <div><b>LinkedIn Post</b></div>
+                        <small class="text-secondary" t-esc="published_date"></small>
+                    </div>
+                </div>
+                <div class="o_social_preview_message">
+                    <div t-esc="message"></div>
+                </div>
+                <div class="o_social_stream_post_image d-flex mx-n3 overflow-hidden">
+                    <t t-foreach="images" t-as="image">
+                        <a t-if="image_index == 1 and len(images) > 2" class="o_social_stream_post_image_more position-relative d-flex ml-1">
+                            <img t-attf-src="data:image/png;base64, #{image}" alt="Post Image" />
+                            <div class="o_social_stream_post_image_more_overlay d-flex align-items-center h-100 w-100 text-white justify-content-center position-absolute h1 m-0" style="user-select: none;">
+                                +<t t-esc="len(images) - 2"/>
+                            </div>
+                        </a>
+                        <img t-elif="image_index &lt; 2" t-attf-src="data:image/png;base64, #{image}" alt="Post Image"  />
+                    </t>
+                </div>
+            </div>
+        </div>
+    </template>
+</data>
+</odoo>

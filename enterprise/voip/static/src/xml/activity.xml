@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-extend="mail.activity_items">
+        <t t-jquery=".o_thread_message .o_mail_info" t-operation="after">
+            <div t-if="activity.phone">
+                <a
+                    class="o_activity_voip_call"
+                    href="#"
+                    t-att-data-activity-id="activity.id">
+                    <t t-esc="activity.phone"/>
+                </a>
+            </div>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,3662 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_subscription
+# 
+# Translators:
+# Akram Alfusayal <akram_ma@hotmail.com>, 2019
+# Mohammed Albasha <m.albasha.ma@gmail.com>, 2019
+# Ghaith Gammar <g.gammar@saharaifs.net>, 2019
+# Zuhair Hammadi <zuhair12@gmail.com>, 2019
+# Sadig Adam <sadig41@gmail.com>, 2019
+# nle_odoo, 2019
+# Mohammed Ibrahim <m.ibrahim@mussder.com>, 2019
+# amal ahmed <amalalhashemy88@hotmail.com>, 2019
+# Yihya Hugirat <hugirat@gmail.com>, 2019
+# amrnegm <amrnegm.01@gmail.com>, 2019
+# Ali zuaby <ali@zuaby.net>, 2019
+# Osama Ahmaro <osamaahmaro@gmail.com>, 2019
+# Mostafa Hanafy <mostafa.s.hanafy@gmail.com>, 2019
+# Abdulmajeed Alomar <majeeed87@gmail.com>, 2019
+# Nisrine Tagri <nta@odoo.com>, 2019
+# hoxhe Aits <hoxhe0@gmail.com>, 2019
+# Osoul <baruni@osoul.ly>, 2019
+# Shaima Safar <shaima.safar@open-inside.com>, 2019
+# Mustafa Rawi <mustafa@cubexco.com>, 2019
+# Martin Trigaux, 2019
+# ADADI REDOUANE <odadi332014@gmail.com>, 2019
+# Tasneem Sarhan <tsa@odoo.com>, 2020
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-12-05 12:37+0000\n"
+"PO-Revision-Date: 2019-08-26 09:38+0000\n"
+"Last-Translator: Tasneem Sarhan <tsa@odoo.com>, 2020\n"
+"Language-Team: Arabic (https://www.transifex.com/odoo/teams/41243/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. module: sale_subscription
+#: model:sale.subscription.template,description:sale_subscription.yearly_subscription
+msgid ""
+"\n"
+"                Payment\n"
+"                All payments are due upon receipt. If a payment is not received or payment method is declined, the buyer forfeits the ownership of any service purchased.\n"
+"    \n"
+"                Refund Policy\n"
+"                Services are entitled to be refunded based on complaint. If a service is unsatisfactory, a written explanation is needed before the service may be considered for a refund. Buyer must take into account the description of the service before requesting a refund. If the services matches the description by the seller and the buyer is unsatisfied, seller is not responsible for refund.\n"
+"    \n"
+"                Cancellation\n"
+"                A service may be cancelled up until payment has been processed. Once payment has been processed, the buyer is responsible for payment.\n"
+"    \n"
+"                Complaints\n"
+"                Any complaints about services or sellers may be sent to our support team: support@wesellyourstuff.com or (888) 555-0198. There is no guarantee of a resolution. Each case will be looked at individually, and the seller will be in contact as well.\n"
+"            "
+msgstr ""
+
+#. module: sale_subscription
+#: model:sale.subscription.template,description:sale_subscription.monthly_subscription
+msgid ""
+"\n"
+"                Payment\n"
+"                All payments are due upon receipt. If a payment is not received or payment method is declined, the buyer forfeits the ownership of any service purchased.\n"
+"        \n"
+"                Refund Policy\n"
+"                Services are entitled to be refunded based on complaint. If a service is unsatisfactory, a written explanation is needed before the service may be considered for a refund. Buyer must take into account the description of the service before requesting a refund. If the services matches the description by the seller and the buyer is unsatisfied, seller is not responsible for refund.\n"
+"        \n"
+"                Cancellation\n"
+"                A service may be cancelled up until payment has been processed. Once payment has been processed, the buyer is responsible for payment.\n"
+"        \n"
+"                Complaints\n"
+"                Any complaints about services or sellers may be sent to our support team: support@wesellyourstuff.com or (888) 555-0198. There is no guarantee of a resolution. Each case will be looked at individually, and the seller will be in contact as well.\n"
+"            "
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid " E-mail sent to customer."
+msgstr ""
+
+#. module: sale_subscription
+#: model:mail.template,subject:sale_subscription.mail_template_subscription_invoice
+msgid "${object.company_id.name} Invoice (Ref ${object.name or 'n/a'})"
+msgstr ""
+"$ {object.company_id.name} الفاتورة (المرجع $ {object.name أو 'n / a'}"
+
+#. module: sale_subscription
+#: model:sms.template,body:sale_subscription.sms_template_data_payment_failure
+msgid ""
+"${object.company_id.name}: Our final attempt to process a payment for your "
+"subscription failed. As your payment should have been made on "
+"${object.recurring_next_date}, your subscription has been terminated."
+msgstr ""
+
+#. module: sale_subscription
+#: model:mail.template,subject:sale_subscription.mail_template_subscription_alert
+msgid ""
+"${object.company_id.name}: Please check the subscription ${object.name}"
+msgstr "${object.company_id.name}: برجاء مراجعة الاشتراك ${object.name}"
+
+#. module: sale_subscription
+#: model:mail.template,subject:sale_subscription.mail_template_subscription_rating
+msgid "${object.company_id.name}: Service Rating Request"
+msgstr "${object.company_id.name}: طلب تقييم الخدمة"
+
+#. module: sale_subscription
+#: model:sms.template,body:sale_subscription.sms_template_data_payment_reminder
+msgid ""
+"${object.company_id.name}: We were unable to process a payment for your "
+"subscription. Your subscription ${object.name} is still valid but will be "
+"suspended on ${object.recurring_next_date} unless the payment succeeds in "
+"the meantime."
+msgstr ""
+
+#. module: sale_subscription
+#: model:sms.template,body:sale_subscription.sms_template_data_default_alert
+msgid ""
+"${object.company_id.name}: Your subscription ${object.name} needs your "
+"attention. If you have some concerns about it, please contact "
+"${object.user_id.name}, your contact person."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__percentage_satisfaction
+msgid "% Happy"
+msgstr "% سعيد"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_kanban
+msgid "&amp;nbsp;"
+msgstr "&amp;nbsp;"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "&amp;times;"
+msgstr "&amp;times;"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "(Not in"
+msgstr "(ليس في"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "(Wrong address?)"
+msgstr "(عنوان خاطئ؟)"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__mrr_change_period__1month
+msgid "1 Month"
+msgstr "شهر واحد"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__mrr_change_period__3months
+msgid "3 Months"
+msgstr "3 أشهر"
+
+#. module: sale_subscription
+#: model:mail.template,body_html:sale_subscription.mail_template_subscription_alert
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<div style=\"background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;\">\n"
+"                <table style=\"width:600px;margin:5px auto;\">\n"
+"                    <tbody>\n"
+"                        <tr><td>\n"
+"                            <a href=\"/\"><img src=\"/web/binary/company_logo\" style=\"vertical-align:baseline;max-width:100px;\"/></a>\n"
+"                        </td><td style=\"text-align:right;vertical-align:middle;\">\n"
+"                                Subscription Feedback\n"
+"                        </td></tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"                <table style=\"width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;\">\n"
+"                    <tbody>\n"
+"                        <tr><td style=\"padding:15px 20px 10px 20px;\">\n"
+"                            <p>Dear ${object.partner_id.name},</p>\n"
+"                            <p>Your subscription <strong>${object.name}</strong> needs your attention.</p>\n"
+"                            <p>If you have some concerns about it, please contact your contact person ${object.user_id.name} or reply to this email.</p>\n"
+"                            <p>Kind regards.</p>\n"
+"                        </td></tr>\n"
+"                        <tr><td style=\"padding:15px 20px 10px 20px;\">${(object.user_id.signature or '')| safe}</td></tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: sale_subscription
+#: model:mail.template,body_html:sale_subscription.mail_template_subscription_invoice
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<div style=\"background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;\">\n"
+"                <table style=\"width:600px;margin:5px auto;\">\n"
+"                    <tbody>\n"
+"                        <tr><td>\n"
+"                            <a href=\"/\"><img src=\"/web/binary/company_logo\" style=\"vertical-align:baseline;max-width:100px;\"/></a>\n"
+"                        </td><td style=\"text-align:right;vertical-align:middle;\">\n"
+"                                Subscription Invoice\n"
+"                        </td></tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"                <table style=\"width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;\">\n"
+"                    <tbody>\n"
+"                        <tr><td style=\"padding:15px 20px 10px 20px;\">\n"
+"                            <p>Dear ${object.partner_id.name}\n"
+"                                % if object.partner_id.parent_id:\n"
+"                                    (${object.partner_id.parent_id.name})\n"
+"                                % endif\n"
+"                            </p>\n"
+"                            <p>\n"
+"                                Here is, in attachment, your\n"
+"                                % if object.name:\n"
+"                                    invoice <strong>${object.name}</strong>\n"
+"                                % else:\n"
+"                                    invoice\n"
+"                                %endif\n"
+"                                % if object.invoice_origin:\n"
+"                                    (with reference: ${object.invoice_origin} )\n"
+"                                % endif\n"
+"                                amounting in <strong>${format_amount(object.amount_total, object.currency_id)}</strong>\n"
+"                                from ${object.company_id.name}.\n"
+"                                % if object.invoice_payment_state == 'paid':\n"
+"                                    This invoice is already paid.\n"
+"                                % else:\n"
+"                                    Please remit payment at your earliest convenience.\n"
+"                                % endif\n"
+"                            </p>\n"
+"                            <p>Do not hesitate to contact us if you have any questions.</p>\n"
+"                        </td></tr>\n"
+"                        <tr><td style=\"padding:15px 20px 10px 20px;\">${(object.invoice_user_id.signature or '')| safe}</td></tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: sale_subscription
+#: model:mail.template,body_html:sale_subscription.mail_template_subscription_rating
+msgid ""
+"<?xml version=\"1.0\"?>\n"
+"<div style=\"background:#F0F0F0;color:#515166;padding:10px 0px;font-family:Arial,Helvetica,sans-serif;font-size:14px;\">\n"
+"            % set access_token = object.rating_get_access_token()\n"
+"                <table style=\"width:600px;margin:5px auto;\">\n"
+"                    <tbody>\n"
+"                        <tr><td>\n"
+"                            <a href=\"/\"><img src=\"/web/binary/company_logo\" style=\"vertical-align:baseline;max-width:100px;\"/></a>\n"
+"                        </td><td style=\"text-align:right;vertical-align:middle;\">\n"
+"                                Satisfaction Survey\n"
+"                        </td></tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"                <table style=\"width:600px;margin:0px auto;background:white;border:1px solid #e1e1e1;\">\n"
+"                    <tbody>\n"
+"                        <tr><td style=\"padding:15px 20px 10px 20px;\">\n"
+"                            <p>Hello,</p>\n"
+"                            <p>Please take a moment to rate our services related to your subscription \"<strong>${object.name}</strong>\"\n"
+"                               assigned to <strong>${object.rating_get_rated_partner_id().name}</strong>.</p>\n"
+"                            <p>We appreciate your feedback. It helps us to improve continuously.</p>\n"
+"                        </td></tr>\n"
+"                        <tr><td style=\"padding:10px 20px\">\n"
+"                            <table summary=\"o_mail_notification\" style=\"width:100%;border-top:1px solid #e1e1e1;\">\n"
+"                                <tr>\n"
+"                                    <td style=\"text-align:center;\">\n"
+"                                        <h2 style=\"font-weight:300;font-size:18px;\">\n"
+"                                            Tell us how you feel about our services:\n"
+"                                        </h2>\n"
+"                                        <div style=\"text-color: #888888\">(click on one of these smileys)</div>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                                <tr>\n"
+"                                    <td style=\"padding:10px 10px;\">\n"
+"                                        <table style=\"width:100%;text-align:center;\">\n"
+"                                            <tr>\n"
+"                                                <td>\n"
+"                                                    <a href=\"/rating/${access_token}/10\">\n"
+"                                                        <img alt=\"Satisfied\" src=\"/rating/static/src/img/rating_10.png\" title=\"Satisfied\"/>\n"
+"                                                    </a>\n"
+"                                                </td>\n"
+"                                                <td>\n"
+"                                                    <a href=\"/rating/${access_token}/5\">\n"
+"                                                        <img alt=\"Not satisfied\" src=\"/rating/static/src/img/rating_5.png\" title=\"Not satisfied\"/>\n"
+"                                                    </a>\n"
+"                                                </td>\n"
+"                                                <td>\n"
+"                                                    <a href=\"/rating/${access_token}/1\">\n"
+"                                                        <img alt=\"Highly Dissatisfied\" src=\"/rating/static/src/img/rating_1.png\" title=\"Highly Dissatisfied\"/>\n"
+"                                                    </a>\n"
+"                                                </td>\n"
+"                                            </tr>\n"
+"                                        </table>\n"
+"                                    </td>\n"
+"                                </tr>\n"
+"                            </table>\n"
+"                        </td></tr>\n"
+"                        <tr><td style=\"padding:15px 20px 10px 20px;\">${(object.user_id.signature or '')| safe}</td></tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"                <table style=\"width:600px;margin:auto;text-align:center;font-size:12px;\">\n"
+"                    <tbody>\n"
+"                        <tr><td style=\"padding-top:10px;color:#afafaf;\">\n"
+"                            <p>Email automatically sent by <a target=\"_blank\" href=\"https://www.odoo.com/page/subscriptions\" style=\"color:#875A7B;text-decoration:none;\">Odoo Subscription</a> for <a href=\"${object.company_id.website}\" style=\"color:#875A7B;text-decoration:none;\">${object.company_id.name}</a></p>\n"
+"                        </td></tr>\n"
+"                    </tbody>\n"
+"                </table>\n"
+"            </div>\n"
+"        "
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid ""
+"<abbr title=\"You need to be logged in as this subscription's customer to "
+"change country\">Taxes</abbr>:<br/>"
+msgstr ""
+"<abbr title=\"يجب عليك تسجيل دخولك بصفتك العميل صاحب هذا الاشتراك لتتمكن من "
+"تغيير الدولة\">الضرائب</abbr>:<br/>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_kanban
+msgid "<i class=\"fa fa-check\"/> Closable by customer"
+msgstr "<i class=\"fa fa-check\"/> يمكن للعميل إغلاقه"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "<i class=\"fa fa-comment\"/> Send message"
+msgstr "<i class=\"fa fa-comment\"/> إرسال رسالة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_kanban
+msgid "<i class=\"fa fa-ellipsis-v\" role=\"img\" aria-label=\"Manage\" title=\"Manage\"/>"
+msgstr "<i class=\"fa fa-ellipsis-v\" role=\"img\" aria-label=\"إدارة\" title=\"إدارة\"/>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "<i class=\"fa fa-fw fa-check\"/> In Progress"
+msgstr "<i class=\"fa fa-fw fa-check\"/> قيد التنفيذ"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "<i class=\"fa fa-fw fa-refresh\"/> To Renew"
+msgstr "<i class=\"fa fa-fw fa-refresh\"/> مطلوب تجديده"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "<i class=\"fa fa-fw fa-remove\"/> Closed"
+msgstr "<i class=\"fa fa-fw fa-refresh\"/> مغلق"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "<small class=\"text-muted\">Subscription -</small>"
+msgstr "<small class=\"text-muted\">الاشتراك -</small>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
+msgid ""
+"<span class=\"badge badge-pill badge-danger\"><i class=\"fa fa-fw fa-"
+"remove\"/> Closed</span>"
+msgstr ""
+"<span class=\"badge badge-pill badge-danger\"><i class=\"fa fa-fw fa-"
+"remove\"/> مغلق</span>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
+msgid ""
+"<span class=\"badge badge-pill badge-success\"><i class=\"fa fa-fw fa-"
+"check\"/> In Progress</span>"
+msgstr ""
+"<span class=\"badge badge-pill badge-success\"><i class=\"fa fa-fw fa-"
+"check\"/> قيد التنفيذ</span>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
+msgid ""
+"<span class=\"badge badge-pill badge-warning\"><i class=\"fa fa-fw fa-"
+"refresh\"/> To Renew</span>"
+msgstr ""
+"<span class=\"badge badge-pill badge-warning\"><i class=\"fa fa-fw fa-"
+"refresh\"/> مطلوب تجديده</span>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "<span class=\"ml-1\">days</span>"
+msgstr "<span class=\"ml-1\">أيام</span>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "<span class=\"mr-1\">Every</span>"
+msgstr "<span class=\"mr-1\">كل</span>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "<span class=\"mr-1\">For</span>"
+msgstr "<span class=\"mr-1\">لمدة</span>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "<span class=\"mr-1\">period(s)</span>"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid ""
+"<span class=\"o_stat_text\">Customer</span>\n"
+"                                <span class=\"o_stat_text\">Preview</span>"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_kanban
+msgid "<span>Subscriptions</span>"
+msgstr "<span>الاشتراكات</span>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "<strong class=\"text-muted\">Subscription Manager:</strong>"
+msgstr "<strong class=\"text-muted\">مدير الاشتراك:</strong>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "<strong> and </strong>"
+msgstr "<strong> و</strong>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "<strong>Next Billing Amount:</strong><br/>"
+msgstr "<strong>قيمة الفاتورة التالية:</strong><br/>"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "<strong>to</strong>"
+msgstr "<strong>إلى</strong>"
+
+#. module: sale_subscription
+#: model:mail.template,body_html:sale_subscription.email_payment_success
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    % set company = object.company_id or object.invoice_user_id.company_id or user.company_id\n"
+"                    <span style=\"font-size: 10px;\">Your Subscription</span><br/>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\">${ctx.get('code') or 'Document'}</span>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"right\">\n"
+"                    <img src=\"/logo.png?company=${company.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${company.name}\"/>\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    Dear ${object.partner_id.name},<br/><br/>\n"
+"                    Your Subscription (${ctx.get('code')}) has just been renewed\n"
+"                    %if ctx.get('total_amount') and ctx.get('payment_token'):\n"
+"                        via a payment of ${ctx['total_amount']} ${ctx['currency']} charged on ${ctx['payment_token']}.\n"
+"                    %endif\n"
+"                    <br/><br/>\n"
+"                    You will find your invoice attached.\n"
+"                    %if ctx.get('next_date'):\n"
+"                        Your next invoice will be on ${format_date(ctx.get('next_date'))}.\n"
+"                    %endif\n"
+"                    <br/><br/>\n"
+"                    If you have any questions, do not hesitate to contact us.\n"
+"                    <br/><br/>\n"
+"                    Thank you for choosing ${company.name}!\n"
+"                    % if user.signature\n"
+"                        <br/><br/>\n"
+"                        ${user.signature | safe}\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    ${company.name}\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    % if company.phone\n"
+"                        ${company.phone} |\n"
+"                    %endif\n"
+"                    % if company.email\n"
+"                        <a href=\"'mailto:%s' % ${company.email}\" style=\"text-decoration:none; color: #454748;\">${company.email}</a> |\n"
+"                    % endif\n"
+"                    % if company.website\n"
+"                        <a href=\"'%s' % ${company.website}\" style=\"text-decoration:none; color: #454748;\">${company.website}\n"
+"                        </a>\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"        "
+msgstr ""
+
+#. module: sale_subscription
+#: model:mail.template,body_html:sale_subscription.email_payment_close
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    % set company = object.company_id or object.user_id.company_id or user.company_id\n"
+"                    <span style=\"font-size: 10px;\">Your Subscription</span><br/>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\">${object.name}</span>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"right\">\n"
+"                    <img src=\"/logo.png?company=${company.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${company.name}\"/>\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    Hello ${object.partner_id.name},<br/><br/>\n"
+"                    % if ctx.get('payment_token') and ctx.get('total_amount'):\n"
+"                        Our final attempt to process a payment for your subscription using your payment method\n"
+"                        ${ctx['payment_token']}\n"
+"                        for ${ctx['total_amount']} ${ctx.get('currency')} failed.\n"
+"                        % if ctx.get('error'):\n"
+"                            Your bank or credit institution gave the following details about the issue: <pre>${ctx['error']}</pre>.\n"
+"                        %endif\n"
+"                    % else:\n"
+"                        Our final attempt to process a payment for your subscription failed because we have no payment method recorded for you.\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    As your payment should have been made <strong>15 days ago</strong>, your subscription has been terminated.\n"
+"                    Should you wish to resolve this issue, do not hesitate to contact us.<br/><br/>\n"
+"                    Thank you for choosing ${company.name}!\n"
+"                    % if user.signature\n"
+"                        <br/><br/>\n"
+"                        ${user.signature | safe}\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    ${company.name}\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    % if company.phone\n"
+"                        ${company.phone} |\n"
+"                    %endif\n"
+"                    % if company.email\n"
+"                        <a href=\"'mailto:%s' % ${company.email}\" style=\"text-decoration:none; color: #454748;\">${company.email}</a> |\n"
+"                    % endif\n"
+"                    % if company.website\n"
+"                        <a href=\"'%s' % ${company.website}\" style=\"text-decoration:none; color: #454748;\">${company.website}\n"
+"                        </a>\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"        "
+msgstr ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    % set company = object.company_id or object.user_id.company_id or user.company_id\n"
+"                    <span style=\"font-size: 10px;\">اشتراكك</span><br/>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\">${object.name}</span>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"right\">\n"
+"                    <img src=\"/logo.png?company=${company.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${company.name}\"/>\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    مرحبًا ${object.partner_id.name}،<br/><br/>\n"
+"                    % if ctx.get('payment_token') and ctx.get('total_amount'):\n"
+"                        فشلت آخر محاولاتنا لسداد مستحقات اشتراكك بطريقة السداد المحددة لك\n"
+"                        ${ctx['payment_token']}\n"
+"                        لسداد القيمة ${ctx['total_amount']} ${ctx.get('currency')}.\n"
+"                        % if ctx.get('error'):\n"
+"                            وصلتنا التفاصيل التالية عن المشكلة من بنكك أو المؤسسة الائتمانية التابع لها: <pre>${ctx['error']}</pre>.\n"
+"                        %endif\n"
+"                    % else:\n"
+"                        فشلت آخر محاولاتنا لسداد مستحقات اشتراكك لعدم تسجيل طريقة سداد خاصة بك.\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    كان ينبغي سداد هذه المستحقات قبل <strong>15 يوم</strong>، لذا تم إيقاف اشتراكك.\n"
+"                    إذا أردت حل هذه المشكلة، لا تتردد في التواصل معنا.<br/><br/>\n"
+"                    شكرًا على اختيارك ${company.name}!\n"
+"                    % if user.signature\n"
+"                        <br/><br/>\n"
+"                        ${user.signature | safe}\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    ${company.name}\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    % if company.phone\n"
+"                        ${company.phone} |\n"
+"                    %endif\n"
+"                    % if company.email\n"
+"                        <a href=\"'mailto:%s' % ${company.email}\" style=\"text-decoration:none; color: #454748;\">${company.email}</a> |\n"
+"                    % endif\n"
+"                    % if company.website\n"
+"                        <a href=\"'%s' % ${company.website}\" style=\"text-decoration:none; color: #454748;\">${company.website}\n"
+"                        </a>\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        يعمل على <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">أودو</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"        "
+
+#. module: sale_subscription
+#: model:mail.template,body_html:sale_subscription.email_payment_reminder
+msgid ""
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-top: 16px; background-color: #F1F1F1; font-family:Verdana, Arial,sans-serif; color: #454748; width: 100%; border-collapse:separate;\"><tr><td align=\"center\">\n"
+"<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"padding: 16px; background-color: white; color: #454748; border-collapse:separate;\">\n"
+"<tbody>\n"
+"    <!-- HEADER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\">\n"
+"                    % set company = object.company_id or object.user_id.company_id or user.company_id\n"
+"                    <span style=\"font-size: 10px;\">Your Subscription</span><br/>\n"
+"                    <span style=\"font-size: 20px; font-weight: bold;\">${object.name}</span>\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"right\">\n"
+"                    <img src=\"/logo.png?company=${company.id}\" style=\"padding: 0px; margin: 0px; height: auto; width: 80px;\" alt=\"${company.name}\"/>\n"
+"                </td></tr>\n"
+"                <tr><td colspan=\"2\" style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin:16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- CONTENT -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"top\" style=\"font-size: 13px;\">\n"
+"                    Hello ${object.partner_id.name},<br/><br/>\n"
+"                    % if ctx.get('payment_token') and ctx.get('total_amount'):\n"
+"                        We were unable to process a payment for your subscription using your payment method\n"
+"                        ${ctx['payment_token']}\n"
+"                        for ${ctx['total_amount']} ${ctx.get('currency')}.\n"
+"                        % if ctx.get('error'):\n"
+"                            Your bank or credit institution gave the following details about the issue: <pre>${ctx['error']}</pre>.\n"
+"                        %endif\n"
+"                    % else:\n"
+"                        We were unable to process a payment for your subscription because we have no payment method recorded for you.\n"
+"                    % endif\n"
+"                    <br/><br/>\n"
+"                    Your subscription ${ctx.get('code')} is still valid but will be <strong>suspended</strong>\n"
+"                    on ${format_date(ctx.get('date_close'))} unless the payment succeeds in the mean time (we will retry once every day).\n"
+"                    Please double-check that you have sufficient funds.<br/><br/>\n"
+"                    If you have any questions, do not hesitate to contact us.<br/><br/>\n"
+"                    Thank you for choosing ${company.name}!\n"
+"                    % if user.signature:\n"
+"                        <br/><br/>\n"
+"                        ${user.signature | safe}\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"                <tr><td style=\"text-align:center;\">\n"
+"                    <hr width=\"100%\" style=\"background-color:rgb(204,204,204);border:medium none;clear:both;display:block;font-size:0px;min-height:1px;line-height:0; margin: 16px 0px 16px 0px;\"/>\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"    <!-- FOOTER -->\n"
+"    <tr>\n"
+"        <td align=\"center\" style=\"min-width: 590px;\">\n"
+"            <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: white; font-size: 11px; padding: 0px 8px 0px 8px; border-collapse:separate;\">\n"
+"                <tr><td valign=\"middle\" align=\"left\">\n"
+"                    ${company.name}\n"
+"                </td></tr>\n"
+"                <tr><td valign=\"middle\" align=\"left\" style=\"opacity: 0.7;\">\n"
+"                    % if company.phone\n"
+"                        ${company.phone} |\n"
+"                    %endif\n"
+"                    % if company.email\n"
+"                        <a href=\"'mailto:%s' % ${company.email}\" style=\"text-decoration:none; color: #454748;\">${company.email}</a> |\n"
+"                    % endif\n"
+"                    % if company.website\n"
+"                        <a href=\"'%s' % ${company.website}\" style=\"text-decoration:none; color: #454748;\">${company.website}\n"
+"                        </a>\n"
+"                    % endif\n"
+"                </td></tr>\n"
+"            </table>\n"
+"        </td>\n"
+"    </tr>\n"
+"</tbody>\n"
+"</table>\n"
+"</td></tr>\n"
+"<!-- POWERED BY -->\n"
+"<tr><td align=\"center\" style=\"min-width: 590px;\">\n"
+"    <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"590\" style=\"min-width: 590px; background-color: #F1F1F1; color: #454748; padding: 8px; border-collapse:separate;\">\n"
+"      <tr><td style=\"text-align: center; font-size: 13px;\">\n"
+"        Powered by <a target=\"_blank\" href=\"https://www.odoo.com?utm_source=db&amp;utm_medium=mail\" style=\"color: #875A7B;\">Odoo</a>\n"
+"      </td></tr>\n"
+"    </table>\n"
+"</td></tr>\n"
+"</table>\n"
+"        "
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__website_published
+msgid ""
+"A code server action can be executed from the website, using a dedicated "
+"controller. The address is <base>/website/action/<website_path>. Set this "
+"field as True to allow users to run this action. If it is set to False the "
+"action cannot be run through the website."
+msgstr ""
+"يمكن تنفيذ إجراء سيرفر من نوع كود من الموقع، باستخدام متحكم مخصص لهذا. "
+"العنوان هو <base>/website/action/<website_path>. اجعل قيمة هذا الحقل 'صحيح' "
+"للسماح للمستخدمين بتنفيذ هذا الإجراء. إذا كانت قيمته 'خطأ' لا يمكن تنفيذ هذا"
+" الإجراء من خلال الموقع."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__uuid
+msgid "Account UUID"
+msgstr "معرف الحساب الفريد عالميًا"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__journal_id
+msgid "Accounting Journal"
+msgstr "دفتر اليومية المحاسبي"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__action
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "Action"
+msgstr "إجراء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__help
+msgid "Action Description"
+msgstr "وصف الإجراء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__name
+msgid "Action Name"
+msgstr "اسم الإجراء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_needaction
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_needaction
+msgid "Action Needed"
+msgstr "إجراء مطلوب"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__state
+msgid "Action To Do"
+msgstr "إجراء مطلوب"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__type
+msgid "Action Type"
+msgstr "نوع الإجراء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__active
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__active
+msgid "Active"
+msgstr "نشط"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__activity_ids
+msgid "Activities"
+msgstr "الأنشطة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_type_id
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "Activity"
+msgstr "النشاط"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__activity_exception_decoration
+msgid "Activity Exception Decoration"
+msgstr "زخرفة استثناء النشاط"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__activity_state
+msgid "Activity State"
+msgstr "حالة النشاط"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.mail_activity_type_action_config_subscription
+#: model:ir.ui.menu,name:sale_subscription.subscription_menu_config_activity_type
+msgid "Activity Types"
+msgstr "أنواع النشاطات"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_user_type
+msgid "Activity User Type"
+msgstr "نوع مستخدم النشاط"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__channel_ids
+msgid "Add Channels"
+msgstr "إضافة قنوات"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__partner_ids
+msgid "Add Followers"
+msgstr "إضافة متابعين"
+
+#. module: sale_subscription
+#: model:res.groups,name:sale_subscription.group_sale_subscription_manager
+msgid "Administrator"
+msgstr "مدير"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "Alert Name"
+msgstr "اسم التنبيه"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_alert_action
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_alert
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_tree
+msgid "Alerts"
+msgstr "التنبيهات"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/controllers/portal.py:0
+#, python-format
+msgid "All"
+msgstr "الكل"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_account_analytic_account
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__analytic_account_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__analytic_account_id
+msgid "Analytic Account"
+msgstr "الحساب التحليلي"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "Apply On"
+msgstr "يُطبق على"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__filter_domain
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "Apply on"
+msgstr "يُطبق على"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_search
+msgid "Archived"
+msgstr "مؤرشف"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_user
+msgid "Assign To"
+msgstr "تكليف"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_attachment_count
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_attachment_count
+msgid "Attachment Count"
+msgstr "عدد المرفقات"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__automation_id
+msgid "Automated Action"
+msgstr "إجراء تلقائي"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__auto_close_limit
+msgid "Automatic Closing"
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid ""
+"Automatic payment failed after multiple attempts. Subscription closed "
+"automatically."
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "Automatic payment failed. Subscription set to \"To Renew\"."
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid ""
+"Automatic payment succeeded. Payment reference: <a href=# data-oe-"
+"model=payment.transaction data-oe-id=%d>%s</a>; Amount: %s. Invoice <a "
+"href=# data-oe-model=account.move data-oe-id=%d>View Invoice</a>."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__website_published
+msgid "Available on the Website"
+msgstr "متوفر في الموقع"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription__health__bad
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__health__bad
+msgid "Bad"
+msgstr "سيئ"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__bad_health_domain
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Bad Health"
+msgstr "صحة سيئة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__filter_pre_domain
+msgid "Before Update Domain"
+msgstr "نطاق ما قبل التحديث"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__binding_model_id
+msgid "Binding Model"
+msgstr "كائن الربط"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__binding_type
+msgid "Binding Type"
+msgstr "نوع الربط"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__binding_view_types
+msgid "Binding View Types"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__percentage_satisfaction
+msgid ""
+"Calculate the ratio between the number of the best ('great') ratings and the"
+" total number of ratings"
+msgstr ""
+"احتساب النسبة بين عدد أفضل التقييمات (التقييم 'عظيم') وإجمالي عدد التقييمات"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.wizard_form_view
+msgid "Cancel"
+msgstr "إلغاء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__product_uom_category_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__product_uom_category_id
+msgid "Category"
+msgstr "فئة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Change Payment Method"
+msgstr "تغيير طريقة السداد"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Change plan"
+msgstr "تغيير الخطة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__child_ids
+msgid "Child Actions"
+msgstr "إجراءات تابعة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__child_ids
+msgid ""
+"Child server actions that will be executed. Note that the last return "
+"returned action value will be used as global return value."
+msgstr ""
+"إجراءات السيرفر التابعة التي سيتم تنفيذها. لاحظ أن القيمة المُعادة من إجراء "
+"الإعادة الأخير ستستخدم كقيمة معادة عمومية."
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Choose Payment Method"
+msgstr ""
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Choose a product name.<br/><i>(e.g. eLearning Access)</i>"
+msgstr "اختر اسم المنتج.<br/><i>(مثلًا: الوصول للتعلّم الإلكتروني)</i>"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid ""
+"Choose the recurrence for this template.<br/><i>(e.g. 1 time per Year)</i>"
+msgstr "حدد معدل تكرار هذا القالب.<br/><i>(مثلًا: مرة في العام)</i>"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Click here to create <b>your first subscription template</b>"
+msgstr "اضغط هنا<b>لإنشاء قالب الاشتراك الأول لك</b>"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__user_closable
+msgid "Closable by Customer"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Close"
+msgstr "إغلاق"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_close_reason_wizard_action
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__close_reason_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason_wizard__close_reason_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__close_reason_id
+msgid "Close Reason"
+msgstr "سبب الإغلاق"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_close_reason_action
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_close_reason_action
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_tree
+msgid "Close Reasons"
+msgstr "أسباب الإغلاق"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Close Subscription"
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/controllers/portal.py:0
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+#: model:sale.subscription.stage,name:sale_subscription.sale_subscription_stage_closed
+#, python-format
+msgid "Closed"
+msgstr "مغلق"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Closed subscriptions"
+msgstr "الاشتراكات المغلقة"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/controllers/portal.py:0
+#, python-format
+msgid "Closing text : "
+msgstr "نص الإغلاق: "
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__code
+msgid "Code"
+msgstr "الكود"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__color
+msgid "Color"
+msgstr "اللون"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__on_change_fields
+msgid "Comma-separated list of field names that triggers the onchange."
+msgstr "قائمة أسماء الحقل التي تفعل التغيير مفصولة بفواصل."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__company_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__company_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__company_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__company_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__company_id
+msgid "Company"
+msgstr "الشركة"
+
+#. module: sale_subscription
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_config
+msgid "Configuration"
+msgstr "إعداد"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Configure your subscription templates here"
+msgstr "قم بإعداد قوالب اشتراكك من هنا"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Confirm"
+msgstr "تأكيد"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_res_partner
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Contact"
+msgstr "جهة الاتصال"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_line__product_uom_category_id
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_wizard_option__product_uom_category_id
+msgid ""
+"Conversion between Units of Measure can only occur if they belong to the "
+"same category. The conversion will be made based on the ratios."
+msgstr ""
+"لا يمكن التحويل بين وحدات القياس إلا إذا كانت تنتمي لنفس الفئة. سيتم إجراء "
+"التحويل بناءً على النسب."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__country_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__country_id
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Country"
+msgstr "الدولة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.wizard_form_view
+msgid "Create & View Quotation"
+msgstr "إنشاء عرض السعر وعرضه"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "Create Invoice"
+msgstr "إنشاء فاتورة"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.product_action_subscription
+msgid "Create a new product"
+msgstr "إنشاء منتج جديد"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
+msgid "Create a new subscription"
+msgstr "إنشاء اشتراك جديد"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_alert_action
+msgid "Create a new subscription alert"
+msgstr "إنشاء تنبيه عرض سعر جديد"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_stage_action
+msgid "Create a new subscription stage"
+msgstr "إنشاء مرحلة اشتراك جديدة"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_template_action
+msgid "Create a new template of subscription"
+msgstr "إنشاء قالب اشتراك جديد"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.wizard_form_view
+msgid ""
+"Create a quotation with new products and send it to the customer for approval.\n"
+"                    When the quotation is confirmed, the products will be added to the subscription.\n"
+"                    Quotation prices will be prorated to the remaining time of the current invoicing period."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__action__next_activity
+msgid "Create next activity"
+msgstr "إنشاء نشاط تالي"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action
+msgid ""
+"Create subscriptions to manage recurring invoicing &amp; payments. Subscriptions can\n"
+"                be time-bounded or not. In case of a limited period, they are flagged as to be renewed\n"
+"                one month from the end date."
+msgstr ""
+"أنشئ الاشتراكات لإدارة الفواتير والمدفوعات المتكررة. يمكن أن تكون الاشتراكات\n"
+"                محددة الفترة الزمنية أو غير محددة. في حال الفترات المحدودة، تعتبر في انتظار التجديد\n"
+"                بعد شهر من تاريخ الانتهاء."
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Create your first subscription product here"
+msgstr "أنشئ أولى منتجات اشتراكك من هنا"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__crud_model_id
+msgid "Create/Write Target Model"
+msgstr "إنشاء/كتابة الكائن المستهدف"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__create_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__create_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason__create_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason_wizard__create_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__create_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot__create_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__create_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__create_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard__create_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__create_uid
+msgid "Created by"
+msgstr "أنشئ بواسطة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__create_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__create_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason__create_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason_wizard__create_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__create_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot__create_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__create_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__create_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard__create_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__create_date
+msgid "Created on"
+msgstr "أنشئ في"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_management__create
+msgid "Creation"
+msgstr "إنشاء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_order__subscription_management
+msgid ""
+"Creation: The Sales Order created the subscription\n"
+"Upselling: The Sales Order added lines to the subscription\n"
+"Renewal: The Sales Order replaced the subscription's content with its own"
+msgstr ""
+"الإنشاء: أمر المبيعات أنشئ الاشتراك\n"
+"إعادة البيع: أمر المبيعات أضاف بنودًا للاشتراك\n"
+"التجديد: أمر المبيعات استبدل محتوى الاشتراك بمحتواه"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__currency_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__currency_id
+msgid "Currency"
+msgstr "العملة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Current Plan:"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__partner_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__partner_id
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Customer"
+msgstr "العميل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__commercial_partner_id
+msgid "Customer Company"
+msgstr "مؤسسة العميل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__customer_ids
+msgid "Customers"
+msgstr "العملاء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot__date
+msgid "Date"
+msgstr "التاريخ"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_next_date
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "Date of Next Invoice"
+msgstr "تاريخ الفاتورة القادمة"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__recurring_rule_type__daily
+msgid "Days"
+msgstr "الأيام"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_pending
+msgid "Define a new subscription"
+msgstr "تعريف اشتراك جديد"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "Delay After Trigger"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__trg_date_range
+msgid ""
+"Delay after the trigger date.\n"
+"                                    You can put a negative number if you need a delay before the\n"
+"                                    trigger date, like sending a reminder 15 minutes before a meeting."
+msgstr ""
+"المهلة بعد تاريخ التفعيل\n"
+"                                    يمكنك وضع قيمة سالبة إذا أردت أن تكون المهلة قبل\n"
+"                                    تاريخ التفعيل، مثل إرسال تذكير قبل 15 دقيقة من بداية اجتماع."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__trg_date_range
+msgid "Delay after trigger date"
+msgstr "المهلة بعد تاريخ التفعيل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__trg_date_range_type
+msgid "Delay type"
+msgstr "نوع المهلة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__description
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__name
+msgid "Description"
+msgstr "الوصف"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "Disc.%"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__discount
+msgid "Discount (%)"
+msgstr "الخصم (%)"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid ""
+"Discount computation failed because the upsell date is not between the next "
+"invoice date and the computed last invoice date. Defaulting to NO Discount "
+"policy."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason_wizard__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard__display_name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__display_name
+msgid "Display Name"
+msgstr "الاسم المعروض"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__bad_health_domain
+msgid "Domain used to change subscription's Kanban state with a 'Bad' rating"
+msgstr ""
+"النطاق المستخدم لتغيير حالة الاشتراك الحاصل على تقييم سيئ في وضع كانبان"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__good_health_domain
+msgid "Domain used to change subscription's Kanban state with a 'Good' rating"
+msgstr ""
+"النطاق المستخدم لتغيير حالة الاشتراك الحاصل على تقييم جيد في وضع كانبان"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__payment_mode__draft_invoice
+#: model:sale.subscription.stage,name:sale_subscription.sale_subscription_stage_draft
+msgid "Draft"
+msgstr "مسودة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_date_deadline_range
+msgid "Due Date In"
+msgstr "تاريخ الاستحقاق في"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_date_deadline_range_type
+msgid "Due type"
+msgstr "نوع الاستحقاق"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_rule_boundary
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__recurring_rule_boundary
+msgid "Duration"
+msgstr "المدة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__template_id
+msgid "Email Template"
+msgstr "قالب البريد الإلكتروني"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__recurring_rule_count
+msgid "End After"
+msgstr "تنتهي بعد"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__date_end
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "End Date"
+msgstr "تاريخ الانتهاء"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Enter a name for this template.<br/><i>(e.g. eLearning Yearly)</i>"
+msgstr "أدخل اسمًا لهذا القالب.<br/><i>(مثلًا: التعلّم الإلكتروني سنويًا)</i>"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_stage__description
+msgid ""
+"Enter here the internal requirements for this stage. It will appear as a "
+"tooltip over the stage's name."
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+msgid "Expired"
+msgstr "منتهي الصلاحية"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__xml_id
+msgid "External ID"
+msgstr "معرف خارجي"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__recurring_rule_boundary__limited
+msgid "Fixed"
+msgstr "ثابت"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__fold
+msgid "Folded in Kanban"
+msgstr "مطوي في عرض كانبان"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_follower_ids
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_follower_ids
+msgid "Followers"
+msgstr "المتابعون"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_channel_ids
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_channel_ids
+msgid "Followers (Channels)"
+msgstr "المتابعون (القنوات)"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_partner_ids
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_partner_ids
+msgid "Followers (Partners)"
+msgstr "المتابعون (الشركاء)"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__recurring_rule_boundary__unlimited
+msgid "Forever"
+msgstr "للأبد"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Future Activities"
+msgstr "الأنشطة المستقبلية"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "Generate Invoice"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_stage_view_form
+msgid "Give your team the requirements to move a subscription to this stage."
+msgstr ""
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Go ahead and create a new product"
+msgstr "هيا، أنشئ منتجًا جديدًا"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription__health__done
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__health__done
+msgid "Good"
+msgstr "جيد"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__good_health_domain
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Good Health"
+msgstr "صحة جيدة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Group By"
+msgstr "تجميع حسب"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "Group of Subscription"
+msgstr "مجموعة الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__groups_id
+msgid "Groups"
+msgstr "المجموعات"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
+msgid "Happy face"
+msgstr "وجه سعيد"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__health
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__health
+msgid "Health"
+msgstr "صحة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "Health Check"
+msgstr "فحص الصحة"
+
+#. module: sale_subscription
+#: model:ir.module.category,description:sale_subscription.module_category_subscription_management
+msgid "Helps you handle subscriptions and recurring invoicing."
+msgstr "يساعدك على التعامل مع الاشتراكات والفواتير المتكررة."
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "History"
+msgstr "السجل"
+
+#. module: sale_subscription
+#: model:sale.subscription.close.reason,name:sale_subscription.close_reason_4
+msgid "I don't use it"
+msgstr "لا أستخدمه"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason_wizard__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard__id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__id
+msgid "ID"
+msgstr "المُعرف"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__xml_id
+msgid "ID of the action if defined in a XML file"
+msgstr "معرف الإجراء إن كان معرفًا في ملف XML"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__activity_exception_icon
+msgid "Icon"
+msgstr "الأيقونة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__activity_exception_icon
+msgid "Icon to indicate an exception activity."
+msgstr "الأيقونة للإشارة إلى استثناء النشاط"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__message_needaction
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__message_unread
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__message_needaction
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__message_unread
+msgid "If checked, new messages require your attention."
+msgstr "إذا كان محددًا، فهناك رسائل جديدة تحتاج لرؤيتها."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__message_has_error
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__message_has_sms_error
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__message_has_error
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr "إذا كان محددًا، فقد حدث خطأ في تسليم بعض الرسائل."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__user_closable
+msgid ""
+"If checked, the user will be able to close his account from the frontend"
+msgstr "إذا كان محددًا، سيتمكن المستخدم من إغلاق حسابه من الواجهة الأمامية"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__payment_token_id
+msgid "If not set, the default payment token of the partner will be used."
+msgstr ""
+"في حال عدم تعيينه، سيستخدم رمز المدفوعات السري الافتراضي الخاص بالشريك."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__filter_domain
+msgid ""
+"If present, this condition must be satisfied before executing the action "
+"rule."
+msgstr "إذا كان موجودًا، يتوجب استيفاء هذا الشرط قبل تنفيذ قاعدة الإجراء."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__filter_pre_domain
+msgid ""
+"If present, this condition must be satisfied before the update of the "
+"record."
+msgstr "إذا كان موجودًا، فسيتوجب استيفاء هذا الشرط قبل تحديث السجل."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__date
+msgid ""
+"If set in advance, the subscription will be set to renew 1 month before the "
+"date and will be closed on the date set in this field."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_product_product__recurring_invoice
+#: model:ir.model.fields,help:sale_subscription.field_product_template__recurring_invoice
+msgid ""
+"If set, confirming a sale order with this product will create a subscription"
+msgstr "إذا كان معينًا، سيتم إنشاء اشتراك عند تأكيد أمر بيع لهذا المنتج"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__journal_id
+msgid ""
+"If set, subscriptions with this template will invoice in this journal; "
+"otherwise the sales journal with the lowest sequence is used."
+msgstr ""
+"إذا كان معينًا، ستصدر فواتير الاشتراكات التي تستعمل هذا القالب في دفتر "
+"اليومية هذا؛ وإلا سيستخدم دفتر يومية المبيعات الأقل في التسلسل."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__auto_close_limit
+msgid ""
+"If the chosen payment method has failed to renew the subscription after this"
+" time, the subscription is automatically closed."
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid ""
+"If you confirm, your subscription will be closed right away. Your current "
+"invoicing period is valid until"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "If you wish to reopen it, the"
+msgstr "إذا أردت إعادة فتحه، يمكنك"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid ""
+"If you wish to reopen it, you can pay your invoice for the current invoicing"
+" period."
+msgstr ""
+"إذا أردت إعادة فتحه، يمكنك سداد قيمة فاتورة فترة تحرير الفواتير الحالية."
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_kanban
+msgid "In #{kanban_getcolorname(record.color.raw_value)}"
+msgstr "في #{kanban_getcolorname(record.color.raw_value)}"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/controllers/portal.py:0
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__in_progress
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__in_progress
+#: model:sale.subscription.stage,name:sale_subscription.sale_subscription_stage_in_progress
+#, python-format
+msgid "In Progress"
+msgstr "قيد التنفيذ"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__industry_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__industry_id
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Industry"
+msgstr "مجال العمل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__invoice_count
+msgid "Invoice Count"
+msgstr "عدد الفواتير"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "Invoice Email"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__invoice_mail_template_id
+msgid "Invoice Email Template"
+msgstr "قالب بريد الفاتورة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__recurring_rule_type
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__recurring_rule_type
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__recurring_rule_type_readonly
+msgid "Invoice automatically repeat at specified interval"
+msgstr "تكرر الفاتورة تلقائيًا كل فترة زمنية محددة"
+
+#. module: sale_subscription
+#: model:mail.template,subject:sale_subscription.email_payment_success
+msgid "Invoice for subscription ${ctx.get('code')}"
+msgstr "فاتورة الاشتراك ${ctx.get('code')}"
+
+#. module: sale_subscription
+#: model:mail.template,report_name:sale_subscription.mail_template_subscription_invoice
+msgid ""
+"Invoice_${(object.name or '').replace('/','_')}${object.state == 'draft' and"
+" '_draft' or ''}"
+msgstr ""
+
+#. module: sale_subscription
+#: model:mail.template,report_name:sale_subscription.email_payment_success
+msgid "Invoice_${ctx.get('code')}_${format_date(ctx.get('previous_date'))}"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "Invoices"
+msgstr "الفواتير"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "Invoicing"
+msgstr "الفوترة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__recurring_interval
+msgid "Invoicing Period"
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_order.py:0
+#, python-format
+msgid "Invoicing period: %s - %s"
+msgstr "فترة الفاتورة: %s - %s"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_is_follower
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_is_follower
+msgid "Is Follower"
+msgstr "متابع"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "Journal"
+msgstr "دفتر اليومية"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_account_move_line
+msgid "Journal Item"
+msgstr "عنصر اليومية"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__kpi_1month_mrr_delta
+msgid "KPI 1 Month MRR Delta"
+msgstr "المؤشر الرئيسي لمتوسط الإيرادات الشهرية المتكررة لشهر واحد"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__kpi_1month_mrr_percentage
+msgid "KPI 1 Month MRR Percentage"
+msgstr "المؤشر الرئيسي لنسبة الإيرادات الشهرية المتكررة لشهر واحد"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__kpi_3months_mrr_percentage
+msgid "KPI 3 Months MRR Percentage"
+msgstr "المؤشر الرئيسي لنسبة الإيرادات الشهرية المتكررة لثلاث شهور"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__kpi_3months_mrr_delta
+msgid "KPI 3 months MRR Delta"
+msgstr "المؤشر الرئيسي لمتوسط الإيرادات الشهرية المتكررة لثلاث شهور"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason_wizard____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard____last_update
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option____last_update
+msgid "Last Modified on"
+msgstr "آخر تعديل في"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__last_run
+msgid "Last Run"
+msgstr "اخر تشغيل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__write_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__write_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason__write_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason_wizard__write_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__write_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot__write_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__write_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__write_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard__write_uid
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__write_uid
+msgid "Last Updated by"
+msgstr "آخر تحديث بواسطة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__write_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__write_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason__write_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason_wizard__write_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__write_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot__write_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__write_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__write_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard__write_date
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__write_date
+msgid "Last Updated on"
+msgstr "آخر تحديث في"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "Last invoice date: "
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Late Activities"
+msgstr "الأنشطة المتأخرة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
+msgid "Latest Rating: Higly Dissatisfied"
+msgstr "التقييم الأخير: مستاء تمامًا"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
+msgid "Latest Rating: Not Satisfied"
+msgstr "التقييم الأخير: غير راضٍ"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
+msgid "Latest Rating: Satisfied"
+msgstr "التقييم الأخير: راضٍ"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Let's create your first subscription template."
+msgstr "فلننشئ قالب اشتراكك الأول."
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Let's go to the catalog to create our first subscription product"
+msgstr "فلنذهب إلى الكتالوج لإنشاء أولى منتجات الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__link_field_id
+msgid "Link using field"
+msgstr "حقل استخدام الرابط"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Link your product to a subscription template in this tab"
+msgstr "قم بربط منتجك بقالب اشتراك في هذا التبويب"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__sms_mass_keep_log
+msgid "Log a note"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "Log a note..."
+msgstr "تسجيل ملاحظة..."
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "MRR Between"
+msgstr "الإيرادات الشهرية المتكررة ما بين"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__mrr_change_amount
+msgid "MRR Change Amount"
+msgstr "تغيير قيمة الإيرادات الشهرية المتكررة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "MRR Change More"
+msgstr "الإيرادات الشهرية المتكررة تغيير المزيد"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__mrr_change_period
+msgid "MRR Change Period"
+msgstr "فترة تغير الإيرادات الشهرية المتكررة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__mrr_change_unit
+msgid "MRR Change Unit"
+msgstr "وحدة تغير الإيرادات الشهرية المتكررة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__mrr_max
+msgid "MRR Range Max"
+msgstr "الحد الأقصى لنطاق الإيرادات الشهرية المتكررة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__mrr_min
+msgid "MRR Range Min"
+msgstr "الحد الأدنى لنطاق الإيرادات الشهرية المتكررة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_main_attachment_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_main_attachment_id
+msgid "Main Attachment"
+msgstr "المرفق الرئيسي"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__payment_mode__manual
+msgid "Manually"
+msgstr "يدويًا"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__action__set_to_renew
+msgid "Mark as To Renew"
+msgstr "تعليمها للتجديد"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__starred_user_ids
+msgid "Members"
+msgstr "الأعضاء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_has_error
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_has_error
+msgid "Message Delivery error"
+msgstr "خطأ في تسليم الرسائل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_ids
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_ids
+msgid "Messages"
+msgstr "الرسائل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__model_id
+msgid "Model"
+msgstr "الكائن"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__model_name
+msgid "Model Name"
+msgstr "اسم الكائن"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__crud_model_id
+msgid ""
+"Model for record creation / update. Set this field only to specify a "
+"different model than the base model."
+msgstr ""
+"الكائن المستخدم في إنشاء أو تحديث السجل. اختر قيمة لهذا الحقل فقط إذا كنت "
+"تريد كائنًا مختلفًا عن الكائن الأساسي."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__model_id
+msgid "Model on which the server action runs."
+msgstr "الكائن الذي تجرى عليه إجراءات السيرفر."
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__trigger_condition__on_create_or_write
+msgid "Modification"
+msgstr "تعديل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_account_move_line__subscription_mrr
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_monthly
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__recurring_monthly
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot__recurring_monthly
+msgid "Monthly Recurring Revenue"
+msgstr "الإيرادات الشهرية المتكررة"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__recurring_rule_type__monthly
+#: model:product.product,uom_name:sale_subscription.product_office_cleaning
+#: model:product.template,uom_name:sale_subscription.product_office_cleaning_product_template
+#: model:uom.uom,name:sale_subscription.subscription_uom_month
+msgid "Months"
+msgstr "شهور"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "My Subscriptions"
+msgstr "اشتراكاتي"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/controllers/portal.py:0
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__name
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__name
+#, python-format
+msgid "Name"
+msgstr "الاسم"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription__health__normal
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_report__health__normal
+msgid "Neutral"
+msgstr "محايد"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
+msgid "Neutral face"
+msgstr "وجه محايد"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/controllers/portal.py:0
+#, python-format
+msgid "Newest"
+msgstr "الأحدث"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__activity_date_deadline
+msgid "Next Activity Deadline"
+msgstr "الموعد النهائي للنشاط التالي"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__activity_summary
+msgid "Next Activity Summary"
+msgstr "ملخص النشاط التالي"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__activity_type_id
+msgid "Next Activity Type"
+msgstr "نوع النشاط التالي"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Next Invoice:"
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "Next invoice date: "
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.product_template_action_subscription
+msgid "No product found"
+msgstr "لم يُعثر على منتج"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_note
+msgid "Note"
+msgstr "الملاحظات"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_needaction_counter
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_needaction_counter
+msgid "Number of Actions"
+msgstr "عدد الإجراءات"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_has_error_counter
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_has_error_counter
+msgid "Number of errors"
+msgstr "عدد الاخطاء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__message_needaction_counter
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr "عدد الرسائل التي تتطلب إجراء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__message_has_error_counter
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr "عدد الرسائل الحادث بها خطأ في التسليم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__message_unread_counter
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__message_unread_counter
+msgid "Number of unread messages"
+msgstr "عدد الرسائل الجديدة"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_pending
+msgid ""
+"Odoo automatically sets subscriptions to be renewed in a pending\n"
+"            state. After the negotiation, the salesman should close or renew\n"
+"            pending subscriptions."
+msgstr ""
+
+#. module: sale_subscription
+#: model:product.product,name:sale_subscription.product_office_cleaning
+#: model:product.template,name:sale_subscription.product_office_cleaning_product_template
+msgid "Office Cleaning Subscription (Monthly)"
+msgstr "الاشتراك في تنظيف المكاتب (شهريًا)"
+
+#. module: sale_subscription
+#: model:product.product,name:sale_subscription.product_office_cleaning_yearly
+#: model:product.template,name:sale_subscription.product_office_cleaning_yearly_product_template
+msgid "Office Cleaning Subscription (Yearly)"
+msgstr "الاشتراك في تنظيف المكاتب (سنويًا)"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__on_change_fields
+msgid "On Change Fields Trigger"
+msgstr "تفعيل عند تغير قيمة الحقول"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__help
+msgid ""
+"Optional help text for the users with a description of the target view, such"
+" as its usage and purpose."
+msgstr ""
+"نص مساعد اختياري للمستخدمين يشمل وصفًا للعرض المرجو. مثلًا: طريقة الاستخدام،"
+" والهدف من الإنشاء."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard__option_lines
+#: model_terms:ir.ui.view,arch_db:sale_subscription.wizard_form_view
+msgid "Options"
+msgstr "خيارات"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_view_tree_subscription
+msgid "Order Number"
+msgstr "رقم الأمر"
+
+#. module: sale_subscription
+#: model:sale.subscription.close.reason,name:sale_subscription.close_reason_5
+msgid "Other"
+msgstr "غير ذلك"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "Other Info"
+msgstr "معلومات أخرى"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "Over"
+msgstr "بعد"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Pay With"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__payment_mode
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__payment_mode
+msgid "Payment Mode"
+msgstr "طريقة السداد"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_token
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__payment_token_id
+msgid "Payment Token"
+msgstr "كلمة سر السداد"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_payment_transaction
+msgid "Payment Transaction"
+msgstr "معاملة السداد"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Payment method:"
+msgstr "طرق السداد:"
+
+#. module: sale_subscription
+#: model:mail.template,subject:sale_subscription.email_payment_reminder
+msgid "Payment reminder for subscription ${object.code}"
+msgstr "تذكير بسداد قيمة الاشتراك ${object.code}"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Pending subscriptions"
+msgstr "الاشتراكات المعلقة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Plan Details"
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "Please define Date of Next Invoice of \"%s\"."
+msgstr "برجاء تعيين تاريخ الفاتورة القادمة لـ\"%s\"."
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "Please define a sale journal for the company \"%s\"."
+msgstr "برجاء تحديد دفتر يومية مبيعات لهذه المؤسسة \"%s\"."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__pricelist_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__pricelist_id
+msgid "Pricelist"
+msgstr "قائمه الأسعار"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__product_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__product_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__product_ids
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__product_id
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Product"
+msgstr "المنتج"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__categ_id
+msgid "Product Category"
+msgstr "فئة المنتج"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__product_count
+msgid "Product Count"
+msgstr "عدد المنتجات"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_product_template
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__product_tmpl_id
+msgid "Product Template"
+msgstr "قالب المنتج"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_product_product__subscription_template_id
+#: model:ir.model.fields,help:sale_subscription.field_product_template__subscription_template_id
+msgid "Product will be included in a selected template"
+msgstr "سيتم إدراج المنتج في القالب المحدد"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.product_template_action_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "Products"
+msgstr "المنتجات"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__link_field_id
+msgid ""
+"Provide the field used to link the newly created record on the record on "
+"used by the server action."
+msgstr ""
+"يخزن قيمة الحقل المستخدم للربط بين بند السجل الجديد المنشأ في السجل المستخدم"
+" في الإجراء السيرفري."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__code
+msgid "Python Code"
+msgstr "كود بايثون"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__quantity
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__quantity
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__quantity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Quantity"
+msgstr "الكمية"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_line__quantity
+msgid "Quantity that will be invoiced."
+msgstr "الكمية التي سيتم فوترتها."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__rating_ids
+msgid "Rating"
+msgstr "التقييم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__rating_avg
+msgid "Rating Average"
+msgstr "متوسط التقييم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__rating_template_id
+msgid "Rating Email Template"
+msgstr "تقييم نموذج البريد الإلكتروني"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__rating_last_feedback
+msgid "Rating Last Feedback"
+msgstr "آخر ملاحظات التقييم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__rating_last_image
+msgid "Rating Last Image"
+msgstr "آخر صورة للتقييم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__rating_last_value
+msgid "Rating Last Value"
+msgstr "آخر قيمة للتقييم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__rating_operator
+msgid "Rating Operator"
+msgstr "تقييم موظف الدعم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__rating_percentage
+msgid "Rating Percentage"
+msgstr "نسبة التقييم"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "Rating Satisfaction"
+msgstr "نسبة الرضا"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__rating_count
+msgid "Rating count"
+msgstr "عدد التقييمات"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason__name
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
+msgid "Reason"
+msgstr "السبب"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__rating_last_feedback
+msgid "Reason of the rating"
+msgstr "سبب التقييم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_rule_type
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__recurring_rule_type
+msgid "Recurrence"
+msgstr "تكرار"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__recurring_rule_type_readonly
+msgid "Recurrence Unit"
+msgstr "وحدة التكرار"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_kanban
+msgid "Recurrence:"
+msgstr "التكرار:"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_invoice_day
+msgid "Recurring Invoice Day"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_total
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__recurring_total
+msgid "Recurring Price"
+msgstr "السعر المتكرر"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__code
+msgid "Reference"
+msgstr "رقم الإشارة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Reference:"
+msgstr "رقم الإشارة:"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_management__renew
+msgid "Renewal"
+msgstr "تجديد"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_payment_transaction__renewal_allowed
+msgid "Renewal Allowed"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "Renewal Quotation"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_interval
+msgid "Repeat Every"
+msgstr "تكرار كل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__recurring_interval
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__recurring_interval
+msgid "Repeat every (Days/Week/Month/Year)"
+msgstr "تكرر كل (يوم/أسبوع/شهر/سنة)"
+
+#. module: sale_subscription
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_report
+msgid "Reporting"
+msgstr "التقارير"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__description
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_stage_view_form
+msgid "Requirements"
+msgstr "المتطلبات"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_user_id
+msgid "Responsible"
+msgstr "المسئول"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__activity_user_id
+msgid "Responsible User"
+msgstr "المستخدم المسؤول"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__activity_user__contract
+msgid "Responsible of Contract"
+msgstr "المسئول عن العقد"
+
+#. module: sale_subscription
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_report_cohort
+msgid "Retention"
+msgstr "احتفاظ"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_report_cohort_action
+msgid "Retention Analysis"
+msgstr "تحليل الاستبقاء"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__in_progress
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Running"
+msgstr "جاري"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Running Subscriptions"
+msgstr "الاشتراكات الجارية"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_has_sms_error
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr "خطأ في تسليم الرسائل القصيرة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__sms_template_id
+msgid "SMS Template"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
+msgid "Sad face"
+msgstr "وجه حزين"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__sale_order_count
+msgid "Sale Order Count"
+msgstr "عدد أوامر البيع"
+
+#. module: sale_subscription
+#: model:ir.actions.server,name:sale_subscription.ir_cron_sale_subscription_update_kpi_ir_actions_server
+#: model:ir.cron,cron_name:sale_subscription.ir_cron_sale_subscription_update_kpi
+#: model:ir.cron,name:sale_subscription.ir_cron_sale_subscription_update_kpi
+msgid "Sale Subscription: Update KPI"
+msgstr "اشتراك البيع: تحديث المؤشر الرئيسي"
+
+#. module: sale_subscription
+#: model:ir.actions.server,name:sale_subscription.account_analytic_cron_for_invoice_ir_actions_server
+#: model:ir.cron,cron_name:sale_subscription.account_analytic_cron_for_invoice
+#: model:ir.cron,name:sale_subscription.account_analytic_cron_for_invoice
+msgid "Sale Subscription: generate recurring invoices and payments"
+msgstr "اشتراك البيع: إنشاء فواتير ومدفوعات متكررة"
+
+#. module: sale_subscription
+#: model:ir.actions.server,name:sale_subscription.account_analytic_cron_ir_actions_server
+#: model:ir.cron,cron_name:sale_subscription.account_analytic_cron
+#: model:ir.cron,name:sale_subscription.account_analytic_cron
+msgid "Sale Subscription: subscriptions expiration"
+msgstr "اشتراك البيع: انتهاء صلاحية الاشتراكات"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_list
+msgid "Sale Subscriptions"
+msgstr "اشتراكات البيع"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "Sales"
+msgstr "المبيعات"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_order
+msgid "Sales Order"
+msgstr "أمر البيع"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "بند أمر المبيعات"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_view_tree_subscription
+#, python-format
+msgid "Sales Orders"
+msgstr "أوامر البيع"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__team_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__team_id
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Sales Team"
+msgstr "فريق المبيعات"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__activity_user__channel_leader
+msgid "Sales Team Leader"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__user_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__user_id
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Salesperson"
+msgstr "مسئول المبيعات"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid ""
+"Save and you're all set!<br/>Simply sell this product to create a "
+"subscription automatically or create a subscription manually!"
+msgstr ""
+"قم بالحفظ وستكون قد انتهيت!<br/> يمكنك بيع هذا المنتج لإنشاء اشتراك تلقائيًا"
+" أو إنشاء اشتراك يدويًا!"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid "Save this template and the modifications you've made to it."
+msgstr "حفظ هذا القالب والتعديلات التي قمت بها عليه."
+
+#. module: sale_subscription
+#: model:res.groups,name:sale_subscription.group_sale_subscription_view
+msgid "See Subscriptions"
+msgstr "عرض الاشتراكات"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid ""
+"Select your newly created template. Every sale of this product will generate"
+" a new subscription!"
+msgstr ""
+"اختر قالبك الجديد المنشأ. كل عملية بيع لهذا المنتج سينتج عنها اشتراك جديد!"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__payment_mode__validate_send
+msgid "Send"
+msgstr "إرسال"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__payment_mode__validate_send_payment
+msgid "Send & try to charge"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_pending
+msgid ""
+"Send a renewal quotation to the customer.\n"
+"            When it is confirmed, the subscription is running again."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__payment_mode__success_payment
+msgid "Send after successful payment"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_act_window_sms_composer_multi
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_act_window_sms_composer_single
+msgid "Send an SMS Text Message"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__action__sms
+msgid "Send an SMS Text Message to the customer"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__action__email
+msgid "Send an email to the customer"
+msgstr "إرسال رسالة إلى العميل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_stage__rating_template_id
+msgid ""
+"Send an email to the customer when the subscription is moved to this stage."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__sequence
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_close_reason__sequence
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__sequence
+msgid "Sequence"
+msgstr "المسلسل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__action_server_id
+msgid "Server Actions"
+msgstr "إجراءات السيرفر"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__health
+msgid "Set a health status"
+msgstr "تعيين حالة لصحة الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__action__set_stage
+msgid "Set a stage on the subscription"
+msgstr "تعيين مرحلة للاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__action__set_tag
+msgid "Set a tag on the subscription"
+msgstr "تعيين وسم للاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__binding_model_id
+msgid ""
+"Setting a value makes this action available in the sidebar for the given "
+"model."
+msgstr ""
+"بتعيين قيمة سيكون هذا الإجراء متاحًا في الشريط الجانبي للنموذج المعطى."
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_kanban
+msgid "Settings"
+msgstr "الإعدادات"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__starred
+msgid "Show Subscription on dashboard"
+msgstr "إظهار الاشتراك في لوحة المعلومات"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Show all records which has next action date is before today"
+msgstr "عرض كافة السجلات المُعين لها تاريخ إجراء تالي يسبق تاريخ اليوم الجاري"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__product_ids
+msgid "Specific Products"
+msgstr "منتجات معينة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_user_ids
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__activity_user__users
+msgid "Specific Users"
+msgstr "مستخدمون معينون"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__stage_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__stage_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__stage_id
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Stage"
+msgstr "المرحلة"
+
+#. module: sale_subscription
+#: model:mail.message.subtype,name:sale_subscription.subtype_stage_change
+msgid "Stage Change"
+msgstr "تغير المرحلة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__stage_from_id
+msgid "Stage From"
+msgstr "المرحلة من"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_stage__name
+msgid "Stage Name"
+msgstr "اسم المرحلة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__stage_to_id
+msgid "Stage To"
+msgstr "المرحلة إلى"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_stage_action
+msgid "Stages"
+msgstr "المراحل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__date_start
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__date_start
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard__date_from
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Start Date"
+msgstr "تاريخ البداية"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Start Date:"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
+msgid "Status"
+msgstr "الحالة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__activity_state
+msgid ""
+"Status based on activities\n"
+"Overdue: Due date is already passed\n"
+"Today: Activity date is today\n"
+"Planned: Future activities."
+msgstr ""
+"الحالة على أساس الأنشطة\n"
+"المتأخرة: تاريخ الاستحقاق مر\n"
+"اليوم: تاريخ النشاط هو اليوم\n"
+"المخطط: الأنشطة المستقبلية."
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_close_reason_view_form
+msgid "Submit"
+msgstr "إرسال"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_account_move_line__subscription_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order_line__subscription_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__analytic_account_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_snapshot__subscription_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard__subscription_id
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_view_cohort
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_cohort
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Subscription"
+msgstr "الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_alert
+msgid "Subscription Alert"
+msgstr "تنبيه الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_report
+msgid "Subscription Analysis"
+msgstr "تحليل الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_close_reason
+msgid "Subscription Close Reason"
+msgstr "سبب إغلاق الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_close_reason_wizard
+msgid "Subscription Close Reason Wizard"
+msgstr "معالج سبب إغلاق الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_account_analytic_account__subscription_count
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order__subscription_count
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__subscription_count
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__subscription_count
+msgid "Subscription Count"
+msgstr "عدد الاشتراكات"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_line
+msgid "Subscription Line"
+msgstr "بند الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_invoice_line_ids
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "Subscription Lines"
+msgstr "خطوط الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_order__subscription_management
+msgid "Subscription Management"
+msgstr "إدارة الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_product_product__recurring_invoice
+#: model:ir.model.fields,field_description:sale_subscription.field_product_template__recurring_invoice
+msgid "Subscription Product"
+msgstr "منتج الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.product_action_subscription
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_product
+#: model_terms:ir.ui.view,arch_db:sale_subscription.product_template_search_view_inherit_sale_subscription
+msgid "Subscription Products"
+msgstr "منتجات الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_account_move_line__subscription_end_date
+msgid "Subscription Revenue End Date"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_account_move_line__subscription_start_date
+msgid "Subscription Revenue Start Date"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_snapshot
+msgid "Subscription Snapshot"
+msgstr "لقطة الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_stage
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_stage_view_form
+msgid "Subscription Stage"
+msgstr "مرحلة الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_stage
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_stage_view_list
+msgid "Subscription Stages"
+msgstr "مراحل الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_template
+#: model:ir.model.fields,field_description:sale_subscription.field_product_product__subscription_template_id
+#: model:ir.model.fields,field_description:sale_subscription.field_product_template__subscription_template_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__template_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__template_id
+msgid "Subscription Template"
+msgstr "قالب الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_template_action
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__subscription_template_ids
+#: model:ir.ui.menu,name:sale_subscription.menu_template_of_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_list
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_search
+msgid "Subscription Templates"
+msgstr "قوالب الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_wizard_option
+msgid "Subscription Upsell Lines Wizard"
+msgstr "معالج بنود إعادة بيع الاشتراك"
+
+#. module: sale_subscription
+#: model:ir.model,name:sale_subscription.model_sale_subscription_wizard
+msgid "Subscription Upsell wizard"
+msgstr "معالج إعادة بيع الاشتراك"
+
+#. module: sale_subscription
+#: model:sale.subscription.close.reason,name:sale_subscription.close_reason_2
+msgid "Subscription does not meet my requirements"
+msgstr "الاشتراك لا يوافق أية متطلبات"
+
+#. module: sale_subscription
+#: model:sale.subscription.close.reason,name:sale_subscription.close_reason_1
+msgid "Subscription is too expensive"
+msgstr "الاشتراك غالي للغاية"
+
+#. module: sale_subscription
+#: model:sale.subscription.close.reason,name:sale_subscription.close_reason_3
+msgid "Subscription reached its end date"
+msgstr "وصل الاشتراك لتاريخ نهايته"
+
+#. module: sale_subscription
+#: model:mail.message.subtype,description:sale_subscription.subtype_stage_change
+msgid "Subscription stage has changed"
+msgstr "تم تغيير مرحلة الاشتراك"
+
+#. module: sale_subscription
+#: model:sms.template,name:sale_subscription.sms_template_data_default_alert
+msgid "Subscription: Default SMS Alert"
+msgstr ""
+
+#. module: sale_subscription
+#: model:sms.template,name:sale_subscription.sms_template_data_payment_failure
+msgid "Subscription: Payment failure"
+msgstr ""
+
+#. module: sale_subscription
+#: model:sms.template,name:sale_subscription.sms_template_data_payment_reminder
+msgid "Subscription: Payment reminder"
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_action
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_action_filtered
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_action_res_partner
+#: model:ir.model.fields,field_description:sale_subscription.field_account_analytic_account__subscription_ids
+#: model:ir.model.fields,field_description:sale_subscription.field_res_partner__subscription_count
+#: model:ir.model.fields,field_description:sale_subscription.field_res_users__subscription_count
+#: model:ir.module.category,name:sale_subscription.module_category_subscription_management
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_action
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_report_pivot
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_root
+#: model_terms:ir.ui.view,arch_db:sale_subscription.account_analytic_account_view_inherit_sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_home_menu_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_home_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
+#: model_terms:ir.ui.view,arch_db:sale_subscription.product_template_view_form_recurring
+#: model_terms:ir.ui.view,arch_db:sale_subscription.res_partner_view_inherit_sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_kanban
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_activity
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_graph
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_pivot
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.view_sale_subscription_order_line
+#, python-format
+msgid "Subscriptions"
+msgstr "الاشتراكات"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_report_pivot_action
+msgid "Subscriptions Analysis"
+msgstr "تحليل الاشتراكات"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action
+msgid ""
+"Subscriptions can be automatically generated from sales orders in Sales or eCommerce\n"
+"                apps. To do so, set a subscription template on your subscription products."
+msgstr ""
+"يمكن إنشاء الاشتراكات تلقائيًا من أوامر المبيعات في تطبيق المبيعات أو تطبيق المتجر الإلكتروني.\n"
+"                للقيام بهذا، عيّن قالب للاشتراكات بمنتجات اشتراكك."
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Subscriptions that are not assigned to an account manager."
+msgstr "الاشتراكات غير المسندة لمدير حسابات."
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.sale_subscription_action_pending
+#: model:ir.ui.menu,name:sale_subscription.menu_sale_subscription_pending
+msgid "Subscriptions to Renew"
+msgstr "الاشتراكات المراد تجديدها"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__price_subtotal
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Subtotal"
+msgstr "الإجمالي الفرعي"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Subtotal:<br/>"
+msgstr "الإجمالي الفرعي:<br/>"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_summary
+msgid "Summary"
+msgstr "الملخص"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__tag_id
+msgid "Tag"
+msgstr "الوسم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__tag_ids
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__tag_ids
+msgid "Tags"
+msgstr "الوسوم"
+
+#. module: sale_subscription
+#: model:base.automation,name:sale_subscription.subscription_alert_percent_revenue_base_automation
+#: model:sale.subscription.alert,name:sale_subscription.subscription_alert_percent_revenue
+msgid "Take action on less satisfied clients"
+msgstr "اتخاذ إجراءات للعملاء غير الراضين"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__crud_model_name
+msgid "Target Model"
+msgstr "الكائن المستهدف"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_amount_tax
+msgid "Taxes"
+msgstr "الضرائب"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Taxes:<br/>"
+msgstr "الضرائب:<br/>"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__team_user_id
+msgid "Team Leader"
+msgstr "قائد الفريق"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_payment_transaction__renewal_allowed
+msgid ""
+"Technical field used to control the renewal flow based on the transaction's "
+"state."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__activity_user_field_name
+msgid "Technical name of the user on the record"
+msgstr "اسم تقني للمستخدم في السجلات"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Template"
+msgstr "قالب"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_template_action
+msgid ""
+"Templates are used to prefigure subscription that\n"
+"                can be selected by the salespeople to quickly configure the\n"
+"                terms and conditions of the subscription."
+msgstr ""
+"تستخدم القوالب لإعداد اشتراكات إعدادًا مسبقًا\n"
+"                بحيث يمكن لموظف المبيعات اختيارهم\n"
+"                ليستطيع تهيئة شروط وأحكام الاشتراك سريعًا."
+
+#. module: sale_subscription
+#: model:mail.template,subject:sale_subscription.email_payment_close
+msgid "Termination of subscription ${object.code}"
+msgstr "انتهاء الاشتراك ${object.code}"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__description
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Terms and Conditions"
+msgstr "الشروط والأحكام"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_account_move_line__subscription_mrr
+msgid ""
+"The MRR is computed by dividing the signed amount (in company currency) by the amount of time between the start and end dates converted in months.\n"
+"This allows comparison of invoice lines created by subscriptions with different temporalities.\n"
+"The computation assumes that 1 month is comprised of exactly 30 days, regardless  of the actual length of the month."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__trigger_field_ids
+msgid ""
+"The action will be triggered if and only if one of these fields is "
+"updated.If empty, all fields are watched."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_wizard__date_from
+msgid ""
+"The discount applied when creating a sales order will be computed as the "
+"ratio between the full invoicing period of the subscription and the period "
+"between this date and the next invoicing date."
+msgstr ""
+"سيتم احتساب الخصم المطبق عند إنشاء أمر مبيعات على أنه النسبة ما بين فترة "
+"إصدار فاتورة الاشتراك كاملة، والفترة ما بين هذا التاريخ وتاريخ إصدار "
+"الفاتورة القادمة."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__website_url
+msgid "The full URL to access the document through the website."
+msgstr "الرابط الكامل للوصول للمستند من خلال الموقع."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__website_url
+msgid "The full URL to access the server action through the website."
+msgstr "الرابط الكامل المستخدم للوصول لإجراءات السيرفر من خلال الموقع."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__recurring_next_date
+msgid ""
+"The next invoice will be created on this date then the period will be "
+"extended."
+msgstr "سيتم إنشاء الفاتورة القادمة في هذا التاريخ ثم سيتم مد الفترة."
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "The recurring interval must be positive"
+msgstr "يجب أن تكون فترة التكرار قيمة موجبة"
+
+#. module: sale_subscription
+#: model:res.groups,comment:sale_subscription.group_sale_subscription_view
+msgid "The user will have read access to subscriptions."
+msgstr "سيملك المستخدم صلاحية قراءة الاشتراكات."
+
+#. module: sale_subscription
+#: model:res.groups,comment:sale_subscription.group_sale_subscription_manager
+msgid "The user will have write access to Subscriptions."
+msgstr "سيملك المستخدم صلاحية الكتابة بالاشتراكات."
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
+msgid ""
+"This bar allows to filter the opportunities based on scheduled activities."
+msgstr "يسمح لك هذا الشريط بتصفية الفرص حسب الأنشطة المُجدولة."
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "This invoice covers the following period: %s - %s"
+msgstr "هذه الفاتورة تشمل الفترة التالية: %s - %s"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "This renewal order has been created from the subscription "
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_stage__fold
+msgid ""
+"This stage is folded in the kanban view when there are not records in that "
+"stage to display."
+msgstr ""
+"يتم طي هذه المرحلة عند استخدام طريقة كانبان للعرض عندما لا توجد سجلات يمكن "
+"عرضها في هذه المرحلة."
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/wizard/sale_subscription_wizard.py:0
+#, python-format
+msgid "This upsell order has been created from the subscription "
+msgstr ""
+
+#. module: sale_subscription
+#: model:uom.category,name:sale_subscription.uom_categ_time
+msgid "Time"
+msgstr "الوقت"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_alert__trigger_condition__on_time
+msgid "Timed Condition"
+msgstr "شرط زمني"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/controllers/portal.py:0
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__to_renew
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__to_renew
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_report_search
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_kanban
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+#, python-format
+msgid "To Renew"
+msgstr "للتجديد"
+
+#. module: sale_subscription
+#: model:sale.subscription.stage,name:sale_subscription.sale_subscription_stage_upsell
+msgid "To Upsell"
+msgstr "لإعادة البيع"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Today Activities"
+msgstr "نشاطات اليوم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__recurring_amount_total
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
+msgid "Total"
+msgstr "الإجمالي"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_order_view_tree_subscription
+msgid "Total Tax Included"
+msgstr "المجموع شامل الضريبة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__trigger
+msgid "Trigger Condition"
+msgstr "شرط التفعيل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__trg_date_id
+msgid "Trigger Date"
+msgstr "تاريخ التفعيل"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__trigger_condition
+msgid "Trigger On"
+msgstr "التفعيل عند"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_alert_action
+msgid ""
+"Trigger alerts for salespersons or customers: churn, invoice not paid, "
+"upsell, etc."
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__state
+msgid ""
+"Type of server action. The following values are available:\n"
+"- 'Execute Python Code': a block of python code that will be executed\n"
+"- 'Create': create a new record with new values\n"
+"- 'Update a Record': update the values of a record\n"
+"- 'Execute several actions': define an action that triggers several other server actions\n"
+"- 'Send Email': automatically send an email (Discuss)\n"
+"- 'Add Followers': add followers to a record (Discuss)\n"
+"- 'Create Next Activity': create an activity (Discuss)"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__activity_exception_decoration
+msgid "Type of the exception activity on record."
+msgstr "نوع النشاط الاستثنائي المسجل."
+
+#. module: sale_subscription
+#: model:ir.model.constraint,message:sale_subscription.constraint_sale_subscription_uuid_uniq
+msgid ""
+"UUIDs (Universally Unique IDentifier) for Sale Subscriptions should be "
+"unique!"
+msgstr "يجب أن تكون معرفات اشتراكات البيع الفريدة عالميًا فريدة!"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_search
+msgid "Unassigned"
+msgstr "غير مكلف"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__price_unit
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Unit Price"
+msgstr "سعر الوحدة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_line__uom_id
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__product_uom
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__uom_id
+msgid "Unit of Measure"
+msgstr "وحدة القياس"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_unread
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_unread
+msgid "Unread Messages"
+msgstr "الرسائل الجديدة"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__message_unread_counter
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr "عدد الرسائل الجديدة"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+msgid "UoM"
+msgstr "وحدة القياس"
+
+#. module: sale_subscription
+#: model:ir.actions.act_window,name:sale_subscription.wizard_action
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_view_form
+#: model_terms:ir.ui.view,arch_db:sale_subscription.wizard_form_view
+msgid "Upsell"
+msgstr "إعادة البيع"
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "Upsell date: "
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_order__subscription_management__upsell
+msgid "Upselling"
+msgstr "إعادة البيع"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__usage
+msgid "Usage"
+msgstr "استخدام"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__activity_user_type
+msgid ""
+"Use 'Specific User' to always assign the same user on the next activity. Use"
+" 'Generic User From Record' to specify the field name of the user to choose "
+"on the record."
+msgstr ""
+"استخدم القيمة 'مستخدم محدد' لتعيين نفس المستخدم على النشاط التالي. واستخدم "
+"'مستخدم عام من السجل' لتحديد اسم حقل المستخدم المراد من السجل."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__trg_date_calendar_id
+msgid "Use Calendar"
+msgstr "استخدام التقويم"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__trg_date_resource_field_id
+msgid "Use employee work schedule"
+msgstr "استخدام جدول عمل الموظف"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_filtered
+msgid ""
+"Use subscriptions to follow tasks, issues, timesheets or invoicing based on\n"
+"                work done, expenses and/or sales orders. Odoo will automatically manage\n"
+"                the alerts for the renewal of the subscriptions to the right salesperson."
+msgstr ""
+"استخدم الاشتراكات لتتبع المهام، والمشكلات، وسجلات الأنشطة أو لفوترتهم\n"
+"                حسب العمل المنتهي، أو المصروفات، و/أو أوامر المبيعات. ستقوم أودو تلقائيًا بإرسال\n"
+"                تنبيهات تجديد الاشتراكات لموظف المبيعات المناسب."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__trg_date_resource_field_id
+msgid "Use the user's working schedule."
+msgstr "استخدام جدول عمل المستخدم."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__activity_user_field_name
+msgid "User field name"
+msgstr "اسم حقل المستخدم"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Valid Until:"
+msgstr ""
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__fields_lines
+msgid "Value Mapping"
+msgstr "ربط القيمة"
+
+#. module: sale_subscription
+#. openerp-web
+#: code:addons/sale_subscription/static/src/js/tours/sale_subscription.js:0
+#, python-format
+msgid ""
+"Want recurring billing via subscription management ? Get started by clicking"
+" here"
+msgstr ""
+"هل تبحث عن نظام لإدارة وإصدار الفواتير المتكررة من خلال مدير الاشتراك؟ ابدأ "
+"بالضغط هنا"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__trigger_field_ids
+msgid "Watched fields"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid ""
+"We always listen to our customer. Could you specify the reason for "
+"cancelling your subscription?"
+msgstr "نحن نستمع لعميلنا دائمًا. هل يمكنك تحديد سبب إلغاء اشتراكك؟"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__website_message_ids
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_template__website_message_ids
+msgid "Website Messages"
+msgstr "رسائل الموقع"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__website_path
+msgid "Website Path"
+msgstr "مسار الموقع"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription__website_url
+msgid "Website URL"
+msgstr "رابط الموقع"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_alert__website_url
+msgid "Website Url"
+msgstr "رابط الموقع"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__website_message_ids
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_template__website_message_ids
+msgid "Website communication history"
+msgstr "سجل تواصل الموقع"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__recurring_rule_type__weekly
+msgid "Weeks"
+msgstr "أسابيع"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__trg_date_calendar_id
+msgid ""
+"When calculating a day-based timed condition, it is possible to use a "
+"calendar to compute the date based on working days."
+msgstr ""
+"عند حساب شروط زمنية تعتمد على الأيام، من الممكن استخدام التقويم لحساب "
+"التاريخ المطلوب وفقًا لأيام العمل."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__sequence
+msgid ""
+"When dealing with multiple actions, the execution order is based on the "
+"sequence. Low number means high priority."
+msgstr ""
+"عند التعامل مع عدة إجراءات، يعتمد ترتيب التنفيذ على تسلسلهم. الرقم الأصغر "
+"يعني أولوية أقل."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__trg_date_id
+msgid ""
+"When should the condition be triggered.\n"
+"                                  If present, will be checked by the scheduler. If empty, will be checked at creation and update."
+msgstr ""
+"متى يتم تفعيل الشرط.\n"
+"                                  إذا كان له قيمة، سيتحقق منها المجدول. وإذا كان فارغًا، سيتم التحقق منه عند الإنشاء والتحديث."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__active
+msgid "When unchecked, the rule is hidden and will not be executed."
+msgstr "عند إلغاء تحديده، سيتم إخفاء هذه القاعدة ولن يتم تنفيذها."
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription__starred
+msgid "Whether this subscription should be displayed on the dashboard or not"
+msgstr "ما إذا كان ينبغي عرض هذا الاشتراك في لوحة المعلومات أم لا"
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_wizard_option__wizard_id
+msgid "Wizard"
+msgstr "المعالج"
+
+#. module: sale_subscription
+#: model:ir.model.fields,help:sale_subscription.field_sale_subscription_alert__code
+msgid ""
+"Write Python code that the action will execute. Some variables are available"
+" for use; help about python expression is given in the help tab."
+msgstr ""
+"اكتب كود بايثون الذي سينفذه الإجراء. بعض المتغيرات متاحة للاستخدام؛ وستجد "
+"مساعدة لكيفية الكتابة بلغة بايثون في تبويب مساعدة."
+
+#. module: sale_subscription
+#: model:ir.model.fields,field_description:sale_subscription.field_sale_subscription_report__recurring_yearly
+msgid "Yearly Recurring Revenue"
+msgstr "الايرادات السنوية المتكررة"
+
+#. module: sale_subscription
+#: model:ir.model.fields.selection,name:sale_subscription.selection__sale_subscription_template__recurring_rule_type__yearly
+#: model:product.product,uom_name:sale_subscription.product_office_cleaning_yearly
+#: model:product.template,uom_name:sale_subscription.product_office_cleaning_yearly_product_template
+#: model:uom.uom,name:sale_subscription.subscription_uom_year
+msgid "Years"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.portal_my_subscriptions
+msgid "You don't have any subscriptions yet."
+msgstr "ليس لديك أي اشتراكات حتى الآن."
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.product_action_subscription
+msgid ""
+"You must define a product for everything you sell or purchase,\n"
+"            whether it's a storable product, a consumable or a service."
+msgstr ""
+
+#. module: sale_subscription
+#: code:addons/sale_subscription/models/sale_subscription.py:0
+#, python-format
+msgid "You must first select a Customer for Subscription %s!"
+msgstr "يجب تحديد عميل للاشتراك %s أولًا!"
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.product_template_action_subscription
+msgid ""
+"You will find here all the products related to this subscription template."
+msgstr "ستجد هنا كافة المنتجات المرتبطة بقالب الاشتراك."
+
+#. module: sale_subscription
+#: model_terms:ir.actions.act_window,help:sale_subscription.sale_subscription_action_pending
+msgid ""
+"You will find here the subscriptions to be renewed (end date is close or "
+"passed)"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Your Details"
+msgstr "تفاصيلك"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Your Plan"
+msgstr "خطتك"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "Your subscription is closed."
+msgstr "اشتراكك مغلق."
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "e.g. Closed Subscription"
+msgstr ""
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_alert_view_form
+msgid "e.g. Discuss proposal"
+msgstr "مثلًا: مناقشة العرض"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.sale_subscription_template_view_form
+msgid "e.g. Monthly Subscription"
+msgstr "مثلًا: الاشتراك الشهري"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "missing payments (from"
+msgstr "المدفوعات المفقودة (من"
+
+#. module: sale_subscription
+#: model_terms:ir.ui.view,arch_db:sale_subscription.subscription
+msgid "to this day) will be automatically processed."
+msgstr "حتى هذا اليوم) سيتم معالجتها تلقائيًا."

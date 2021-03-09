@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Add the button in the kaban view of the opportunities-->
+    <record id="lead_button_call_kanban_view" model="ir.ui.view">
+      <field name="name">crm.lead.tocall</field>
+      <field name="model">crm.lead</field>
+      <field name="inherit_id" ref="crm.crm_case_kanban_view_leads"/>
+      <field name="arch" type="xml">
+        <xpath expr="//field[@widget='kanban_activity']" position="after">
+          <field name="has_call_in_queue" widget="call_center"/>
+        </xpath>
+      </field>
+    </record>
+    <record id="action_add_to_call_queue" model="ir.actions.server">
+      <field name="name">Add to call queue</field>
+      <field name="type">ir.actions.server</field>
+      <field name="state">code</field>
+      <field name="model_id" ref="model_crm_lead" />
+      <field name="binding_model_id" ref="model_crm_lead"/>
+      <field name="code">
+        records.create_call_in_queue()
+      </field>
+    </record>
+</odoo>

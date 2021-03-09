@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        @param {voip.CallCenterField} widget
+    -->
+    <div
+        t-name="voip.CallCenterField"
+        t-att-title="widget.getHelper()"
+        class="
+            fa-stack
+            o_dial_hidden_button
+            text-muted">
+        <i
+            class="
+                fa
+                fa-fw
+                fa-lg
+                fa-phone
+                fa-stack-1x"/>
+        <i
+            t-attf-class="
+                fa
+                fa-stack-1x
+                o_dial_stack_icon
+                {{ widget.isInCallQueue() ? 'fa-minus text-danger' : 'fa-plus text-success' }}"/>
+    </div>
+
+</templates>

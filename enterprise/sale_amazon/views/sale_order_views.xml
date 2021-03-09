@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="amazon_order_view_form" model="ir.ui.view">
+        <field name="name">amazon.order.form</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <field name="amazon_channel" invisible="1"/>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="after">
+                <div class="badge-pill badge-info float-right"
+                     attrs="{'invisible': [('amazon_channel', '!=', 'fbm')]}">
+                    Fulfilled by Merchant
+                </div>
+                <div class="badge-pill badge-info float-right"
+                     attrs="{'invisible': [('amazon_channel', '!=', 'fba')]}">
+                    Fulfilled by Amazon
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

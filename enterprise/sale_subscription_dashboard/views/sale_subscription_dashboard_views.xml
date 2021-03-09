@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="move_line_entries_report_pivot" model="ir.ui.view">
+        <field name="name">account.move.line.pivot</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Invoice Line Entries Analysis">
+                <field name="subscription_mrr" type="measure"/>
+                <field name="company_id" type="row"/>
+                <field name="subscription_id" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="move_line_entries_report_search" model="ir.ui.view">
+        <field name="name">account.move.line.search</field>
+        <field name="model">account.move.line</field>
+        <field name="arch" type="xml">
+            <search string="Invoice Line Entries Analysis">
+                <field name="subscription_start_date" filter_domain="[('subscription_start_date','&lt;=', self)]"/>
+                <field name="subscription_end_date" filter_domain="[('subscription_end_date','&gt;=', self)]"/>
+                <group expand="0" string="Group By">
+                    <separator/>
+                    <filter string="OUT invoices" name="OUT" domain="[('move_id.type', 'in', ('out_invoice', 'out_refund'))]"/>
+                    <separator/>
+                    <filter string="Active invoices" name="ACTIVE" domain="[('move_id.state', 'not in', ('draft', 'cancel'))]"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+
+    <record id="action_subscription_dashboard_report_main" model="ir.actions.client">
+        <field name="name">Revenue KPIs</field>
+        <field name="tag">sale_subscription_dashboard_main</field>
+    </record>
+    <record id="action_subscription_dashboard_report_detailed" model="ir.actions.client">
+        <field name="name">Detailed KPI</field>
+        <field name="tag">sale_subscription_dashboard_detailed</field>
+    </record>
+    <record id="action_subscription_dashboard_report_forecast" model="ir.actions.client">
+        <field name="name">Forecasted KPIs</field>
+        <field name="tag">sale_subscription_dashboard_forecast</field>
+    </record>
+
+    <record id="action_subscription_dashboard_report_salesman" model="ir.actions.client">
+        <field name="name">Salesperson Dashboard</field>
+        <field name="tag">sale_subscription_dashboard_salesman</field>
+    </record>
+
+    <record id="action_move_line_entries_report" model="ir.actions.act_window">
+        <field name="name">Invoice Line Entries Analysis</field>
+        <field name="res_model">account.move.line</field>
+        <field name="view_mode">pivot</field>
+        <field name="search_view_id" ref="move_line_entries_report_search"/>
+        <field name="context">{'search_default_OUT':1, 'search_default_ACTIVE':1,}</field>
+        <field name="help">From this view, have an analysis of your different invoice line entries.</field>
+    </record>
+
+    <menuitem id="menu_action_subscription_dashboard_report_main" action="sale_subscription_dashboard.action_subscription_dashboard_report_main" parent="sale_subscription.menu_sale_subscription_report" name="Revenue KPIs" groups="sale_subscription.group_sale_subscription_manager"/>
+    <menuitem id="menu_action_subscription_dashboard_report_salesman" action="sale_subscription_dashboard.action_subscription_dashboard_report_salesman" parent="sale_subscription.menu_sale_subscription_report" name="Salesperson Dashboard"/>
+</odoo>

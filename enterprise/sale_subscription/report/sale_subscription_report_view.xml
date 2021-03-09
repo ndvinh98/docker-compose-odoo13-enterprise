@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_subcription_report_pivot" model="ir.ui.view">
+         <field name="name">subscription.report.pivot</field>
+         <field name="model">sale.subscription.report</field>
+         <field name="arch" type="xml">
+             <pivot disable_linking="True">
+                 <field name="template_id" type="row"/>
+                 <field name="user_id" type="col"/>
+                 <field name="recurring_monthly" type="measure"/>
+             </pivot>
+         </field>
+    </record>
+
+    <record id="view_subcription_report_graph" model="ir.ui.view">
+         <field name="name">subscription.report.graph</field>
+         <field name="model">sale.subscription.report</field>
+         <field name="arch" type="xml">
+             <graph>
+                 <field name="template_id" type="row"/>
+                 <field name="recurring_monthly" type="measure"/>
+             </graph>
+         </field>
+    </record>
+
+    <record id="sale_subscription_report_view_cohort" model="ir.ui.view">
+        <field name="name">sale.subscription.report.cohort</field>
+        <field name="model">sale.subscription.report</field>
+        <field name="arch" type="xml">
+            <cohort string="Subscription" date_start="date_start" date_stop="date_end" interval="month" />
+        </field>
+    </record>
+
+    <record id="sale_subscription_report_cohort_action" model="ir.actions.act_window">
+        <field name="name">Retention Analysis</field>
+        <field name="res_model">sale.subscription.report</field>
+        <field name="view_mode">cohort,graph,pivot</field>
+    </record>
+
+    <record id="sale_subscription_report_pivot_action" model="ir.actions.act_window">
+        <field name="name">Subscriptions Analysis</field>
+        <field name="res_model">sale.subscription.report</field>
+        <field name="view_mode">pivot,graph,cohort</field>
+    </record>
+
+    <record id="sale_subscription_report_search" model="ir.ui.view">
+        <field name="name">sale.subscription.report.search</field>
+        <field name="model">sale.subscription.report</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name" string="Subscription"/>
+                <field name="template_id"/>
+                <field name="user_id"/>
+                <field name="team_id"/>
+                <field name="product_id"/>
+                <field name="partner_id" operator="child_of"/>
+                <filter name="my_subscriptions" string="My Subscriptions" domain="[('user_id','=',uid)]"/>
+                <separator/>
+                <filter name="open" string="Running" domain="[('in_progress', '=', True)]" help="Running Subscriptions"/>
+                <filter name="pending" string="To Renew" domain="[('to_renew', '=', True)]" help="Pending subscriptions"/>
+                <filter name="Expired" string="Expired" domain="[('in_progress', '=', False)]" help="Closed subscriptions"/>
+                <separator/>
+                <filter name="good" string="Good Health" domain="[('health', '=', 'done')]"/>
+                <filter name="bad" string="Bad Health" domain="[('health', '=', 'bad')]"/>
+                <group expand="1" string="Group By">
+                    <filter string="Stage" name="stage" domain="[]" context="{'group_by': 'stage_id'}"/>
+                    <filter string="Salesperson" name="sales_person" domain="[]" context="{'group_by': 'user_id'}"/>
+                    <filter string="Customer" name="customer" domain="[]" context="{'group_by': 'partner_id'}"/>
+                    <filter string="Country" name="country" domain="[]" context="{'group_by': 'country_id'}"/>
+                    <filter string="Industry" name="industry" domain="[]" context="{'group_by': 'industry_id'}"/>
+                    <filter string="Template" name="template" domain="[]" context="{'group_by': 'template_id'}"/>
+                    <filter string="Start Date" name="start_month" domain="[]" context="{'group_by': 'date_start'}" />
+                    <filter string="End Date" name="end_month" domain="[]" context="{'group_by': 'date_end'}" />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <menuitem id="menu_sale_subscription_report" name="Reporting" parent="menu_sale_subscription_root" sequence="5"/>
+    <menuitem id="menu_sale_subscription_report_pivot" name="Subscriptions" parent="menu_sale_subscription_report" action="sale_subscription_report_pivot_action" sequence="1"/>
+    <menuitem id="menu_sale_subscription_report_cohort" name="Retention" parent="menu_sale_subscription_report" action="sale_subscription_report_cohort_action" sequence="2"/>
+</odoo>

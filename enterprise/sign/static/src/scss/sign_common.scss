@@ -1,0 +1,153 @@
+.o_sign_pdf_iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    flex: 0 1 100%;
+    border: none;
+    display: block;
+}
+
+.o_sign_request_reference_title {
+    text-align: left;
+}
+.o_sign_signer_status.clearfix {
+    text-align: right;
+}
+.o_sign_request_from {
+    text-align: left;
+}
+
+.o_sign_request_follower_name {
+    &:before {
+        content: ', ';
+    }
+    &:first-child:before {
+        content: none;
+    }
+}
+
+/* Document view */
+.o_sign_document {
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: $o-view-background-color;
+
+    > .container-fluid {
+        flex: 0 0 auto;
+        margin: 0;
+        padding: 0 $o-horizontal-padding 10px;
+    }
+
+    > .container {
+        flex: 0 0 auto;
+    }
+
+    .row {
+        &.o_sign_page_info {
+            max-height: 33vh;
+            overflow-y: auto;
+        }
+
+        > div {
+            > .o_page_header, > .alert {
+                margin: 10px 0;
+            }
+        }
+
+        > .o_sign_sign_document_button {
+            margin: 0 $o-horizontal-padding;
+        }
+    }
+
+    .o_sign_signer_status > img {
+        height: 32px;
+    }
+}
+
+.o_sign_image_document {
+    display: inline-block;
+    max-width: 100%;
+    margin-top: $o-horizontal-padding;
+
+    > img {
+        min-width: 100px;
+    }
+}
+
+.o_sign_validate_banner {
+    display: none;
+    opacity: 0;
+
+    @include o-position-absolute($bottom: 0, $left: 0);
+    width: 100%;
+    padding: 10px;
+
+    background-color: $o-brand-odoo;
+    color: white;
+    font-size: 1.25em;
+    text-align: center;
+}
+
+.modal.o_sign_thank_you_dialog {
+    border: none;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.6), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+    text-align: left;
+    .btn {
+        border-radius: 0;
+        border: none;
+    }
+    .modal-header {
+        border-top-left-radius: 0.0rem;
+        border-top-right-radius: 0.0rem;
+        background-color: $o-brand-odoo;
+        color: #fff;
+        .modal-title {
+            line-height: 1;
+            color: #fff;
+        }
+        .text-muted {
+            color: #fff !important;
+        }
+        .close {
+            color: #fff;
+            opacity: 1;
+            text-shadow: none;
+        }
+    }
+
+    .modal-body {
+        color: $o-main-text-color;
+        .o_thankyou_message {
+            margin-top: 14px;
+        }
+        .o_thankyou_link {
+            margin-top: 25px;
+            > img {
+                width: 30px;
+            }
+            a {
+                color: $o-main-text-color;
+                &:hover {
+                    text-decoration: none;
+                    color: $o-brand-primary;
+                }
+            }
+        }
+    }
+
+    .modal-footer {
+        border-top: none;
+        text-align: left;
+        display: block;
+        &:empty {
+            padding: 0px;
+        }
+    }
+}
+.modal.o_sign_signature_dialog {
+    .modal-footer {
+        display: flex;
+        justify-content: flex-start;
+    }
+}
+     

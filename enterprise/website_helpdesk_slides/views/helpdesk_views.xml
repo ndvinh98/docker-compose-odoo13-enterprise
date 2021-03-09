@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_team_view_form_inherit_website_helpdesk_slides" model="ir.ui.view">
+        <field name="name">helpdesk.team.form.inherit.website.slides.helpdesk</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="model">helpdesk.team</field>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='use_website_helpdesk_slides']" position="replace">
+                <div attrs="{'invisible': ['|', ('use_website_helpdesk_slides', '=', False), ('elearning_url','=',False)]}" class="mt16">
+                    View the presentations:<br/>
+                    <a type="button" role="button" class="btn-link" target="_blank"><i class="fa fa-fw fa-arrow-right"/>
+                        <field name="elearning_url" readonly="1" class="oe_inline" widget="url"/>
+                    </a>
+                </div>
+                <div attrs="{'invisible': [('use_website_helpdesk_slides', '=', False), ('elearning_id','=',False)]}">
+                    <div>
+                        The related channel is:<br/>
+                        <a type="button" role="button" class="btn-link" target="_blank"><i class="fa fa-fw fa-arrow-right"/>
+                           <field name="elearning_id" string="eLearning" attrs="{'required': [('use_website_helpdesk_slides', '=', True)]}" context="{'default_name': name}"/>
+                        </a>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

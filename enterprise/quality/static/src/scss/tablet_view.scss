@@ -1,0 +1,46 @@
+// Add a picture
+.workorder_picture, .quality_picture {
+    margin: 5px 0;
+
+    .o_field_image {
+        float: left;
+        position: relative;
+        margin-bottom: $o-horizontal-padding !important;
+
+        img {
+            height: 70px;
+        }
+        .o_form_image_controls {
+            height: 100%;
+            background-color: transparent;
+            cursor: zoom-in;
+
+            .o_clear_file_button {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                background-color: #00A09D;
+                cursor: pointer;
+                padding: 4px 8px;
+                margin: 0;
+                color: white;
+            }
+
+            .o_form_binary_progress {
+                position: absolute;
+                bottom: -18px;
+                left: 0;
+                width: 100%;
+                text-align: center;
+            }
+        }
+        .o_hidden_input_file  {
+            display: none;
+        }
+    }
+
+    #picture_button {
+        margin-top: 0;
+        @include o-position-absolute($top: 33%, $left: 106%);
+    }
+}

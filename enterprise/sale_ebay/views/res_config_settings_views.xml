@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.sale.ebay</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='sale_ebay']" position="replace">
+                <h2>eBay</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">eBay Account</span>
+                            <div class="text-muted">
+                                Mode and credentials
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="ebay_domain" string="Mode" class="col-lg-4 o_light_label"/>
+                                    <field name="ebay_domain" class="col-lg-4 oe_inline"/>
+                                </div>
+                                <div class="row">
+                                    <label for="ebay_dev_id" class="col-lg-4 o_light_label"/>
+                                    <field name="ebay_dev_id" class="col-lg-8 oe_inline"/>
+                                </div>
+                                <div attrs="{'invisible': [('ebay_domain','=', 'prod')]}">
+                                    <div class="row">
+                                        <label for="ebay_sandbox_token" class="col-lg-4 o_light_label"/>
+                                        <field name="ebay_sandbox_token" class="col-lg-8 oe_inline"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="ebay_sandbox_app_id" class="col-lg-4 o_light_label"/>
+                                        <field name="ebay_sandbox_app_id" class="col-lg-8 oe_inline"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="ebay_sandbox_cert_id" class="col-lg-4 o_light_label"/>
+                                        <field name="ebay_sandbox_cert_id" class="col-lg-8 oe_inline"/>
+                                    </div>
+                                </div>
+                                <div attrs="{'invisible': [('ebay_domain','=', 'sand')]}">
+                                    <div class="row">
+                                        <label for="ebay_prod_token" class="col-lg-4 o_light_label"/>
+                                        <field name="ebay_prod_token" class="col-lg-8 oe_inline"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="ebay_prod_app_id" class="col-lg-4 o_light_label"/>
+                                        <field name="ebay_prod_app_id" class="col-lg-8 oe_inline"/>
+                                    </div>
+                                    <div class="row">
+                                        <label for="ebay_prod_cert_id" class="col-lg-4 o_light_label"/>
+                                        <field name="ebay_prod_cert_id" class="col-lg-8 oe_inline"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">eBay Options</span>
+                            <div class="text-muted">
+                                eBay parameters
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="ebay_site" class="col-lg-4 o_light_label" />
+                                    <field name="ebay_site" class="col-lg-8 oe_inline" options="{'no_create': True, 'no_open': True}"/>
+                                </div>
+                                <div class="row">
+                                    <label for="ebay_currency" string="Currency" class="col-lg-4 o_light_label"/>
+                                    <field name="ebay_currency" class="col-lg-8 oe_inline"/>
+                                    <button name="%(base.action_currency_all_form)d" icon="fa-arrow-right" type="action"
+                                            string="Activate Other Currencies" style="margin-left: 150px;" class="btn-link"/>
+                                </div>
+                                <div class="row">
+                                    <label for="ebay_out_of_stock" class="col-lg-4 o_light_label"/>
+                                    <field name="ebay_out_of_stock" class="col-lg-4 oe_inline"/>
+                                </div>
+                                <div class="row">
+                                    <label for="ebay_gallery_plus" class="col-lg-4 o_light_label"/>
+                                    <field name="ebay_gallery_plus" class="col-lg-4 oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Storage</span>
+                            <div class="text-muted">
+                                Storage location of your products
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="ebay_country" class="col-lg-4 o_light_label"/>
+                                    <field name="ebay_country" class="col-lg-8 oe_inline" options="{'no_create': True, 'no_open': True}"/>
+                                    <button name="%(sale_ebay.action_country_all_form)d" icon="fa-arrow-right" type="action"
+                                            string="Add other countries" style="margin-left: 150px;" class="btn-link"/>
+                                </div>
+                                <div class="row">
+                                    <label for="ebay_zip_code" class="col-lg-4 o_light_label"/>
+                                    <field name="ebay_zip_code" class="col-lg-8 oe_inline"/>
+                                </div>
+                                <div class="row">
+                                    <label for="ebay_location" class="col-lg-4 o_light_label"/>
+                                    <field name="ebay_location" class="col-lg-8 oe_inline"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box" attrs="{'invisible': ['|', '|', '|', ('ebay_dev_id', '=', False),('ebay_sandbox_token', '=', False),('ebay_sandbox_app_id', '=', False),('ebay_sandbox_cert_id', '=', False),]}">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Synchronization</span>
+                            <div class="text-muted">
+                                Import eBay config data and sync transactions
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt8">
+                                    <div class="col-lg-6" title="Sync now"> 
+                                        <button name="sync_ebay_details" icon="fa-lg fa-refresh" type="object" string="Countries &amp; Currencies" class="btn-link"></button>
+                                    </div>
+                                    <div class="col-lg-6" title="Sync now">
+                                        <button name="button_sync_categories" icon="fa-lg fa-refresh" type="object" string="Product Categories" class="btn-link"></button>
+                                    </div>
+                                </div>
+                                <div class="row mt8">
+                                    <div class="col-lg-6" title="Sync now">
+                                        <button name="sync_policies" icon="fa-lg fa-refresh" type="object" string="Policies" class="btn-link"></button>
+                                    </div>
+                                    <div class="col-lg-6" title="Sync now">
+                                        <button name="button_sync_product_status" icon="fa-lg fa-refresh" type="object" string="Products &amp; Transactions" class="btn-link"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <span class="o_form_label">Sales Team</span>
+                            <div class="text-muted">
+                                Sales Team to manage eBay sales
+                            </div>
+                            <div class="content-group">
+                                <div class="row mt16">
+                                    <label for="ebay_sales_team" string="Sales Team" class="col-lg-4 o_light_label"/>
+                                    <field name="ebay_sales_team" class="col-lg-8 oe_inline" kanban_view_ref="%(sales_team.crm_team_view_kanban)s"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

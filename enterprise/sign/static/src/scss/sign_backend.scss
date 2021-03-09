@@ -1,0 +1,188 @@
+.o_web_client {
+    .o_content {
+        .favorite_sign_button {
+            color: $o-brand-secondary;
+            &:hover {
+                color: orange;
+            }
+
+            &.favorite_sign_button_enabled {
+                color: orange;
+                &:hover {
+                    color: theme-color('danger');
+                }
+            }
+        }
+
+        .o_signers > span {
+            &.o_sign_waiting {
+                color: theme-color('danger');
+            }
+            &.o_sign_completed {
+                color: theme-color('success');
+            }
+
+            &:before {
+                content: ', ';
+                color: $o-main-text-color;
+            }
+            &:first-child:before {
+                content: '';
+            }
+        }
+        .o_form_view {
+            .o_field_pdfviewer {
+                width: 100%;
+                height: 600px;
+                border: 0;
+            }
+        }
+    }
+    .modal-content {
+
+        .o_field_one2many.o_sign_flat_o2m {
+            // Ajust this value to match the standard components below
+            padding-right: 42px;
+            @include media-breakpoint-down(sm) {
+                padding-right: 0;
+            }
+            table {
+                padding: 0 42px 0 0;
+                border-collapse: collapse;
+                border: none;
+            }
+            thead {
+                display: none;
+            }
+            tr.o_data_row {
+                border-bottom: none !important;
+                background-color: white !important;
+                cursor: pointer !important;
+            }
+            
+            tbody > tr {
+                border: none;
+                border-bottom: none
+            }
+            tbody > tr:not(.o_data_row) {
+                display: none;
+            }
+            tbody .o_form_uri:first-line {
+                color: #666666 !important;
+                background-color: white;
+                border: none !important;
+                box-shadow: none !important;
+            }
+            tbody > tr:nth-child(1) {
+                box-shadow: none !important;
+                border: none !important;
+            }
+            tbody > tr > td:nth-child(1) {
+                width: 150px !important;
+                color:#666666 !important;
+                font-weight: bold;
+                padding-left: 0px;
+                cursor: pointer !important;
+                border: none;
+                border-bottom: none
+            }
+            tbody > tr > td:nth-child(2) {
+                border-right-style: none;
+                &:not([style]) {
+                    border: 1px solid #666666;
+                    border-top-style: none;
+                    border-right-style: none;
+                    border-left-style: none;
+                }
+            }
+        }
+    }
+
+    /* Module pages */
+    .o_sign_template, .o_sign_document {
+        display: flex;
+        flex-flow: column nowrap;
+        @include o-position-absolute(0, 0, 0, 0);
+        @include media-breakpoint-down(sm) {
+            position: static;
+            .o_sign_pdf_iframe {
+                flex: 0 0 500px;
+            }
+        }
+        background-color: $o-view-background-color;
+    }
+
+    /* Template edit view */
+    .o_sign_template {
+        .fa-pencil {
+            cursor: pointer;
+            opacity: 0.5;
+            transition: opacity ease 250ms;
+        }
+        :hover > .fa-pencil {
+            opacity: 1.0; 
+        }
+
+        .o_sign_template_name_input {
+            width: auto;
+            display: inline-block;
+            border: 1px dashed white;
+            margin: 6px;
+            &:focus {
+                border: 1px solid silver;
+            }
+            &[disabled] {
+                background-color: transparent;
+                border: none;
+            }
+        }
+
+        .alert.o_sign_template_saved_info {
+            margin: 0;
+            padding: 5px;
+            opacity: 0;
+        }
+
+        .o_sign_duplicate_sign_template {
+            padding: 0;
+            margin-bottom: 2px;
+        }
+    }
+
+    .o_sign_create_partner {
+        .fa-exclamation-circle {
+            padding: 0 10px;
+            color: theme-color('danger');
+        }
+        .fa-check-circle {
+            padding-left: 10px;
+            color: theme-color('success');
+        }
+    }
+
+    .o_sign_add_partner {
+        border-bottom: 1px dashed $o-brand-secondary;
+    }
+
+    .o_sign_delete_field_button {
+        float: right;
+        &:before {
+            font-family: FontAwesome;
+            content: "";
+        }
+    }
+
+    #o_sign_pdf_ext {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .o_sign_resend_access_button {
+        padding: 0;
+    }
+    
+    .o_popover_offset {
+        top: 159px !important;
+        left: 4px !important;
+    }
+}

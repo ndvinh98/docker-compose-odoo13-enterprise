@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <record id="payment_acquirer_ups_cod" model="payment.acquirer">
+        <field name="name">COD</field>
+        <field name="image_128" type="base64" file="website_delivery_ups/static/img/cod.png"/>
+        <field name="provider">transfer</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="view_template_id" ref="payment_transfer.transfer_form"/>
+        <field name="state">enabled</field>
+        <field name="pending_msg"><![CDATA[
+<p><i>Pending</i>, Thanks for choosing COD(Collect on Delivery/Cash on Delivery) option. Delivery boy will collect the payment on delivery.</p>]]></field>
+    </record>
+</odoo>

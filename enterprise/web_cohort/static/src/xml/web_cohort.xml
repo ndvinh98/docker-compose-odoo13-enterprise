@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <t t-name="CohortView.buttons">
+        <div class="btn-group" role="group">
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Measures <span class="caret" />
+            </button>
+            <div class="dropdown-menu o_cohort_measures_list">
+                <button t-foreach="measures" t-as="measure"
+                    type="button"
+                    class="dropdown-item"
+                    t-att-data-field="measure[0]">
+                    <t t-esc="measure[1]"/>
+                </button>
+                <div t-if="_.keys(measures).length" class="dropdown-divider"/>
+                <button type="button" class="dropdown-item" data-field="__count__">Count</button>
+            </div>
+        </div>
+        <div class="btn-group" t-if="isMobile">
+            <a class="btn btn-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                <span class="dropdown_cohort_content mr4"></span>
+            </a>
+            <div class="dropdown-menu" role="menu">
+                <button t-foreach="intervals" t-as="interval" class="btn btn-secondary o_cohort_interval_button dropdown-item" t-att-data-interval="interval" style="display:block;">
+                    <t t-esc="intervals[interval]" />
+                </button>
+            </div>
+        </div>
+        <div class="btn-group" t-else="">
+            <button t-foreach="intervals" t-as="interval" class="btn btn-secondary o_cohort_interval_button" t-att-data-interval="interval">
+                <t t-esc="intervals[interval]" />
+            </button>
+        </div>
+        <div class="btn-group">
+            <button class="btn btn-secondary fa fa-download o_cohort_download_button" title="Download in Excel file"></button>
+        </div>
+    </t>
+
+    <t t-name="CohortView.tooltip">
+        <ul class="oe_tooltip_technical" role="tooltip">
+            <li>
+                <span class="oe_tooltip_technical_title">Period:</span>
+                <t t-esc="period"/>
+            </li>
+            <li>
+                <span class="oe_tooltip_technical_title"><t t-esc='measure'/>:</span>
+                <t t-esc="count"/>
+            </li>
+        </ul>
+    </t>
+
+    <div t-name="CohortView">
+        <div t-if="comparisonReport &amp;&amp; (comparisonReport.rows.length || report.rows.length)" class="table-responsive">
+            <table class="table text-center mb0">
+                <thead>
+                    <tr>
+                        <th colspan="16">
+                            <t t-esc="timeRangeDescription" />
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div t-if="report.rows.length" class="table-responsive">
+            <t t-set="col_length" t-value="report.rows[0].columns.length"/>
+            <table class="table text-center mb0">
+                <thead>
+                    <tr>
+                        <th rowspan="2"><t t-esc="date_start_string" /></th>
+                        <th rowspan="2">
+                            <t t-esc="measure" />
+                        </th>
+                        <th colspan="16">
+                            <t t-esc="date_stop_string" /> - By <t t-esc="interval" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th t-foreach="_.range(col_length)" t-as="intervalNumber">
+                            <t t-if="timeline === 'backward'">
+                                <t t-esc="intervalNumber - (col_length - 1)"/>
+                            </t>
+                            <t t-else="">
+                                +<t t-esc="intervalNumber"/>
+                            </t>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="report.rows" t-as="row" data-type="data" t-att-data-row="row_index" class="o_cohort_row_clickable">
+                        <td class="o_cohort_value">
+                            <t t-esc="row.date" />
+                        </td>
+                        <td class="o_cohort_value">
+                            <t t-esc="format_float(row.value)" />
+                        </td>
+                        <td t-foreach="row.columns" t-as="col">
+                            <div t-if="col.percentage !== ''"
+                                t-attf-style="background-color: rgba(0, 160, 157, #{col.percentage/100.0}); color: #{col.percentage gt 50 and '#FFFFFF' or 'inherit'}"
+                                t-att-data-col="col_index"
+                                t-att-class="'o_cohort_highlight' + (col.value === '-' ? '' : ' o_cohort_value')"
+                                t-att-data-period="col.period"
+                                t-att-data-count="mode === 'churn' ? (col.churn_value === '-' ? '' : col.churn_value) : (col.value === '-' ? '' : col.value)">
+                                <t t-esc="format_percentage(col.percentage / 100.0)" />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            Average
+                        </td>
+                        <t t-set="avg" t-value="report.avg" />
+                        <td>
+                            <t t-esc="format_float(avg.avg_value)"/>
+                        </td>
+                        <td t-foreach="avg.columns_avg" t-as="col">
+                            <t t-if="avg.columns_avg[col]['count']">
+                                <t t-esc="format_percentage(avg.columns_avg[col]['percentage'] / (avg.columns_avg[col]['count'] * 100.0) )" />
+                            </t>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div t-if="!report.rows.length &amp;&amp; comparisonReport &amp;&amp; comparisonReport.rows.length" class="o_cohort_no_data text-center">
+            No data available.
+        </div>
+        <br/>
+        <div t-if="comparisonReport &amp;&amp; (report.rows.length || comparisonReport.rows.length)" class="table-responsive">
+            <table class="table text-center mb0">
+                <thead>
+                    <tr>
+                        <th colspan="16">
+                            <t t-esc="comparisonTimeRangeDescription" />
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <div t-if="comparisonReport &amp;&amp; comparisonReport.rows.length" class="table-responsive">
+            <table class="table text-center mb0">
+                <thead>
+                    <tr>
+                        <th rowspan="2"><t t-esc="date_start_string" /></th>
+                        <th rowspan="2">
+                            <t t-esc="measure" />
+                        </th>
+                        <th colspan="16">
+                            <t t-esc="date_stop_string" /> - By <t t-esc="interval" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th t-foreach="_.range(comparisonReport.rows[0].columns.length)" t-as="intervalNumber">
+                            +<t t-esc="intervalNumber" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="comparisonReport.rows" t-as="row" data-type="comparisonData" t-att-data-row="row_index" class="o_cohort_row_clickable">
+                        <td class="o_cohort_value">
+                            <t t-esc="row.date" />
+                        </td>
+                        <td class="o_cohort_value">
+                            <t t-esc="row.value" />
+                        </td>
+                        <td t-foreach="row.columns" t-as="col">
+                            <div t-if="col.percentage !== ''"
+                                t-attf-style="background-color: rgba(0, 160, 157, #{col.percentage/100.0}); color: #{col.percentage gt 50 and '#FFFFFF' or 'inherit'}"
+                                t-att-data-col="col_index"
+                                t-att-class="'o_cohort_highlight' + (col.value === '-' ? '' : ' o_cohort_value')"
+                                t-att-data-original-title="mode === 'churn' ? (col.churn_value === '-' ? '' : col.churn_value) : (col.value === '-' ? '' : col.value)">
+                                <t t-esc="format_percentage(col.percentage / 100.0)" />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td>
+                            Average
+                        </td>
+                        <t t-set="avg" t-value="comparisonReport.avg" />
+                        <td>
+                            <t t-esc="format_float(avg.avg_value)"/>
+                        </td>
+                        <td t-foreach="avg.columns_avg" t-as="col">
+                            <t t-if="avg.columns_avg[col]['count']">
+                                <t t-esc="format_percentage(avg.columns_avg[col]['percentage'] / (avg.columns_avg[col]['count'] * 100.0))" />
+                            </t>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div t-if="report.rows.length &amp;&amp; comparisonReport &amp;&amp; !comparisonReport.rows.length" class="o_cohort_no_data text-center">
+            No data available.
+        </div>
+    </div>
+</templates>

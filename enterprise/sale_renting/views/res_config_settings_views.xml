@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+  <record id="res_config_settings_view_form" model="ir.ui.view">
+      <field name="name">res.config.settings.view.form.inherit.rental</field>
+      <field name="model">res.config.settings</field>
+      <field name="priority" eval="10"/>
+      <field name="inherit_id" ref="base.res_config_settings_view_form" />
+      <field name="arch" type="xml">
+        <xpath expr="//div[hasclass('settings')]" position="inside">
+          <div class="app_settings_block" data-string="Rental" string="Rental" data-key="sale_renting" groups="sales_team.group_sale_manager">
+            <h2>Rental</h2>
+            <div class="row mt16 o_settings_container">
+              <div class="col-12 col-lg-6 o_setting_box" name="rental_delay_costs">
+                <div class="o_setting_left_pane">
+                </div>
+                <div class="o_setting_right_pane">
+                    <span class="o_form_label">Default Delay Costs</span>
+                    <div class="text-muted" title="Those values are applied to any new rental product and can be changed on product forms.">
+                        Additional costs for late returns
+                    </div>
+                    <div class="content-group">
+                      <div class="row mt16">
+                          <label for="extra_hour" class="col-lg-3 o_light_label"/>
+                          <field name="extra_hour" widget="monetary" class="col-lg-2 p-0"/>
+                      </div>
+                      <div class="row mt2">
+                          <label for="extra_day" class="col-lg-3 o_light_label"/>
+                          <field name="extra_day" widget="monetary" class="col-lg-2 p-0"/>
+                      </div>
+                      <div class="row mt2 o_light_label">
+                        <label string="Apply after" for="min_extra_hour" class="col-lg-3"/>
+                        <field name="min_extra_hour" class="col-lg-2 p-0"/>
+                        <label string="hours" for="min_extra_hour" class="col-lg-2"/>
+                      </div>
+                      <!-- Extra week/month support ? -->
+                      <div class="row mt8">
+                          <label string="Product" for="extra_product" class="col-lg-3 o_light_label"/>
+                          <field name="extra_product" placeholder="Product to charge extra time"/>
+                      </div>
+                    </div>
+                </div>
+              </div>
+              <div class="col-12 col-lg-6 o_setting_box">
+                <div class="o_setting_left_pane">
+                    <field name="module_sale_renting_sign"/>
+                </div>
+                <div class="o_setting_right_pane" name="rental_sign">
+                    <label for="module_sale_renting_sign"/>
+                    <div class="text-muted">
+                        Ask customer to sign documents on the spot.
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </xpath>
+      </field>
+  </record>
+
+  <record id="action_rental_config_settings" model="ir.actions.act_window">
+      <field name="name">Settings</field>
+      <field name="type">ir.actions.act_window</field>
+      <field name="res_model">res.config.settings</field>
+      <field name="view_id" ref="res_config_settings_view_form"/>
+      <field name="view_mode">form</field>
+      <field name="target">inline</field>
+      <field name="context">{'module' : 'sale_renting'}</field>
+  </record>
+
+  <menuitem id="menu_rental_settings"
+      name="Settings"
+      parent="menu_rental_config"
+      sequence="0"
+      action="action_rental_config_settings"
+      groups="base.group_system"/>
+</odoo>

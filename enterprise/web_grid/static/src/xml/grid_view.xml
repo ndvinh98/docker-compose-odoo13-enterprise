@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="grid.GridArrows">
+        <div>
+            <button t-if="widget.allowCreate" class="btn btn-primary o_grid_button_add" type="button">
+                Add a Line
+            </button>
+            <div t-if="widget._buttons.length" class="btn-group">
+                <button t-foreach="widget._buttons" t-as="btn"
+                        t-attf-class="grid_arrow_button btn {{ btn['class'] || 'btn-secondary' }}"
+                        type="button" t-att-data-index="btn_index">
+                    <t t-esc="btn.string"/>
+                </button>
+            </div>
+            <button class="grid_arrow_previous btn btn-primary d-none"
+                    type="button">
+                <span class="fa fa-arrow-left" role="img" aria-label="Previous" title="Previous"/>
+            </button>
+            <button class="btn btn-primary grid_button_initial d-none" type="button">
+                Today
+            </button>
+            <button class="grid_arrow_next btn btn-primary d-none"
+                    type="button">
+                <span class="fa fa-arrow-right" role="img" aria-label="Next" title="Next"/>
+            </button>
+
+            <div t-if="widget._ranges.length > 1" class="btn-group o_grid_range">
+                <t t-if="isMobile">
+                    <t t-call="grid.RangeButtons.Mobile"/>
+                </t>
+                <t t-else="">
+                    <t t-foreach="widget._ranges" t-as="range">
+                        <t t-call="grid.RangeButton"/>
+                    </t>
+                </t>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="grid.RangeButtons.Mobile">
+        <button class="btn btn-link btn-sm fa fa-calendar" data-toggle="dropdown" aria-expanded="false">
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right list-inline">
+            <li t-foreach="widget._ranges" t-as="range">
+                <t t-call="grid.RangeButton"/>
+            </li>
+        </ul>
+    </t>
+
+    <t t-name="grid.RangeButton">
+        <button class="grid_arrow_range btn btn-secondary" type="button" t-att-data-name="range.name">
+            <t t-esc="range.string"/>
+        </button>
+    </t>
+
+</templates>

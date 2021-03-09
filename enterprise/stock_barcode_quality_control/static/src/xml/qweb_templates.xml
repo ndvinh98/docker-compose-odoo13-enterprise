@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" inherit_id="stock_barcode.template" xml:space="preserve">
+
+    <t t-extend="stock_barcode_lines_widget">
+        <t t-jquery=".btn.btn-secondary.text-uppercase.o_validate_page" t-operation="replace">
+            <button t-if="!widget.quality_check_todo" class="btn btn-secondary text-uppercase o_validate_page"><i class="fa fa-check mr-1"/> Validate</button>
+        </t>
+        <t t-jquery=".o_barcode_control.d-flex:last" t-operation="append">
+            <button t-if="widget.quality_check_todo" class="btn btn-success text-uppercase o_check_quality">Quality Checks</button>
+        </t>
+    </t>
+
+</templates>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_backend" name="web gantt assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/web_gantt/static/src/scss/web_gantt.scss"/>
+            <script type="text/javascript" src="/web_gantt/static/src/js/gantt_renderer.js"></script>
+            <script type="text/javascript" src="/web_gantt/static/src/js/gantt_view.js"></script>
+            <script type="text/javascript" src="/web_gantt/static/src/js/gantt_model.js"></script>
+            <script type="text/javascript" src="/web_gantt/static/src/js/gantt_controller.js"></script>
+            <script type="text/javascript" src="/web_gantt/static/src/js/gantt_row.js"></script>
+        </xpath>
+    </template>
+
+    <template id="qunit_suite" name="web gantt tests" inherit_id="web.qunit_suite">
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <script type="text/javascript" src="/web_gantt/static/tests/gantt_tests.js"></script>
+        </xpath>
+    </template>
+
+</odoo>

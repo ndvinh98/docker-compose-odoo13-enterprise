@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="helpdesk_team_view_form_inherit_website_helpdesk_livechat" model="ir.ui.view">
+        <field name="name">helpdesk.team.form.inherit.website.livechat.helpdesk</field>
+        <field name="model">helpdesk.team</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_team_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='im_livechat']" position="replace">
+                <div attrs="{'invisible': ['|', ('feature_livechat_channel_id','=',False), ('use_website_helpdesk_livechat', '=', False)]}" class="mt16">
+                    <p>
+                        Test the livechat widget from this page:<br/>
+                        <a type="button" role="button" class="btn-link" target="_blank"><i class="fa fa-fw fa-arrow-right" aria-label="Go to" title="Go to"/>
+                            <field name="feature_livechat_web_page" readonly="1" class="oe_inline" widget="url"/>
+                        </a>
+                    </p>
+                    <p>
+                        Setup the
+                        <strong>
+                            <field name="feature_livechat_channel_id" readonly="1" class="oe_online w-auto"/>
+                        </strong>
+                        channel to define auto-popup rules and geolocation filters
+                    </p>
+                </div>
+            </xpath>
+            <xpath expr="//div[@id='sla']" position="after">
+                <div class="col-lg-6 o_setting_box" title="Set shortcuts predefined answers. This works in both the mail composer and the live website chatter. Simply ype ':' followed by the shortcut label to get selectable canned reponses.">
+                    <div class="o_setting_left_pane">
+                        <field name="is_canned_response"/>
+                    </div>
+                    <div class="o_setting_right_pane">
+                        <label for="is_canned_response" string="Canned Responses"/>
+                        <div class="text-muted">
+                            Use predefined answers in the mail composer
+                        </div>
+                        <div attrs="{'invisible': [('is_canned_response', '=', False)]}">
+                            <button name="%(im_livechat.im_livechat_canned_response_action)d" type="action" icon="fa-arrow-right" string="Configure Canned Responses" class="btn-link mt16"/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

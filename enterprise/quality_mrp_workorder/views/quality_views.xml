@@ -1,0 +1,45 @@
+<odoo>
+    <record id="quality_alert_view_form_inherit_mrp" model="ir.ui.view">
+        <field name="name">quality.alert.view.form.inherit.mrp</field>
+        <field name="model">quality.alert</field>
+        <field name="inherit_id" ref="quality_control.quality_alert_view_form"/>
+        <field name="arch" type="xml">
+            <field name="lot_id" position="after">
+                <field name="workcenter_id" groups="mrp.group_mrp_routings"/>
+            </field>
+            <xpath expr="//div[hasclass('oe_chatter')]" position="after">
+                <div invisible="not context.get('discard_on_footer_button', False)">
+                    <footer class="oe_edit_only">
+                        <button special="save" string="Save" class="oe_highlight"/>
+                        <button string="Discard" special="cancel"/>
+                    </footer>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="quality_check_action_wo" model="ir.actions.act_window">
+        <field name="name">Quality Checks</field>
+        <field name="res_model">quality.check</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('workorder_id', '=', active_id)]</field>
+        <field name="target">main</field>
+        <field name="context">{
+            'search_default_workorder_id': [active_id],
+            'default_workorder_id': active_id,
+         }
+        </field>
+    </record>
+
+    <record id="quality_alert_view_search_inherit_quality_mrp_workorder" model="ir.ui.view">
+        <field name="name">quality.alert.view.search.inherit.mrp</field>
+        <field name="model">quality.alert</field>
+        <field name="inherit_id" ref="quality.quality_alert_view_search"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="workorder_id" string="Operation" filter_domain="[
+                    '|', '|', ('picking_id', 'ilike', self), ('production_id', 'ilike', self), ('workorder_id', 'ilike', self)]"/>
+            </field>
+        </field>
+    </record>
+</odoo>

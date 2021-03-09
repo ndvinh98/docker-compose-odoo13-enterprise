@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="rental_order_form_view" model="ir.ui.view">
+      <field name="name">rental.order.form</field>
+      <field name="model">sale.order</field>
+      <field name="inherit_id" ref="sale.view_order_form"/>
+      <field name="arch" type="xml">
+        <xpath expr="//header" position="inside">
+          <field name="is_rental_order" invisible="1"/>
+          <field name="has_pickable_lines" invisible="1"/>
+          <field name="has_returnable_lines" invisible="1"/>
+          <field name="has_late_lines" invisible="1"/>
+          <field name="rental_status" invisible="1"/>
+        </xpath>
+        <xpath expr="//button[@name='action_quotation_send']" position="before">
+          <button name="open_pickup" type="object" class="btn-primary" string="PICKUP"
+            attrs="{'invisible':['|', ('has_pickable_lines','=',False), ('state', 'not in', ['sale', 'done'])]}"/>
+          <button name="open_return" type="object" class="btn-primary" string="RETURN"
+            attrs="{'invisible':['|',
+              ('state', 'not in', ['sale', 'done']),
+              '|',
+                ('has_returnable_lines','=',False),
+                '&amp;',
+                ('has_returnable_lines','=',True),
+                ('has_pickable_lines','=',True)]
+            }"/>
+          <button name="open_return" type="object" class="btn-secondary" string="RETURN"
+            attrs="{'invisible':['|',
+              ('state', 'not in', ['sale', 'done']),
+              '|',
+                ('has_returnable_lines','=',False),
+                '&amp;',
+                  ('has_returnable_lines','=',True),
+                  ('has_pickable_lines','=',False)]
+            }"/>
+        </xpath>
+        <xpath expr="//div[@name='button_box']" position="after">
+          <div class="badge-pill badge-info float-right"
+            attrs="{'invisible': [
+              '|', ('state', 'not in', ['sale', 'done']),
+              '|', ('rental_status', '!=', 'pickup'), ('has_late_lines', '=', True)]}">Reserved</div>
+          <div class="badge-pill badge-info float-right"
+            attrs="{'invisible': [
+              '|', ('state', 'not in', ['sale', 'done']),
+              '|', ('rental_status', '!=', 'pickup'), ('has_late_lines', '=', False)]}">Late Pickup</div>
+          <div class="badge-pill badge-warning float-right"
+            attrs="{'invisible': [
+              '|', ('state', 'not in', ['sale', 'done']),
+              '|', ('rental_status', '!=', 'return'), ('has_late_lines', '=', True)]}">Picked-up</div>
+          <div class="badge-pill badge-danger float-right"
+            attrs="{'invisible': [
+              '|', ('state', 'not in', ['sale', 'done']),
+              '|', ('rental_status', '!=', 'return'), ('has_late_lines', '=', False)]}">Late Return</div>
+          <div class="badge-pill badge-success float-right"
+            attrs="{'invisible': [
+              '|', ('state', 'not in', ['sale', 'done']), ('rental_status', '!=', 'returned')]}">Returned</div>
+        </xpath>
+        <xpath expr="//notebook/page[@name='order_lines']/field/tree/field[@name='product_uom_qty']" position='after'>
+          <field name="is_rental" invisible="1"/>
+          <field name="is_product_rentable" invisible="1"/>
+          <field name="pickup_date" invisible="1"/>
+          <field name="return_date" invisible="1"/>
+          <field name="rental_updatable" invisible="1"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']//tree//field[@name='qty_delivered']" position="after">
+            <field name="qty_returned" attrs="{'column_invisible': ['|', ('parent.state', 'not in', ['sale', 'done']), ('parent.is_rental_order', '=', False)],
+                'invisible': ['|', ('is_rental', '=', False), ('is_product_rentable', '=', False)]
+            }"/>
+        </xpath>
+        <xpath expr="//field[@name='order_line']//tree//field[@name='product_id']" position="attributes">
+            <attribute name="attrs">{
+                'readonly': [('rental_updatable', '=', False)],
+                'required': [('display_type', '=', False)],
+                }
+            </attribute>
+        </xpath>
+        <xpath expr="//field[@name='order_line']//tree//field[@name='product_template_id']" position="attributes">
+            <attribute name="attrs">{
+                'readonly': [('rental_updatable', '=', False)],
+                'required': [('display_type', '=', False)],
+                }
+            </attribute>
+        </xpath>
+      </field>
+  </record>
+
+</odoo>

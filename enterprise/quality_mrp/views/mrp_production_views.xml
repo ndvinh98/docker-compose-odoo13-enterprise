@@ -1,0 +1,29 @@
+<odoo>
+    <record id="mrp_production_view_form_inherit_quality" model="ir.ui.view">
+        <field name="name">mrp.production.view.form.inherit.quality</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <button name="action_cancel" position="before">
+                <button name="check_quality" attrs="{'invisible': [('quality_check_todo', '=', False)]}" type="object" string="Quality Checks" class="oe_highlight"/>
+                <button name="button_quality_alert" type="object" string="Quality Alert" context="{'default_production_id': active_id}" attrs="{'invisible': ['|',('check_ids', '=', []), '&amp;', ('quality_check_fail', '=', True), ('quality_alert_count', '=', 0)]}"/>
+                <button name="button_quality_alert" type="object" string="Quality Alert" context="{'default_production_id': active_id}" class="oe_highlight" attrs="{'invisible': ['|', ('quality_check_fail', '=', False), ('quality_alert_count', '!=', 0)]}"/>
+                <field name="check_ids" invisible="1"/>
+                <field name="quality_check_fail" invisible="1"/>
+                <field name="quality_check_todo" invisible="1"/>
+            </button>
+            <div name="button_box" position="inside">
+                <button name="open_quality_alert_mo" type="object" class="oe_stat_button" icon="fa-bell" attrs="{'invisible': [('quality_alert_count', '=', 0)]}" context="{'search_default_production_id': active_id}">
+                    <div class="o_field_widget o_stat_info">
+                        <span class="o_stat_value"><field name="quality_alert_count"/></span>
+                        <span class="o_stat_text">Quality Alerts</span>
+                    </div>
+                </button>
+                <button name="%(quality_check_action_mo)d" attrs="{'invisible': [('check_ids', '=', [])]}" type="action" class="oe_stat_button" icon="fa-check">
+                    <span class="o_stat_text text-success" attrs="{'invisible': [('quality_check_fail', '=', True)]}">Quality Checks</span>
+                    <span class="o_stat_text text-danger" attrs="{'invisible': [('quality_check_fail', '!=', True)]}">Quality Checks</span>
+                </button>
+            </div>
+        </field>
+    </record>
+</odoo>

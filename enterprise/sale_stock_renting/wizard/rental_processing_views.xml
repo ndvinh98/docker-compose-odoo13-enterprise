@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- RENTAL ORDER LINES : PICKUP / RETURN WIZARD -->
+
+  <record id="rental_order_wizard_view_form" model="ir.ui.view">
+    <field name="name">rental.order.wizard.form</field>
+    <field name="model">rental.order.wizard</field>
+    <field name="inherit_id" ref="sale_renting.rental_order_wizard_view_form"/>
+    <field name="arch" type="xml">
+      <field name="has_late_lines" position="after"> <!-- Rental processing form -->
+        <field name="has_tracked_lines" invisible="1"/>
+        <field name="has_lines_missing_stock" invisible="1"/>
+      </field>
+      <field name="is_late" position="after"> <!-- Rental processing line tree-->
+        <field name="tracking" invisible="1"/>
+        <field name="is_product_storable" invisible="1"/>
+        <field name="pickeable_lot_ids" invisible="1"/>
+        <field name="returnable_lot_ids" invisible="1"/>
+        <field name="qty_available" invisible="1"/>
+      </field>
+      <xpath expr="//tree" position="attributes">
+        <attribute name="decoration-danger">parent.status == 'pickup' and is_product_storable and qty_delivered &gt; qty_available</attribute>
+      </xpath>
+      <field name="qty_reserved" position="after">
+        <field name="pickedup_lot_ids" string="Serial Numbers" attrs="{
+          'column_invisible': ['|', ('parent.status', '=', 'return'), ('parent.has_tracked_lines', '=', False)],
+          'invisible':[('tracking', '!=', 'serial')],
+          }" widget="many2many_tags" options="{'no_create':1, 'no_edit':1}"/>
+      </field>
+      <field name="qty_delivered" position="after">
+        <field name="returned_lot_ids" string="Serial Numbers" attrs="{
+          'column_invisible':['|', ('parent.status', '=', 'pickup'), ('parent.has_tracked_lines', '=', False)],
+          'invisible':[('tracking', '!=', 'serial')],
+          }" widget="many2many_tags" options="{'no_create':1, 'no_edit':1}"/>
+      </field>
+      <field name="qty_delivered" position="attributes">
+        <!-- Needed to apply the modification of the onchange when field is readonly-->
+        <attribute name="force_save">1</attribute>
+        <!-- When tracking enabled for the product, the qty picked-up is the number of serial numbers picked-up -->
+        <attribute name="attrs">
+          {
+            'readonly':['|', ('parent.status', '=', 'return'), ('tracking', '=', 'serial')]
+          }
+        </attribute>
+      </field>
+      <field name="qty_returned" position="attributes">
+        <!-- Needed to apply the modification of the onchange when field is readonly-->
+        <attribute name="force_save">1</attribute>
+        <!-- When tracking enabled for the product, the qty returned is the number of serial numbers returned -->
+        <attribute name="attrs">
+          {
+            'readonly':[('tracking', '=', 'serial')],
+            'column_invisible':[('parent.status', '=', 'pickup')]
+          }
+        </attribute>
+      </field>
+      <xpath expr="//footer" position="before">
+          <group class="text-center" attrs="{'invisible': [('has_lines_missing_stock', '=', False)]}">
+              <div class="card text-white bg-warning">
+                <div class="card-header bg-transparent">
+                  <span class="fa fa-warning" t-translation="off">&amp;nbsp;</span>
+                  <span>
+                    Some products don't have the requested qty available for pickup
+                  </span>
+                </div>
+              </div>
+          </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>

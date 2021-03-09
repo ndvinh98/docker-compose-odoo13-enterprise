@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+        <record model="ir.ui.view" id="res_user_form">
+            <field name="name">Users Preferences</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <group name="messaging" position="after">
+                        <group name="voip_config" string="VOIP Configuration" col="4" groups="base.group_user">
+                            <field name="sip_login" class="oe_inline" readonly="0"/>
+                            <field name="sip_external_phone" class="oe_inline" readonly="0"/>
+                            <field name="sip_always_transfer" class="oe_inline" readonly="0"/>
+                            <field name="sip_password" class="oe_inline" password="True" readonly="0"/>
+                            <field name="sip_ignore_incoming" class="oe_inline" readonly="0"/>
+                        </group>
+                    </group>
+                </data>
+            </field>
+        </record>
+</odoo>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="website_helpdesk_forum.forum_posts_page" name="Top 10 Posts">
+        <p class="question-block" t-foreach="questions" t-as="question">
+            <div class="question-name">
+                <a t-attf-href="/forum/#{ slug(forum) }/question/#{ slug(question) }">
+                    <span t-field="question.name"/>
+                </a>
+                <span t-if="question.has_validated_answer" title="Question has accepted answer"><i class="fa fa-check-circle oe_answer_true" role="img" aria-label="Question has accepted answer"/></span>
+            </div>
+            <div>
+                <t t-raw="post_content"/>
+            </div>
+            <small class="text-muted">
+                <i t-attf-class="fa fa-question-circle" title="Question" role="img" aria-label="Question"/>
+                <span>By </span><span t-field="question.create_uid" t-options='{"widget": "contact", "country_image": true, "fields": ["name", "country_id"]}' style="display: inline-block;"/>
+                <span> • </span><span t-field="question.write_date" t-options='{"format":"short"}'/>
+                <span> • </span><span t-field="question.views" /> View<t t-if="question.views > 1">s</t>
+            </small>
+        </p>
+        <p t-if="questions_limit &gt; 10">
+            <a t-attf-href="/forum/#{ slug(forum) }?search=#{search}">Click here to view more result...</a>
+        </p>
+    </template>
+
+    <template id="website_helpdesk_forum_team_page" inherit_id="website_helpdesk.team">
+        <xpath expr="//h2[@id='team-page']" position="after">
+            <t t-if="forum and team.use_website_helpdesk_forum">
+               <div class="col-lg-6" id="forum_posts">
+                    <h2>Popular Questions</h2>
+                    <div class="col-lg-10" id="forum_posts" style="padding-left:0px;">
+                        <p t-if="not questions" class="text-muted">
+                            No question yet.
+                        </p>
+                        <t t-call="website_helpdesk_forum.forum_posts_page"/>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

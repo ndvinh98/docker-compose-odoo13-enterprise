@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="website_helpdesk_slides.slides_page" name="Top 10 Posts">
+        <p t-if="slides">
+            <p class="question-block" t-foreach="slides" t-as="slide" >
+                <div class="media">
+                    <a t-attf-href="/slides/slide/#{slug(slide)}">
+                        <img class="mr-3 oe_slides_apart_small" t-att-src="website.image_url(slide, 'image_128')" alt="Slide image"/>
+                    </a>
+                    <div class="media-body">
+                        <a t-attf-href="/slides/slide/#{slug(slide)}"><h5 class="mt-0" t-esc="slide.name"/></a>
+                        <small class="text-muted">
+                            <t t-esc="slide.total_views"/> Views . <timeago class="timeago" t-att-datetime="slide.create_date"></timeago>
+                        </small>
+                    </div>
+                </div>
+            </p>
+        </p>
+        <p t-if="slides_limit &gt; 7">
+            <a t-attf-href="/slides/#{ slug(channel) }?search=#{search}">Click here to view more result...</a>
+        </p>
+    </template>
+
+    <template id="website_helpdesk_slides_team_page" inherit_id="website_helpdesk.team">
+        <xpath expr="//h2[@id='team-page']" position="after">
+            <t t-if="channel and team.use_website_helpdesk_slides">
+                <div class="col-lg-6" id="slides_posts">
+                    <h2>Popular Presentations</h2>
+                    <div class="col-lg-10" id="slides_posts" style="padding-left:0px;">
+                        <p t-if="not slides" class="text-muted">
+                            No presentations yet.
+                        </p>
+                        <t t-call="website_helpdesk_slides.slides_page"/>
+                    </div>
+                </div>
+            </t>
+        </xpath>
+    </template>
+
+</odoo>

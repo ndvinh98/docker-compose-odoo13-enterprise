@@ -1,0 +1,13 @@
+<odoo>
+    <record id="quality_check_action_mo" model="ir.actions.act_window">
+        <field name="name">Quality Checks</field>
+        <field name="res_model">quality.check</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('production_id', '=', active_id)]</field>
+        <field name="context">{
+            'search_default_production_id': [active_id],
+            'default_production_id': active_id,
+         }
+        </field>
+    </record>
+</odoo>

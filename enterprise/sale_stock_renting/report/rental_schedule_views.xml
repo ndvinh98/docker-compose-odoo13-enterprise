@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="rental_schedule_view_search_inherit_lots" model="ir.ui.view">
+    <field name="name">sale.rental.schedule.search.inherit.stock</field>
+    <field name="model">sale.rental.schedule</field>
+    <field name="inherit_id" ref="sale_renting.rental_schedule_view_search"/>
+    <field name="arch" type="xml">
+      <field name="product_id" position="after">
+          <field name="lot_id"/>
+      </field>
+      <xpath expr="//filter[@name='Product']" position="after">
+        <filter string="Serial Number" name="Lot" context="{'group_by': 'lot_id'}"/>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="rental_schedule_view_form_inherit_lots" model="ir.ui.view">
+    <field name="name">sale.rental.schedule.form</field>
+    <field name="model">sale.rental.schedule</field>
+    <field name="inherit_id" ref="sale_renting.rental_schedule_view_form"/>
+    <field name="arch" type="xml">
+      <field name="product_id" position="after">
+        <field name="lot_id" attrs="{'invisible': [('lot_id', '=', False)]}"/>
+      </field>
+      <field name="company_id" position="before">
+        <field name="warehouse_id" groups="stock.group_stock_multi_warehouses"/>
+      </field>
+    </field>
+  </record>
+
+</odoo>

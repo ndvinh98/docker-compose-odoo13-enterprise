@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <template id="assets_backend" name="account_followup_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/snailmail_account_followup/static/src/js/followup_form_controller.js"></script>
+            <script type="text/javascript" src="/snailmail_account_followup/static/src/js/followup_form_model.js"></script>
+        </xpath>
+    </template>
+    <template id="followup_report_assets_snailmail">
+        <t t-call="web._assets_helpers"/>
+        <link rel="stylesheet" type="text/scss" href="/snailmail_account_followup/static/src/scss/snailmail_account_followup_asset.scss"/>
+    </template>
+    <template id="report_layout" inherit_id="web.report_layout">
+        <xpath expr="//head" position="inside">
+            <t t-if="env and env.context.get('snailmail_layout')" t-call-assets="snailmail_account_followup.followup_report_assets_snailmail"/>
+        </xpath>
+    </template>
+    <template id="minimal_layout" inherit_id="web.minimal_layout">
+        <xpath expr="//head" position="inside">
+            <t t-if="env and env.context.get('snailmail_layout')" t-call-assets="snailmail_account_followup.followup_report_assets_snailmail"/>
+        </xpath>
+    </template>
+</data>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="action_social_account" model="ir.actions.act_window">
+        <field name="name">Social Accounts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">social.account</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="menu_social_account" model="ir.ui.menu">
+        <field name="action" ref="action_social_account" />
+    </record>
+
+    <record id="social_account_view_list" model="ir.ui.view">
+        <field name="name">social.account.view.tree</field>
+        <field name="model">social.account</field>
+        <field name="arch" type="xml">
+            <tree string="Social Accounts" create="0">
+                <field name="name" />
+                <field name="media_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="social_account_view_form" model="ir.ui.view">
+        <field name="name">social.account.view.form</field>
+        <field name="model">social.account</field>
+        <field name="arch" type="xml">
+            <form string="Social Account" create="0">
+                <sheet>
+                    <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="display_name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group name="social_account_global">
+                            <field name="name" string="Name"/>
+                            <field name="media_id" options="{'no_open': True}" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</data>
+</odoo>

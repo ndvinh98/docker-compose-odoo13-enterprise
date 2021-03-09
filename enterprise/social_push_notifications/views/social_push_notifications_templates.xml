@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="social_push_notifications_layout" inherit_id="web.frontend_layout">
+        <xpath expr='//head' position="inside">
+            <!-- ref: https://developers.google.com/web/updates/2015/03/push-notifications-on-the-open-web
+            The gcm_sender_id is used by browsers when it subscribes a users device with FCM.
+            This means that FCM can identify the user's device and make sure your sender ID matches the corresponding
+            API key and that the user has permitted your server to send them push messages. -->
+            <link rel="manifest" href="/social_push_notifications/static/src/js/manifest.json" />
+        </xpath>
+    </template>
+
+    <template id="push_notifications_preview" t-name="Push Notification Preview">
+        <div class="o_social_preview o_social_push_notification_preview o_home_menu_background pt-5">
+            <div class="o_social_push_notification_preview_content bg-black-75 d-flex align-items-start mr-3 mb-3 ml-5 p-3">
+
+                <img t-if="icon" t-attf-class="o_social_push_notification_preview_image"
+                    t-attf-src="data:image/png;base64, #{icon}" />
+                <img t-elif="icon_url" t-attf-class="o_social_push_notification_preview_image"
+                    t-att-src="icon_url" />
+                <div t-else="" class="bg-white p-1 rounded-circle">
+                    <img src="/mail/static/src/img/odoobot_transparent.png" />
+                </div>
+                <div class="o_social_push_notification_preview_content_body pl-4">
+                    <strong class="o_social_push_notification_preview_content_title" t-esc="title"/>
+                    <div class="o_social_push_notification_preview_content_message text-white-75" t-esc="message" />
+                    <div class="o_social_push_notification_preview_content_info text-white-75 small pt-3">
+                        Google Chrome &#183; <t t-esc="host_name" />
+                    </div>
+                </div>
+            </div>
+            <img class="w-100" src="/social_push_notifications/static/src/img/windows_task_bar.png"/>
+        </div>
+    </template>
+</odoo>

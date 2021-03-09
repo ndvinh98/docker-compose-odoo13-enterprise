@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Hide the taxes in case of a Taxcloud customer since they will be recomputed for each invoice -->
+    <template id="portal_subscription" name="Portal : subscription amounts" inherit_id="sale_subscription.subscription">
+        <xpath expr="//tfoot" position="replace">
+            <tr>
+                <td colspan="3" class="py-2">
+                    Subtotal:<br/>
+                    <t t-if="not user.partner_id.property_account_position_id.is_taxcloud">
+                        <t t-if="user.partner_id == account.partner_id">
+                            <a t-if="account.partner_id.country_id" class="small" t-attf-href="/my/account?redirect=/my/subscription/#{account.id}/#{account.uuid}">(Not in <span t-field="account.partner_id.country_id" data-oe-readonly="1"/>?)</a>
+                            Taxes:<br/>
+                        </t>
+                        <t t-else="">
+                            <abbr title="You need to be logged in as this subscription's customer to change country">Taxes</abbr>:<br/>
+                        </t>
+                        <strong>Next Billing Amount:</strong><br/>
+                    </t>
+                </td>
+                <td class="py-2">
+                    <div t-field="account.recurring_total" t-options='{"widget": "monetary", "display_currency": pricelist.currency_id}'/>
+                    <t t-if="not user.partner_id.property_account_position_id.is_taxcloud">
+                        <div t-field="account.recurring_amount_tax" t-options='{"widget": "monetary", "display_currency": pricelist.currency_id}'/>
+                        <strong t-field="account.recurring_amount_total" t-options='{"widget": "monetary", "display_currency": pricelist.currency_id}'/>
+                    </t>
+                </td>
+                <t t-if="user.partner_id.property_account_position_id.is_taxcloud">
+                    <tr>
+                        <td colspan="4" class="py-2">
+                            Additional taxes may be charged at payment.
+                        </td>
+                    </tr>
+                </t>
+            </tr>
+        </xpath>
+    </template>
+
+</odoo>

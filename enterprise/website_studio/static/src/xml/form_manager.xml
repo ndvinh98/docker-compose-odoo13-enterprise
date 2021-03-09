@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+<div t-name="website_studio.FormManager" class="o_website_studio_manager">
+    <h6><strong>Forms</strong></h6>
+    <div class="o_website_studio_forms">
+        <div class="o_website_studio_form">
+            <div class="o_web_studio_thumbnail" data-new-form="true">
+                <img t-att-src="'/web_studio/static/src/img/default_icon_app.png'" alt="App icon"/>
+            </div>
+            <div class="o_web_studio_name"><span>new form</span></div>
+        </div>
+        <div t-foreach="widget.forms" t-as="form" class="o_website_studio_form" >
+            <div class="o_web_studio_thumbnail" t-att-data-url="form.url">
+                <img t-att-src="'/web_studio/static/src/img/view_type/form.png'" alt="View form"/>
+            </div>
+            <div class="o_web_studio_name"><span t-esc="form.name"/></div>
+        </div>
+    </div>
+</div>
+
+</templates>

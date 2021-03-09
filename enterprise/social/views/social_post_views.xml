@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="action_social_post" model="ir.actions.act_window">
+        <field name="name">Social Posts</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">social.post</field>
+        <field name="view_mode">kanban,calendar,list,form,pivot</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create a new post
+          </p>
+          <p>
+            Manage and edit your posts from here.
+          </p>
+        </field>
+    </record>
+
+    <record id="menu_social_post" model="ir.ui.menu">
+        <field name="action" ref="action_social_post" />
+    </record>
+
+    <record id="social_post_view_kanban" model="ir.ui.view">
+        <field name="name">social.post.view.kanban</field>
+        <field name="model">social.post</field>
+        <field name="arch" type="xml">
+            <kanban js_class="social_post_kanban_view">
+                <field name="message"/>
+                <field name="create_uid"/>
+                <field name="image_ids" widget="many2many_binary"/>
+                <field name="image_urls"/>
+                <field name="published_date"/>
+                <field name="post_method"/>
+                <field name="scheduled_date"/>
+                <field name="state"/>
+                <field name="has_post_errors"/>
+                <field name="media_ids"/>
+                <field name="account_ids"/>
+                <field name="live_posts_by_media"/>
+                <field name="engagement"/>
+                <field name="click_count"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click o_social_post_kanban #{record.has_post_errors.raw_value ? 'o_social_post_kanban_error' : ''} d-flex flex-column p-0">
+                            <div class="o_social_post_header d-flex justify-content-between border-bottom py-2 px-3">
+                                <div>
+                                    <t t-foreach="record.media_ids.raw_value" t-as="media_id">
+                                        <img class="img mr-1" width="16" t-att-title="JSON.parse(record.live_posts_by_media.raw_value)[media_id].join('\n')" t-attf-src="/web/image/social.media/#{media_id}/image/16x16" alt="Media"/>
+                                    </t>
+                                </div>
+                                <div>
+                                    <field t-if="!record.has_post_errors.raw_value" name="state" widget="label_selection" options="{'classes': {'draft': 'secondary', 'posting': 'warning', 'posted': 'success'}}"/>
+                                    <span t-else="" class="badge badge-danger">Failed</span> <!-- OPW-2161231 -->
+                                </div>
+                            </div>
+
+                            <t t-set="has_attachments" t-value="record.image_ids.raw_value.length !== 0"/>
+                            <div t-attf-class="o_social_stream_post_message_body flex-grow-1 py-2 px-3 #{has_attachments ? 'o_social_stream_post_with_attachments' : 'border-bottom'}">
+                                <div t-attf-class="o_social_stream_post_message_text overflow-hidden #{has_attachments ? 'mb-2' : ''}">
+                                    <field name="message"  widget="social_kanban_field_emoji" />
+                                </div>
+
+                                <div t-if="has_attachments"
+                                    class="o_social_stream_post_image d-flex mx-n3 overflow-hidden"
+                                    t-att-data-images="record.image_urls.raw_value">
+                                    <t t-set="image_urls_json" t-value="JSON.parse(record.image_urls.raw_value)"/>
+
+                                    <t t-foreach="image_urls_json.length > 2 ? image_urls_json.slice(0, 2) : image_urls_json" t-as="image_url">
+                                        <t t-if="image_url_index == 1 &amp; record.image_ids.raw_value.length > 2">
+                                            <a class="o_social_stream_post_image_more position-relative d-flex ml-1" t-att-data-current-index="1">
+                                                <img class="o_social_stream_post_image_click" t-att-src="image_urls_json[1]" alt="Post Image" />
+                                                <div class="o_social_stream_post_image_more_overlay d-flex align-items-center h-100 w-100 text-white justify-content-center position-absolute h1 m-0" style="user-select: none;">
+                                                    +<t t-esc="image_urls_json.length - 2"/>
+                                                </div>
+                                            </a>
+                                        </t>
+                                        <img t-else="" class="o_social_stream_post_image_click" t-att-src="image_url" alt="Post Image" t-att-data-current-index="image_url_index" />
+                                    </t>
+                                </div>
+                            </div>
+                            <div id="post-stats" class="d-flex bg-100 px-3 py-1 border-bottom">
+                                <div class="px-2 text-center">
+                                    <small>Clicks:</small>
+                                    <small class="font-weight-bold" t-esc="record.click_count.raw_value"/>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-grow-0 align-items-center px-3 py-2">
+                                <time class="flex-grow-1 small font-weight-bold">
+                                    <t t-set="state" t-value="record.state.raw_value"/>
+                                    <t t-if="state === 'posted'">
+                                        <i class="fa fa-calendar-check-o mr-1" />
+                                        <t t-esc="record.published_date.value"/>
+                                    </t>
+                                    <t t-if="state === 'scheduled'">
+                                        <i class="fa fa-calendar mr-1" />
+                                        <t t-esc="record.scheduled_date.value"/>
+                                    </t>
+                                </time>
+                                <div class="ml-2 mr-3" title="Engagement">
+                                    <i class="fa fa-heart" />
+                                    <span t-esc="record.engagement.raw_value"/>
+                                </div>
+
+                                <img t-att-src="kanban_image('res.users', 'image_128', record.create_uid.raw_value)" t-att-title="record.create_uid.value" t-att-alt="record.create_uid.value" class="oe_kanban_avatar rounded-circle"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="social_post_view_search" model="ir.ui.view">
+        <field name="name">social.post.view.search</field>
+        <field name="model">social.post</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="message" string="Post Message"/>
+                <field name="create_uid" string="Published By"/>
+                <searchpanel>
+                    <field name="state" icon="fa-tasks"/>
+                    <field name="account_ids" select="multi" icon="fa-share-alt"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+
+    <record id="social_post_view_calendar" model="ir.ui.view">
+        <field name="name">social.post.view.calendar</field>
+        <field name="model">social.post</field>
+        <field name="arch" type="xml">
+            <calendar string="Social Posts" date_start="calendar_date" color="state" quick_add="false" mode="month">
+                <field name="message"/>
+            </calendar>
+        </field>
+    </record>
+
+    <record id="social_post_view_pivot" model="ir.ui.view">
+        <field name="name">social.post.view.pivot</field>
+        <field name="model">social.post</field>
+        <field name="arch" type="xml">
+            <pivot string="Social Posts">
+                <field name="create_date" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="social_post_view_list" model="ir.ui.view">
+        <field name="name">social.post.view.tree</field>
+        <field name="model">social.post</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="account_ids" widget="many2many_tags" />
+                <field name="message" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="social_post_view_form" model="ir.ui.view">
+        <field name="name">social.post.view.form</field>
+        <field name="model">social.post</field>
+        <field name="arch" type="xml">
+            <form string="Social Post" class="o_social_post_view_form">
+                <header>
+                    <button name="action_post" string="Post" type="object" class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('post_method', '=', 'scheduled')]}"
+                        groups="social.group_social_manager" />
+                    <button name="action_post" string="Post Now" type="object"
+                        attrs="{'invisible': [('state', '!=', 'scheduled')]}"
+                        groups="social.group_social_manager" />
+                    <button name="action_schedule" string="Schedule" type="object" class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state', '!=', 'draft'), ('post_method', '=', 'now')]}"
+                        groups="social.group_social_manager" />
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box" attrs="{'invisible': [('state', '=', 'draft')]}">
+                        <button class="oe_stat_button" icon="fa-newspaper-o" type="object" name="social_stream_post_action_my"
+                            attrs="{'invisible': [('stream_posts_count', '=', 0)]}">
+                            <field string="Feed Posts" name="stream_posts_count" widget="statinfo" />
+                        </button>
+                        <button class="oe_stat_button" icon="fa-thumbs-up"
+                            attrs="{'invisible': [('engagement', '=', 0)]}">
+                            <field string="Engagement" name="engagement" widget="statinfo" />
+                        </button>
+                        <button class="oe_stat_button order-4" name="action_redirect_to_clicks" type="object" icon="fa-mouse-pointer">
+                            <field name="click_count" string="Clicks" widget="statinfo"/>
+                        </button>
+                    </div>
+                    <group>
+                        <group string="Your Post" name="social_post_global" class="o_social_post_form_content">
+                            <field name="has_active_accounts" invisible="1" />
+                            <field name="account_ids" options="{'no_create': True}" string="Post on" widget="many2many_checkboxes"
+                                 attrs="{'invisible': ['|', ('has_active_accounts', '=', False), ('state', 'in', ['posting', 'posted'])]}" />
+                            <div colspan="2" class="alert alert-info o_social_post_no_accounts_available" role="alert" attrs="{'invisible': [('has_active_accounts', '=', True)]}">
+                                <p><a href="/web#action=social.action_social_media">Link social accounts</a> before posting.</p>
+                            </div>
+                            <field name="message" widget="social_text_emojis" class="o_social_post_message_wrapper"
+                                     attrs="{'readonly': ['|', ('has_active_accounts', '=', False), ('state', 'in', ['posting', 'posted'])]}" />
+                            <field name="image_ids" widget="many2many_binary" class="o_social_post_form_attachments"
+                                 attrs="{'readonly': [('state', 'in', ['posting', 'posted'])]}" />
+                            <field string="Campaign" name="utm_campaign_id"
+                                attrs="{'readonly': [('state', 'in', ['posting', 'posted'])]}"/>
+                            <field name="post_method" widget="radio" attrs="{'invisible': [('state', '!=', 'draft')]}"/>
+                            <field name="scheduled_date" attrs="{'invisible': ['|', ('post_method', '=', 'now'), ('state', 'in', ['posting', 'posted'])], 'required': [('post_method', '!=', 'now')]}" />
+                        </group>
+                        <group name="previews_placeholder" class="o_social_post_preview_group m-0">
+                            <div class="o_social_post_empty_preview o_view_nocontent bg-100"
+                                attrs="{'invisible': [('account_ids', '!=', []), ('message', '!=', False), ('message', '!=', '')]}">
+                                <div class="o_nocontent_help">
+                                    <p class="o_view_nocontent_smiling_face">
+                                        Preview your post
+                                    </p>
+                                    <p>
+                                        Write a message to see the preview.
+                                    </p>
+                                </div>
+                            </div>
+                        </group>
+                        <group name="live_posts" colspan="2" string="Posts By Accounts"
+                            attrs="{'invisible': [('state', 'not in', ['posting', 'posted'])]}">
+                            <field name="live_post_ids" colspan="2" nolabel="1">
+                                <kanban>
+                                    <field name="account_id"/>
+                                    <field name="state"/>
+                                    <field name="failure_reason" />
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <div class="o_social_live_post_kanban ml-0 mr-3">
+                                                <div class="row">
+                                                    <div class="col-md-9 o_social_live_post_kanban_account">
+                                                        <field name="account_id" />
+                                                    </div>
+                                                    <div class="col-md-3 text-right">
+                                                        <field name="state" widget="label_selection" options="{'classes': {'ready': 'info', 'posting': 'warning', 'posted': 'success', 'failed': 'danger'}}"/>
+                                                    </div>
+                                                </div>
+                                                <div class="o_social_live_post_kanban_failure_reason mt-2" t-att-title="record.failure_reason.raw_value">
+                                                    <field name="failure_reason" />
+                                                </div>
+                                                <div class="text-right mt-4">
+                                                    <button name="action_retry_post" string="Retry" type="object" class="btn btn-primary"
+                                                        attrs="{'invisible': [('state', '!=', 'failed')]}">
+                                                        Retry
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </t>
+                                    </templates>
+                                </kanban>
+                            </field>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+            </form>
+        </field>
+    </record>
+</data>
+</odoo>

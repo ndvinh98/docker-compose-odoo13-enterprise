@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+
+    <!-- Hide the big buttons related to the website sales orders -->
+    <t t-extend="website.dashboard_header">
+        <t t-jquery="div.o_dashboard_common" t-operation="replace"/>
+    </t>
+    <!-- Replace the 'community' Sales Dashboard/GAnalytics by only the GAnalytics dashboard -->
+    <t t-extend="website.dashboard_content">
+        <t t-jquery="div.o_website_dashboard_content" t-operation="replace">
+            <t t-call="website.google_analytics_content"/>
+        </t>
+    </t>
+        
+</templates>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <record id="rental_configurator_view_form" model="ir.ui.view">
+      <field name="name">rental.configurator.view.form</field>
+      <field name="model">rental.wizard</field>
+      <field name="arch" type="xml">
+          <form js_class="rental_configurator_form">
+              <!-- TODO change apply button string if edit mode?-->
+              <field name="company_id" invisible="1"/>
+              <field name="pricelist_id" invisible="1"/>
+              <h1>
+                  <field name="product_id" readonly="1" nolabel="1"
+                    options="{'no_open': True}"/>
+              </h1>
+              <group name="rental_configurator">
+                <group name="rental_specs">
+                    <label for="pickup_date" string="Date"/>
+                    <div class="o_row">
+                        <field name="pickup_date" widget="daterange" options="{'related_end_date': 'return_date'}"/>
+                        <span> to </span>
+                        <field name="return_date" widget="daterange" options="{'related_start_date': 'pickup_date'}"/>
+                    </div>
+                    <label for="duration"/>
+                    <div>
+                      <field name="duration" class="oe_inline"/>
+                      <field name="duration_unit" class="oe_inline col-lg-4" readonly="1"/>
+                    </div>
+                </group>
+                <group name="rental_pricing">
+                  <label for="quantity"/>
+                  <div name="qty_to_reserve">
+                    <field name="quantity" class="oe_inline col-lg-3 text-left pl-0"/>
+                    <field name="uom_id" class="oe_inline" options="{'no_open':1}"/>
+                  </div>
+                  <field name="pricing_id" invisible="1"/>
+                  <label for="unit_price"/>
+                  <div>
+                    <field name="unit_price"/>
+                    <field name="currency_id" invisible="1"/>
+                    <field name="pricing_explanation" class="text-muted"/>
+                  </div>
+                </group>
+              </group>
+              <notebook name="debug" groups="base.group_no_one" invisible="1">
+                <page string="Rental">
+                  <group>
+                    <field name="rental_order_line_id" readonly="1" string="Edited Rental Line"/>
+                  </group>
+                </page>
+              </notebook>
+              <footer>
+                  <button string="Add" class="btn-primary" special="save"/>
+                  <button string="Cancel" class="btn-secondary" special="cancel"/>
+              </footer>
+          </form>
+      </field>
+  </record>
+
+  <record id="rental_configurator_action" model="ir.actions.act_window">
+    <field name="name">Rent a product</field>
+    <field name="res_model">rental.wizard</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+    <field name="view_id" ref="rental_configurator_view_form"/>
+  </record>
+</odoo>

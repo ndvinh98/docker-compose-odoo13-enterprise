@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="utm_campaign_view_form">
+        <field name="name">utm.campaign.view.form.inherit.social</field>
+        <field name="model">utm.campaign</field>
+        <field name="inherit_id" ref="utm.utm_campaign_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//header" position="inside">
+                <button name="action_create_new_post"
+                        type="object"
+                        class="oe_highlight order-2"
+                        string="Send Social Post"/>
+            </xpath>
+            <xpath expr="//div[hasclass('oe_button_box')]" position="inside">
+                <button name="action_redirect_to_social_media_posts"
+                    type="object" class="oe_stat_button order-10" icon="fa-newspaper-o"
+                    attrs="{'invisible': [('social_posts_count', '=', 0)]}">
+                    <field name="social_posts_count" widget="statinfo" string="Posts"/>
+                </button>
+                <button icon="fa-thumbs-up">
+                    <field name="social_engagement" widget="statinfo" string="Engagement"/>
+                </button>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="Social Media" class="order-2" attrs="{'invisible': [('social_posts_count', '=', 0)]}">
+                    <field name="social_post_ids" mode="kanban" widget="one2many" nolabel="1" context="{'default_campaign_id': active_id}"/>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="utm_campaign_view_kanban">
+        <field name="name">utm.campaign.view.kanban.inherit.social</field>
+        <field name="model">utm.campaign</field>
+        <field name="inherit_id" ref="utm.utm_campaign_view_kanban"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="social_posts_count"/>
+            </xpath>
+            <xpath expr="//ul[@id='o_utm_actions']">
+                <a name="action_redirect_to_social_media_posts" type="object"
+                    t-attf-class="#{record.social_posts_count.raw_value === 0 ? 'text-muted' : ''}">
+                    <t t-raw="record.social_posts_count.raw_value"/> Posts
+                </a>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_view_utm_campaigns" model="ir.actions.act_window">
+        <field name="name">Campaigns</field>
+        <field name="res_model">utm.campaign</field>
+        <field name="view_mode">kanban,tree,form</field>
+        <field name="help" type="html">
+          <p class="o_view_nocontent_smiling_face">
+            Create your first campaign
+          </p>
+          <p>
+            Campaigns are the perfect tool to track your posts results.
+          </p>
+        </field>
+        <field name="domain">[('is_website', '=', False)]</field>
+    </record>
+
+    <menuitem
+        id="menu_social_campaign"
+        parent="menu_social_global"
+        name="Campaigns"
+        sequence="25"
+        groups="group_social_manager"
+        action="action_view_utm_campaigns"/>
+</odoo>

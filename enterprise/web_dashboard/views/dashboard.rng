@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar xmlns="http://relaxng.org/ns/structure/1.0"
+             xmlns:a="http://relaxng.org/ns/annotation/1.0"
+             datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+
+    <define name="dashboard">
+        <element name="dashboard">
+            <ref name="dashboardelement"/>
+            <optional><attribute name="banner_route"/></optional>
+            <optional><attribute name="js_class"/></optional>
+        </element>
+    </define>
+
+    <define name="dashboardelement">
+        <zeroOrMore>
+            <choice>
+                <ref name="view"/>
+                <ref name="group"/>
+                <ref name="aggregate"/>
+                <ref name="formula"/>
+                <ref name="widget"/>
+            </choice>
+        </zeroOrMore>
+    </define>
+
+    <define name="view">
+        <element name="view">
+            <attribute name="type"/>
+            <optional><attribute name="ref"/></optional>
+            <optional><attribute name="name"/></optional>
+        </element>
+    </define>
+
+    <define name="aggregate">
+        <element name="aggregate">
+            <attribute name="name"/>
+            <attribute name="field"/>
+            <optional><attribute name="clickable"/></optional>
+            <optional><attribute name="string"/></optional>
+            <optional><attribute name="domain"/></optional>
+            <optional><attribute name="invisible"/></optional>
+            <optional><attribute name="domain_label"/></optional>
+            <optional><attribute name="group_operator"/></optional>
+            <optional><attribute name="col"/></optional>
+            <optional><attribute name="widget"/></optional>
+            <optional><attribute name="attrs"/></optional>
+            <optional><attribute name="modifiers"/></optional>
+            <optional><attribute name="help"/></optional>
+            <optional><attribute name="measure"/></optional>
+            <optional><attribute name="value_label"/></optional>
+        </element>
+    </define>
+
+    <define name="formula">
+        <element name="formula">
+            <attribute name="value"/>
+            <optional><attribute name="name"/></optional>
+            <optional><attribute name="col"/></optional>
+            <optional><attribute name="string"/></optional>
+            <optional><attribute name="widget"/></optional>
+            <optional><attribute name="attrs"/></optional>
+            <optional><attribute name="modifiers"/></optional>
+            <optional><attribute name="help"/></optional>
+            <optional><attribute name="value_label"/></optional>
+        </element>
+    </define>
+
+    <define name="widget">
+        <element name="widget">
+            <attribute name="name"/>
+            <optional><attribute name="title"/></optional>
+            <optional><attribute name="col"/></optional>
+            <optional><attribute name="attrs"/></optional>
+            <optional><attribute name="modifiers"/></optional>
+        </element>
+    </define>
+
+    <define name="group">
+        <element name="group">
+            <optional><attribute name="attrs"/></optional>
+            <optional><attribute name="colspan"/></optional>
+            <optional><attribute name="col"/></optional>
+            <optional><attribute name="string"/></optional>
+            <optional><attribute name="invisible"/></optional>
+            <ref name="dashboardelement"/>
+        </element>
+    </define>
+
+    <start>
+        <ref name="dashboard" />
+    </start>
+</grammar>

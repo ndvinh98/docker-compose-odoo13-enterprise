@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+  <act_window id="rental_sign_documents"
+         name="Sign Documents"
+         res_model="rental.sign.wizard"
+         view_mode="form"
+         target="new"/>
+
+  <record id="rental_sign_wizard_view_form" model="ir.ui.view">
+    <field name="name">rental.sign.wizard.form</field>
+    <field name="model">rental.sign.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Sign Documents">
+        <sheet>
+          <group>
+            <field name="template_id" options="{'no_create': True, 'no_open': True, 'no_create_edit': True}" kanban_view_ref="%(sign.sign_template_view_kanban_mobile)s"/>
+          </group>
+          <footer>
+            <button name="next_step" string="Sign Document" type="object" class="btn-primary"/>
+            <button string="Cancel" class="btn-secondary" special="cancel"/>
+          </footer>
+        </sheet>
+      </form>
+    </field>
+  </record>
+</odoo>

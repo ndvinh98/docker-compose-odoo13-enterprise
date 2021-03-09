@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<templates>
+
+<div t-name="web_studio.NewButtonBoxDialog" class="o_web_studio_new_button_dialog">
+    <div>
+        <label>Label</label>
+        <input class="o_input" name="string" type="text" placeholder="My Button"/>
+    </div>
+    <div>
+        <label>Icon</label>
+        <div>
+            <t t-foreach="widget.ICONS" t-as="icon">
+                <div class="o_web_studio_icon_selector" t-att-data-value="icon"><i t-att-class="icon"/></div>
+            </t>
+        </div>
+    </div>
+    <div>
+        <label>Select a related field</label>
+        <div class="js_many2one_field"/>
+    </div>
+</div>
+
+</templates>

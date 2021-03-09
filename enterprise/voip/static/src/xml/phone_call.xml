@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <!--
+        @param {voip.PhoneCall} widget
+        @param {string} widget.date
+        @param {integer} widget.id
+        @param {string} widget.imageSmall
+        @param {boolean} widget.isContact
+        @param {boolean} widget.isRecent
+        @param {integer} widget.minutes
+        @param {string} widget.name
+        @param {string} widget.partnerName
+        @param {string} widget.seconds
+        @param {string} widget.state
+    -->
+    <div
+        t-att-data-id="widget.id"
+        t-att-data-state="widget.state"
+        t-attf-class="
+            o_dial_phonecall
+            {{ widget.state === 'done' and !widget.isRecent ? 'o_dial_phonecall_done' : '' }}"
+        t-name="voip.PhoneCall">
+        <table
+            t-attf-class="
+                o_form_group
+                {{ widget.state === 'done' and !widget.isRecent ? 'o_dial_phonecall_done' : '' }}">
+            <tr
+                class="
+                    o_form_group_row
+                    o_phonecall_widget">
+                <td
+                    class="
+                        o_form_group_cell
+                        o_form_group_cell_label"
+                    t-if="widget.isContact">
+                    <span
+                        class="o_dial_phonecall_clip"
+                        t-if="widget.imageSmall">
+                        <img
+                            alt="Avatar"
+                            class="o_dial_phonecall_avatar"
+                            t-attf-src="data:image/jpg;base64,{{ widget.imageSmall }}"/>
+                    </span>
+                    <span
+                        class="o_dial_phonecall_clip"
+                        t-else="">
+                        <img
+                            alt="Avatar"
+                            class="o_dial_phonecall_avatar"
+                            src="/base/static/img/avatar.png"/>
+                    </span>
+                </td>
+                <td
+                    class="o_form_group_cell">
+                    <div
+                        class="o_dial_phonecall_partner">
+                        <div
+                            class="o_dial_phonecall_partner_name">
+                            <span><t t-esc="widget.partnerName"/></span>
+                        </div>
+                        <span t-if="widget.partnerName != widget.name and widget.name"><small><t t-esc="widget.name"/></small></span>
+                        <span
+                            class="o_dial_status_span"
+                            t-if="!widget.isContact and !widget.isRecent">
+                            <i
+                                aria-label="Pending"
+                                class="
+                                    fa
+                                    fa-stack
+                                    o_dial_state_icon
+                                    o_dial_state_icon_pending"
+                                role="img"
+                                style="
+                                    width:13px;
+                                    height:15px;
+                                    line-height: 13px;"
+                                title="Pending"
+                                t-if="widget.state === 'pending'">
+                                <i
+                                    class="
+                                        fa
+                                        fa-phone
+                                        fa-stack-1x
+                                        o_dial_state_icon"/>
+                                <i
+                                    class="
+                                        fa
+                                        fa-stack-1x
+                                        fa-times
+                                        o_dial_state_icon"
+                                    style="
+                                        color: LightCoral;
+                                        font-size: 8px;
+                                        left: 4px;
+                                        position: relative;
+                                        bottom: 4px;"/>
+                            </i>
+                            <a href="#">
+                                <i
+                                    aria-label="Remove from the queue"
+                                    class="
+                                        fa
+                                        fa-close
+                                        o_dial_remove_phonecall"
+                                    role="img"
+                                    title="Remove from the queue"
+                                    t-if="widget.state === 'done'"/>
+                                <i
+                                    aria-label="Cancel the activity"
+                                    class="o_dial_remove_phonecall fa fa-close"
+                                    role="img"
+                                    title="Cancel the activity"
+                                    t-else=""/>
+                            </a>
+                        </span>
+                        <div
+                            class="o_call_date">
+                            <span t-if="widget.date"><small><t t-esc="widget.date"/></small></span>
+                            <span t-if="widget.state === 'done'"><small> | <t t-esc="widget.minutes"/>min <t t-esc="widget.seconds"/>sec</small></span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+</templates>

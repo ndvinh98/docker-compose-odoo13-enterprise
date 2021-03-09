@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<data>
+
+    <template id="assets_backend" name="Web Studio Assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/web_studio/static/src/js/home_menu_all.js"></script>
+        </xpath>
+    </template>
+
+    <template id="web_studio.assets" name="Web Studio Assets">
+        <!-- can not be in the lazy load bundle because the button event is in an include of action manager -->
+        <script type="text/javascript" src="/web_studio/static/src/js/action_manager.js"></script>
+
+        <!-- can not be in the lazy load bundle because the button event is in an include of web_client -->
+        <script type="text/javascript" src="/web_studio/static/src/js/bus.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/systray_item.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/web_client.js"></script>
+
+        <!-- can not be in the lazy load bundle because the menu is an include and the menu is already created -->
+        <script type="text/javascript" src="/web_studio/static/src/js/menu.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/edit_menu.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/submenu.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/home_menu.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/icon_creator.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/utils.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/tours/web_studio.js"></script>
+    </template>
+
+    <template id="web_studio.studio_assets" name="Web Studio Lazy Assets">
+        <script type="text/javascript" src="/web_studio/static/src/js/app_creator.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/py.js"></script>
+
+        <script type="text/javascript" src="/web_studio/static/src/js/common/abstract_editor_manager.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/common/field_selector_dialog.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/common/new_field_dialog.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/common/xml_editor.js"></script>
+
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/report_editor.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/report_editor_action.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/report_editor_manager.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/report_editor_fields.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/report_editor_sidebar.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/report_kanban_view.js"></script>
+
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/sidebar_components/abstract_report_component.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/sidebar_components/edit_components.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/sidebar_components/edit_components_registry.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/sidebar_components/report_building_blocks.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/reports/sidebar_components/report_building_blocks_registry.js"></script>
+
+        <script type="text/javascript" src="/web_studio/static/src/js/views/abstract_view.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/action_editor.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/action_editor_action.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/action_editor_sidebar.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/action_editor_view.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/new_view_dialog.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_components.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editor_manager.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editor_sidebar.js"></script>
+
+        <script type="text/javascript" src="/web_studio/static/src/js/views/renderers/search_renderer.js"></script>
+
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/calendar_editor.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/fields.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/editor_mixin.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/form_editor.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/form_editor_hook.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/graph_editor.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/kanban_editor.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/kanban_record_editor.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/list_editor.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/new_buttonbox_dialog.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/pivot_editor.js"></script>
+        <script type="text/javascript" src="/web_studio/static/src/js/views/view_editors/search_editor.js"></script>
+
+        <t t-call="web._assets_helpers"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/main.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/icons.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/mixins.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/action_editor.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/app_creator.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/form_editor.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/icon_creator.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/kanban_view.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/kanban_editor.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/list_editor.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/menu.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/new_field_dialog.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/new_view_dialog.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/report_editor.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/report_editor_manager.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/report_editor_sidebar.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/report_kanban_view.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/search_editor.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/sidebar.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/submenu.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/view_editor_manager.scss"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/xml_editor.scss"/>
+    </template>
+
+    <template id="web_studio.compiled_assets_studio" name="Web Studio Bundle">
+        <t t-call-assets="web_studio.studio_assets"/>
+    </template>
+
+    <template id="webclient_bootstrap" inherit_id="web.webclient_bootstrap">
+        <xpath expr="//t[@t-call-assets='web.assets_backend'][@t-css='false']" position="after">
+            <t t-call-assets="web_studio.assets" groups="base.group_system"/>
+        </xpath>
+    </template>
+
+    <template id="assets_tests" name="Web Studio Assets Tests" inherit_id="web.assets_tests">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/web_studio/static/tests/tours/web_studio.js"></script>
+        </xpath>
+    </template>
+
+    <!-- Reports -->
+    <template id="web_studio.report_assets" name="Web Studio Report Assets">
+        <t t-call="web._assets_helpers"/>
+        <link rel="stylesheet" type="text/scss" href="/web_studio/static/src/scss/report_iframe.scss"/>
+    </template>
+
+    <template id="web_studio.report_layout" inherit_id="web.report_layout">
+        <xpath expr="//head" position="inside">
+            <t t-if="studio" t-call-assets="web_studio.report_assets"/>
+        </xpath>
+    </template>
+
+    <!-- Tests -->
+    <template id="js_tests_assets" inherit_id="web.js_tests_assets">
+        <xpath expr="." position="inside">
+            <t t-call-assets="web_studio.assets"/>
+        </xpath>
+    </template>
+
+    <template id="qunit_suite" name="studio_tests" inherit_id="web.qunit_suite">
+        <xpath expr="//t[@t-set='head']" position="inside">
+            <script type="text/javascript">
+                odoo.define('web_studio.WebClient.test', function (require) {
+                    'use strict';
+                    require('web_studio.WebClient');
+                    var WebClient = require('web.WebClient');
+                    WebClient.include({
+                        _studioAssets: [],
+                    });
+                });
+            </script>
+            <t t-call="web_studio.compiled_assets_studio"/>
+
+            <script type="text/javascript" src="/web_studio/static/tests/action_editor_action_tests.js"></script>
+            <script type="text/javascript" src="/web_studio/static/tests/app_creator_tests.js"></script>
+            <script type="text/javascript" src="/web_studio/static/tests/edit_menu_tests.js"></script>
+            <script type="text/javascript" src="/web_studio/static/tests/mock_server.js"></script>
+            <script type="text/javascript" src="/web_studio/static/tests/navigation_tests.js"></script>
+            <script type="text/javascript" src="/web_studio/static/tests/test_utils.js"></script>
+
+            <script type="text/javascript" src="/web_studio/static/tests/reports/report_editor_manager_tests.js"></script>
+            <script type="text/javascript" src="/web_studio/static/tests/reports/report_editor_sidebar_tests.js"></script>
+            <script type="text/javascript" src="/web_studio/static/tests/reports/report_editor_tests.js"></script>
+            <script type="text/javascript" src="/web_studio/static/tests/reports/report_editor_components_tests.js"></script>
+
+            <script type="text/javascript" src="/web_studio/static/tests/views/view_editor_manager_tests.js"></script>
+        </xpath>
+    </template>
+</data>
+
+</odoo>

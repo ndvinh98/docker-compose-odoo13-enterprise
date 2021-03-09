@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="timesheet_plan_inherit" model="ir.ui.view">
+        <field name="name">Timesheet.plan.inherit</field>
+        <field name="model">project.project</field>
+        <field name="priority" eval="35" />
+        <field name="inherit_id" ref="sale_timesheet.timesheet_plan"/>
+        <field name="arch" type="xml">
+            <xpath expr="(//div[hasclass('o_title')]/h2)[last()]" position="replace">
+                <h2>
+                    <t t-if="with_forecasts">Timesheets and Forecasts</t>
+                    <t t-else="">Timesheets</t>
+                </h2>
+            </xpath>
+            <xpath expr="//th[@id='table_plan_title']" position="after">
+                <t t-if="with_forecasts">
+                    <th colspan="5" class="o_right_bordered">
+                        <h3>Forecasts</h3>
+                    </th>
+                </t>
+            </xpath>
+            <xpath expr="//th[@id='table_plan_total']" position="attributes">
+                <attribute name="colspan">3</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

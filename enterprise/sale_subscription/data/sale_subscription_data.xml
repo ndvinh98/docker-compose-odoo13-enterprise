@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<odoo>
+    <record model="ir.cron" id="account_analytic_cron">
+        <field name="name">Sale Subscription: subscriptions expiration</field>
+        <field name="model_id" ref="sale_subscription.model_sale_subscription"/>
+        <field name="state">code</field>
+        <field name="code">model.cron_account_analytic_account()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="nextcall" eval="(datetime.now() + timedelta(minutes=5)).strftime('%Y-%m-%d %H:%M:%S')"/>
+        <field name="doall" eval="False"/>
+    </record>
+
+    <record model="ir.cron" id="account_analytic_cron_for_invoice">
+        <field name="name">Sale Subscription: generate recurring invoices and payments</field>
+        <field name="model_id" ref="sale_subscription.model_sale_subscription"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_recurring_create_invoice()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="nextcall" eval="(datetime.now() + timedelta(minutes=7)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+
+    <record id="ir_cron_sale_subscription_update_kpi" model="ir.cron">
+        <field name="name">Sale Subscription: Update KPI</field>
+        <field name="model_id" ref="sale_subscription.model_sale_subscription"/>
+        <field name="state">code</field>
+        <field name="code">model._cron_update_kpi()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">weeks</field>
+        <field name="numbercall">-1</field>
+        <field name="nextcall" eval="(datetime.now() + timedelta(minutes=9)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+
+    <!-- Standard Closing Reason -->
+    <record id="close_reason_1" model="sale.subscription.close.reason">
+        <field name="name">Subscription is too expensive</field>
+    </record>
+    <record id="close_reason_2" model="sale.subscription.close.reason">
+        <field name="name">Subscription does not meet my requirements</field>
+    </record>
+    <record id="close_reason_3" model="sale.subscription.close.reason">
+        <field name="name">Subscription reached its end date</field>
+    </record>
+    <record id="close_reason_4" model="sale.subscription.close.reason">
+        <field name="name">I don't use it</field>
+    </record>
+    <record id="close_reason_5" model="sale.subscription.close.reason">
+        <field name="name">Other</field>
+    </record>
+
+    <!-- Subtypes -->
+    <data noupdate="1">
+        <record id="subtype_stage_change" model="mail.message.subtype">
+            <field name="name">Stage Change</field>
+            <field name="res_model">sale.subscription</field>
+            <field name="default" eval="True"/>
+            <field name="internal" eval="True"/>
+            <field name="description">Subscription stage has changed</field>
+        </record>
+
+        <record id="seq_sale_subscription" model="ir.sequence">
+            <field name="name">Subscriptions</field>
+            <field name="code">sale.subscription</field>
+            <field name="prefix">SUB</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+
+    <!-- Standard Stages -->
+    <record id="sale_subscription_stage_draft" model="sale.subscription.stage">
+        <field name="name">Draft</field>
+        <field name="sequence">10</field>
+        <field name="in_progress" eval="False"/>
+    </record>
+    <record id="sale_subscription_stage_in_progress" model="sale.subscription.stage">
+        <field name="name">In Progress</field>
+        <field name="sequence">20</field>
+    </record>
+    <record id="sale_subscription_stage_upsell" model="sale.subscription.stage">
+        <field name="name">To Upsell</field>
+        <field name="sequence">30</field>
+    </record>
+    <record id="sale_subscription_stage_closed" model="sale.subscription.stage">
+        <field name="name">Closed</field>
+        <field name="sequence">40</field>
+        <field name="in_progress" eval="False"/>
+        <field name="fold">True</field>
+    </record>
+    
+    <!-- Default Subscription Templates -->
+    <data noupdate="1">
+        <record id="monthly_subscription" model="sale.subscription.template">
+            <field name="name">Monthly Subscription</field>
+            <field name="code">MON</field>
+            <field name="recurring_interval">1</field>
+            <field name="recurring_rule_type">monthly</field>
+            <field name="payment_mode">success_payment</field>
+            <field name="invoice_mail_template_id"
+                   eval="ref('sale_subscription.mail_template_subscription_invoice')"/>
+            <field name="user_closable">True</field>
+        </record>
+    
+        <record id="yearly_subscription" model="sale.subscription.template">
+            <field name="name">Yearly Subscription</field>
+            <field name="code">YEA</field>
+            <field name="recurring_interval">1</field>
+            <field name="recurring_rule_type">yearly</field>
+            <field name="payment_mode">success_payment</field>
+            <field name="invoice_mail_template_id"
+                   eval="ref('sale_subscription.mail_template_subscription_invoice')"/>
+            <field name="user_closable">True</field>
+        </record>
+    </data>
+    
+</odoo>

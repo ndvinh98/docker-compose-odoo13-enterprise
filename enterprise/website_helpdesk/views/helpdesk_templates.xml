@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data noupdate="0">
+    <template id="not_published_any_team" name="Helpdesk Team">
+        <t t-call="website.layout">
+            <div class="oe_structure" id="oe_structure_website_helpdesk_not_published_any_team_1"/>
+            <div id="wrap" class="container">
+                <div class="mb16"> <h1 class="text-center">No teams have been published.</h1></div>
+                <div class="oe_structure"/>
+            </div>
+            <div class="oe_structure" id="oe_structure_website_helpdesk_not_published_any_team_2"/>
+        </t>
+    </template>
+
+    <!-- Page : default team -->
+    <template id="team" name="Helpdesk Team">
+        <t t-call="website.layout">
+            <t t-set="additional_title">Helpdesk Team</t>
+            <div class="container mt16">
+                <div class="navbar navbar-expand-md navbar-light bg-light">
+                    <div class="navbar-brand">Helpdesk</div>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#o-helpdesk-teams-navbar-collapse">
+                        <span class="navbar-toggler-icon"/>
+                    </button>
+                    <div class="collapse navbar-collapse" id="o-helpdesk-teams-navbar-collapse">
+                        <t t-if="len(teams)>1">
+                            <ul class="navbar-nav team_menu">
+                                <t t-foreach="teams" t-as="tteam">
+                                    <li class="nav-item">
+                                        <a t-attf-href="/helpdesk/#{slug(tteam)}" class="nav-link">
+                                            <span t-field="tteam.name"/>
+                                        </a>
+                                    </li>
+                                </t>
+                            </ul>
+                        </t>
+                        <form class="form-inline ml-auto" role="search" t-attf-action="#" method="get">
+                            <t t-call="website.website_search_box"/>
+                            <span class="dropdown ml-2" groups="helpdesk.group_helpdesk_manager">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuSupport" data-toggle="dropdown" aria-label="Dropdown menu" title="Dropdown menu">
+                                    <i class="fa fa-cog"/>
+                                </button>
+                                <div class="dropdown-menu" role="menu" aria-labelledby="dropdownMenuSupport">
+                                    <a role="menuitem" tabindex="-1" class="dropdown-item" t-attf-href="/web#id=#{team.id}&amp;view_type=form&amp;model=helpdesk.team">Team Settings</a>
+                                </div>
+                            </span>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="wrap" class="container">
+                <div class="row mb16">
+                    <div class="oe_structure" id="oe_structure_website_helpdesk_team_1"/>
+                    <div class="col-md-9">
+                        <h2 class="o_page_header mt0 d-none" id="team-page"/>
+                    </div>
+                    <div class="col-md-3" id="right-column">
+                        <div id="website_published_button" groups="helpdesk.group_helpdesk_manager">
+                            <t t-call="website.publish_management">
+                              <t t-set="object" t-value="team"/>
+                              <t t-set="publish_edit" t-value="True"/>
+                              <t t-set="action" t-value="'helpdesk.helpdesk_team_action'"/>
+                            </t>
+                        </div>
+                        <div class="oe_structure" id="oe_structure_website_helpdesk_team_2"/>
+                        <t t-if="team.use_website_helpdesk_form">
+                            <div class="btn-group btn-block mb16" style="margin-top: 2em">
+                                <a id="submit-ticket" t-attf-href="/helpdesk/#{team.id}/submit">
+                                 <button t-attf-class="btn btn-primary #{'col-md-10' if multi_type else 'col-md-12'}">Submit a Ticket</button>
+                                </a>
+                            </div>
+                        </t>
+                        <t t-if="team.use_website_helpdesk_form">
+                            <div class="btn-group btn-block mb16">
+                                <a id="submit-ticket" t-attf-href="/my/tickets">
+                                 <button t-attf-class="btn btn-primary #{'col-md-10' if multi_type else 'col-md-12'}">View my Tickets</button>
+                                </a>
+                            </div>
+                        </t>
+                        <t t-if="team.description">
+                            <div class="card" id="about_team">
+                                <h3 class="card-header">Description</h3>
+                                <div class="card-body">
+                                    <span t-field="team.description"/>
+                                </div>
+                            </div>
+                        </t>
+                        <div class="oe_structure" id="oe_structure_website_helpdesk_team_3"/>
+                    </div>
+                </div>
+                <div class="oe_structure" id="oe_structure_website_helpdesk_team_4"/>
+            </div>
+        </t>
+    </template>
+
+</data>
+</odoo>

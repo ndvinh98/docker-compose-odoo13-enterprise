@@ -1,0 +1,440 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+<!-- LAYOUT TEMPLATES -->
+
+    <!-- 1. Main dashboard -->
+    <div t-name="sale_subscription_dashboard.dashboard" class="container o_account_contract_dashboard">
+        <div class="o_stats_section">
+            <div t-foreach="stat_types" t-as="stat">
+                <a href="#" class="on_stat_box" t-att-data-stat="stat['code']">
+                    <div class="box o_stat_box" t-att-name="stat['name']" t-att-code="stat['code']">
+                        <div class="o_loader"><span class="fa fa-3x fa-spin fa-spinner fa-pulse" role="img" aria-label="Loading..." title="Loading..."/></div>
+                    </div>
+                </a>
+            </div>
+
+            <div t-foreach="_.values(forecast_stat_types)" t-as="forecast">
+                <a href="#" class="on_forecast_box" t-att-data-forecast="forecast['code']">
+                    <div class="box o_forecast_box" t-att-name="forecast['name']" t-att-code="forecast['code']">
+                        <div class="o_loader"><span class="fa fa-3x fa-spin fa-spinner fa-pulse" role="img" aria-label="Loading..." title="Loading..."/></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. Detailed dashboard -->
+    <div t-name="sale_subscription_dashboard.detailed_dashboard" class="container o_account_contract_dashboard">
+        <button t-if="_.contains(['mrr', 'nrr', 'net_revenue'], stat_type)" class="btn btn-primary o_detailed_analysis">Detailed Analysis</button>
+
+        <div class="box o_graph_detailed">
+            <h1 class="o_metric_current o_blue">
+                <t t-esc="format_number(value, selected_stat_values['add_symbol'])"/>
+            </h1>
+            <input type="hidden" name="stat_type" t-att-value="stat_type"/>
+            <div id="stat_chart_div"/>
+        </div>
+
+        <div class="container">
+            <div id="o-stat-history-box" class="box row"/>
+        </div>
+
+        <div t-if="stat_type === 'mrr'" class="box mrr_growth_chart">
+            <h3>Monthly Recurring Revenue Growth</h3>
+            <div id="mrr_growth_chart_div"/>
+        </div>
+
+        <div t-if="display_stats_by_plan" class="box o_stats_by_plan"/>
+    </div>
+
+    <!-- 3. Forecast dashboard -->
+    <div t-name="sale_subscription_dashboard.forecast" class="container o_account_contract_dashboard">
+        <div class="row box">
+            <h3 class="text-center col-md-12" id="forecast_summary_mrr"/>
+            <div class="col-md-4 o_forecast_options">
+                <table class="table">
+                    <tr>
+                    <tr>
+                        <td>Growth Type:</td>
+                        <td>
+                            <input class="growth_type" name="growth_type_mrr" type="radio" value="linear" data-type="mrr" checked="checked"> Linear</input><br/>
+                            <input class="growth_type" name="growth_type_mrr" type="radio" value="exponential" data-type="mrr"> Exponential</input>
+                        </td>
+                    </tr>
+                        <td>Starting MRR:</td>
+                        <td>
+                            <div class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="mrr" data-type="starting_value" t-att-value="values['mrr']['starting_value']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><t t-esc="get_currency()"/></span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Revenue Growth:</td>
+                        <td>
+                            <div id="linear_growth_mrr" class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="mrr" data-type="linear_growth" t-att-value="values['mrr']['linear_growth']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><t t-esc="get_currency()"/></span>
+                                </div>
+                            </div>
+                            <div id="expon_growth_mrr" style="display: none;" class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="mrr" data-type="expon_growth" t-att-value="values['mrr']['expon_growth']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Revenue Churn:</td>
+                        <td>
+                            <div class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="mrr" data-type="churn" t-att-value="values['mrr']['churn']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Projection Time:</td>
+                        <td>
+                            <div class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="mrr" data-type="projection_time" t-att-value="values['mrr']['projection_time']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Months</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="forecast_chart_div_mrr" class="col-md-8"/>
+        </div>
+
+        <div class="row box">
+            <h3 class="text-center col-md-12" id="forecast_summary_contracts"/>
+            <div class="col-md-4 o_forecast_options">
+                <table class="table">
+                    <tr>
+                    <tr>
+                        <td>Growth Type:</td>
+                        <td>
+                            <input class="growth_type" name="growth_type_contracts" type="radio" value="linear" data-type="contracts" checked="checked"> Linear</input>
+                            <br/>
+                            <input class="growth_type" name="growth_type_contracts" type="radio" value="exponential" data-type="contracts"> Exponential</input>
+                        </td>
+                    </tr>
+                        <td>Starting Subscription:</td>
+                        <td>
+                            <div class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="contracts" data-type="starting_value" t-att-value="values['contracts']['starting_value']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Subscriptions</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Subscriptions Growth:</td>
+                        <td>
+                            <div id="linear_growth_contracts" class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="contracts" data-type="linear_growth" t-att-value="values['contracts']['linear_growth']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Subscriptions</span>
+                                </div>
+                            </div>
+                            <div id="expon_growth_contracts" style="display: none;" class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="contracts" data-type="expon_growth" t-att-value="values['contracts']['expon_growth']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Subscriptions Churn:</td>
+                        <td>
+                            <div class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="contracts" data-type="churn" t-att-value="values['contracts']['churn']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Projection Time:</td>
+                        <td>
+                            <div class="input-group">
+                                <input class="form-control o_forecast_input" type="number" data-forecast="contracts" data-type="projection_time" t-att-value="values['contracts']['projection_time']"/>
+                                <div class="input-group-append">
+                                    <span class="input-group-text">Months</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="forecast_chart_div_contracts" class="col-md-8"/>
+        </div>
+    </div>
+
+    <h3 t-name="sale_subscription_dashboard.forecast_summary_mrr" class="text-center mt32 mb32" id="forecast_summary_mrr">
+        In
+        <span class="o_blue"><t t-esc="values['projection_time']"/></span>
+        months with
+        <span class="o_blue"><t t-esc="values['growth_type'] === 'linear' ? format_number(values['linear_growth']) : values['expon_growth'] + '%'"/> <t t-esc="values['growth_type']"/></span>
+        growth and
+        <span class="o_red"><t t-esc="values['churn'] + '%'"/></span>
+        churn, your MRR will be
+        <span class="o_green"><t t-esc="format_number(computed_value)"/></span>
+    </h3>
+
+    <h3 t-name="sale_subscription_dashboard.forecast_summary_contracts" class="text-center mt32 mb32" id="forecast_summary_contracts">
+        In
+        <span class="o_blue"><t t-esc="values['projection_time']"/></span>
+        months with
+        <span class="o_blue"><t t-esc="values['growth_type'] === 'linear' ? values['linear_growth'] : values['expon_growth'] + '%'"/> <t t-esc="values['growth_type']"/></span>
+        subscription growth and
+        <span class="o_red"><t t-esc="values['churn'] + '%'"/></span>
+        churn, your subscription base will be
+        <span class="o_green"><t t-esc="computed_value"/></span>
+    </h3>
+
+    <!-- 4. Salesman dashboard -->
+    <div t-name="sale_subscription_dashboard.salesman" class="container o_account_contract_dashboard o_salesman_dashboard">
+        <div class="box">
+            <h1 t-if="!(salesman &amp;&amp; salesman['name'])">Pick a salesman and a period</h1>
+            <h1 t-if="salesman &amp;&amp; salesman['name']">Recurring Revenue Dashboard for <t t-esc="salesman['name']"/></h1>
+        </div>
+        <div t-if="salesman &amp;&amp; salesman['id']">
+            <div class="box">
+                <div id="mrr_growth_salesman"/>
+            </div>
+            <div class="box">
+                <h2>List of subscription modifications</h2>
+                <div id="contract_modifications"/>
+            </div>
+            <div class="box">
+                <h2>List of NRR invoices</h2>
+                <div id="NRR_invoices"/>
+            </div>
+        </div>
+    </div>
+
+    <div t-name="sale_subscription_dashboard.salesman_searchview" class="o_datepickers_searchview">
+        <span class="o_datepicker_separator"> to </span>
+        <select class="o_salesman_selection form-control" name="salesman">
+            <option></option>
+            <t t-foreach="salesman_ids" t-as="sman">
+                <option name="salesman" t-att-selected="salesman &amp;&amp; salesman['id'] === sman['id'] ? 'selected' : undefined" t-att-value="sman['id']"><t t-esc="sman['name']"/></option>
+            </t>
+        </select>
+        <button class="btn btn-primary o_update_options">Update</button>
+    </div>
+
+    <!-- Common top bar -->
+    <!-- TODO: Hide in mobile as it is going to push in control panel and it breaks UI, maybe we will improve it in future -->
+    <div t-name="sale_subscription_dashboard.dashboard_option_pickers" class="o_datepickers_searchview d-none d-md-flex">
+        <span class="o_datepicker_separator"> to </span><button class="btn btn-primary o_update_options">Update</button>
+    </div>
+    <t t-name="sale_subscription_dashboard.dashboard_option_filters">
+        <!-- Subscriptions -->
+        <div t-if="widget.contract_templates &amp;&amp; widget.contract_templates.length > 1" class="o_dropdown dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">Filter on subscriptions</a>
+            <div class="dropdown-menu o_filters_menu" role="menu">
+                <t t-foreach="widget.contract_templates" t-as="template">
+                    <a role="menuitem" href="#" class="dropdown-item o_contract_template_filter js_tag" t-att-data-id="template.id"><t t-esc="template.name"/></a>
+                </t>
+            </div>
+        </div>
+
+        <!-- Tags -->
+        <div t-if="widget.tags &amp;&amp; widget.tags.length > 1" class="o_dropdown dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">Filter on categories</a>
+            <div class="dropdown-menu o_filters_menu" role="menu">
+                <t t-foreach="widget.tags" t-as="tag">
+                    <a role="menuitem" href="#" class="dropdown-item o_tags_filter js_tag" t-att-data-id="tag.id"><t t-esc="tag.name"/></a>
+                </t>
+            </div>
+        </div>
+
+        <!-- Companies -->
+        <div t-if="widget.companies &amp;&amp; widget.companies.length > 1" class="o_dropdown dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">Filter on companies</a>
+            <div class="dropdown-menu o_filters_menu" role="menu">
+                <t t-foreach="widget.companies" t-as="company">
+                    <a role="menuitem" href="#" class="dropdown-item o_companies_filter js_tag" t-att-data-id="company.id"><t t-esc="company.name"/></a>
+                </t>
+            </div>
+        </div>
+
+        <!-- Sales Team -->
+        <div t-if="widget.sales_team &amp;&amp; widget.sales_team.length > 1" class="o_dropdown dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown">Filter on sales team<span class="caret"/></a>
+            <div class="dropdown-menu o_filters_menu" role="menu">
+                <t t-foreach="widget.sales_team" t-as="sale_team">
+                    <a role="menuitem" href="#" class="dropdown-item o_sales_team_filter js_tag" t-att-data-id="sale_team.id"><t t-esc="sale_team.name"/></a>
+                </t>
+            </div>
+        </div>
+    </t>
+
+<!-- SPECIFIC TEMPLATES -->
+
+    <div t-name="sale_subscription_dashboard.stats_by_plan" t-if="stats_by_plan.length" class="box">
+        <table class="table table-striped">
+            <tr>
+                <th>Plan</th>
+                <th># of Subscriptions</th>
+                <th t-if="stat_type != 'nb_contracts'"><t t-esc="stat_types[stat_type]['name']"/></th>
+                <th/>
+            </tr>
+            <tr t-foreach="stats_by_plan" t-as="plan">
+                <td><t t-esc="plan['name']"/></td>
+                <td><t t-esc="plan['nb_customers']"/></td>
+                <td t-if="stat_type != 'nb_contracts'"><t t-esc="format_number(plan['value'], stat_types[stat_type]['add_symbol'])"/></td>
+                <td>
+                    <div t-if="value != 0" class="progress" style="width:80%; height:10px;">
+                        <div class="progress-bar" role="progressbar" t-att-aria-valuenow="100*plan['value']/value" aria-valuemin="0" aria-valuemax="100" t-att-style="'width: '+100*plan['value']/value+'%'">
+                            <span class="sr-only"><t t-esc="100*plan['value']/value"/>% Complete (success)</span>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <t t-name="sale_subscription_dashboard.stats_history">
+        <div class="col-lg-3 text-center">
+            <h4 class="text-muted o_small_caps">Current</h4>
+            <h2><t t-esc="format_number(value, stat_types[stat_type]['add_symbol'])"/></h2>
+        </div>
+
+        <div class="col-lg-3 text-center">
+            <h4 class="text-muted o_small_caps">1 month ago</h4>
+            <h2>
+                <t t-esc="format_number(stats_history['value_1_months_ago'], stat_types[stat_type]['add_symbol'])"/>
+                <small t-if="stats_history['value_1_months_ago'] != 0" t-attf-class="#{get_color_class(value - stats_history['value_1_months_ago'], stat_types[stat_type]['dir'])}"><t t-esc="rate(stats_history['value_1_months_ago'], value)"/>%</small>
+            </h2>
+        </div>
+
+        <div class="col-lg-3 text-center">
+            <h4 class="text-muted o_small_caps">3 months ago</h4>
+            <h2>
+                <t t-esc="format_number(stats_history['value_3_months_ago'], stat_types[stat_type]['add_symbol'])"/>
+                <small t-if="stats_history['value_3_months_ago'] != 0" t-attf-class="#{get_color_class(value - stats_history['value_3_months_ago'], stat_types[stat_type]['dir'])}"><t t-esc="rate(stats_history['value_3_months_ago'], value)"/>%</small>
+            </h2>
+        </div>
+
+        <div class="col-lg-3 text-center">
+            <h4 class="text-muted o_small_caps">12 months ago</h4>
+            <h2>
+                <t t-esc="format_number(stats_history['value_12_months_ago'], stat_types[stat_type]['add_symbol'])"/>
+                <small t-if="stats_history['value_12_months_ago'] != 0" t-attf-class="#{get_color_class(value - stats_history['value_12_months_ago'], stat_types[stat_type]['dir'])}"><t t-esc="rate(stats_history['value_12_months_ago'], value)"/>%</small>
+            </h2>
+        </div>
+    </t>
+
+    <div t-name="sale_subscription_dashboard.stat_box_content" class="box o_stat_box" t-att-name="widget.box_name" t-att-code="widget.stat_type">
+        <div class="o_stat_box_header">
+            <h2 class="o_stat_box_card_amount">
+                <t t-if="widget.has_mrr" t-esc="widget.format_number(widget.value)"/>
+                <t t-if="!widget.has_mrr" t-esc="widget.format_number(widget.demo_values[widget.stat_type])"/>
+            </h2>
+            <div class="o_trend">
+                <h4 t-attf-class="o_percentage #{widget.color}"><t t-esc="widget.perc"/>%</h4>
+                <span class="o_legend">30 Days Ago</span>
+            </div>
+        </div>
+        <div class="o_graph" t-att-id="widget.chart_div_id"/>
+        <div>
+            <h4 class="text-center"><t t-esc="widget.box_name"/></h4>
+        </div>
+        <div t-if="!widget.has_mrr">
+            <span class="badge badge-warning o_demo_label">Sample data</span>
+        </div>
+    </div>
+
+    <div t-name="sale_subscription_dashboard.forecast_stat_box_content" class="box o_forecast_box" t-att-name="widget.box_name" t-att-code="widget.stat_type">
+        <div class="o_stat_box_header">
+            <h2 class="o_stat_box_card_amount">
+                <t t-if="widget.has_mrr" t-esc="widget.format_number(widget.value)"/>
+                <t t-if="!widget.has_mrr" t-esc="widget.format_number(widget.demo_values[widget.stat_type])"/>
+            </h2>
+        </div>
+        <div class="o_graph" t-att-id="widget.chart_div_id"/>
+        <div>
+            <h4 class="text-center"><t t-esc="widget.box_name"/></h4>
+        </div>
+        <div t-if="!widget.has_mrr">
+            <span class="badge badge-warning o_demo_label">Sample data</span>
+        </div>
+    </div>
+
+    <t t-name="sale_subscription_dashboard.salesman_summary">
+        <div class="col-lg-6" style="font-weight: 800;">
+            <h3>MRR : <t t-esc="format_number(Math.round(mrr*100)/100)"/></h3>
+        </div>
+
+        <div class="col-lg-6" style="font-weight: 800;">
+            <h3 class="float-right">NRR : <t t-esc="format_number(Math.round(nrr*100)/100)"/></h3>
+        </div>
+    </t>
+
+    <t t-name="sale_subscription_dashboard.contract_modifications">
+        <div t-if="!modifications.length">
+            <i>There is no subscription modification during this period.</i>
+        </div>
+
+        <div t-if="modifications.length" class="table-responsive">
+            <table style="width: auto;" class="table table-hover">
+                <tr>
+                    <th/>
+                    <th>Partner</th>
+                    <th>Subscription</th>
+                    <th>Template</th>
+                    <th>Previous MRR</th>
+                    <th>Current MRR</th>
+                </tr>
+                <tr t-foreach="modifications" t-as="modification">
+                    <td><i t-att-class="modification['class_type']"/></td>
+                    <td><t t-esc="modification['partner'] or ''"/></td>
+                    <td><t t-esc="modification['subscription'] or ''"/></td>
+                    <td><t t-esc="modification['subscription_template'] or ''"/></td>
+                    <td><t t-esc="format_number(modification['previous_mrr'])"/></td>
+                    <td><t t-esc="format_number(modification['current_mrr'])"/> (<span t-att-class="get_color_class(modification['diff'], 'up')"><t t-esc="format_number(modification['diff'])"/></span>)</td>
+                </tr>
+            </table>
+        </div>
+    </t>
+
+    <t t-name="sale_subscription_dashboard.nrr_invoices">
+        <div t-if="!invoices.length">
+            <i>There is no NRR invoice during this period.</i>
+        </div>
+
+        <div t-if="invoices.length" class="table-responsive">
+            <table style="width: auto;" class="table table-hover">
+                <tr>
+                    <th>Partner</th>
+                    <th>Subscription</th>
+                    <th>Template</th>
+                    <th>NRR</th>
+                </tr>
+                <tr t-foreach="invoices" t-as="invoice">
+                    <td><t t-esc="invoice['partner'] or ''"/></td>
+                    <td><t t-esc="invoice['subscription'] or ''"/></td>
+                    <td><t t-esc="invoice['subscription_template'] or ''"/></td>
+                    <td><t t-esc="format_number(invoice['nrr'])"/></td>
+                </tr>
+            </table>
+        </div>
+    </t>
+
+</templates>

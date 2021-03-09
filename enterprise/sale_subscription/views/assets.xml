@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend" name="sale subscription assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/sale_subscription/static/src/js/tours/sale_subscription.js"></script>
+            <link rel="stylesheet" type="text/scss" href="/sale_subscription/static/src/scss/sale_subscription_backend.scss"/>
+        </xpath>
+    </template>
+    <template id="assets_frontend" name="Customer portal assets" inherit_id="web.assets_frontend">
+      <xpath expr="." position="inside">
+          <link rel="stylesheet" type="text/scss" href="/sale_subscription/static/src/scss/portal_subscription.scss"/>
+          <script type="text/javascript" src="/sale_subscription/static/src/js/portal_subscription.js"></script>
+      </xpath>
+    </template>
+</odoo>
