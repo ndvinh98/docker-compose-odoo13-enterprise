@@ -23,7 +23,7 @@ Run Odoo container in detached mode (be able to close terminal without stopping 
 $ docker-compose up -d
 ```
 
-Then open `localhost:8069` to access Odoo 13.0. If you want to start the server with a different port, change **10013** to another value in **docker-compose.yml**:
+Then open `localhost:8069` to access Odoo 13.0. If you want to start the server with a different port, change **8069** to another value in **docker-compose.yml**:
 
 ```
 ports:
