@@ -10,6 +10,8 @@ $ docker-compose up -d
 Change the folder permission to make sure that the container is able to access the directories:
 
 ```
+$ mkdir -p postgresql
+$ mkdir -p pgadmin4
 $ sudo chmod -R 777 addons
 $ sudo chmod -R 777 etc
 $ sudo chmod -R 777 enterprise
@@ -29,6 +31,18 @@ Then open `localhost:8069` to access Odoo 13.0. If you want to start the server 
 ports:
  - "8069:8069"
 ```
+
+If you want to use pgadmin4 to connect postgres database:
+open `localhost:1234` to access to pgAdmin4 (username=admin password=admin)
+
+create sever with:
+`hostname = pgsql-server`
+`port=5432`
+`postgres_user = odoo`
+`postgres_pasword = odoo`
+
+change to another value in **docker-compose.yml**
+
 
 # Custom addons
 
