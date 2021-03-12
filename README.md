@@ -36,7 +36,9 @@ ports:
 
 # Custom addons
 
-The **addons/** folder contains custom addons. Just put your custom addons if you have any.
+The **custom_addons/** folder contains custom addons. Just put your custom addons if you have any.
+
+The **enterprise/** folder contains enterprise addons. Just put you enterprise addons on it.
 
 # Using pgAdmin4 connect to postgres database
 
