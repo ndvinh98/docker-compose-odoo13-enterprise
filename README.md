@@ -60,6 +60,14 @@ change to another value in **docker-compose.yml**
 * To change Odoo configuration, edit file: **etc/odoo.conf**
 * Log file: **etc/odoo-server.log**
 
+# Install Odoo External Dependencies
+
+```
+docker ps #get container name or id
+docker exec -it --user=root CONTAINER_NAME_OR_ID python3 -m pip install WHAT_YOU_NEED
+docker restart CONTAINER_NAME_OR_ID
+```
+
 # Odoo container management
 
 **Restart Odoo**:
