@@ -30,8 +30,9 @@ services:
       - USER=odoo
       - PASSWORD=odoo
     volumes:
-      - ./addons:/mnt/extra-addons
-      - ./enterprise:/mnt/entreprise-addons
+      - ./custom_addons:/mnt/custom-addons
+      - ./enterprise:/mnt/enterprise-addons
+      - ./workspace:/mnt/company-addons
       - ./etc:/etc/odoo
     restart: always   
     
