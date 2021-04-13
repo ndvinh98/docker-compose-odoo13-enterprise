@@ -10,6 +10,8 @@ services:
     environment:
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
     restart: always             # run as a service
     volumes:
         - ./postgresql:/var/lib/postgresql/data
@@ -34,6 +36,7 @@ services:
       - ./enterprise:/mnt/enterprise-addons
       - ./workspace:/mnt/company-addons
       - ./etc:/etc/odoo
+      - ./requirements.txt:/usr/local/bin/requirements.txt
     restart: always   
     
   pgadmin:
@@ -42,7 +45,7 @@ services:
     networks:
       - odoo
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin
+      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
       - PGADMIN_DEFAULT_PASSWORD=admin 
       - PGADMIN_LISTEN_PORT=80
     ports: 
