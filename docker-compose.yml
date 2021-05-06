@@ -5,7 +5,7 @@ services:
     networks:
       - odoo
     ports:
-      - "8000:5432"
+      - "5432:5432"
     container_name: postgres11
     environment:
       - POSTGRES_PASSWORD=odoo
@@ -17,7 +17,7 @@ services:
         - ./postgresql:/var/lib/postgresql/data
 
   odoo13:
-    image: odoo:13
+    build: .
     container_name: odoo13
     networks:
       - odoo
@@ -45,7 +45,7 @@ services:
     networks:
       - odoo
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@gmail.com
+      - PGADMIN_DEFAULT_EMAIL=admin
       - PGADMIN_DEFAULT_PASSWORD=admin 
       - PGADMIN_LISTEN_PORT=80
     ports: 
